@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Location">
+	
+	<select id="selectList" parameterType="map" resultType="map">
+		SELECT LOC_NAME
+		FROM LOCATION
+		WHERE LOC_SCOPE = #{LOC_SCOPE}
+		AND HIGHRANK_LOC = #{HIGHRANK_LOC};
+	</select>
+	
+</mapper>
+
+
