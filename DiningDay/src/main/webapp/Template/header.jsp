@@ -22,22 +22,16 @@
     <link href="${ pageContext.request.contextPath }/resources/css/modals.css" rel="stylesheet">
 	<link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/modals/">
     <style type="text/css">:root {color-scheme: light only;}</style>
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
-    <script src="${ pageContext.request.contextPath }/resources//js/jquery-3.6.0.js"></script>
 </head>
 <body class="d-flex flex-column min-vh-100" style="background:#f0f0f3">
-	<header class="navbar navbar-expand-lg fixed-top" style="background-color: white; padding:0; display: flex; justify-content: space-around;  box-shadow: 0 3px 3px -3px #d8d8d8; height: 100px; z-index:500;">
-		
-		<a href="${ pageContext.request.contextPath }/junwoo/main.jsp" style="text-decoration: none; display:flex; flex-direction: row; align-items: center;">
-			<span class="material-symbols-outlined" style="color:#9CED92; font-size:30px; -webkit-text-stroke: 0.5px #FFF2A6;">lunch_dining</span>
-			<span id="logo"style="color:#9CED92; -webkit-text-stroke:0.5px #FFF2A6; font-size: 30px; letter-spacing:-2px; font-weight: bold;" >Dining Day</span>
-		</a>
+	<header class="navbar navbar-expand-lg fixed-top" style="background-color: rgb(238, 231, 218);padding:0;">
+		<a href="#" class="animate__animated animate__rollIn"><img src="${ pageContext.request.contextPath }/resources/img/9.gif.gif" alt="" width="30" height="30"></a>
         <!-- Sidebar Toggle (Topbar) -->
         	<button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
                         <i class="fa fa-bars"></i>
         	</button>
             	<!-- Topbar Navbar -->
-               	<ul class="navbar-nav" >
+               	<ul class="navbar-nav ml-auto" >
 
                 	<!-- Nav Item - Search Dropdown (Visible Only XS) -->
                    	<li class="nav-item dropdown no-arrow d-sm-none">
@@ -67,7 +61,10 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="bi bi-person-square" style="font-size: 35px;"></i>
+<!--                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Douglas McGee</span>-->
+<!--                                <img class="img-profile rounded-circle"-->
+<!--                                    src="itwillbs_2_01/resources/img/undraw_profile.svg">-->
+                                    <i class="bi bi-person-square" style="font-size: 35px; color: black;"></i>
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
