@@ -1,0 +1,251 @@
+@charset "UTF-8";
+
+*{
+	font-family: Apple SD Gothic Neo,Noto Sans KR,sans-serif;
+}
+
+.main_container{
+	width: 940px;
+	background:white;
+	box-shadow: 1px 1px 3px #d8d8d8;
+}
+
+.store_profile{
+	border-bottom: 1px solid #e6e6eb;
+	width:100%;
+	height: 600px;
+	padding:20px 20px;
+	margin: 0 auto;
+}
+
+.bannerBox{
+	width:100%;
+	height:330px;
+	margin-bottom: 28px
+}
+
+.banner{
+	display:flex;
+	width:100%;
+	height:100%;
+}
+.banner_img_box{
+	width: 50%;
+}
+
+.banner_img{
+	width: 100%;
+	height: 100%
+}
+
+.tit-point{
+	margin-bottom: 15px;
+	text-align: left;
+}
+
+.store_category{
+	margin-bottom: 20px;
+	line-height: 100%;
+	font-size: 16px;
+	color: #66666e;
+	text-align: left;
+}
+
+.store_score{
+	margin-bottom: 20px;
+	text-align: left;
+}
+
+.grade_icon{
+	font-size: 30px;
+	vertical-align:middle;
+}
+
+.profile_btnBox {
+	border-top: 1px solid #e6e6eb;
+	padding-top: 20px;
+	display: flex;
+}
+
+.profile_btnBox .profile_btn_sec{
+	flex: 1;
+}
+
+.profile_btn{
+	line-height: 32px;
+	border: 1px solid #222228;
+	border-radius: 20px;
+	margin-right: 10px;
+	padding: 8px 40px;
+	text-decoration-line: none;
+	color: inherit; 
+	vertical-align:middle;
+}
+
+.profile_btn_icon{
+	font-size: 30px;
+	vertical-align:middle;
+}
+
+.profile_btn_text{
+	font-size: 20px;
+	vertical-align:middle;
+}
+
+.profile_btn:hover {
+	color: inherit;
+	text-decoration: none;
+} 
+
+.gap20{
+	padding-bottom: 10px;
+}
+
+.store_detail{
+	font-size: 20px;
+	
+	width:100%;
+	height: 100%;
+	padding:20px 30px;
+	margin: 0 auto;
+}
+
+.busi-hours-today{
+	border-bottom: 1px solid #f0f0f3;
+	margin-bottom: 20px;
+}
+
+.tit{
+	font-size: 24px;
+	color: #222228;
+	font-weight: 600;
+	margin-bottom: 20px;
+	text-align: left;
+}
+
+ul.list{
+	list-style: none;
+	height: auto;
+	margin: 0;
+	padding: 0;
+	margin-bottom: 10px;
+}
+
+ul.list li{
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 10px;
+}
+
+.l-txt{
+	display: inline-block;
+	text-align: left;
+    font-size: 17px;
+    padding-right: 10px;
+    color: #222228;
+	margin:0;
+}
+
+.r-txt{
+	display: inline-block;
+	text-align: right;
+    font-size: 15px;
+    padding-left: 10px;
+    color: #222228;
+    margin:0;	
+}
+
+.hr{
+	border: 1px solid #b7b7b7;
+	border-width: 1px 0 0;
+}
+
+.menuBox{
+	border-bottom: 1px solid #f0f0f3;
+	margin-bottom: 20px;
+}
+.Restaurant_MenuItem{
+	background-color: white;
+}
+.Restaurant_MenuPrice{
+	background-color: white;
+}
+
+
+.menuBox ul li{
+	background: url(https://s3-ap-northeast-1.amazonaws.com/dcicons/new/images/web/Content/dash-line.jpg) center repeat-x;
+}
+
+.tableBox{
+	border-bottom: 1px solid #f0f0f3;
+	margin-bottom: 20px;
+}
+
+.table_{
+	box-sizing: content-box;
+	border-radius: 16px;
+	background-color: #f5f7fa;
+	padding: 24px;
+	width: 100%;
+	height: 200px;
+	box-shadow: 1px 1px 3px #d8d8d8;
+	
+	display: flex;
+	flex-direction: row;
+	justify-content: space-evenly;
+}
+
+.table_img{
+	margin-right:20px;
+	display: inline-block;
+	background-color: white;
+	height: 100%;
+    width: 28%;
+}
+
+.table_info{
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+    width: 100%;
+}
+
+.table_name_box{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+.table_name{
+	color: #333;
+	text-align: left;
+	display: inline-block;
+	font-size: 25px;
+	background-color: transparent;
+	margin-bottom: 5px;
+	padding: 0;
+}
+
+.table_res{
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+	border-radius: 16px;
+	height: 100%;
+	background-color: white;
+}
+.table_res div ul{
+	height: 100%;
+	font-size: 13px;
+	color: #333;
+	margin-right: 30px;
+	text-align: left;
+    display: flex;
+    flex-direction: column;
+	justify-content: center;
+}
+
+.table_res div ul li{
+	display: block;
+	
+}
