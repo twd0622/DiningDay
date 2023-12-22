@@ -1,0 +1,114 @@
+@charset "UTF-8";
+
+*{
+	font-family: Apple SD Gothic Neo, Noto Sans KR, sans-serif;
+}
+
+
+.main_container{
+	width: 1320px;
+	background:white;
+	box-shadow: 1px 1px 3px #d8d8d8;
+	
+	min-height: 600px;
+	
+}
+
+.titBox{
+	width: 100%;
+	background-color:white;
+	text-align: left;
+	border-bottom: 2px solid #fff2a6;
+}
+
+.tit{
+	color: #9ced92;
+	font-size: 35px;
+	
+	margin:0 0 0 15px;
+}
+
+.store_listBox{
+	height: 100%;
+	margin: 10px 0;
+	padding: 0 130px;
+	
+	display: flex;
+	flex-direction: row;
+   	justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.storeBox{
+	width: 40%;
+	height: 164px;
+	margin: 15px 20px;
+	
+	border-radius: 10px;
+	background-color: #f5f7fa;
+	
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	
+	padding: 10px;
+}
+
+.store_img{
+	width: 60%;
+    height: 100%;
+    
+    border-radius: 10px;
+}
+.colBox{
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	
+	margin-left: 10px;
+}
+.sotre_name{
+	width: 100%;
+	height: 30%;
+	
+	color: #333;
+	font-size: 24px;
+	text-align: left;
+	
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between
+}
+
+.store_info{
+	width: 100%;
+	height: 70%;
+	display: flex;
+	flex-direction: column;
+}
+
+.store_like{
+	margin-left: 20px;
+	height: 35%;
+	display: flex;
+	align-items: center;
+}
+
+.store_review_score{
+	margin-left: 20px;
+	height: 35%;
+	display: flex;
+	align-items: center;
+}
+.price{
+	margin-left: 20px;
+	height: 35%;
+	display: flex;
+	align-items: center;	
+}
+
+.store_info_text{
+	font-size: 14px;
+	margin-right: 10px;
+}

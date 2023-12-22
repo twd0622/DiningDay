@@ -23,9 +23,10 @@
 	<link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/modals/">
     <style type="text/css">:root {color-scheme: light only;}</style>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <script src="${ pageContext.request.contextPath }/resources//js/jquery-3.6.0.js"></script>
 </head>
 <body class="d-flex flex-column min-vh-100" style="background:#f0f0f3">
-	<header class="navbar navbar-expand-lg fixed-top" style="background-color: white; padding:0; display: flex; justify-content: space-around;  box-shadow: 0 3px 3px -3px #d8d8d8; height: 100px;">
+	<header class="navbar navbar-expand-lg fixed-top" style="background-color: white; padding:0; display: flex; justify-content: space-around;  box-shadow: 0 3px 3px -3px #d8d8d8; height: 100px; z-index:500;">
 		
 		<a href="${ pageContext.request.contextPath }/junwoo/main.jsp" style="text-decoration: none; display:flex; flex-direction: row; align-items: center;">
 			<span class="material-symbols-outlined" style="color:#9CED92; font-size:30px; -webkit-text-stroke: 0.5px #FFF2A6;">lunch_dining</span>

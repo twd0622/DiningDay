@@ -9,8 +9,6 @@
 	width: 640px;
 	background:white;
 	box-shadow: 1px 1px 3px #d8d8d8;
-	
-	height: 1000px;
 }
 
 .paddingBox{
@@ -22,7 +20,7 @@
 	margin: 0 auto;
 	
 	display: flex;
-	flex-direction: row;
+	flex-direction: column;
 }
 
 
@@ -48,6 +46,62 @@ ul.list li{
 	margin-bottom: 10px;
 }
 
+.cusBox{
+	width: 100%;
+	border-bottom: 2px solid #e6e6eb;
+	margin: 30px 0;
+}
+
+.cus_infoBox{
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 20px;
+	padding-bottom: 10px;
+}
+.cus_infoBox label{
+	text-align: left;
+	font-size: 13px;
+	color:#333;
+	margin-bottom: 0;
+}
+
+.cus_infoBox input{
+	width: 50%;
+	height: 50px;
+	background-color: #f4f4f4;
+	border: 0;
+}
+
+.tableBox{
+	width: 100%;
+	border-bottom: 2px solid #e6e6eb;
+	margin-bottom: 30px;
+}
+.table_infoBox{
+	display: flex;
+	flex-direction: column;
+	margin-bottom: 20px;
+	padding-bottom: 10px;
+}
+
+.table_infoBox label{
+	text-align: left;
+	font-size: 13px;
+	color:#333;
+	margin-bottom: 0;
+}
+.table_infoBox span{
+	display: inline;
+	width: auto;
+}
+
+.table_infoBox input{
+	width: 50%;
+	height: 50px;
+	background-color: #f4f4f4;
+	border: 0;
+}
+
 .menuBox{
 	width: 100%;
 }
@@ -71,6 +125,7 @@ ul.list li{
 	background-color: white;
 	height: 100%;
     width: 28%;
+    border-radius: 10px;
 }
 
 .menu_info{
@@ -118,7 +173,8 @@ ul.list li{
 .cartBox{
 	width: 286px;
 	position: fixed;
-	right: 27.5%;
+	right: 25.5%;
+
 }
 
 .cart{
@@ -144,19 +200,30 @@ ul.list li{
 	font-size: 15px;
 	list-style: none;
 	border-bottom: solid 1.5px #e6e6eb;
+	
+
 }
 
-.choice_list div{
+.cart_menu{
+		display: flex;
+		flex-direction: row;
+		justify-content: space-around;
+		align-items: center; 
+}
+
+.choice_list div div{
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
 	padding: 0 30px;
 }
+
 .choice_list .count_box{
 	display: flex;
 	flex-direction: row;
 	justify-content: space-around;
 }
+
 .res_option{
 	border-bottom: solid 2px #e6e6eb;
 }
@@ -191,3 +258,27 @@ ul.list li{
     padding: 10px 30px;
     margin: 10px;
 }
+
+.cus_option{
+	border-bottom: solid 2px #e6e6eb;
+}
+
+.cus_option div{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	
+	border-bottom: 1.5px solid #e6e6eb;
+	padding: 0 20px;
+	font-size: 15px;
+}
+
+.checkBtnBox{
+	display: flex;
+	justify-content: flex-end;
+	margin: 10px 0;
+}
+
+
+
+

@@ -1,0 +1,21 @@
+@charset "UTF-8";
+
+*{
+	font-family: Apple SD Gothic Neo,Noto Sans KR,sans-serif;
+}
+
+.main_section{
+	display: flex;
+	flex-direction: column;
+}
+
+.nav-text{
+	color: white;
+	
+	
+	margin:0;
+}
+
+.cus_nickname{
+	margin-top: 10px;
+}
