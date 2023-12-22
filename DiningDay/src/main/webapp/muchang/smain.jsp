@@ -8,19 +8,36 @@
 </head>
 	<%@ include file="/Template/store_sidebar_open.jsp"%> 	
 	
-		<h1>UI 만들기 전에 한 번 실핼해보세요.</h1>
-    	<h2>테스트용 무조건 가운데 정렬</h2>
-    	<h3>본인이 원하는 대로 정렬 바꿔도 됨 단, 관리자 및 식당 페이지는 가라로 만들어서 가운데 정렬하는거 추천</h3>
-    	
-		<main class="" style="display: flex; justify-content: center; align-items: center; text-align: center;">
-    		여기 넣으면 무조건 가운데 정렬
-    	</main>	
+    	<!-- main은 속성 값은 왠만하면 건들지x -->
+		<main style="display: flex;  align-items: center; text-align: center; padding:20px;">
+			<div class="mainContainer" style="border: 1px solid black; width: 100%; height: 2000px; background:white; ">
+				<h1 class="p-5 mt-5">썸네일 사진 미리보기</h1>
+				<form class="p-5" method="post" enctype="multipart/form-data">
+					<input type="hidden" name="PHOTO_TYPE" value="S">
+					<div class="input-group 1" style="width: 400px; margin: 0 auto;">
+						<input type="file" class="form-control" id="inputFile_1" aria-describedby="fileButton_1"
+						aria-label="썸네일 사진 미리보기" name="PHOTO_NAME">
+						<button class="btn btn-outline-success" type="button" id="fileButton_1">추가하기</button>
+					</div>
+					<div class="image_container" id="img_1">
+					</div>
+				</form>
+				<h1 class="p-5 mt-5">배너 사진 미리보기</h1>
+				<form class="p-5" method="post" enctype="multipart/form-data">
+					<input type="hidden" name="PHOTO_TYPE" value="B">
+					<div class="input-group 2" style="width: 400px; margin: 0 auto;">
+						<input type="file" class="form-control" id="inputFile_2" aria-describedby="fileButton_2" 
+						aria-label="배너 사진 미리보기" name="PHOTO_NAME">
+						<button class="btn btn-outline-success" type="button" id="fileButton_2">추가하기</button>
+					</div>
+					<div class="image_container" id="img_2">
+					</div>
+				</form>	
+			</div>
+    	</main>
+    	<script src="resour/js/photo_control.js"></script>
 	<%@ include file="/Template/store_sidevar_close.jsp"%> 	
 </html> 
-<%--   * @FileType : 관리자, 사장 전용  --%>
 
-<%--   * @작성자 : 김무창 --%>
 
-<!--   * @프로그램 설명 : head -> include 태그 사이에 내용 넣기  -->
 
-<!--   * @간략설명 : 사이에 body #절대 넣지말아주세요, 추가로 필요한 css/js/jquery 등등 파일은 경로지정 해서 사용하시면 됩니다.-->
