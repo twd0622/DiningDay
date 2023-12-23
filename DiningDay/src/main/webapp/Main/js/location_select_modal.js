@@ -1,6 +1,21 @@
 
 $(function(){
 	
+	$.ajax({
+		type: "get",
+		url:"getLocation2.lo",
+		data: {
+			LOC_SCOPE: 2,
+			HIGHRANK_LOC:"서울"
+		},
+		dataType:"json",
+		success:function(data){
+			debugger;
+		},
+		error:function(){}
+	});
+	
+	$(".District__List").eq(1)
 	$(".District__Item__Button").on(
 		"click",
 		function(){
