@@ -6,6 +6,7 @@
 <meta charset="utf-8">
 <link href="../resources/css/styles2.css" rel="stylesheet" />
 <title>아이티윌 2강 1조</title>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
 </head>
 
 <%@ include file="/Template/header.jsp"%>
@@ -16,10 +17,10 @@
 	<!-- 예시div style속성 값 조절해서 사용! -->
 	<div class="container px-4 px-lg-5">
 		<!-- Heading Row-->
-		<div class="row gx-4 gx-lg-5 align-items-center my-5">
-			<div class="col-lg-7">
-				<img class="img-fluid rounded mb-4 mb-lg-0"
-					src="img/logo.png" alt="..." />
+		<div class="row gx-4 gx-lg-5 align-items-center my-5" style=" justify-content: center">
+			<div class="col-lg-7" style="text-decoration: none; display:flex; flex-direction: row; align-items: center; width: 500px;">
+				<span class="material-symbols-outlined" style="color:#9CED92; font-size:60px; -webkit-text-stroke: 0.5px #FFF2A6;">lunch_dining</span>
+				<span id="logo"style="color:#9CED92; -webkit-text-stroke:0.5px #FFF2A6; font-size: 60px; letter-spacing:-2px; font-weight: bold;" >Dining Day</span>
 			</div>
 			<div class="col-lg-5">
 				<h1 class="font-weight-light"><b>다이닝 데이</b></h1> <br>
