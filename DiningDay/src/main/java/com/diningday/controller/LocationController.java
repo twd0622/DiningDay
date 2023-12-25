@@ -30,22 +30,10 @@ public class LocationController extends HttpServlet {
 		
 		LocationService locationService = new LocationService();
 		System.out.println(sPath);
-		if(sPath.equals("/junwoo/getLocation2.lo")) {
-			List<Map<String, String>> locationList = locationService.getLocation2(req);
-			JsonArray jsonArray = new JsonArray();
-			
-			for(Map<String, String> location : locationList) {
-				JsonObject jsonObject = new JsonObject();
-				for(Map.Entry<String, String> entry : location.entrySet()) {
-					jsonObject.addProperty(entry.getKey(), entry.getValue());
-				}
-				jsonArray.add(jsonObject);
-			}
-
-			System.out.println(jsonArray);
+		if(sPath.equals("/Main/getLocation2.lo")) {
 			
 			res.setContentType("application/x-json; charset=utf-8");
-			res.getWriter().print(jsonArray);
+			res.getWriter().print(locationService.getLocation2(req));
 		}
 		
 	}
