@@ -1,22 +1,22 @@
 package com.diningday.util;
 
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import com.oreilly.servlet.MultipartRequest;
 
 
 public class TeamUtil {
 	
-	public static Map<String, String> requestBack(HttpServletRequest req) {
+	
+	// request 받아온 파라미터 맵에 넣어주는 함수
+	public static Map<String, String> requestToMap(HttpServletRequest req) {
 		Map<String, String> dto = new HashMap<String, String>();
 		try {
 			req.setCharacterEncoding("UTF-8");
@@ -36,7 +36,7 @@ public class TeamUtil {
 		return dto;
 	}
 	
-	public static Map<String, String> requestBack(MultipartRequest multi) {
+	public static Map<String, String> requestToMap(MultipartRequest multi) {
 		Map<String, String> dto = new HashMap<String, String>();
 		try {
 			
@@ -65,32 +65,36 @@ public class TeamUtil {
 		return dto;
 	}
 	
-	// ------------------------------------------------
-	public static String changeDateToStr(LocalDateTime date, String fromat) {
-		String StrDate = date.format(DateTimeFormatter.ofPattern(fromat));
+	//---------------------------------------------------------------------------------------
+	
+	// map을 json으로
+	public static JsonObject mapToJSON(Map<String, String> map) {
+		JsonObject jsonObject = new JsonObject();
 		
-		return StrDate;
+		map.forEach((key, value) -> {
+			jsonObject.addProperty(key, value);
+		});
+		
+		return jsonObject;
 	}
 	
-	public static String AddDate(String strDate, int year, int month, int day) {
-		SimpleDateFormat dtFormat = new SimpleDateFormat("yyyyMMdd");
-		try {
-	        
-			Calendar cal = Calendar.getInstance();
-	        
-			Date dt = dtFormat.parse(strDate);
-	        
-			cal.setTime(dt);
-	        
-			cal.add(Calendar.YEAR,  year);
-			cal.add(Calendar.MONTH, month);
-			cal.add(Calendar.DATE,  day);
+	
+	// map이 담긴 list를 json배열
+	public static JsonArray mapListToJSON(List<Map<String, String>> MapList) {
+		JsonArray jsonArray = new JsonArray();
 		
-			return dtFormat.format(cal.getTime());
-		} catch (Exception e) {
-			e.printStackTrace();
+		for(Map<String, String> map : MapList) {
+			JsonObject jsonObject = new JsonObject();
+			
+			map.forEach((key, value) ->{
+				jsonObject.addProperty(key, value);
+			});
+			
+			jsonArray.add(jsonObject);
 		}
-
-        return null;	
+		
+		return jsonArray;
 	}
+	
+	
 }	

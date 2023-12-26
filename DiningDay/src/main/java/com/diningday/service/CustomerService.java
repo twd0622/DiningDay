@@ -11,7 +11,7 @@ public class CustomerService {
 	CustomerDAO customerDAO = new CustomerDAO();
 	
 	public boolean insertCustomer(HttpServletRequest req) {
-		Map<String, String> customerDTO = TeamUtil.requestBack(req);
+		Map<String, String> customerDTO = TeamUtil.requestToMap(req);
 		
 		boolean result = customerDAO.insertCustomer(customerDTO);
 		

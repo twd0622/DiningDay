@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Owner">
+	
+	<insert id="insert" parameterType="map">
+ 		insert into OWNER
+			( OWN_NO    ,
+			  OWN_ID    ,
+			  OWN_PW  ,
+			  OWN_NAME ,
+			  OWN_TEL   ,
+			  OWN_EMAIL ,
+			  OWN_CRN,
+			  STORE_NO  ,
+			  OWN_DATE)  
+		values
+			( 'CUS_'
+			, #{OWN_ID}
+			, #{OWN_PW}
+			, #{OWN_NAME}
+			, #{OWN_TEL}
+			, #{OWN_EMAIL}
+			, #{OWN_CRN}
+			, #{STORE_NO}
+			, sysdate);
+	</insert>
+	
+	
+	<select id="userCheck" parameterType="map" resultType="map">
+ 		select *
+ 		from  OWNER
+		where OWN_ID=#{OWN_ID}
+		and   OWN_PW=#{OWN_PW};
+	</select>
+	
+</mapper>
