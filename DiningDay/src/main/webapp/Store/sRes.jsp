@@ -20,7 +20,7 @@
 		<main style="display: flex;  align-items: center; text-align: center; padding:20px;">
 			
 			<!-- 예시div style속성 값 조절해서 사용! -->
-			<div class="mainContainer" style="border: 1px solid black; width: 100%; height: 2000px; background:white; ">
+			<div class="mainContainer" style="border: 1px solid black; width: 100%; height: 1600px; background:white; ">
 				<div class="p-5">
 					<form method="post" name="예약관리">
 						<div class="text-box">
@@ -60,7 +60,7 @@
 							    		style="text-align: center;width:80px;height:50px;margin: 0 auto;">완료</button>
 							    		<button type="button" class="btn btn-outline-danger cancel"
 							    		style="text-align: center;width:80px;height:50px;margin: 0 auto;">취소</button>
-							    		<button type="button" class="btn btn-outline-warning noshow"
+							    		<button type="button" class="btn btn-outline-secondary noshow"
 							    		style="text-align: center;width:80px;height:50px;margin: 0 auto;">노쇼</button>
 				                   	 </td>
 								</tr>
@@ -75,7 +75,7 @@
 							    		style="text-align: center;width:80px;height:50px;margin: 0 auto;">완료</button>
 							    		<button type="button" class="btn btn-outline-danger cancel"
 							    		style="text-align: center;width:80px;height:50px;margin: 0 auto;">취소</button>
-							    		<button type="button" class="btn btn-outline-warning noshow"
+							    		<button type="button" class="btn btn-outline-secondary noshow"
 							    		style="text-align: center;width:80px;height:50px;margin: 0 auto;">노쇼</button>
 				                   	 </td>
 								</tr>

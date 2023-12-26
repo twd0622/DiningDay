@@ -199,10 +199,10 @@ ul{
 		                        <span class="nav_name">정보</span>
 		                    </a>       
                     	</li>
-	                    <li><a class="nav__link" href="${ pageContext.request.contextPath }/muchang/smain.jsp" style="width: 130px;">
+	                    <li><a class="nav__link" href="${ pageContext.request.contextPath }/Store/smain.jsp" style="width: 130px;">
 	                    	<small>● 상세 정보</small></a>
 	                    </li>
-	                    <li class="mt-2 mb-5"><a class="nav__link" href="${ pageContext.request.contextPath }/muchang/smenu.jsp" style="width: 130px;">
+	                    <li class="mt-2 mb-5"><a class="nav__link" href="${ pageContext.request.contextPath }/Store/smenu.jsp" style="width: 130px;">
 	                    	<small>● 메뉴 관리</small></a>
 	                    </li>
                     </ul>
@@ -215,10 +215,10 @@ ul{
 		                        <span class="nav_name">리뷰</span>
 		                    </a>
                     	</li>
-	                    <li><a class="nav__link" href="${ pageContext.request.contextPath }/muchang/sreview.jsp" style="width: 130px;">
+	                    <li><a class="nav__link" href="${ pageContext.request.contextPath }/Store/store_allReview.jsp" style="width: 130px;">
 	                    	<small>● 전체 리뷰 목록</small></a>
 	                    </li>
-	                    <li class="mt-2 mb-5"><a class="nav__link" href="${ pageContext.request.contextPath }/muchang/sdeclare.jsp" style="width: 130px;">
+	                    <li class="mt-2 mb-5"><a class="nav__link" href="${ pageContext.request.contextPath }/Store/sdeclare.jsp" style="width: 130px;">
 	                    	<small>● 신고 내역</small></a>
 	                    </li>
                     </ul>
@@ -231,10 +231,10 @@ ul{
 		                        <span class="nav_name">예약</span>
 		                    </a>
                     	</li>
-	                    <li><a class="nav__link" href="${ pageContext.request.contextPath }/muchang/sRes.jsp" style="width: 130px;">
+	                    <li><a class="nav__link" href="${ pageContext.request.contextPath }/Store/sRes.jsp" style="width: 130px;">
 	                    	<small>● 예약 체크</small></a>
 	                    </li>
-	                    <li class="mt-2 mb-5"><a class="nav__link" href="${ pageContext.request.contextPath }/muchang/sRes_control.jsp" style="width: 130px;">
+	                    <li class="mt-2 mb-5"><a class="nav__link" href="${ pageContext.request.contextPath }/Store/sRes_control.jsp" style="width: 130px;">
 	                    	<small>● 예약 관리 시트</small></a>
 	                    </li>
                     </ul>
@@ -247,10 +247,10 @@ ul{
 		                        <span class="nav_name">좌석</span>
 		                    </a>
                     	</li>
-	                    <li><a class="nav__link" href="${ pageContext.request.contextPath }/muchang/stable.jsp" style="width: 130px;">
+	                    <li><a class="nav__link" href="${ pageContext.request.contextPath }/Store/stable_insert.jsp" style="width: 130px;">
 	                    	<small>● 좌석 추가</small></a>
 	                    </li>
-	                    <li class="mt-2 mb-5"><a class="nav__link" href="${ pageContext.request.contextPath }/muchang/stable_update.jsp" style="width: 130px;">
+	                    <li class="mt-2 mb-5"><a class="nav__link" href="${ pageContext.request.contextPath }/Store/stable.jsp" style="width: 130px;">
 	                    	<small>● 좌석 수정</small></a>
 	                    </li>
                     </ul>
@@ -262,10 +262,10 @@ ul{
 		                    <span class="nav_name">계정관리</span>
 		                </a>
                 	</li>
-                    <li><a class="nav__link" href="${ pageContext.request.contextPath }/muchang/info_update.jsp" style="width: 130px;">
+                    <li><a class="nav__link" href="${ pageContext.request.contextPath }/Store/info_update.jsp" style="width: 130px;">
                     	<small>● 계정 수정</small></a>
                     </li>
-                    <li class="mt-2"><a class="nav__link" href="${ pageContext.request.contextPath }/muchang/logout.jsp" style="width: 130px;">
+                    <li class="mt-2"><a class="nav__link" href="#" style="width: 130px;">
                     	<small>● 로그아웃</small></a>
                     </li>
             	</ul>
