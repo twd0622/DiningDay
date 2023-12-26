@@ -39,10 +39,13 @@ public class OwnerController extends HttpServlet {
 		}
 		
 		if(sPath.equals("/owner_joinPro.ow")) {
+			req.setCharacterEncoding("UTF-8");
 			boolean result = ownerService.insertOwner(req);
 			
+			System.out.println("result: " + result);
 			if (result) res.sendRedirect("owner_login.ow");
 			else		res.sendRedirect("owner_join.ow");
+			
 		}
 		
 //		-------------------------------------------------------------
@@ -70,11 +73,11 @@ public class OwnerController extends HttpServlet {
 		}		
 		
 		if(sPath.equals("/owner_loginPro.ow")) {
-			Map<String, String> userCheck = ownerService.userCheck(req);
-			if(userCheck != null) {
+			Map<String, String> ownerCheck = ownerService.ownerCheck(req);
+			if(ownerCheck != null) {
 				System.out.println("로그인 성공");
 				HttpSession session = req.getSession();
-				session.setAttribute("id", userCheck.get("OWN_ID"));
+				session.setAttribute("id", ownerCheck.get("OWN_ID"));
 				res.sendRedirect("smain.ow");
 			} else {
 				System.out.println("로그인 실패");

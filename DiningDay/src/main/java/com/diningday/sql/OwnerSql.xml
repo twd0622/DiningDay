@@ -12,11 +12,13 @@
 			  OWN_NAME ,
 			  OWN_TEL   ,
 			  OWN_EMAIL ,
-			  OWN_CRN,
+			  OWN_CRN, 
 			  STORE_NO  ,
 			  OWN_DATE)  
 		values
-			( 'CUS_'
+			( CONCAT('OWN_', (select * 
+							  from (select ifnull(MAX(cast(trim(leading 'OW_' from #{OWN_NO})as unsigned)), 0) + 1
+		 		              from OWNER) A))
 			, #{OWN_ID}
 			, #{OWN_PW}
 			, #{OWN_NAME}
@@ -24,11 +26,11 @@
 			, #{OWN_EMAIL}
 			, #{OWN_CRN}
 			, #{STORE_NO}
-			, sysdate);
+			, DATE_FORMAT(SYSDATE(), '%Y%m%d%H%i%s'));
 	</insert>
 	
 	
-	<select id="userCheck" parameterType="map" resultType="map">
+	<select id="ownerCheck" parameterType="map" resultType="map">
  		select *
  		from  OWNER
 		where OWN_ID=#{OWN_ID}

@@ -1,5 +1,5 @@
 <!-- 12/26/14:10_강현아 + 로고(->메인페이지) & userDropdown(->계정정정보 및 수정페이지) 연결
-					  + 로그인 시, 로그아웃 / 로그아웃 시, 로그인 버튼 -->
+					  + 로그인 시, 로그아웃 / 로그아웃 시, 로그인페이지 연결 -->
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -35,10 +35,6 @@
 			<span class="material-symbols-outlined" style="color:#9CED92; font-size:30px; -webkit-text-stroke: 0.5px #FFF2A6;">lunch_dining</span>
 			<span id="logo"style="color:#9CED92; -webkit-text-stroke:0.5px #FFF2A6; font-size: 30px; letter-spacing:-2px; font-weight: bold;" >Dining Day</span>
 		</a>
-        <!-- Sidebar Toggle (Topbar) 사용 안 하면 삭제-->
-<!--         	<button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3"> -->
-<!--                         <i class="fa fa-bars"></i> -->
-<!--         	</button> -->
 
             	<!-- Topbar Navbar -->
                	<ul class="navbar-nav" >
@@ -90,12 +86,12 @@
                                 </a>
                                 <div class="dropdown-divider"></div>
                                 <c:if test="${empty sessionScope.CUS_ID}">
-                              	  <a class="dropdown-item" href="login.cu" data-toggle="modal" data-target="#loginModal">
+                              	  <a class="dropdown-item" href="login.cu" >
                                     <i class="fas fa-sign-in-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     로그인 </a>
 								</c:if>
 								<c:if test="${!empty sessionScope.CUS_ID}">
-                              	  <a class="dropdown-item" href="logout.cu" data-toggle="modal" data-target="#logoutModal">
+                              	  <a class="dropdown-item" href="logout.cu">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     로그아웃 </a>
                                 </c:if>

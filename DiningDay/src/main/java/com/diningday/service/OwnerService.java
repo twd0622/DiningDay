@@ -18,10 +18,10 @@ public class OwnerService {
 		return result;
 	}
 
-	public Map<String, String> userCheck(HttpServletRequest req) {
+	public Map<String, String> ownerCheck(HttpServletRequest req) {
 		Map<String, String> ownerDTO = TeamUtil.requestToMap(req);
 		
-		return ownerDAO.userCheck(ownerDTO);
+		return ownerDAO.ownerCheck(ownerDTO);
 		
 	}
 

@@ -29,6 +29,8 @@ public class CustomerController extends HttpServlet {
 		
 		CustomerService customerService = new CustomerService();
 		
+		System.out.println(sPath);
+		
 		if(sPath.equals("/login.cu")) {
 			dispatcher = req.getRequestDispatcher("Customer/login.jsp");
 			dispatcher.forward(req, res);

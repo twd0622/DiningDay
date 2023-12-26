@@ -31,15 +31,15 @@ public class OwnerDAO {
 		return insertOwner > 0 ? true : false;
 	}
 	
-	public Map<String, String> userCheck(Map<String, String> ownerDTO) {
+	public Map<String, String> ownerCheck(Map<String, String> ownerDTO) {
 
 		session = sqlSessionFactory.openSession();
-		Map<String, String> userCheck =  session.selectOne("Owner.userCheck", ownerDTO);
+		Map<String, String> ownerCheck =  session.selectOne("Owner.ownerCheck", ownerDTO);
 		
 		session.commit();
 		session.close();
 
-		return userCheck;
+		return ownerCheck;
 	
 	}
 	
