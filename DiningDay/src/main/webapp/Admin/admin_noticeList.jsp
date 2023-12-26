@@ -59,7 +59,7 @@
 		</div>
 		<div class="row"  style="padding: 0px 20px;">
 			<div class="d-grid gap-2 d-md-flex justify-content-md-end">
-				<a href="admin_noticeWrite.jsp" type="button" class="btn btn-outline-success">글쓰기</a>
+				<a href="admin_noticeWrite.ad" type="button" class="btn btn-outline-success">글쓰기</a>
 			</div>
 		</div>
 		<div class="row" style="padding: 2% 20% 2% 20%;">

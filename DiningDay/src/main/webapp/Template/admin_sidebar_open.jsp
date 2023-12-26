@@ -185,7 +185,7 @@ ul{
         <nav class="nav">
             <div>
                 <div class="nav__brand">
-                	<a href="admin_main.jsp" class="nav__link">
+                	<a href="admin_main.ad" class="nav__link">
                 		<ion-icon name="home-outline" class="nav__icon"></ion-icon>
                     	<span class="nav_name">관리자 메인</span>
                     </a>
@@ -193,15 +193,15 @@ ul{
                 <div class="nav__list">
                     <ul>
                     	<li> 
-                    		<a href="admin_noticeList.jsp" class="nav__link">
+                    		<a href="admin_noticeList.ad" class="nav__link">
 		                        <ion-icon name="notifications-outline"></ion-icon>
 		                        <span class="nav_name">공지사항</span>
 		                    </a>       
                     	</li>
-	                    <li><a class="nav__link" href="${ pageContext.request.contextPath }/jaewon/admin_noticeWrite.jsp" style="width: 130px;">
+	                    <li><a class="nav__link" href="${ pageContext.request.contextPath }/admin_noticeWrite.ad" style="width: 130px;">
 	                    	<small>● 공지 등록</small></a>
 	                    </li>
-	                    <li class="mt-2 mb-5"><a class="nav__link" href="${ pageContext.request.contextPath }/jaewon/admin_noticeList.jsp" style="width: 130px;">
+	                    <li class="mt-2 mb-5"><a class="nav__link" href="${ pageContext.request.contextPath }/admin_noticeList.ad" style="width: 130px;">
 	                    	<small>● 공지 조회</small></a>
 	                    </li>
                     </ul>
@@ -209,15 +209,15 @@ ul{
                  <div class="nav__list">  
                     <ul>
                     	<li> 
-		                    <a href="admin_userList.jsp" class="nav__link">
+		                    <a href="admin_userList.ad" class="nav__link">
 		                        <ion-icon name="people-outline"></ion-icon>
 		                        <span class="nav_name">고객 관리</span>
 		                    </a>
                     	</li>
-	                    <li><a class="nav__link" href="${ pageContext.request.contextPath }/jaewon/admin_userList.jsp" style="width: 130px;">
+	                    <li><a class="nav__link" href="${ pageContext.request.contextPath }/admin_userList.ad" style="width: 130px;">
 	                    	<small>● 고객 조회</small></a>
 	                    </li>
-	                    <li class="mt-2 mb-5"><a class="nav__link" href="${ pageContext.request.contextPath }/jaewon/admin_userReport.jsp" style="width: 130px;">
+	                    <li class="mt-2 mb-5"><a class="nav__link" href="${ pageContext.request.contextPath }/admin_userReport.ad" style="width: 130px;">
 	                    	<small>● 고객 리뷰신고 관리</small></a>
 	                    </li>
                     </ul>
@@ -225,15 +225,15 @@ ul{
                 <div class="nav__list">    
                 	<ul>
                     	<li>
-		                    <a href="admin_storeList.jsp" class="nav__link">
+		                    <a href="admin_storeList.ad" class="nav__link">
 		                        <ion-icon name="restaurant-outline"></ion-icon>
 		                        <span class="nav_name">식당 관리</span>
 		                    </a>
                     	</li>
-	                    <li><a class="nav__link" href="${ pageContext.request.contextPath }/jaewon/admin_storeList.jsp" style="width: 130px;">
+	                    <li><a class="nav__link" href="${ pageContext.request.contextPath }/admin_storeList.ad" style="width: 130px;">
 	                    	<small>● 식당 조회</small></a>
 	                    </li>
-	                    <li class="mt-2 mb-5"><a class="nav__link" href="${ pageContext.request.contextPath }/jaewon/admin_storeReport.jsp" style="width: 130px;">
+	                    <li class="mt-2 mb-5"><a class="nav__link" href="${ pageContext.request.contextPath }/admin_storeReport.ad" style="width: 130px;">
 	                    	<small>● 식당신고 관리</small></a>
 	                    </li>
                     </ul>
@@ -241,7 +241,7 @@ ul{
                 <div class="nav__list">
 	             	<ul>
                    		<li>    
-		                    <a href="admin_storeConfirm.jsp" class="nav__link">
+		                    <a href="admin_storeConfirm.ad" class="nav__link">
 		                        <ion-icon name="checkmark-outline"></ion-icon>
 		                        <span class="nav_name">식당 승인</span>
 		                    </a>
@@ -251,7 +251,7 @@ ul{
                 <br>
                 <ul>
                    	<li>
-		                <a href="admin_reviewList.jsp" class="nav__link">
+		                <a href="admin_reviewList.ad" class="nav__link">
 		                    <ion-icon name="star-outline"></ion-icon>
 		                    <span class="nav_name">리뷰 관리</span>
 		                </a>

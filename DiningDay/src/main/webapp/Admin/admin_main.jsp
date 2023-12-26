@@ -26,6 +26,7 @@
 /* 각 영역 ID 설정 */
 #item1, #item2, #item3, #item4 {
 	overflow: hidden;
+	
 }
 
 #item1 {
@@ -70,17 +71,6 @@ a:active {
 	color: gray;
 }
 
-.notice:visited {
-	color: black;
-}
-
-.notice:hover {
-	color: gray;
-}
-
-.notice:active {
-	color: gray;
-}
 </style>
 </head>
 <%@ include file="/Template/admin_sidebar_open.jsp"%>
@@ -93,36 +83,36 @@ a:active {
 		style="width: 100%; height: 850px; background: white; padding: 0 80px 80px 80px;">
 		<div class="grid-item" id="item1" style="padding: 30px;">
 			<h2>
-				<a href="admin_noticeList.jsp" class="notice"
-					style="text-decoration: none;">최근 공지사항</a>
+				<a href="admin_noticeList.ad" class="notice link-success" 
+					style="text-decoration: none;;">최근 공지사항</a>
 			</h2>
 			<hr>
-			<iframe src="admin_noticeList.jsp" style="position:relative; width: 140%; right: 270px; height: 80%;"></iframe>
+			<iframe src="admin_noticeList.ad" style="position:relative; width: 140%; right: 270px; height: 80%;"></iframe>
 		</div>
 
 		<div class="grid-item" id="item2" style="padding: 30px;">
 			<h2>
-				<a href="admin_storeConfirm.jsp" class="notice"
+				<a href="admin_storeConfirm.ad" class="notice link-success"
 					style="text-decoration: none;">식당 등록관리</a>
 			</h2>
 			<hr>
-			<iframe src="admin_storeConfirm.jsp" style="position:relative; width: 140%; right: 270px; height: 80%;"></iframe>
+			<iframe src="admin_storeConfirm.ad" style="position:relative; width: 140%; right: 270px; height: 80%;"></iframe>
 		</div>
 		<div class="grid-item" id="item3" style="padding: 30px;">
 			<h2>
-				<a href="admin_userReport.jsp" class="notice"
+				<a href="admin_userReport.ad" class="notice link-success"
 					style="text-decoration: none;">리뷰 신고관리</a>
 			</h2>
 			<hr>
-			<iframe src="admin_userReport.jsp" style="position:relative; width: 140%; right: 270px; height: 80%;"></iframe>
+			<iframe src="admin_userReport.ad" style="position:relative; width: 140%; right: 270px; height: 80%;"></iframe>
 		</div>
 		<div class="grid-item" id="item4" style="padding: 30px;">
 			<h2>
-				<a href="admin_storeReport.jsp" class="notice"
+				<a href="admin_storeReport.ad" class="notice link-success"
 					style="text-decoration: none;">식당 신고관리</a>
 			</h2>
 			<hr>
-			<iframe src="admin_storeReport.jsp" style="position:relative; width: 140%; right: 270px; height: 80%;"></iframe>
+			<iframe src="admin_storeReport.ad" style="position:relative; width: 140%; right: 270px; height: 80%;"></iframe>
 		</div>
 	</div>
 </main>
