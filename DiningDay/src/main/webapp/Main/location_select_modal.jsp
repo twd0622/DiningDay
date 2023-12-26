@@ -8,7 +8,6 @@
     <title>location_select_modal</title>
     
     <script src="js/location_select_modal.js"></script>
-    
     <link href="css/location_select_modal.css" rel="stylesheet">
 </head>
 

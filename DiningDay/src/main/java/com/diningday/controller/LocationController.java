@@ -27,10 +27,9 @@ public class LocationController extends HttpServlet {
 	
 	protected void doProcess(HttpServletRequest req, HttpServletResponse res) throws IOException {
 		String sPath = req.getServletPath();
-		
 		LocationService locationService = new LocationService();
-		System.out.println(sPath);
-		if(sPath.equals("/Main/getLocation2.lo")) {
+		
+		if(sPath.equals("/getLocation2.lo")) {
 			
 			res.setContentType("application/x-json; charset=utf-8");
 			res.getWriter().print(locationService.getLocation2(req));
