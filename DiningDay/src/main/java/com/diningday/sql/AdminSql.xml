@@ -16,7 +16,7 @@
 					   from NOTICE ) A )
 		    , #{NOT_TITLE}
 		    , #{NOT_CONTENT}
-		    , #{NOT_DATE});
+		    , date_format(sysdate(), '%Y%m%d%H%i%s') );
 	</insert>
 	
 </mapper>

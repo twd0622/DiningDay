@@ -16,7 +16,7 @@ public class AdminService {
 		adminDAO = new AdminDAO();
 		// request 파라미터값 가져오기
 		Map<String, String> boardDTO = TeamUtil.requestToMap(req);
-		boardDTO.put("NOT_DATE", LocalDateTime.now().toString());
+//		boardDTO.put("NOT_DATE", LocalDateTime.now().toString());
 		
 		
 		
