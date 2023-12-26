@@ -30,4 +30,13 @@
   	<servlet-class>com.diningday.controller.LocationController</servlet-class>
   </servlet>
   
+  <servlet-mapping>
+  	<servlet-name>StoreController</servlet-name>
+  	<url-pattern>*.st</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>StoreController</servlet-name>
+  	<servlet-class>com.diningday.controller.StoreController</servlet-class>
+  </servlet>
 </web-app>  
