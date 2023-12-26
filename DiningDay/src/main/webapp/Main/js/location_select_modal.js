@@ -16,20 +16,14 @@ $(function(){
 				$(".District__List").eq(1).append('<li class="District__Item"><button class="District__Item__Button false">'+loc_name.LOC_NAME+'</button></li>')
 			}
 			
-			$(".District__Item__Button").on(
+			$(".District__List").slice(0,2).find(".District__Item__Button").on(
 				"click",
 				function(){
-					switchLoc(this)	
+					switchLoc(this)
+					getLoc(this)	
 				}
 				
 			)
-			
-			$(".District__Item__Button").on(
-				"click",
-				function(){
-					getLoc(this)	
-				}
-			)						
 		}
 	)
 	
@@ -47,7 +41,8 @@ $(function(){
 		$(btn).addClass("now")
 		$(btn).append(arrowImg)
 		
-	}	
+	}
+		
 	var getLoc = function(btn){
 		
 		var loc_scope;
@@ -76,25 +71,20 @@ $(function(){
 		})
 		.done(
 			function(data){
-				$(".District__List").eq(loc_scope - 1).empty();
+				console.log("loc_scope: " + loc_scope);
+				$(".District__List").slice(loc_scope-1,3).empty();
 				$(".District__List").eq(loc_scope - 1).append('<li class="District__Item"><button class="District__Item__Button now">전체<img class="District__Item__Button__Img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABYAAAAoCAYAAAD6xArmAAAABHNCSVQICAgIfAhkiAAAAXpJREFUSEu917FKA0EQBuDbF7CKIUWKFBb2BiSCkjS+R3oLH8F3yBNJQAvLRBBikSKQiErwCc5/ZBIml7vbnZ09D5ZdyOVjmZ292XV5no+zLHtAW6DdO+fm6M2PA/wD5YSlb/Qj4DOrTPALkL6AthhfA3+14AR3AUzRegL6xPgG+Fss7uiPTeB/cBP4Hk6NH8ACf8aYYr971DE/ghmnhaQFjcZLYQ9+hWx592VLJVyDbzjPa/Fa2IJ7YYHTgnZECGpnHgQzfsYLGoQHw1pcBWtwNezBB0jFJb0TBQv8CeNTsaArTsVlNMz4OfpHtHYBvzTBAqft3xL4JBVcnLUNRoEoC8UHZn4RPWOgtGGKi7ffjVEwoxTXyl2ohkNQdR6HoipYgwbDQHt4Oe1nk9Fi/fNWkZjSRBXbW/diimnQ0ev/yn9FTG0HFj4cmk9BB+mW+sTZ3DE29Ux3H/uyq8IXfhymuCrIyw3dPyhPzTcnmvEdsAnaGu02BUrh+AU3Het2tPvd3gAAAABJRU5ErkJggg==" alt=""></button></li>')
 				for(let loc_name of data){
 					$(".District__List").eq(loc_scope - 1).append('<li class="District__Item"><button class="District__Item__Button false">'+loc_name.LOC_NAME+'</button></li>')
 				}
 				
-				$(".District__Item__Button").on(
+				$(".District__List").eq(loc_scope-1,3).find(".District__Item__Button").on(
 					"click",
 					function(){
-						switchLoc(this)	
-					}
-					
-				)
-				
-				$(".District__Item__Button").on(
-					"click",
-					function(){
+						switchLoc(this)
 						getLoc(this)	
 					}
+					
 				)
 			}
 		)
