@@ -12,6 +12,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 
 public class TeamUtil {
@@ -38,9 +39,15 @@ public class TeamUtil {
 		return dto;
 	}
 	
-	public static Map<String, String> requestToMap(MultipartRequest multi) {
+	// 파일request 받아온 파라미터 맵에 넣어주는 함수
+	public static Map<String, String> fileRequestToMap(HttpServletRequest req) {
 		Map<String, String> dto = new HashMap<String, String>();
+		
+		String uploadPath = req.getRealPath("/upload");
+		int maxSize = 10 * 1024 * 1024;
+		
 		try {
+			MultipartRequest multi = new MultipartRequest(req, uploadPath, maxSize, "UTF-8", new DefaultFileRenamePolicy());
 			
 			@SuppressWarnings("unchecked")
 			Enumeration<String> parameterList = multi.getParameterNames();
