@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ExCustomer">
+	
+	<insert id="insert" parameterType="map">
+		insert into EX_CUSTOMER
+			( CUS_NO    ,
+			  CUS_ID    ,
+			  CUS_NAME  ,
+			  CUS_BIRTH ,
+			  CUS_TEL   ,
+			  CUS_EMAIL ,
+			  CUS_GENDER,
+			  CUS_DATE  ,
+			  CUS_EXDATE)  
+		values
+			( #{CUS_NO}
+			, #{CUS_ID}
+			, #{CUS_NAME}
+			, #{CUS_BIRTH}
+			, #{CUS_TEL}
+			, #{CUS_EMAIL}
+			, #{CUS_GENDER}
+			, #{CUS_DATE}
+			, #{CUS_EXDATE});
+	</insert>
+	
+</mapper>

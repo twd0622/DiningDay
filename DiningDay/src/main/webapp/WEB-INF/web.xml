@@ -29,6 +29,36 @@
   	<servlet-name>LocationController</servlet-name>
   	<servlet-class>com.diningday.controller.LocationController</servlet-class>
   </servlet>
+
+   <servlet-mapping>
+  	<servlet-name>CustomerController</servlet-name>
+  	<url-pattern>*.cu</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>CustomerController</servlet-name>
+  	<servlet-class>com.diningday.controller.CustomerController</servlet-class>
+  </servlet>
+  
+   <servlet-mapping>
+  	<servlet-name>OwnerController</servlet-name>
+  	<url-pattern>*.ow</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>OwnerController</servlet-name>
+  	<servlet-class>com.diningday.controller.OwnerController</servlet-class>
+  </servlet>
+
+   <servlet-mapping>
+  	<servlet-name>ExCustomerController</servlet-name>
+  	<url-pattern>*.ex</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>ExCustomerController</servlet-name>
+  	<servlet-class>com.diningday.controller.ExCustomerController</servlet-class>
+  </servlet>
   
   <!-- 12/26 mainController 생성 -->
   <servlet-mapping>

@@ -1,5 +1,6 @@
 <!-- 12/15/18:10_강현아 + 카카오, 구글 API 연동, 점주 페이지 연결 -->
 <!-- 12/20/11:20_강현아 + 카카오, 구글 API 버튼 연결 및 디자인 수정 -->
+<!-- 12/26/14:10_강현아 + 페이지 연결 -->
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -182,7 +183,7 @@ function naverLogout() {
 				<h1 class="fw-bold mb-0 fs-2">로그인</h1>
 			</div>
 			<div class="modal-body p-5 pt-0">
-				<form class="" style="text-align: center;">
+				<form style="text-align: center;" action="loginPro.cu" method="post">
 					<!-- 카카오버튼 --> 
 					<a id="kakao-login-btn" href="javascript:loginWithKakao()" class="w-100 py-2 mb-2 btn btn-warning rounded-3">
 						<img src="${ pageContext.request.contextPath }/resources/img/kakao.png" style="width:30px; height:30px;"/>
@@ -197,12 +198,11 @@ function naverLogout() {
 						Naver 계정 로그인
 					</button>
 					<p></p>
-					<!-- 점주용 이동 -->
-					<a class="icon-link icon-link-hover mt-2" style="--bs-link-hover-color-rgb: 25, 135, 84;" href="owner_login.jsp">
-						점주용 계정 로그인 이동<i class="bi bi-hand-index-thumb"></i></a>
+
 					<hr class="my-4">
-					<h2 class="fs-5 fw-bold mb-3"><a class="icon-link icon-link-hover mt-2" href="../junwoo/main.jsp">
-						<i class="bi bi-house-door"></i>돌아가기</a></h2>
+					<!-- 점주용 이동 -->
+					<a class="icon-link icon-link-hover mt-2" style="--bs-link-hover-color-rgb: 25, 135, 84;" href="owner_login.ow">
+						점주용 계정 로그인 이동<i class="bi bi-hand-index-thumb"></i></a>
 				</form>
 			</div>
 		</div>

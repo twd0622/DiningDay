@@ -1,5 +1,6 @@
 <!-- 12/15/18:10_강현아 + 비밀번호 변경 개설 -->
 <!-- 12/19/17:50_강현아 + 비밀번호 변경 내용 수정 -->
+<!-- 12/26/14:10_강현아 + 페이지 연결 -->
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
