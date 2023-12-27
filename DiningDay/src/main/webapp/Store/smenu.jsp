@@ -42,32 +42,6 @@
 					    	</tr>
 					    </thead>
 						<tbody id="tbody_1" class="table-group-divider">
-							<tr>
-								<td><input type="text" class="form-control" name="MENU_NAME" value="상큼한 스튜"></td>
-								<td>
-									<input type="file" class="form-control" id="inputFile_1" name="MENU_PHOTO" 
-									aria-describedby="fileButton_1">
-								</td>
-								<td><textarea style="resize: none;" cols="50" rows="3" name="MENU_INFO" placeholder="싱싱한 재료를 사용한 토마토 스튜"></textarea></td>
-								<td><input type="text" class="form-control" name="MENU_PRICE" value="17,000"></td>
-								<td colspan="2">
-									<select class="form-select">
-										<option selected value="판매중" style="font-size: 12px;">판매중</option>
-										<option value="품절">품절</option>
-									</select>
-								</td>
-								<td>
-									<button type="button" class="btn btn-outline-warning" name="update"
-						    		style="text-align: center;width:60px;height:50px;margin: 0 auto;">
-						    		수정</button>
-			                   	 </td>
-								<td>
-			                   	 	<button type="button" class="btn btn-outline-danger" name="delete_2"
-						    		style="text-align: center;width:50px;height:50px;margin: 0 auto;">
-			                        	<ion-icon name="trash-outline"></ion-icon>
-			                   	 	</button>
-			                	</td>
-							</tr>
 				    	</tbody>
 					</table>
 					</form>

@@ -18,8 +18,8 @@ $(() => {
 		$("#tbody_1").append( '<tr id="tr_1"><td><input type="text" class="form-control" name="MENU_NAME" value="메뉴 이름ex"></td> \r\n' 
 						   +'<td><input type="file" class="form-control" id="inputFile_1" name="MENU_PHOTO" \r\n' 
 						   +'aria-describedby="fileButton_1"></td> <td><textarea style="resize: none;" cols="40" rows="3"\r\n'
-						   +'name="MENU_INFO" placeholder="메뉴 정보ex"> </textarea></td>\r\n'
-						   +'<td><input type="text" class="form-control" name="메뉴 가격ex" value="17,000"></td> \r\n'
+						   +'name="MENU_INFO" placeholder="메뉴 정보ex"> </textarea></td> <input type="hidden" name="PHOTO_TYPE" value="M">\r\n'
+						   +'<td><input type="text" class="form-control" name="MENU_PRICE" value="17,000"></td> \r\n'
 						   +'<td colspan="2"><select class="form-select"><option selected value="판매중">판매중</option><option value="품절">품절</option></select></td>\r\n' 
 						   +'<td><button type="button" id="save" class="btn btn-success">저장</button></td>\r\n'
 						   +'<td><button type="button" class="btn btn-danger" id="delete"\r\n'
@@ -34,6 +34,18 @@ $(() => {
 		})	  
 		
 		file_image(); // 사진 미리보기 함수 호출 (js파일 : photo_control)
+		
+		$("#save").on("click", e => {
+			var data = {};
+			data["MENU_NAME"] = $("#tr_1").find(".MENU_NAME").val();
+			data["MENU_PHOTO"] = $("#tr_1").find(".MENU_PHOTO").val();
+			data["MENU_INFO"] = $("#tr_1").find(".MENU_INFO").val();
+			data["MENU_PRICE"] = $("#tr_1").find(".MENU_PRICE").val();
+			data["PHOTO_TYPE"] = $("#tr_1").find(".PHOTO_TYPE").val();
+			data["PHOTO_TYPE"] = $("#tr_1").find("select").val();
+			data["STORE_NO"] = "1";
+			menuPro(data);
+		})
 	})
 	
 	//	수정 버튼 클릭시 이벤트
@@ -67,5 +79,16 @@ $(() => {
 	})
 })		
 		
-
+function menuPro(data){
+	$.ajax({
+			type: "post",
+			url: "smenuPro.st",
+			dataType: "json",
+			data: data
+		})
+		.done(function(result) { 
+					
+		})
+		.fail()
+}
 	
