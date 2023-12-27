@@ -23,6 +23,8 @@
 	
 	<mappers>
 		<mapper resource="com/diningday/sql/UserSql.xml" />
+		<mapper resource="com/diningday/sql/LocationSql.xml" />
+		<mapper resource="com/diningday/sql/MainSql.xml" />
 	</mappers>
 
 </configuration>

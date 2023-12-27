@@ -12,7 +12,7 @@ public class UserService {
 	UserDAO userDAO = new UserDAO();
 	
 	public boolean insertUser(HttpServletRequest req) {
-		Map<String, String> userDTO = TeamUtil.requestBack(req);
+		Map<String, String> userDTO = TeamUtil.requestToMap(req);
 		
 		boolean result = userDAO.insertUser(userDTO);
 		

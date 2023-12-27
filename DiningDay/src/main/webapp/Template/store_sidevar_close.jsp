@@ -12,7 +12,8 @@
     </footer>
     <!-- IONICONS -->
     <script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.1/dist/sweetalert2.all.min.js"></script>
     <!-- JS -->
-    <script src="${ pageContext.request.contextPath }/resources/jsbootstrap.bundle.min.js"></script>
+    <script src="${ pageContext.request.contextPath }/resources/js/bootstrap.bundle.min.js"></script>
     </body>
 </html>
