@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Admin">
+	
+	<insert id="insert" parameterType="map">
+		insert into NOTICE
+			( NOT_NO
+		    , NOT_TITLE
+			, NOT_CONTENT
+			, NOT_DATE)
+		values
+			( ( select *             
+				from ( select ifnull(max(cast(NOT_NO as unsigned)), 0) + 1
+					   from NOTICE ) A )
+		    , #{NOT_TITLE}
+		    , #{NOT_CONTENT}
+		    , date_format(sysdate(), '%Y%m%d%H%i%s') );
+	</insert>
+	
+</mapper>
