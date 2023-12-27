@@ -12,7 +12,7 @@
 	<link href="Main/css/store.css" rel="stylesheet" >
 	<link href="Main/css/storeModal.css" rel="stylesheet">
 	<script src="Main/js/storeModal.js"></script>
-	
+	<script src="Main/js/store.js"></script>
 </head>
 	<c:set var="storeInfo" value="${requestScope.storeInfo}"/>
 	<c:set var="menuList" value="${requestScope.menuList}"/>
@@ -174,12 +174,12 @@ ${storeInfo.STORE_INFO}
 										</div>
 										<c:if test="${table.SEAT_OC == 1}">
 											<div style="width: 20%;">
-												<button class="btn btn-outline-warning modalOpen" style="margin-top:80%">예약하기</button>
+												<button class="btn btn-outline-warning modalOpen reservationBtn" style="margin-top:80%">예약하기</button>
 											</div>
 										</c:if>
 										<c:if test="${table.SEAT_OC == 0}">
 											<div style="width: 20%;">
-												<button class="btn btn-outline-error modalOpen" style="margin-top:80%" disabled="disabled">예약마감</button>
+												<button class="btn btn-outline-danger modalOpen" style="margin-top:80%" disabled="disabled">예약마감</button>
 											</div>
 										</c:if>
 									</div>

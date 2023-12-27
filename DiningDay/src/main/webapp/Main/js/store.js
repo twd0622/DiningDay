@@ -1,0 +1,10 @@
+$(()=>{
+	
+	$(".reservationBtn").on(
+		"click",
+		function(){
+			
+		}
+	)
+	
+})
