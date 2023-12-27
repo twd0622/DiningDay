@@ -8,10 +8,9 @@
     <title>식당 상세 페이지</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
-	<link href="css/store.css" rel="stylesheet" >
-	<link href="css/storeModal.css" rel="stylesheet">
-	<script src="js/jquery-3.6.0.js"></script>
-	<script src="js/storeModal.js"></script>
+	<link href="Main/css/store.css" rel="stylesheet" >
+	<link href="Main/css/storeModal.css" rel="stylesheet">
+	<script src="Main/js/storeModal.js"></script>
 	
 </head>
 
@@ -25,11 +24,11 @@
 				<div class="bannerBox">
 					<div class="banner">
 						<div class="banner_img_box">
-							<img alt="칸다소바.jpg" src="칸다소바.jpg" class="banner_img">
+							<img alt="칸다소바.jpg" src="Main/칸다소바.jpg" class="banner_img">
 						</div>
 						
 						<div class="banner_img_box">
-							<img alt="음식1.jpg" src="음식1.jpg" class="banner_img">
+							<img alt="음식1.jpg" src="Main/음식1.jpg" class="banner_img">
 						</div>
 						
 					</div>
@@ -59,7 +58,7 @@
 				<div class="profile_btnBox">
 					<div class="profile_btn_sec" style="border-right: 2px solid #f0f0f0;">
 						<a href="#" onclick="" class="profile_btn">
-							<span class="material-symbols-outlined profile_btn_icon" class="profile_btn_icon">favorite</span>
+							<span class="material-symbols-outlined profile_btn_icon" class="profile_btn_icon" style="color:red;">favorite</span>
 							<span class="profile_btn_text">찜하기</span>
 						</a>
 					</div>
