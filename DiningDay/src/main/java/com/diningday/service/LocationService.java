@@ -13,7 +13,7 @@ public class LocationService {
 	LocationDAO locationDAO = new LocationDAO(); 
 		
 	public JsonArray getLocation2(HttpServletRequest req) {
-		return TeamUtil.mapListToJSON(locationDAO.getLocation2(TeamUtil.requestToMap(req))); 
+		return TeamUtil.mapListToJSONList(locationDAO.getLocation2(TeamUtil.requestToMap(req))); 
 	}
 
 }
