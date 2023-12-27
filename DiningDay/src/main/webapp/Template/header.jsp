@@ -1,3 +1,6 @@
+<!-- 12/26/14:10_강현아 + 로고(->메인페이지) & userDropdown(->계정정정보 및 수정페이지) 연결
+					  + 로그인 시, 로그아웃 / 로그아웃 시, 로그인페이지 연결 -->
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
@@ -32,11 +35,6 @@
 			<span class="material-symbols-outlined" style="color:#9CED92; font-size:30px; -webkit-text-stroke: 0.5px #FFF2A6;">lunch_dining</span>
 			<span id="logo"style="color:#9CED92; -webkit-text-stroke:0.5px #FFF2A6; font-size: 30px; letter-spacing:-2px; font-weight: bold;" >Dining Day</span>
 		</a>
-        <!-- Sidebar Toggle (Topbar) -->
-        	<button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                        <i class="fa fa-bars"></i>
-        	</button>
-
             	<!-- Topbar Navbar -->
                	<ul class="navbar-nav" >
 
@@ -73,23 +71,29 @@
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" href="mypage.cu">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     내 정보보기
                                 </a>
-                                <a class="dropdown-item" href="#">
+                                <a class="dropdown-item" href="cus_edit.cu">
                                     <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Settings
+                                    정보 수정하기
                                 </a>
-                                <a class="dropdown-item" href="login.jsp">
+                                <a class="dropdown-item" href="#">
                                     <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    임시 로그인
+                                    찜 목록 보기
                                 </a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                <c:if test="${empty sessionScope.CUS_ID}">
+                              	  <a class="dropdown-item" href="login.cu" >
+                                    <i class="fas fa-sign-in-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    로그인 </a>
+								</c:if>
+								<c:if test="${!empty sessionScope.CUS_ID}">
+                              	  <a class="dropdown-item" href="logout.cu">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    로그아웃
-                                </a>
+                                    로그아웃 </a>
+                                </c:if>
                             </div>
                         </li>
                     </ul>

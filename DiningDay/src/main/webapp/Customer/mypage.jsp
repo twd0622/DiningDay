@@ -1,6 +1,7 @@
 <!-- 12/20/18:10_강현아 + mypage 개설 -->
 <!-- 12/21/15:30_강현아 + 예약내역 수정 및 회원탈퇴 모달창 추가 -->
 <!-- 12/22/11:00_강현아 + 예약내역 모달창 추가 -->
+<!-- 12/26/14:10_강현아 + 페이지 연결 -->
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -253,7 +254,7 @@
             <h4>고객 정보</h4>
            	 <img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
             	<span class="font-weight-bold">고객1</span>
-			<button type="submit" class="btn btn-primary btn-block mt-5" onclick="location.href='cus_edit.jsp'"
+			<button type="submit" class="btn btn-primary btn-block mt-5" onclick="location.href='cus_edit.cu'"
   		  		    style="color: #111111; background-color: white; border-color: #111111;">고객 정보 수정하기</button>
 			<button type="submit" class="btn btn-primary btn-block" onclick="move()"
   		  		    style="color: #111111; background-color: white; border-color: #111111;">나의 리뷰 보기</button>

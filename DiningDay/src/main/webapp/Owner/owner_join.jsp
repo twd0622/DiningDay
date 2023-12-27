@@ -1,4 +1,5 @@
 <!-- 12/15/18:10_강현아 + 점주용 회원가입 개설 -->
+<!-- 12/26/14:10_강현아 + 페이지 연결 -->
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -17,7 +18,7 @@
 				<h1 class="fw-bold mb-0 fs-2">점주 계정 회원가입</h1>
 			</div>
 			<div class="modal-body p-5 pt-0">
-				<form class="" style="text-align: center;">
+				<form action="owner_joinPro.ow" style="text-align: center;" method="post" name="owner_join">
 				  <div class="form-outline mb-4">
 				  	<div style="text-align: left;"> <label>아이디</label> </div>
 				    	<input type="text" name="OWN_ID" class="form-control"  placeholder="영문, 글자 포함 최소 6자리 이상"/>
@@ -70,12 +71,12 @@
 				  
 			    <ul class="nav nav-pills nav-justified mb-3" id="ex1" role="tablist">
 				  <li class="nav-item" role="presentation">
-				    <a class="nav-link active" id="own_success" data-mdb-toggle="pill" href="owner_login.jsp" role="tab"
+				    <a class="nav-link active" id="own_success" data-mdb-toggle="pill" href="javascript:check();"  role="tab"
 				      aria-controls="register" aria-selected="true"
 				      style="color: #111111; background-color: #FFF2A6; border-color: #ffffff;">가입</a>
 				  </li>
 				  <li class="nav-item" role="presentation">
-				    <a class="nav-link" id="own_fail" data-mdb-toggle="pill" href="owner_login.jsp" role="tab"
+				    <a class="nav-link" id="own_fail" data-mdb-toggle="pill" href="owner_login.ow" role="tab"
 				      aria-controls="none" aria-selected="false">취소</a>
 				  </li>
 				</ul>
@@ -86,6 +87,13 @@
 		</div>
 	</div>
 </div>
+<script type="text/javascript">
+function check() {
+	// alert("체크");	
+	// 전송 (버튼 type=submit)
+	document.owner_join.submit();
+}
+</script>
 </main>
 <%@ include file="/Template/footer.jsp"%> 
 </html>
