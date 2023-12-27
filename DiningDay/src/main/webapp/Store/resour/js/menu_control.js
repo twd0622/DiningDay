@@ -13,12 +13,17 @@ $(() => {
 	$($("#tbody_2").find($("input[type=file]"))).hide();
 	format("#tbody_2", true);	// 해당 <tr> readonly 설정
 	
+	for(var i = 0; i < $("select").length; i++){
+		var select = $("select").eq(i);
+		select.find("option").eq(select.attr("name")).attr("selected", "selected");
+	}
+
 	// + 아이콘(추가) 클릭시 이벤트
 	$("#add").on("click", e => {
 		$("#tbody_1").append( '<tr id="tr_1"><td><input type="text" class="form-control" name="MENU_NAME" value="메뉴 이름ex"></td> \r\n' 
 						   +'<td><input type="file" class="form-control" id="inputFile_1" name="MENU_PHOTO" \r\n' 
 						   +'aria-describedby="fileButton_1"></td> <td><textarea style="resize: none;" cols="40" rows="3"\r\n'
-						   +'name="MENU_INFO" placeholder="메뉴 정보ex"> </textarea></td> <input type="hidden" name="PHOTO_TYPE" value="M">\r\n'
+						   +'name="MENU_INFO"></textarea></td> <input type="hidden" name="PHOTO_TYPE" value="M">\r\n'
 						   +'<td><input type="text" class="form-control" name="MENU_PRICE" value="17,000"></td> \r\n'
 						   +'<td colspan="2"><select class="form-select"><option selected value="판매중">판매중</option><option value="품절">품절</option></select></td>\r\n' 
 						   +'<td><button type="button" id="save" class="btn btn-success">저장</button></td>\r\n'
@@ -35,16 +40,7 @@ $(() => {
 		
 		file_image(); // 사진 미리보기 함수 호출 (js파일 : photo_control)
 		
-		$("#save").on("click", e => {
-			var data = {};
-			data["MENU_NAME"] = $("#tr_1").find(".MENU_NAME").val();
-			data["MENU_PHOTO"] = $("#tr_1").find(".MENU_PHOTO").val();
-			data["MENU_INFO"] = $("#tr_1").find(".MENU_INFO").val();
-			data["MENU_PRICE"] = $("#tr_1").find(".MENU_PRICE").val();
-			data["PHOTO_TYPE"] = $("#tr_1").find(".PHOTO_TYPE").val();
-			data["PHOTO_TYPE"] = $("#tr_1").find("select").val();
-			data["STORE_NO"] = "1";
-			menuPro(data);
+		$("#save").on("click", function() {
 		})
 	})
 	
@@ -76,6 +72,20 @@ $(() => {
 		$(fileInput).hide();
 		
 		format(tr, true);	//	해당 <tr> readonly 설정
+		
+		$.ajax({
+			type: "post",
+			url: "smenuUpdate.st",
+			dataType: "json",
+			data: datalist(tr)
+		})
+		.done(
+			function(data){
+				tr.empty();
+				tr.append("")
+			}
+		)
+		.fail()
 	})
 })		
 		
@@ -87,8 +97,27 @@ function menuPro(data){
 			data: data
 		})
 		.done(function(result) { 
-					
+			$.ajax({
+				type: "post",
+				url: "smenuPro.st",
+				dataType: "json"
+			})
+			.done(function(result2){
+				alert("안녕");
+			})		
 		})
 		.fail()
 }
 	
+function datalist(row){
+	
+	var data = {};
+	data["MENU_NAME"] = $(row).find("input[name=MENU_NAME]").val();
+	data["PHOTO_NAME"] = $(row).find(".MENU_PHOTO").val();
+	data["PHOTO_NAME"] = $(row).find("input[name=PHOTO_NAME]").val();
+	data["MENU_INFO"] = $(row).find("textarea[name=MENU_INFO]").val();
+	data["MENU_PRICE"] = $(row).find("input[name=MENU_PRICE]").val();
+	data["MENU_NO"] = $(row).find("input[name=MENU_NO]").val(); 
+	
+	return data;
+}

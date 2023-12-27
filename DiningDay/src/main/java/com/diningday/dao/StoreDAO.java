@@ -16,9 +16,8 @@ public class StoreDAO {
 	
 	
 	public Boolean insertMenu(Map<String, String> dto) {
-		session = sqlSessionFactory.openSession();
 		
-		int insertMenu = session.insert("Menu.insert", dto); 
+		int insertMenu = session.insert("Menu.menuInsert", dto); 
 		
 		session.commit();
 		session.close();
@@ -26,14 +25,33 @@ public class StoreDAO {
 		return insertMenu > 0 ? true : false;
 	}
 	
-	public List menuList(Map<String, String> dto) {
-		session = sqlSessionFactory.openSession();
+	
+	public List<Map<String, String>> menuList(Map<String, String> dto) {
 		
-		List<Object> menuList = session.selectList("Menu.select", dto); 
+		List<Map<String, String>> menuList = session.selectList("Menu.menuList", dto); 
+		
+		session.close();
+		
+		return menuList;
+	}
+	
+	public boolean menuUpdate(Map<String, String> dto) {
+		
+		int updateMenu = session.update("Menu.menuUpdate", dto); 
 		
 		session.commit();
 		session.close();
 		
-		return menuList;
+		return updateMenu > 0 ? true : false;
+	}
+	
+	public Map<String, String> menuSelect(Map<String, String> dto) {
+		
+		Map<String, String> select = session.selectOne("Menu.menuSelect", dto); 
+		
+		session.commit();
+		session.close();
+		
+		return select;
 	}
 }

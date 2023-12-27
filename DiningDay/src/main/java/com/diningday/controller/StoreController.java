@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletResponse;
 import com.diningday.dao.UserDAO;
 import com.diningday.service.StoreService;
 import com.diningday.service.UserService;
+import com.diningday.util.TeamUtil;
+import com.google.gson.JsonObject;
 
 public class StoreController extends HttpServlet {
 	RequestDispatcher dispatcher = null;
@@ -31,7 +33,10 @@ public class StoreController extends HttpServlet {
 		StoreService storeService = new StoreService();
 		
 		if(sPath.equals("/smenu.st")) {
+			req.setAttribute("menuList", storeService.menuList(req));
+			
 			dispatcher = req.getRequestDispatcher("Store/smenu.jsp");
+			System.out.println("페이지 변경확인");
 			dispatcher.forward(req, res);
 		}
 		
@@ -40,7 +45,19 @@ public class StoreController extends HttpServlet {
 			if(!check) {
 				return;
 			}
-			req.setAttribute("menuList", storeService.menuList(req)); 
+//			req.setAttribute("menuList", storeService.menuList(req)); 
+		}
+		
+		if(sPath.equals("/smenuUpdate.st")) {
+			System.out.println(TeamUtil.requestToMap(req));
+			
+			JsonObject jo = storeService.menuUpdate(req);
+			if(jo == null) {
+				return;
+			}
+			
+			res.setContentType("application/x-json; charset=utf-8");
+			res.getWriter().print(jo);
 		}
 		
 	}
