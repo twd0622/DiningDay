@@ -22,6 +22,52 @@
 		 where STORE_NAME like CONCAT('%',#{searchInput},'%');
 	</select>
 	
+	<select id="getStore" parameterType="map" resultType="map">
+		 select
+			STORE_NO
+			, OWN_NO
+			, STORE_NAME
+			, STORE_TEL
+			, STORE_LOCATION
+			, STORE_CATEGORY
+			, STORE_INFO
+			, STORE_PLUS
+			, DATE_FORMAT(STR_TO_DATE(STORE_TIME, '%H%i'), '%H:%i') STORE_TIME
+			, DATE_FORMAT(STR_TO_DATE(STORE_BT, '%H%i'), '%H:%i') STORE_BT
+			, DATE_FORMAT(STR_TO_DATE(STORE_LO, '%H%i'), '%H:%i') STORE_LO
+			, SOTRE_CLOSE
+			, STORE_SCORE
+			, LIKE_COUNT
+	 	from STORE
+		where STORE_NO = #{STORE_NO};
+	</select>
+	
+	<select id="getMenu" parameterType="map" resultType="map">
+		 select
+			MENU_NO
+			, STORE_NO
+			, MENU_NAME
+			, FORMAT(MENU_PRICE, 0) MENU_PRICE
+			, MENU_HIDE
+			, MENU_INFO
+		  from MENU
+		 where STORE_NO = #{STORE_NO};
+	</select>
+	
+	<select id="getTable" parameterType="map" resultType="map">
+		select
+			SEAT_NO
+			, STORE_NO
+			, SEAT_NAME
+			, SEAT_USETIME
+			, SEAT_MIN
+			, SEAT_MAX
+			, SEAT_CONTENT
+			, SEAT_OC
+		  from SEAT
+		 where STORE_NO = #{STORE_NO};
+	</select>
+	
 </mapper>
 
 

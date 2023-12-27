@@ -19,4 +19,17 @@ public class MainService {
 		return mainDAO.searchCount(TeamUtil.requestToMap(req));
 	}
 
+	public Map<String, String> getStore(HttpServletRequest req) {
+		 return mainDAO.getStore(TeamUtil.requestToMap(req));
+		
+	}
+
+	public List<Map<String, String>> getMenu(HttpServletRequest req) {
+		return mainDAO.getMenu(TeamUtil.requestToMap(req));
+	}
+
+	public List<Map<String, String>> getTable(HttpServletRequest req) {
+		return mainDAO.getTable(TeamUtil.requestToMap(req));
+	}
+
 }

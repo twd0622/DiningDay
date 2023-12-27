@@ -15,7 +15,6 @@ public class UserDAO {
 	
 	
 	public Boolean insertUser(Map<String, String> dto) {
-		session = sqlSessionFactory.openSession();
 		
 		int insertUser = session.insert("User.insert", dto); // namespace.id
 		
