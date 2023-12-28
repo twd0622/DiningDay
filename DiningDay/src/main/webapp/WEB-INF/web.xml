@@ -81,5 +81,16 @@
 		<servlet-name>AdminController</servlet-name>
 		<servlet-class>com.diningday.controller.AdminController</servlet-class>
 	</servlet>
+	
+	<!-- 12/28 ReportController 생성 -->
+	<servlet-mapping>
+		<servlet-name>ReportController</servlet-name>
+		<url-pattern>*.re</url-pattern>
+	</servlet-mapping>
 
+	<servlet>
+		<servlet-name>ReportController</servlet-name>
+		<servlet-class>com.diningday.controller.ReportController</servlet-class>
+	</servlet>
+	
 </web-app>  
