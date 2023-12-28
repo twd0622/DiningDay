@@ -16,7 +16,7 @@
 	<!-- 예시div style속성 값 조절해서 사용! -->
 	<div class="mainContainer"
 		style="width: 100%; height: 850px; background: white;">
-		<form method="post" action="admin_noticeWritepro.bo">
+		<form method="post" action="admin_noticeWritePro.ad">
 			<h4 style="text-align: left; padding-top: 20px;">&lt; 공지사항 수정 &gt;</h4>
 			<hr>
 			<div class="container" style="padding: 0 7% 0 7%;">

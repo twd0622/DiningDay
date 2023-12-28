@@ -4,7 +4,7 @@
 
 <mapper namespace="Admin">
 	
-	<insert id="insert" parameterType="map">
+	<insert id="noticeInsert" parameterType="map">
 		insert into NOTICE
 			( NOT_NO
 		    , NOT_TITLE
@@ -18,5 +18,58 @@
 		    , #{NOT_CONTENT}
 		    , date_format(sysdate(), '%Y%m%d%H%i%s') );
 	</insert>
+	
+	<update id="noticeUpdate" parameterType="map">
+		update 	NOTICE
+		set		NOT_TITLE 	= #{NOT_TITLE},
+				NOT_CONTENT = #{NOT_CONTENT},
+				NOT_DATE	= date_format(sysdate(), '%Y%m%d%H%i%s')
+		where	1 = 1
+		add		NOT_NO 		= #{NOT_NO} ;
+	
+	</update>
+	
+	<delete id="delete">
+		delete 	from	NOTICE
+				where	NOT_NO = #{NOT_NO}	
+	</delete>
+	
+	<select id="selectNoticeList" parameterType="map" resultType="map">
+		select NOT_NO, NOT_TITLE, NOT_CONTENT, date_format(ifnull(NOT_REDATE, NOT_DATE), '%Y-%m-%d') as "DATE"
+		from NOTICE
+		order by NOT_NO desc;	
+	</select>
+	
+	<select id="selectNoticeDetail" resultType="map">
+		select NOT_NO, NOT_TITLE, NOT_CONTENT, date_format(ifnull(NOT_REDATE, NOT_DATE), '%Y-%m-%d') as "DATE"
+		from NOTICE
+		where NOT_NO = #{NOT_NO}
+	</select>
+	
+	<select id="selectStoreList" resultType="map">
+		select STORE_NO, STORE_NAME, STORE_CATEGORY, STORE_TEL, STORE_LOCATION
+		from STORE
+		order by STORE_NO desc;
+	</select>
+	
+	<select id="selectUserList" resultType="map">
+		select CUS_NO, CUS_ID, CUS_NICK, CUS_NAME, CUS_GENDER, CUS_BIRTH, CUS_TEL, 
+			   CUS_EMAIL, date_format(ifnull(CUS_REDATE, CUS_DATE), '%Y-%m-%d') as "DATE"
+		from CUSTOMER
+		order by CUS_NO desc;	
+	</select>
+	
+	<select id="selectStoreReport" resultType="map">
+		select SREP_NO, CUS_NO, STORE_NO, STORE_NAME, SREP_CONTENT, date_format(SREP_DATE, '%Y-%m-%d') as "DATE", SREP_PROCESS
+		from STORE_REPORT
+		order by SREP_NO desc;	
+	</select>
+	
+	<select id="selectReviewReport" resultType="map">
+		select CREP_NO, OWN_NO, CREP_CONTENT, CREP_CONTENT, date_format(CREP_DATE, '%Y-%m-%d') as "DATE", CREP_PROCESS
+		from REVIEW_REPORT
+		order by CREP_NO desc;	
+	</select>
+	
 	
 </mapper>

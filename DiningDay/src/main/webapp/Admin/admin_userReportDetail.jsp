@@ -34,8 +34,9 @@
 							style="text-align: left;"><time>2023-12-21</time></td>
 					</tr>
 					<tr>
-						<td colspan="2">
-						<img src="img/review.jpg" style="width: 600px; height: 400px;"> <script>
+						<th class="title align-middle table-success"><a>첨부파일</a></th>
+						<td>
+						<img src="Admin/img/review.jpg" style="width: 50%; height: 50%;"> <script>
 					function setDetailImage(event){
 						for(var image of event.target.files){
 							var reader = new FileReader();
@@ -65,10 +66,7 @@
 		<hr>
 		<div class="row" style="padding: 0px 20px;">
 			<div class="d-grid gap-2 d-md-flex justify-content-md-center">
-				<a href="admin_noticeUpdate.jsp" type="button"
-					class="btn btn-outline-success">수정</a> <input type="button"
-					class="btn btn-outline-dark" value="목록"
-					onclick="window.history.back()">
+					<input type="button" class="btn btn-outline-dark" value="목록" onclick="window.history.back()">
 			</div>
 		</div>
 	</div>

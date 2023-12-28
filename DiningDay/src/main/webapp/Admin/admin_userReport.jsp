@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,8 +21,8 @@
 			<table class="table table-hover" id="article-table">
 				<thead>
 					<tr class="table-success">
-						<th class="title col-1 align-middle"><a>No</a></th>
-						<th class="hashtag col-1 align-middle"><a>리뷰 제목</a></th>
+						<th class="title col-1 align-middle"><a>번호</a></th>
+						<th class="hashtag col-1 align-middle"><a>점주번호</a></th>
 						<th class="user-id col-3"><a>신고 내용</a></th>
 						<th class="hashtag col-1 align-middle"><a>작성일자</a></th>
 						<th class="created-at col-1"> </th>
@@ -30,34 +31,16 @@
 
 				</thead>
 				<tbody>
-					<tr style="height: 60px;">
-						<td class="title align-middle"><a>4</a></td>
-						<td class="hashtag align-middle"><a href="admin_userReportDetail.jsp" class="review">리뷰4</a></td>
-						<td class="created-at col-1 align-middle"><a>내용4</a></td>
-						<td class="created-at col-1 align-middle"><a><time>2023-12-22</time></a></td>
-						<td><a href="contentWrite.jsp" class="btn btn-outline-danger">삭제</a></td>
-					</tr>
-					<tr style="height: 60px;">
-						<td class="title align-middle"><a>3</a></td>
-						<td class="hashtag align-middle"><a href="admin_userReportDetail.jsp" class="review">리뷰3</a></td>
-						<td class="created-at col-1 align-middle"><a>내용3</a></td>
-						<td class="created-at col-1 align-middle"><a><time>2023-12-21</time></a></td>
-						<td><a href="contentWrite.jsp" class="btn btn-outline-danger">삭제</a></td>
-					</tr>
-					<tr style="height: 60px;">
-						<td class="title align-middle"><a>2</a></td>
-						<td class="hashtag align-middle"><a href="admin_userReportDetail.jsp" class="review">리뷰2</a></td>
-						<td class="created-at col-1 align-middle"><a>내용2</a></td>
-						<td class="created-at col-1 align-middle"><a><time>2023-12-20</time></a></td>
-						<td><a href="contentWrite.jsp" class="btn btn-outline-danger">삭제</a></td>
-					</tr>
-					<tr style="height: 60px;">
-						<td class="title align-middle"><a>1</a></td>
-						<td class="hashtag align-middle"><a href="admin_userReportDetail.jsp" class="review">리뷰1</a></td>
-						<td class="created-at col-1 align-middle"><a>내용1</a></td>
-						<td class="created-at col-1 align-middle"><a><time>2023-12-19</time></a></td>						
-						<td><a href="contentWrite.jsp" class="btn btn-outline-danger">삭제</a></td>
-					</tr>
+					<c:set var="reviewReport" value="${ requestScope.reviewReport }"/>
+						<c:forEach var="rReport" items="${reviewReport}">
+							<tr style="height: 60px;" onClick="location.href='admin_userReportDetail.ad'">
+								<td class="title align-middle">${rReport.CREP_NO}</td>
+								<td class="hashtag align-middle">${rReport.OWN_NO}</td>
+								<td class="created-at col-1 align-middle">${rReport.CREP_CONTENT}</td>
+								<td class="created-at col-1 align-middle">${rReport.DATE}</td>
+								<td><a href="contentWrite.jsp" class="btn btn-outline-danger">삭제</a></td>
+							</tr>
+						</c:forEach>
 				</tbody>
 			</table>
 		</div>

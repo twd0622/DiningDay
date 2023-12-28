@@ -33,36 +33,27 @@
 					<tr>
 						<td class="title align-middle"><a>3</a></td>
 						<td class="hashtag align-middle">고객3</td>
-						<td><img src="img/gogi.jpg" width="200px" height="200px">
-						</td>
-						<td class="user-id align-middle" style="text-align: left;">고기
-							JMTGR</td>
+						<td><img src="Admin/img/gogi.jpg" width="200px" height="200px"></td>
+						<td class="user-id align-middle" style="text-align: left;">고기 JMTGR</td>
 						<td class="created-at col-1 align-middle"><a><time>2022-01-03</time></a></td>
-						<td class="align-middle">
-							<button type="button" class="btn btn-outline-danger">삭제</button>
-						</td>
+						<td class="align-middle"><a href="contentWrite.jsp" class="btn btn-outline-danger">삭제</a></td>
 					</tr>
 					<tr>
 						<td class="title align-middle"><a>2</a></td>
 						<td class="hashtag align-middle">고객2</td>
-						<td><img src="img/rice.jpg" width="200px" height="200px">
-						</td>
+						<td><img src="Admin/img/rice.jpg" width="200px" height="200px">
 						<td class="user-id align-middle" style="text-align: left;">존맛탱</td>
 						<td class="created-at col-1 align-middle"><a><time>2022-01-01</time></a></td>
-						<td class="align-middle">
-							<button type="button" class="btn btn-outline-danger">삭제</button>
-						</td>
+						<td class="align-middle"><a href="contentWrite.jsp" class="btn btn-outline-danger">삭제</a></td>
 					</tr>
 					<tr>
 						<td class="title align-middle"><a>1</a></td>
 						<td class="hashtag align-middle">고객1</td>
-						<td class="col-1"><img src="img/dduck.jpg" width="200px"
+						<td class="col-1"><img src="Admin/img/dduck.jpg" width="200px"
 							height="200px"></td>
 						<td class="user-id align-middle" style="text-align: left;">맛있어요</td>
 						<td class="created-at col-1 align-middle"><a><time>2022-01-03</time></a></td>
-						<td class="align-middle">
-							<button type="button" class="btn btn-outline-danger">삭제</button>
-						</td>
+						<td class="align-middle"><a href="contentWrite.jsp" class="btn btn-outline-danger">삭제</a></td>
 					</tr>
 				</tbody>
 			</table>

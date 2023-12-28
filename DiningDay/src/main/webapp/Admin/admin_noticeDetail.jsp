@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@page
 	import="org.apache.catalina.startup.ClassLoaderFactory.Repository"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,6 +23,10 @@
 		<div class="row" style="padding: 0 7% 0 7%;">
 			<table class="table table-hover" id="article-table">
 				<tbody>
+					<c:set var="noticeDetail" value="${ requestScope.noticeDetail }"/>
+						<c:forEach var="notDetail" items="${noticeDetail}">
+						${notDetail.NOT_NO} ${notDetail.NOT_CONTENT }
+						</c:forEach>
 					<tr>
 						<th class="title align-middle table-success"><a>글 제목</a></th>
 						<td class="user-id align-middle text-center"
@@ -38,23 +43,10 @@
 							style="text-align: left;"><time>2023-12-21</time></td>
 					</tr>
 					<tr>
-						<td colspan="2"><img src="img/itwill.jpg"
-							style="width: 600px; height: 400px;"> <script>
-					function setDetailImage(event){
-						for(var image of event.target.files){
-							var reader = new FileReader();
-				
-							reader.onload = function(event){
-								var img = document.createElement("img");
-								img.setAttribute("src", event.target.result);
-								img.setAttribute("class", "col-lg-6");
-								document.querySelector("div#images_container").appendChild(img);
-							};
-				
-							console.log(image);
-							reader.readAsDataURL(image);
-						}
-					}
+						<th class="title align-middle table-success"><a>첨부파일</a></th>
+						<td ><img src="Admin/img/itwill.jpg"
+							style="width: 60%; height: 60%;"> <script>
+							
 				</script></td>
 					</tr>
 					<tr style="height: 150px;">
@@ -69,7 +61,7 @@
 		<hr>
 		<div class="row" style="padding: 0px 20px;">
 			<div class="d-grid gap-2 d-md-flex justify-content-md-center">
-				<a href="admin_noticeUpdate.jsp" type="button"
+				<a href="admin_noticeUpdate.ad" type="button"
 					class="btn btn-outline-success">수정</a> <input type="button"
 					class="btn btn-outline-dark" value="목록"
 					onclick="window.history.back()">

@@ -92,11 +92,11 @@ a:active {
 
 		<div class="grid-item" id="item2" style="padding: 30px;">
 			<h2>
-				<a href="admin_storeConfirm.ad" class="notice link-success"
-					style="text-decoration: none;">식당 등록관리</a>
+				<a href="admin_storeList.ad" class="notice link-success"
+					style="text-decoration: none;">식당 정보조회</a>
 			</h2>
 			<hr>
-			<iframe src="admin_storeConfirm.ad" style="position:relative; width: 140%; right: 270px; height: 80%;"></iframe>
+			<iframe src="admin_storeList.ad" style="position:relative; width: 140%; right: 270px; height: 80%;"></iframe>
 		</div>
 		<div class="grid-item" id="item3" style="padding: 30px;">
 			<h2>

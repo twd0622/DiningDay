@@ -39,7 +39,6 @@ public class TeamUtil {
 	public static Map<String, String> requestToMap(MultipartRequest multi) {
 		Map<String, String> dto = new HashMap<String, String>();
 		try {
-			
 			@SuppressWarnings("unchecked")
 			Enumeration<String> parameterList = multi.getParameterNames();
 			@SuppressWarnings("unchecked")

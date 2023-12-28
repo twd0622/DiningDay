@@ -238,17 +238,6 @@ ul{
 	                    </li>
                     </ul>
                 </div>
-                <div class="nav__list">
-	             	<ul>
-                   		<li>    
-		                    <a href="admin_storeConfirm.ad" class="nav__link">
-		                        <ion-icon name="checkmark-outline"></ion-icon>
-		                        <span class="nav_name">식당 승인</span>
-		                    </a>
-                    	</li>
-                    </ul>
-                </div>
-                <br>
                 <ul>
                    	<li>
 		                <a href="admin_reviewList.ad" class="nav__link">

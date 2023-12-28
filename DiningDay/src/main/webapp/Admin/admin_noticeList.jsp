@@ -1,5 +1,8 @@
+<%@page import="java.util.Map"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,7 +14,6 @@
 
 <main
 	style="display: flex; align-items: center; text-align: center; padding: 20px 50px 50px 50px;">
-
 	<!-- 예시div style속성 값 조절해서 사용! -->
 	<div class="mainContainer"
 		style="width: 100%; height: 850px; background: white;">
@@ -30,30 +32,16 @@
 
 				</thead>
 				<tbody>
-					<tr style="height: 60px;">
-						<td class="title align-middle"><a>4</a></td>
-						<td class="hashtag align-middle"><a href="admin_noticeDetail.jsp" class="notice">공지 제목4</a></td>
-						<td class="user-id align-middle" style="text-align: left;">공지내용4 공지내용4 공지내용4 공지내용4</td>
-						<td class="created-at col-1 align-middle"><a><time>2023-12-21</time></a></td>
+				<c:set var="noticeList" value="${ requestScope.noticeList }"/>
+					<c:forEach var="notice" items="${noticeList }">
+						<tr style="height: 60px;" align="center" onClick="location.href='admin_noticeDetail.ad'">
+						<td class="title align-middle">${notice.NOT_NO}</td>
+						<td class="hashtag align-middle">${notice.NOT_TITLE}</td>
+						<td class="user-id align-middle" style="text-align: left;">${notice.NOT_CONTENT}</td>
+						<td class="created-at col-1 align-middle" id="dateRegex">${notice.DATE}</td>
+						
 					</tr>
-					<tr style="height: 60px;">
-						<td class="title align-middle"><a>3</a></td>
-						<td class="hashtag align-middle"><a href="admin_noticeDetail.jsp" class="notice">공지 제목3</a></td>
-						<td class="user-id align-middle" style="text-align: left;">공지내용3 공지내용3 공지내용3</td>
-						<td class="created-at col-1 align-middle"><a><time>2023-12-20</time></a></td>
-					</tr>
-					<tr style="height: 60px;">
-						<td class="title align-middle"><a>2</a></td>
-						<td class="hashtag align-middle"><a href="admin_noticeDetail.jsp" class="notice">공지 제목2</a></td>
-						<td class="user-id align-middle" style="text-align: left;">공지내용2 공지내용2</td>
-						<td class="created-at col-1 align-middle"><a><time>2023-12-19</time></a></td>
-					</tr>
-					<tr style="height: 60px;">
-						<td class="title align-middle"><a>1</a></td>
-						<td class="hashtag align-middle"><a href="admin_noticeDetail.jsp" class="notice">공지 제목1</a></td>
-						<td class="user-id align-middle" style="text-align: left;">공지내용1</td>
-						<td class="created-at col-1 align-middle"><a><time>2023-12-18</time></a></td>
-					</tr>
+					</c:forEach>
 				</tbody>
 			</table>
 		</div>

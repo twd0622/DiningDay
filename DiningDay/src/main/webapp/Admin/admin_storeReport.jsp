@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,10 +18,10 @@
 		<h4 style="text-align: left;">&lt; 식당신고 관리 &gt;</h4>
 		<hr>
 		<div class="row" style="padding: 0 7% 0 7%;">
-			<table class="table" id="article-table">
+			<table class="table table-hover" id="article-table">
 				<thead>
 					<tr class="table-success">
-						<th class="title col-1 align-middle"><a>No</a></th>
+						<th class="title col-1 align-middle"><a>번호</a></th>
 						<th class="hashtag col-1 align-middle"><a>식당명</a></th>
 						<th class="user-id col-3"><a>신고 내용</a></th>
 						<th class="created-at col-1"><a>작성일자</a></th>
@@ -28,42 +29,16 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td class="title align-middle"><a>4</a></td>
-						<td class="hashtag align-middle"><a href="admin_storeReportDetail.jsp" class="review">컴포즈 커피</a></td>
-						<td class="user-id align-middle" style="text-align: left;">없는 매장이에요</td>
-						<td class="created-at col-1 align-middle"><a><time>2022-01-04</time></a></td>
-						<td class="align-middle">
-							<button type="button" class="btn btn-outline-danger">삭제</button>
-						</td>
-					</tr>
-					<tr>
-						<td class="title align-middle"><a>3</a></td>
-						<td class="hashtag align-middle"><a href="admin_storeReportDetail.jsp" class="review">더벤티</a></td>
-						<td class="user-id align-middle" style="text-align: left;">가게가 없어요</td>
-						<td class="created-at col-1 align-middle"><a><time>2022-01-03</time></a></td>
-						<td class="align-middle">
-							<button type="button" class="btn btn-outline-danger">삭제</button>
-						</td>
-					</tr>
-					<tr>
-						<td class="title align-middle"><a>2</a></td>
-						<td class="hashtag align-middle"><a href="admin_storeReportDetail.jsp" class="review">더리터</a></td>
-						<td class="user-id align-middle" style="text-align: left;">없는 매장이에요</td>
-						<td class="created-at col-1 align-middle"><a><time>2022-01-02</time></a></td>
-						<td class="align-middle">
-							<button type="button" class="btn btn-outline-danger">삭제</button>
-						</td>
-					</tr>
-					<tr>
-						<td class="title align-middle"><a>1</a></td>
-						<td class="hashtag align-middle"><a href="admin_storeReportDetail.jsp" class="review">텐퍼센트</a></td>
-						<td class="user-id align-middle" style="text-align: left;">가게가 없어요;;</td>
-						<td class="created-at col-1 align-middle"><a><time>2022-01-01</time></a></td>
-						<td class="align-middle">
-							<button type="button" class="btn btn-outline-danger">삭제</button>
-						</td>
-					</tr>
+					<c:set var="storeReport" value="${ requestScope.storeReport }"/>
+						<c:forEach var="sReport" items="${storeReport}">
+							<tr onClick="location.href='admin_storeReportDetail.ad'">
+								<td class="title align-middle" id="td1">${sReport.SREP_NO}</td>
+								<td class="hashtag align-middle" id="td1">${sReport.STORE_NAME}</td>
+								<td class="user-id align-middle" style="text-align: left;" id="td1"> ${sReport.SREP_CONTENT}</td>
+								<td class="created-at col-1 align-middle" id="td1">${sReport.DATE}</td>
+								<td class="align-middle"><a href="contentWrite.jsp" class="btn btn-outline-danger">삭제</a></td>
+							</tr>
+						</c:forEach>
 				</tbody>
 			</table>
 		</div>

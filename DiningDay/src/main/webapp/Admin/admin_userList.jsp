@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,39 +21,37 @@
 			<table class="table table-hover" id="article-table">
 				<thead>
 					<tr class="table-success">
-						<th class="title col-1 align-middle"><a>No</a></th>
-						<th class="hashtag col-1 align-middle"><a>고객명</a></th>
-						<th class="user-id col-2"><a>가입날짜</a></th>
-						<th class="created-at col-1"> </th>
-
+						<th class="title col-1 align-middle"><a>고객번호</a></th>
+						<th class="hashtag col-2 align-middle"><a>고객ID(닉네임)</a></th>
+						<th class="user-id col-2 align-middle"><a>가입정보</a></th>
+						<th class="user-id col-1 align-middle"><a>가입날짜</a></th>
+						<th class="created-at col-1 align-middle"> </th>
 					</tr>
-
 				</thead>
 				<tbody>
-					<tr style="height: 60px;">
-						<td class="title align-middle"><a>4</a></td>
-						<td class="hashtag align-middle"><a>고객4</a></td>
-						<td class="created-at col-1 align-middle"><a><time>2023-12-22</time></a></td>
-						<td><a href="contentWrite.jsp" class="btn btn-outline-danger">삭제</a></td>
-					</tr>
-					<tr style="height: 60px;">
-						<td class="title align-middle"><a>3</a></td>
-						<td class="hashtag align-middle"><a>고객3</a></td>
-						<td class="created-at col-1 align-middle"><a><time>2023-12-21</time></a></td>
-						<td><a href="contentWrite.jsp" class="btn btn-outline-danger">삭제</a></td>
-					</tr>
-					<tr style="height: 60px;">
-						<td class="title align-middle"><a>2</a></td>
-						<td class="hashtag align-middle"><a>고객2</a></td>
-						<td class="created-at col-1 align-middle"><a><time>2023-12-20</time></a></td>
-						<td><a href="contentWrite.jsp" class="btn btn-outline-danger">삭제</a></td>
-					</tr>
-					<tr style="height: 60px;">
-						<td class="title align-middle"><a>1</a></td>
-						<td class="hashtag align-middle"><a>고객1</a></td>
-						<td class="created-at col-1 align-middle"><a><time>2023-12-19</time></a></td>
-						<td><a href="contentWrite.jsp" class="btn btn-outline-danger">삭제</a></td>
-					</tr>
+					<c:set var="userList" value="${ requestScope.userList }"/>
+						<c:forEach var="user" items="${userList}">
+							<tr style="height: 60px;">
+								<td class="title align-middle">${user.CUS_NO}</td>
+								<td class="hashtag align-middle">${user.CUS_ID} (${user.CUS_NICK})</td>
+								<td class="created-at col-1 align-middle text-start">
+									<div style="display: flex; flex-direction: row; justify-content: space-between; padding: 0 60px;">
+										<span><b>　고객명 　: </b></span><span>${user.CUS_NAME} (${user.CUS_GENDER})</span>
+									</div>
+									<div style="display: flex; flex-direction: row; justify-content: space-between; padding: 0 60px;">
+										<span><b>생년월일 　: </b></span><span>${user.CUS_BIRTH}</span>
+									</div>
+									<div style="display: flex; flex-direction: row; justify-content: space-between; padding: 0 60px;">
+										<span><b>전화번호 　: </b></span><span>${user.CUS_TEL}</span>
+									</div>
+									<div style="display: flex; flex-direction: row; justify-content: space-between; padding: 0 60px;">
+										<span><b>　이메일 　: </b></span><span>${user.CUS_EMAIL}</span>
+									</div>
+								</td>
+								<td class="created-at col-1 align-middle">${user.DATE}</td>
+								<td class="align-middle"><a href="contentWrite.jsp" class="btn btn-outline-danger">삭제</a></td>
+							</tr>
+						</c:forEach>
 				</tbody>
 			</table>
 		</div>

@@ -33,8 +33,8 @@
 						<td>2023-12-18</td>
 					</tr>
 					<tr>
-						<td colspan="2"><img src="img/review.jpg" disabled='disabled'
-							style="max-width: 40%; max-height: 30%;"> <script>
+						<td colspan="2"><img src="Admin/img/review.jpg" disabled='disabled'
+							style="max-width: 50%; max-height: 50%;"> <script>
 					function setDetailImage(event){
 						for(var image of event.target.files){
 							var reader = new FileReader();
@@ -60,7 +60,7 @@
 			</table>
 		</div>
 		<hr>
-		<input type="button" class="btn btn-outline-success" value="확인"
+		<input type="button" class="btn btn-outline-dark" value="목록"
 			onclick="window.history.back()">
 	</div>
 </main>

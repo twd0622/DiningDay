@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,59 +22,27 @@
 				<thead>
 					<tr class="table-success">
 						<th class="title col-1 align-middle"><a>No</a></th>
-						<th class="hashtag col-1 align-middle"><a>사업자 번호</a></th>
+						<th class="hashtag col-2 align-middle"><a>식당명</a></th>
 						<th class="user-id col-2 align-middle"><a>식당 정보</a></th>
-						<th class="hashtag col-1 align-middle"><a>승인 날짜</a></th>
-						<th class="created-at col-1"> </th>
+						<th class="created-at col-2"> </th>
 
 					</tr>
 
 				</thead>
 				<tbody>
-					<tr style="height: 60px;">
-						<td class="title align-middle"><a>4</a></td>
-						<td class="hashtag align-middle"><a href="admin_storeDetail.jsp" class="ownerNum">987-65-43219</a></td>
-						<td class="align-middle"> 
-							칸다소바 <br>
-							051-111-1111 <br>
-							부산광역시 동천로 105
-						</td>
-						<td class="created-at col-1 align-middle"><a><time>2023-12-20</time></a></td>
-						<td class="align-middle"><a href="contentWrite.jsp" class="btn btn-outline-danger align-middle">삭제</a></td>
+				<c:set var="storeList" value="${ requestScope.storeList }"/>
+					<c:forEach var="store" items="${storeList }">
+						<tr style="height: 60px;" onClick="location.href='admin_storeDetail.ad'">
+							<td class="title align-middle">${store.STORE_NO}</td>
+							<td class="align-middle">${store.STORE_NAME}</td>
+							<td class="created-at col-1 align-middle text-start">															
+								<b>구분</b> : ${store.STORE_CATEGORY} <br>
+								<b>전화</b> : ${store.STORE_TEL} <br>
+								<b>위치</b> : ${store.STORE_LOCATION}
+							</td>
+							<td class="align-middle"><a href="contentWrite.jsp" class="btn btn-outline-danger align-middle">삭제</a></td>
 					</tr>
-					<tr style="height: 60px;">
-						<td class="title align-middle"><a>3</a></td>
-						<td class="hashtag align-middle"><a href="admin_storeDetail.jsp" class="ownerNum">159-45-73852</a></td>
-						<td class="align-middle"> 
-							미진축산 <br>
-							051-222-2222 <br>
-							부산광역시 동천로 106
-						</td>
-						<td class="created-at col-1 align-middle"><a><time>2023-12-20</time></a></td>
-						<td class="align-middle"><a href="contentWrite.jsp" class="btn btn-outline-danger align-middle">삭제</a></td>
-					</tr>
-					<tr style="height: 60px;">
-						<td class="title align-middle"><a>2</a></td>
-						<td class="hashtag align-middle"><a href="admin_storeDetail.jsp" class="ownerNum">357-45-97852</a></td>
-						<td class="align-middle"> 
-							곱전당 <br>
-							051-333-3333 <br>
-							부산광역시 동천로 107
-						</td>
-						<td class="created-at col-1 align-middle"><a><time>2023-12-20</time></a></td>
-						<td class="align-middle"><a href="contentWrite.jsp" class="btn btn-outline-danger">삭제</a></td>
-					</tr>
-					<tr style="height: 60px;">
-						<td class="title align-middle"><a>1</a></td>
-						<td class="hashtag align-middle"><a href="admin_storeDetail.jsp" class="ownerNum">277-55-31275</a></td>
-						<td class="align-middle"> 
-							소인수분해 <br>
-							051-444-4444 <br>
-							부산광역시 동천로 108
-						</td>
-						<td class="created-at col-1 align-middle"><a><time>2023-12-20</time></a></td>
-						<td class="align-middle"><a href="contentWrite.jsp" class="btn btn-outline-danger">삭제</a></td>
-					</tr>
+					</c:forEach>
 				</tbody>
 			</table>
 		</div>
