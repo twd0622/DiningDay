@@ -59,7 +59,7 @@
 				<input id="peopleOption" type="text" class="form-control" style="background: #f5f5f5; border: 0; padding: 20px 40px; width: 210px; text-align: center;"
 				       value="인원 ${sessionScope.people}명" readonly="readonly">
 				<!-- 인원 설정 모달창 -->
-				<div data-popper-reference-hidden="false" data-popper-escaped="false" data-popper-placement="bottom-start" style="position: absolute; inset: 0px auto auto 0px; transform: translate(840px, 90px);">
+				<div style="position: absolute; inset: 0px auto auto 0px; transform: translate(840px, 90px);">
 					<div class="css-1k7dy5j" style="max-height: 577px;">
 						<div class="css-1eygow7">
 							<div class="css-e9pzjs">
