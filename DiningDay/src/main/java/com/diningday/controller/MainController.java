@@ -48,11 +48,17 @@ public class MainController extends HttpServlet {
 		if(sPath.equals("/store.ma")) {
 			String store_no = req.getParameter("STORE_NO");
 			req.setAttribute("storeInfo", mainService.getStore(req));
-			req.setAttribute("menuList", mainService.getMenu(req));
-			req.setAttribute("tableList", mainService.getTable(req));
+			req.setAttribute("menuList", mainService.getMenuList(req));
+			req.setAttribute("tableList", mainService.getTableList(req));
 			
 			dispatcher = req.getRequestDispatcher("Main/store.jsp");
 			dispatcher.forward(req, res);
+		}
+		
+		if(sPath.equals("/getTable.ma")) {
+			
+			res.setContentType("application/x-json; charset=utf-8");
+			res.getWriter().print(mainService.getTable(req));
 			
 		}
 		
