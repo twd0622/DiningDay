@@ -1,6 +1,10 @@
 /**
  * 
  */
+document.write('<script type="text/javascript"' + 
+			    	'src="/' + window.location.pathname.split("/")[1] + '/Store/resour/js/photo_control.js">' +
+			    '</script>');
+
 function format(tagName, boolean){
 	$(tagName).find("input").prop("readonly", boolean);
 	$(tagName).find("textarea").prop("readonly", boolean);
@@ -73,11 +77,22 @@ $(() => {
 		
 		format(tr, true);	//	해당 <tr> readonly 설정
 		
+		var c = {
+			type: "post",
+			url: "smenuUpdate.st",
+			dataType: "json",
+			data: datalist(tr),
+			processData: false,
+			contentType: false			
+		}
+		debugger;
 		$.ajax({
 			type: "post",
 			url: "smenuUpdate.st",
 			dataType: "json",
-			data: datalist(tr)
+			data: datalist(tr),
+			processData: false,
+			contentType: false			
 		})
 		.done(
 			function(data){
@@ -85,39 +100,20 @@ $(() => {
 				tr.append("")
 			}
 		)
-		.fail()
+		.fail(
+		)
 	})
 })		
-		
-function menuPro(data){
-	$.ajax({
-			type: "post",
-			url: "smenuPro.st",
-			dataType: "json",
-			data: data
-		})
-		.done(function(result) { 
-			$.ajax({
-				type: "post",
-				url: "smenuPro.st",
-				dataType: "json"
-			})
-			.done(function(result2){
-				alert("안녕");
-			})		
-		})
-		.fail()
-}
 	
 function datalist(row){
-	
+
 	var data = {};
-	data["MENU_NAME"] = $(row).find("input[name=MENU_NAME]").val();
-	data["PHOTO_NAME"] = $(row).find(".MENU_PHOTO").val();
-	data["PHOTO_NAME"] = $(row).find("input[name=PHOTO_NAME]").val();
-	data["MENU_INFO"] = $(row).find("textarea[name=MENU_INFO]").val();
-	data["MENU_PRICE"] = $(row).find("input[name=MENU_PRICE]").val();
-	data["MENU_NO"] = $(row).find("input[name=MENU_NO]").val(); 
+	data["MENU_NAME"] = row.find("input[name=MENU_NAME]").val();
+	data["MENU_NO"] = row.find("input[name=MENU_NO]").val();
+	data["PHOTO_NAME"] = file[0];
+	data["MENU_INFO"] = row.find("textarea[name=MENU_INFO]").val();
+	data["MENU_PRICE"] = row.find("input[name=MENU_PRICE]").val();
+	data["MENU_HIDE"] = row.find("select option").index($("option:selected"));
 	
 	return data;
 }

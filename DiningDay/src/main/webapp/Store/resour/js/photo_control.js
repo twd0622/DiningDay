@@ -1,7 +1,8 @@
 /**
  * 
  */
-	
+var file;	
+
 $(() => {
 	file_image();
 });
@@ -9,9 +10,9 @@ $(() => {
 function file_image(){
 	$("input[type=file]").change(e => {
 		var index = $(e.currentTarget).attr('id').split('_')[1];
-		const file = e.target.files;
+		file = e.target.files;
 		
-		$($(e.target).prev()).html(file[0].name);	//	<span> 이미지 파일이름 출력
+		var filename = $($(e.target).prev()).html(file[0].name);	//	<span> 이미지 파일이름 출력
 		
 		var image = new Image();
 		var ImageTempUrl = window.URL.createObjectURL(file[0]);

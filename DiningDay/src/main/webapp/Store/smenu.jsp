@@ -66,7 +66,6 @@
 								<c:set var="menuList" value="${ requestScope.menuList }" />
 								<c:forEach var="menu" items="${ menuList }">
 									<tr>
-										<form method="post" enctype="multipart/form-data">
 										<td><input type="text" class="form-control" name="MENU_NAME" value="${ menu.MENU_NAME }"></td>
 										<td>
 											<input type="hidden" name="MENU_NO" value="${ menu.MENU_NO }">
@@ -94,7 +93,6 @@
 					                        	<ion-icon name="trash-outline"></ion-icon>
 					                   	 	</button>
 					                	</td>
-										</form>
 									</tr>
 								</c:forEach>
 					    	</tbody>
@@ -105,7 +103,6 @@
 				</div>
 			</div>
     	</main>	
-    	<script src="${ pageContext.request.contextPath }/Store/resour/js/menu_control.js"></script>
-    	<script src="${ pageContext.request.contextPath }/Store/resour/js/photo_control.js"></script>
+    	<script type="text/javascript" src="${ pageContext.request.contextPath }/Store/resour/js/menu_control.js"></script>
 	<%@ include file="/Template/store_sidevar_close.jsp"%> 	
 </html> 

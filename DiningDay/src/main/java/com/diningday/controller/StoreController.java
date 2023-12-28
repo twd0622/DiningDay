@@ -49,7 +49,7 @@ public class StoreController extends HttpServlet {
 		}
 		
 		if(sPath.equals("/smenuUpdate.st")) {
-			System.out.println(TeamUtil.requestToMap(req));
+			System.out.println(TeamUtil.fileRequestToMap(req));
 			
 			JsonObject jo = storeService.menuUpdate(req);
 			if(jo == null) {
