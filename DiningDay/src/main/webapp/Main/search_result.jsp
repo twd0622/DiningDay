@@ -16,8 +16,9 @@
     <link href="Main/css/search_result.css" rel="stylesheet">
     
     <script src="Main/js/location_select_modal.js"></script>
+    <script src="Main/js/main.js"></script>
+    <script src="Main/js/search_result.js"></script>
     <link href="Main/css/location_select_modal.css" rel="stylesheet">
-     <script src="Main/js/main.js"></script>
     <title>DINING DAY</title>    
 </head>
 	<c:set var="searchList" value="${requestScope.searchList}" />
@@ -51,7 +52,7 @@
                 <div style="display: flex; flex-direction: column; justify-content: space-around;">
 					<!-- 검색 결과 -->	
                 	<c:forEach var="list" items="${searchList}">
-	                    <div id="store_result" class="mb-4" style="margin: 20px 20px; padding:20px 40px; border-bottom: 2px solid #e6e6eb;">
+	                    <div id="store_result" name="${list.STORE_NO}" class="mb-4" style="margin: 20px 20px; padding:20px 40px; border-bottom: 2px solid #e6e6eb;">
 	                        <div class="portfolio-item  store_result">
 	                                <img class="img-fluid" src="Main/칸다소바.jpg" alt="칸다소바.jpg" style="width: 550px; height: 250px;"/>
 	                            <div class="portfolio-caption" style="">

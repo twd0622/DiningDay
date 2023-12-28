@@ -12,6 +12,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 
 public class TeamUtil {
@@ -41,6 +42,41 @@ public class TeamUtil {
 	public static Map<String, String> requestToMap(MultipartRequest multi) {
 		Map<String, String> dto = new HashMap<String, String>();
 		try {
+			
+			@SuppressWarnings("unchecked")
+			Enumeration<String> parameterList = multi.getParameterNames();
+			@SuppressWarnings("unchecked")
+			Enumeration<String> fileList = multi.getFileNames();
+			
+			// 파일
+			while(fileList.hasMoreElements()) {
+				String reqName = fileList.nextElement();
+				dto.put(reqName, multi.getFilesystemName(reqName));
+			}
+			
+			// 파라미터
+			while(parameterList.hasMoreElements()) {
+				String reqName = parameterList.nextElement();
+				dto.put(reqName, multi.getParameter(reqName));
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		return dto;
+	}
+	
+	// 파일request 받아온 파라미터 맵에 넣어주는 함수
+	public static Map<String, String> fileRequestToMap(HttpServletRequest req) {
+		Map<String, String> dto = new HashMap<String, String>();
+		
+		String uploadPath = req.getRealPath("/upload");
+		int maxSize = 10 * 1024 * 1024;
+		
+		try {
+			MultipartRequest multi = new MultipartRequest(req, uploadPath, maxSize, "UTF-8", new DefaultFileRenamePolicy());
 			
 			@SuppressWarnings("unchecked")
 			Enumeration<String> parameterList = multi.getParameterNames();

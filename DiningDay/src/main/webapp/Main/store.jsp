@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<%@ include file="/Template/header.jsp"%> 
     <meta charset="utf-8">
     <!-- 식당 이름으로 타이틀 지정 -->
     <title>식당 상세 페이지</title>
@@ -13,8 +14,10 @@
 	<script src="Main/js/storeModal.js"></script>
 	
 </head>
-
-<%@ include file="/Template/header.jsp"%> 
+	<c:set var="storeInfo" value="${requestScope.storeInfo}"/>
+	<c:set var="menuList" value="${requestScope.menuList}"/>
+	<c:set var="tableList" value="${requestScope.tableList}"/>
+	
 	<!-- main은 속성 값은 왠만하면 건들지x -->
 	<main style="display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; margin-top: 100px; padding:20px 0 50px 0;">
 		
@@ -34,18 +37,21 @@
 					</div>
 				</div>					
 				<div class="tit-point">
-					<h1>칸다 소바</h1>
+					<h1>${storeInfo.STORE_NAME}</h1>
 				</div>
 				<div class="store_category">
-					<p>일식 | 라멘</p>
+					<p>${storeInfo.STORE_CATEGORY} | 라멘, 마제소바 !추가 사항</p>
+				</div>
+				<div class="store_category">
+					<p>${storeInfo.STORE_TEL}</p>
 				</div>
 				<div class="store_score">
 					<p>
-						<strong style="font-size:18px; vertical-align:middle; padding-right:8px;">86점</strong>
+						<strong style="font-size:18px; vertical-align:middle; padding-right:8px;">${storeInfo.STORE_SCORE}점</strong>
 						<span style="font-size: 13px; color: #66666e; margin-right: 5px;">
-							87명의 평가 
+							87명의 평가 !추가 사항
 							<strong style="font-weight: 600; color: #222228;">
-								4.0점
+								${storeInfo.STORE_SCORE}점
 							</strong>
 						</span>
 						<span class="material-symbols-outlined grade_icon">grade</span>
@@ -86,30 +92,30 @@
 					<ul class="list">
 						<li>
 							<p class="l-txt"><strong>화 ~ 목</strong></p>
-							<p class="r-txt">영업시간: 11:30 - 21:30</p>
+							<p class="r-txt">영업시간: ${storeInfo.STORE_TIME}</p>
 						</li>
 						<li>
 						  <p class="l-txt"> </p>
-						  <p class="r-txt">브레이크타임: 15:30 - 17:00</p>
+						  <p class="r-txt">브레이크타임: ${storeInfo.STORE_BT}</p>
 						</li>
               			<li>
   							<p class="l-txt"> </p>
-  							<p class="r-txt">라스트오더: 21:00</p>
+  							<p class="r-txt">라스트오더: ${storeInfo.STORE_LO}</p>
 						</li>
 					</ul>
 					<hr class="hr">
 					<ul class="list">
 						<li>
 							<p class="l-txt"><strong>금 ~ 일</strong></p>
-							<p class="r-txt">영업시간: 11:30 - 21:30</p>
+							<p class="r-txt">영업시간: ${storeInfo.STORE_TIME}</p>
 						</li>
 						<li>
 						  <p class="l-txt"> </p>
-						  <p class="r-txt">브레이크타임: x </p>
+						  <p class="r-txt">브레이크타임: ${storeInfo.STORE_BT}</p>
 						</li>
               			<li>
   							<p class="l-txt"> </p>
-  							<p class="r-txt">라스트오더: 22:00</p>
+  							<p class="r-txt">라스트오더: ${storeInfo.STORE_LO}</p>
 						</li>
 					</ul>
 					<hr class="hr">
@@ -124,41 +130,21 @@
 				<div class="menuBox">
 					<p class="tit">대표 메뉴</p>
 						<ul class="list Restaurant_MenuList">
-							<li>
-								<p class="l-txt Restaurant_MenuItem"><span class="Restaurant_Menu">츠케멘</span></p>
-								<p class="r-txt Restaurant_MenuPrice">12,000원</p>
-							</li>
-							<li>
-								<p class="l-txt Restaurant_MenuItem"><span class="Restaurant_Menu">이에케 돈코츠 라멘</span></p>
-								<p class="r-txt Restaurant_MenuPrice">11,000원</p>
-							</li>
-							<li>
-								<p class="l-txt Restaurant_MenuItem"><span class="Restaurant_Menu">마제소바</span></p>
-								<p class="r-txt Restaurant_MenuPrice">10,000원</p>
-							</li>
-							<li>
-								<p class="l-txt Restaurant_MenuItem"><span class="Restaurant_Menu">아부라소바</span></p>
-								<p class="r-txt Restaurant_MenuPrice">10,000원</p>
-							</li>
-							<li>
-								<p class="l-txt Restaurant_MenuItem"><span class="Restaurant_Menu">돼지껍데기 아부라소바</span></p>
-								<p class="r-txt Restaurant_MenuPrice">12,500원</p>
-							</li>
+							<c:forEach var="menu" items="${menuList}">
+								<c:if test="${menu.MENU_HIDE == 1}">
+									<li>
+										<p class="l-txt Restaurant_MenuItem"><span class="Restaurant_Menu">${menu.MENU_NAME}</span></p>
+										<p class="r-txt Restaurant_MenuPrice">${menu.MENU_PRICE}원</p>
+									</li>
+								</c:if>
+							</c:forEach>
 						</ul>
 				</div>
 				<div class="store_infoBOX">
 					<p class="tit">식당 설명</p>
 					<div>
 						<pre>
-[칸다소바 소개]
-
-장어덮밥 전문점 '해목' 을 운영중인 셰프가
-일본 도쿄 라멘 대회 우승 경력의 라멘 전문점 '칸다 와이즈' 에서
-직접 기술을 전수 받은 라멘 전문점입니다.
-
-라멘의 3요소인 면, 육수, 타래를
-각각의 메뉴에 조화롭도록 수작업으로
-제작하여 사용합니다.
+${storeInfo.STORE_INFO}
 						</pre>
 					</div>	
 				</div>				
@@ -166,30 +152,41 @@
 				<div class="tableBox">
 					<p class="tit">테이블 예약</p>
 					<ul class="list">
+						<c:forEach var="table" items="${tableList}">
+						
+						
 						<li>
 							<div class="table_">
 								<div class="table_img"></div>
 								<div class="table_info" >
 									<div class="table_name_box">
-										<p class="table_name">A1</p>
+										<p class="table_name">${table.SEAT_NAME}</p>
 										<a style="text-align: right; font-size: 15px; line-height: 100%">상세 보기 ></a>
 									</div>
 									<div class="table_res">
 										<div style="width: 80%; height: 100%; line-height: 100%;">
 											<ul>
-												<li>최소인원: 2명</li>
-												<li>최대인원: 4명</li>
-												<li>이용 시간: 2시간</li>
-												<li>뷰: 오션뷰</li>
+												<li>최소인원: ${table.SEAT_MIN}명</li>
+												<li>최대인원: ${table.SEAT_MAX}명</li>
+												<li>이용 시간: ${table.SEAT_USETIME}시간</li>
+												<li>${table.SEAT_CONTENT}</li>
 											</ul>
 										</div>
-										<div style="width: 20%;">
-											<button class="btn btn-outline-warning modalOpen" style="margin-top:80%">예약하기</button>
-										</div>
+										<c:if test="${table.SEAT_OC == 1}">
+											<div style="width: 20%;">
+												<button class="btn btn-outline-warning modalOpen" style="margin-top:80%">예약하기</button>
+											</div>
+										</c:if>
+										<c:if test="${table.SEAT_OC == 0}">
+											<div style="width: 20%;">
+												<button class="btn btn-outline-error modalOpen" style="margin-top:80%" disabled="disabled">예약마감</button>
+											</div>
+										</c:if>
 									</div>
 								</div>
 							</div>
 						</li>
+						</c:forEach>
 						<li>
 							<div class="table_">
 								<div class="table_info" >
