@@ -1,0 +1,110 @@
+@charset "UTF-8";
+
+
+.css-1k7dy5j {
+    width: 340px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 10px;
+    padding: 12px 24px;
+    --tw-shadow: 0px 2px 16px rgba(0, 0, 0, 0.08);
+    --tw-shadow-colored: 0px 2px 16px var(--tw-shadow-color);
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000),var(--tw-ring-shadow, 0 0 #0000),var(--tw-shadow);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    border-width: 1px;
+    --tw-border-opacity: 1;
+    border-color: rgb(235 235 235 / var(--tw-border-opacity));
+    overflow: auto;
+}
+
+.css-1eygow7 {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+}
+
+.css-e9pzjs {
+    display: flex;
+    flex: 1 1 0%;
+    flex-direction: column;
+    -webkit-box-pack: center;
+    justify-content: center;
+    gap: 4px;
+}
+
+.css-1yqhrfc {
+    font-size: 1rem;
+    line-height: normal;
+    letter-spacing: 0px;
+    font-weight: 600;
+    --tw-text-opacity: 1;
+    color: rgb(51 51 51 / var(--tw-text-opacity));
+}
+
+.css-1kmy7xr {
+    font-size: 0.75rem;
+    line-height: 1rem;
+    letter-spacing: 0px;
+    font-weight: 400;
+    --tw-text-opacity: 1;
+    color: rgb(153 153 153 / var(--tw-text-opacity));
+}
+
+.css-1j7hnhe {
+    display: flex;
+    flex: 1 1 0%;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: end;
+    justify-content: flex-end;
+}
+
+.css-1mcn6si {
+    display: flex;
+    flex-direction: row;
+    -webkit-box-align: center;
+    align-items: center;
+}
+
+.css-11zi1w5 {
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    background-color: rgb(255, 255, 255);
+    border-radius: 50%;
+    border-width: 1.5px;
+    --tw-border-opacity: 1;
+    border-color: rgb(235 235 235 / var(--tw-border-opacity));
+    cursor: pointer;
+    height: 40px;
+    width: 40px;
+}
+
+.css-11zi1w5 svg {
+    height: 16px;
+    width: 16px;
+    fill: rgb(51, 51, 51);
+}
+
+.css-gcrqic {
+    min-width: 48px;
+    padding-left: 10px;
+    padding-right: 10px;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    font-size: 1.25rem;
+    line-height: normal;
+    letter-spacing: 0px;
+    font-weight: 700;
+    --tw-text-opacity: 1;
+    color: rgb(51 51 51 / var(--tw-text-opacity));
+}
+
