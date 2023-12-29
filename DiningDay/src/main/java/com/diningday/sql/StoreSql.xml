@@ -4,14 +4,49 @@
 
 <mapper namespace="Menu">
 	
-	<insert id="menuinsert" parameterType="map">
-		
+	<insert id="menuInsert" parameterType="map">
+		insert		
+			into STORE_IMAGE
+				( STORE_NO
+				, PHOTO_NO
+				, PHOTO_NAME
+				, PHOTO_TYPE
+				)
+			values
+				( '1'
+				, (select ifnull(max(cast(PHOTO_NO as unsigned)), 0) + 1
+					 from STORE_IMAGE a)
+				, #{PHOTO_NAME}
+				, (select concat(#{MENU_NO}, "", ifnull(max(cast(PHOTO_NO as unsigned)), 0) + 1)
+					 from STORE_IMAGE b)
+				)
+				;
+		insert		
+			into MENU
+				( STORE_NO
+				, MENU_NO
+				, MENU_NAME
+				, MENU_PRICE
+				, MENU_HIDE
+				, MENU_INFO
+				)
+			values
+				( '1'
+				, (select concat(#{MENU_NO}, "", ifnull(max(cast(MENU_NO as unsigned)), 0) + 1)
+					 from STORE_IMAGE c)
+				, #{MENU_NAME}
+				, #{MENU_PRICE}
+				, #{MENU_HIDE}
+				, #{MENU_INFO}
+				);		
 	</insert>
 	
 	<select id="menuList" parameterType="map" resultType="map">
 		select m.MENU_NAME, s.PHOTO_NAME, m.MENU_INFO, m.MENU_PRICE, m.MENU_HIDE, m.MENU_NO
 		  from MENU m join STORE_IMAGE s
 		    on m.MENU_NO = s.PHOTO_TYPE
+		 where 1 = 1
+		   and m.STORE_NO = #{STORE_NO}   
 		 order by m.MENU_NO desc;   
 	</select>
 	
@@ -30,10 +65,13 @@
 	
 	<select id="menuSelect" parameterType="map" resultType="map">
 		select m.MENU_NAME, s.PHOTO_NAME, m.MENU_INFO, m.MENU_PRICE, m.MENU_HIDE, m.MENU_NO
-		  from MENU m join STORE_IMAGE s
+		  from MENU m 
+		  join STORE_IMAGE s
 		    on m.MENU_NO = s.PHOTO_TYPE
 		 where 1 = 1
-		   and m.MENU_NO = #{MENU_NO};
+		   and m.MENU_NO = (SELECT CONCAT("M", MAX(CAST(REPLACE(MENU_NO, "M", "") AS UNSIGNED)))
+							  FROM MENU)
+		   and m.STORE_NO = 1;
 	</select>
 </mapper>
 

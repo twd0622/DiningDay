@@ -53,7 +53,6 @@ public class StoreDAO {
 		
 		Map<String, String> select = session.selectOne("Menu.menuSelect", dto); 
 		
-		session.commit();
 		session.close();
 		
 		return select;

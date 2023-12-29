@@ -12,8 +12,6 @@ function file_image(){
 		var index = $(e.currentTarget).attr('id').split('_')[1];
 		file = e.target.files;
 		
-		var filename = $($(e.target).prev()).html(file[0].name);	//	<span> 이미지 파일이름 출력
-		
 		var image = new Image();
 		var ImageTempUrl = window.URL.createObjectURL(file[0]);
 	

@@ -1,6 +1,6 @@
 package com.diningday.service;
 
-import java.util.List;
+
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,19 +15,19 @@ public class StoreService {
 	StoreDAO storeDAO = new StoreDAO();
 	
 	public boolean insertMenu(HttpServletRequest req) {
-		Map<String, String> menuDTO = TeamUtil.requestToMap(req);
-		
-		boolean result = storeDAO.insertMenu(menuDTO);
-		
-		return result;
+		return storeDAO.insertMenu(TeamUtil.fileRequestToMap(req));
 	}
 	
-	public List<Map<String, String>> menuList(HttpServletRequest req) {
-		return storeDAO.menuList(TeamUtil.requestToMap(req));
+	public JsonArray menuList(HttpServletRequest req) {
+		return TeamUtil.mapListToJSONList(storeDAO.menuList(TeamUtil.requestToMap(req)));
 	}
 	
 	public boolean menuUpdate(HttpServletRequest req) {
 		return storeDAO.menuUpdate(TeamUtil.fileRequestToMap(req));
+	}
+	
+	public JsonObject menuSelect(HttpServletRequest req) {
+		return TeamUtil.mapToJSON(storeDAO.menuSelect(TeamUtil.requestToMap(req)));
 	}
 	
 }

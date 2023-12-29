@@ -7,6 +7,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 
 import com.diningday.service.StoreService;
 import com.diningday.util.TeamUtil;
@@ -31,10 +33,10 @@ public class StoreController extends HttpServlet {
 		StoreService storeService = new StoreService();
 		
 		if(sPath.equals("/smenu.st")) {
-			req.setAttribute("menuList", storeService.menuList(req));
+			HttpSession session = req.getSession();
+			session.setAttribute("store_num", 1);
 			
 			dispatcher = req.getRequestDispatcher("Store/smenu.jsp");
-			System.out.println("페이지 변경확인");
 			dispatcher.forward(req, res);
 		}
 		
@@ -46,6 +48,12 @@ public class StoreController extends HttpServlet {
 			}
 		}
 		
+		if(sPath.equals("/smenuList.st")) {
+			
+			res.setContentType("application/x-json; charset=utf-8");
+			res.getWriter().print(storeService.menuList(req));
+		}
+		
 		if(sPath.equals("/smenuUpdate.st")) {
 			
 			boolean bl = storeService.menuUpdate(req);
@@ -55,7 +63,13 @@ public class StoreController extends HttpServlet {
 		}
 		
 		if(sPath.equals("/smenuInsert.st")) {
+			boolean isTrue = storeService.insertMenu(req);
+			if(!isTrue) {
+				return;
+			}
 			
+			res.setContentType("application/x-json; charset=utf-8");
+			res.getWriter().print(storeService.menuSelect(req));
 		}
 		
 		if(sPath.equals("/upload")) {
