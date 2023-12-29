@@ -43,24 +43,34 @@ public class MainDAO {
 		return storeInfo;
 	}
 
-	public List<Map<String, String>> getMenu(Map<String, String> storeDTO) {
+	public List<Map<String, String>> getMenuList(Map<String, String> storeDTO) {
 		session = sqlSessionFactory.openSession();
 		
-		List<Map<String, String>> menuList = session.selectList("Main.getMenu", storeDTO);
+		List<Map<String, String>> menuList = session.selectList("Main.getMenuList", storeDTO);
 		
 		session.close();
 		
 		return menuList;
 	}
 
-	public List<Map<String, String>> getTable(Map<String, String> storeDTO) {
+	public List<Map<String, String>> getTableList(Map<String, String> storeDTO) {
 		session = sqlSessionFactory.openSession();
 		
-		List<Map<String, String>> tableList = session.selectList("Main.getTable", storeDTO);
+		List<Map<String, String>> tableList = session.selectList("Main.getTableList", storeDTO);
 		
 		session.close();
 		
 		return tableList;
+	}
+
+	public Map<String, String> getTable(Map<String, String> storeDTO) {
+		session = sqlSessionFactory.openSession();
+		
+		Map<String, String> table = session.selectOne("Main.getTable", storeDTO);
+		
+		session.close();
+		
+		return table;
 	}
 	
 	

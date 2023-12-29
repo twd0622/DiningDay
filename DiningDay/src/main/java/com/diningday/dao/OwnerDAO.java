@@ -20,10 +20,8 @@ public class OwnerDAO {
 
 	
 	
-	public Boolean insertOwner(Map<String, String> dto) {
-		session = sqlSessionFactory.openSession();
-		
-		int insertOwner = session.insert("Owner.insert", dto); // namespace.id
+	public Boolean insertOwner(Map<String, String> ownerDTO) {
+		int insertOwner = session.insert("Owner.insert", ownerDTO); // namespace.id
 		
 		session.commit();
 		session.close();
@@ -32,15 +30,12 @@ public class OwnerDAO {
 	}
 	
 	public Map<String, String> ownerCheck(Map<String, String> ownerDTO) {
-
-		session = sqlSessionFactory.openSession();
 		Map<String, String> ownerCheck =  session.selectOne("Owner.ownerCheck", ownerDTO);
 		
 		session.commit();
 		session.close();
 
 		return ownerCheck;
-	
 	}
 	
 	

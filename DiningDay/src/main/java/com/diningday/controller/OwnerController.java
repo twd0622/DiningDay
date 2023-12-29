@@ -42,7 +42,6 @@ public class OwnerController extends HttpServlet {
 			req.setCharacterEncoding("UTF-8");
 			boolean result = ownerService.insertOwner(req);
 			
-			System.out.println("result: " + result);
 			if (result) res.sendRedirect("owner_login.ow");
 			else		res.sendRedirect("owner_join.ow");
 			
@@ -93,6 +92,9 @@ public class OwnerController extends HttpServlet {
 			dispatcher = req.getRequestDispatcher("Store/smain.jsp");
 			dispatcher.forward(req, res);
 		}
+
+//		-------------------------------------------------------------
+		
 		
 
 		

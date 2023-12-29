@@ -5,25 +5,30 @@
 <head>
 <%@ include file="/Template/header.jsp"%> 
     <meta charset="utf-8">
+   	<c:set var="storeInfo" value="${requestScope.storeInfo}"/>
+	<c:set var="menuList" value="${requestScope.menuList}"/>
+	<c:set var="tableList" value="${requestScope.tableList}"/>
+    
+    
     <!-- 식당 이름으로 타이틀 지정 -->
-    <title>식당 상세 페이지</title>
+    <title>Dining Day - ${storeInfo.STORE_NAME}</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
 	<link href="Main/css/store.css" rel="stylesheet" >
 	<link href="Main/css/storeModal.css" rel="stylesheet">
 	<script src="Main/js/storeModal.js"></script>
+	<script src="Main/js/store.js"></script>
+	<script src="Main/js/changeOption.js"></script>
 	
 </head>
-	<c:set var="storeInfo" value="${requestScope.storeInfo}"/>
-	<c:set var="menuList" value="${requestScope.menuList}"/>
-	<c:set var="tableList" value="${requestScope.tableList}"/>
+
 	
 	<!-- main은 속성 값은 왠만하면 건들지x -->
 	<main style="display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; margin-top: 100px; padding:20px 0 50px 0;">
 		
 		<!-- 예시div style속성 값 조절해서 사용! -->
 		<div class="main_container">
-			<div class="store_profile">
+			<div class="store_profile" id="${storeInfo.STORE_NO}">
 				<div class="bannerBox">
 					<div class="banner">
 						<div class="banner_img_box">
@@ -153,15 +158,12 @@ ${storeInfo.STORE_INFO}
 					<p class="tit">테이블 예약</p>
 					<ul class="list">
 						<c:forEach var="table" items="${tableList}">
-						
-						
 						<li>
-							<div class="table_">
+							<div class="table_" id="${table.SEAT_NO}">
 								<div class="table_img"></div>
 								<div class="table_info" >
 									<div class="table_name_box">
 										<p class="table_name">${table.SEAT_NAME}</p>
-										<a style="text-align: right; font-size: 15px; line-height: 100%">상세 보기 ></a>
 									</div>
 									<div class="table_res">
 										<div style="width: 80%; height: 100%; line-height: 100%;">
@@ -172,27 +174,21 @@ ${storeInfo.STORE_INFO}
 												<li>${table.SEAT_CONTENT}</li>
 											</ul>
 										</div>
-										<c:if test="${table.SEAT_OC == 1}">
-											<div style="width: 20%;">
-												<button class="btn btn-outline-warning modalOpen" style="margin-top:80%">예약하기</button>
-											</div>
-										</c:if>
-										<c:if test="${table.SEAT_OC == 0}">
-											<div style="width: 20%;">
-												<button class="btn btn-outline-error modalOpen" style="margin-top:80%" disabled="disabled">예약마감</button>
-											</div>
-										</c:if>
+										<div style="width: 20%;">
+											<button class="btn btn-outline-warning modalOpen reservationBtn" style="margin-top:80%">예약하기</button>
+										</div>
+										
 									</div>
 								</div>
 							</div>
 						</li>
 						</c:forEach>
+						<!-- 사진없는 버전 -->
 						<li>
 							<div class="table_">
 								<div class="table_info" >
 									<div class="table_name_box">
 										<p class="table_name">A2</p>
-										<a style="text-align: right; font-size: 15px; line-height: 100%">상세 보기 ></a>
 									</div>
 									<div class="table_res">
 										<div style="width: 80%; height: 100%; line-height: 100%;">
@@ -218,13 +214,14 @@ ${storeInfo.STORE_INFO}
 	<div id="modalContainer" class="hidden">
 	  <div id="modalContent">
 	     <h4>예약</h4>
-	     <form action="payment.jsp" method="post">
+	     <form action="" method="post">
 		     <div>
+		     	<h5 id="SEAT_NAME"></h5>
 		     	<h5>인원</h5>
 		     	<div>
-		     		<span>-</span>
-		     		<span>1</span>
-		     		<span>+</span>
+		     		<button class="btn decreaseBtn">➖</button>
+		     		<span id="SEAT_MIN"></span>
+		     		<button class="btn increaseBtn">➕</button>
 		     	</div>
 		     	<hr>
 		     	<h5>날짜</h5>

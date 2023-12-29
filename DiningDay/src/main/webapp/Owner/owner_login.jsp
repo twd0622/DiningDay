@@ -35,7 +35,7 @@
 				  	<div style="text-align: left;"> <label>비밀번호</label> </div>
 				    	<input type="password" name="OWN_PW" class="form-control" />
 				  </div>
-				<button type="submit" class="btn btn-primary btn-block mb-4" onclick="location.href='main.cu'"
+				<button type="submit" class="btn btn-primary btn-block mb-4" onclick="location.href='main.ma'"
 						style="color: #111111; background-color: #FFF2A6; border-color: #ffffff;">로그인</button>
 				  
 				

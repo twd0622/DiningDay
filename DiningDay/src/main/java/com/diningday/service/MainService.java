@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import com.diningday.dao.MainDAO;
 import com.diningday.util.TeamUtil;
+import com.google.gson.JsonObject;
 
 public class MainService {
 	MainDAO mainDAO = new MainDAO();
@@ -21,15 +22,22 @@ public class MainService {
 
 	public Map<String, String> getStore(HttpServletRequest req) {
 		 return mainDAO.getStore(TeamUtil.requestToMap(req));
-		
 	}
 
-	public List<Map<String, String>> getMenu(HttpServletRequest req) {
-		return mainDAO.getMenu(TeamUtil.requestToMap(req));
+	public List<Map<String, String>> getMenuList(HttpServletRequest req) {
+		return mainDAO.getMenuList(TeamUtil.requestToMap(req));
 	}
 
-	public List<Map<String, String>> getTable(HttpServletRequest req) {
-		return mainDAO.getTable(TeamUtil.requestToMap(req));
+	public List<Map<String, String>> getTableList(HttpServletRequest req) {
+		return mainDAO.getTableList(TeamUtil.requestToMap(req));
+	}
+	
+	public List<Map<String, String>> getTableList(HttpServletRequest req, Map<String, String>param) {
+		return mainDAO.getTableList(TeamUtil.requestToMap(req, param));
+	}
+
+	public JsonObject getTable(HttpServletRequest req) {
+		return TeamUtil.mapToJSON(mainDAO.getTable(TeamUtil.requestToMap(req)));
 	}
 
 }
