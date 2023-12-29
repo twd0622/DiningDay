@@ -68,15 +68,15 @@
 							</div>
 							<div class="css-1j7hnhe">
 								<div class="gc-stepper css-1mcn6si">
-									<button class="gc-icon-round-button css-11zi1w5" type="button">
+									<button class="gc-icon-round-button css-11zi1w5 decrease" type="button">
 										<span>
 											<svg width="16" height="16" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
 												<path d="M2 9h16v2H2V9z" fill="current"></path>
 											</svg>
 										</span>
 									</button>
-									<span class="css-gcrqic">${sessionScope.people}</span>
-									<button class="gc-icon-round-button css-11zi1w5" type="button">
+									<span class="css-gcrqic people">${sessionScope.people}</span>
+									<button class="gc-icon-round-button css-11zi1w5 increase" type="button">
 										<span>
 											<svg width="16" height="16" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
 												<path d="M10.998 8.995H18v2h-7.002v7.001H8.995v-7.001H2v-2h6.995V2h2.003v6.995z" fill="current"></path>

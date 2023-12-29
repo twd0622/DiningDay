@@ -9,12 +9,11 @@ $(()=>{
 			}
 		}
 	)
+	var optionModal = $("#peopleOptionModal");
 	
 	$("#peopleOption").on(
 		"click",
 		function(){
-			var optionModal = $("#peopleOptionModal");
-			debugger;
 			if(optionModal.hasClass("hidden")){
 				optionModal.css("display", "")
 				optionModal.removeClass("hidden")
@@ -26,4 +25,41 @@ $(()=>{
 		}
 	)
 	
+	$(window).on(
+		"click",
+		function(e){
+			debugger;
+			if (e.target != optionModal[0]) {
+				optionModal.css("display" , "none")
+				optionModal.addClass("hidden")
+  			}
+		}
+	)
+
+	
+
+	$(".decrease").on(
+		"click",
+		function(){
+			var curPeople = Number($(".people").text()); 
+			if(curPeople > 1){
+				$(".people").text(curPeople - 1)
+				$("#peopleOption").val("인원 " + (curPeople - 1) +"명")
+			}
+		}
+	)
+	
+	$(".increase").on(
+		"click",
+		function(){
+			var curPeople = Number($(".people").text());
+			$(".people").text(curPeople + 1)
+			$("#peopleOption").val("인원 " + (curPeople + 1) +"명")
+		}
+	)
+
+	
+
+
+
 })
