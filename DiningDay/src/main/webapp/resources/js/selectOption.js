@@ -28,7 +28,6 @@ $(()=>{
 	$(window).on(
 		"click",
 		function(e){
-			debugger;
 			if (e.target != optionModal[0]) {
 				optionModal.css("display" , "none")
 				optionModal.addClass("hidden")
