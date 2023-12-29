@@ -25,11 +25,11 @@
 				NOT_CONTENT = #{NOT_CONTENT},
 				NOT_DATE	= date_format(sysdate(), '%Y%m%d%H%i%s')
 		where	1 = 1
-		add		NOT_NO 		= #{NOT_NO} ;
+		and		NOT_NO 		= #{NOT_NO} ;
 	
 	</update>
 	
-	<delete id="delete">
+	<delete id="noticeDelete">
 		delete 	from	NOTICE
 				where	NOT_NO = #{NOT_NO}	
 	</delete>
@@ -40,10 +40,11 @@
 		order by NOT_NO desc;	
 	</select>
 	
-	<select id="selectNoticeDetail" resultType="map">
-		select NOT_NO, NOT_TITLE, NOT_CONTENT, date_format(ifnull(NOT_REDATE, NOT_DATE), '%Y-%m-%d') as "DATE"
-		from NOTICE
-		where NOT_NO = #{NOT_NO}
+	<select id="selectNoticeDetail" parameterType="map" resultType="map">
+		select 	NOT_NO, NOT_TITLE, NOT_CONTENT, date_format(ifnull(NOT_REDATE, NOT_DATE), '%Y-%m-%d') as "DATE"
+		from 	NOTICE
+		where 	1 = 1
+		and		NOT_NO = #{NOT_NO};
 	</select>
 	
 	<select id="selectStoreList" resultType="map">

@@ -238,6 +238,7 @@ ul{
 	                    </li>
                     </ul>
                 </div>
+                <div>
                 <ul>
                    	<li>
 		                <a href="admin_reviewList.ad" class="nav__link">
@@ -246,7 +247,19 @@ ul{
 		                </a>
                 	</li>
             	</ul>
-            </div>
+            	</div>
+				<br>
+            	<div>
+                <ul>
+                   	<li>
+		                <a href="main.ma" class="nav__link">
+		                	<ion-icon name="log-out-outline"></ion-icon>
+		                    <span class="nav_name">로그아웃</span>
+		                </a>
+                	</li>
+            	</ul>
+            	</div>
+            	</div>
         </nav>
     </div>
 </html> 

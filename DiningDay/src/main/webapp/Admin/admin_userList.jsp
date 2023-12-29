@@ -17,7 +17,7 @@
 		style="width: 100%; height: 850px; background: white;">
 		<h4 style="text-align: left;">&lt; 고객 목록 &gt;</h4>
 		<hr>
-		<div class="row" style="padding: 0 7% 0 7%;">
+		<div class="row" style="padding: 0 7% 0 7%;" data-bs-spy="scroll">
 			<table class="table table-hover" id="article-table">
 				<thead>
 					<tr class="table-success">

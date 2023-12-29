@@ -3,6 +3,7 @@ package com.diningday.dao;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.coyote.Request;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 
@@ -13,9 +14,9 @@ public class AdminDAO {
 	private SqlSessionFactory sqlSessionFactory = SqlMapClient.getSqlSessionFactory();
 	SqlSession session = sqlSessionFactory.openSession();
 	
-	public boolean insertBoard(Map<String, String> boardDTO) {
+	public boolean insertBoard(Map<String, String> adminDTO) {
 		
-		int insertBoard = session.insert("Admin.noticeInsert", boardDTO); // namespace.id
+		int insertBoard = session.insert("Admin.noticeInsert", adminDTO); // namespace.id
 		
 		session.commit();
 		session.close();
@@ -23,10 +24,10 @@ public class AdminDAO {
 		return insertBoard > 0 ? true : false;
 	}
 	
-	public boolean updateBoard(Map<String, String> boardDTO) {
+	public boolean updateBoard(Map<String, String> adminDTO) {
+		session = sqlSessionFactory.openSession();
+		int updateBoard = session.update("Admin.noticeUpdate", adminDTO); // namespace.id
 		
-		int updateBoard = session.insert("Admin.noticeUpdate", boardDTO); // namespace.id
-		SqlSession session = sqlSessionFactory.openSession();
 		session.commit();
 		session.close();
 		
@@ -43,10 +44,11 @@ public class AdminDAO {
 		
 	}
 	
-	public List<Map<String, String>> getNoticeDetail() {
+	public Map<String, String> getNoticeDetail(Map<String, String> adminDTO) {
+		session = sqlSessionFactory.openSession();
+		Map<String, String> noticeDetail = session.selectOne("Admin.selectNoticeDetail", adminDTO); // namespace.id
 		
-		List<Map<String, String>> noticeDetail = session.selectList("Admin.selectNoticeDetail"); // namespace.id
-		
+		session.commit();
 		session.close();
 		
 		return noticeDetail;

@@ -23,11 +23,10 @@
 			<table class="table table-hover" id="article-table">
 				<thead>
 					<tr class="table-success">
-						<th class="title col-1 align-middle"><a>No</a></th>
-						<th class="hashtag col-1 align-middle"><a>제목</a></th>
-						<th class="user-id col-2"><a>내용</a></th>
-						<th class="created-at col-1"><a>작성일자</a></th>
-
+						<th class="title col-1 align-middle">글번호</th>
+						<th class="hashtag col-1 align-middle">제목</th>
+						<th class="user-id col-2">내용</th>
+						<th class="created-at col-1">작성일자</th>
 					</tr>
 
 				</thead>
@@ -39,7 +38,6 @@
 						<td class="hashtag align-middle">${notice.NOT_TITLE}</td>
 						<td class="user-id align-middle" style="text-align: left;">${notice.NOT_CONTENT}</td>
 						<td class="created-at col-1 align-middle" id="dateRegex">${notice.DATE}</td>
-						
 					</tr>
 					</c:forEach>
 				</tbody>

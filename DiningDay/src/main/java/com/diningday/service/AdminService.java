@@ -42,10 +42,10 @@ public class AdminService {
 		
 	}
 
-	public List<Map<String, String>> getNoticeDetail() {
-		List<Map<String, String>> noticeDetail = adminDAO.getNoticeDetail();
+	public Map<String, String> getNoticeDetail(HttpServletRequest req) {
+		Map<String, String> noticeDetail = TeamUtil.requestToMap(req);
 		
-		return noticeDetail;
+		return adminDAO.getNoticeDetail(noticeDetail);
 		
 	}
 	

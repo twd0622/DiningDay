@@ -69,6 +69,15 @@
 			</nav>
 		</div>
 	</div>
+<script type="text/javascript">
+    $(document).ready(function(){
+    	
+    	$("#deleteForm").submit(function() {
+			return confirm("게시글을 삭제하시겠습니까?");
+		});//deleteForm
+		
+    });//ready	
+</script>
 
 </main>
 <%@ include file="/Template/admin_sidevar_close.jsp"%>

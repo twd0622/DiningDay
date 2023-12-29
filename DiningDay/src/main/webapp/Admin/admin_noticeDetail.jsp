@@ -20,40 +20,65 @@
 		style="width: 100%; height: 850px; background: white;">
 		<h4 style="text-align: left;">&lt; 공지사항 상세조회 &gt;</h4>
 		<hr>
-		<div class="row" style="padding: 0 7% 0 7%;">
+		<div class="row" style="padding: 0 10% 0 10%;">
 			<table class="table table-hover" id="article-table">
 				<tbody>
 					<c:set var="noticeDetail" value="${ requestScope.noticeDetail }"/>
 						<c:forEach var="notDetail" items="${noticeDetail}">
-						${notDetail.NOT_NO} ${notDetail.NOT_CONTENT }
+						<tr style="height: 60px;">
+							<th class="title align-middle table-success">글번호</th>
+							<td class="user-id align-middle text-center"
+								style="text-align: left;">${notDetail.NOT_NO}</td>
+						</tr>
+						<tr style="height: 60px;">
+							<th class="title align-middle table-success">제목</th>
+							<td class="user-id align-middle text-center"
+								style="text-align: left;">
+								<input class="form-control" value="${notDetail.NOT_TITLE}">
+							</td>
+						</tr>
+						<tr style="height: 60px;">
+							<th class="title align-middle table-success">작성자</th>
+							<td class="user-id align-middle text-center"
+								style="text-align: left;">관리자</td>
+						</tr>
+						<tr style="height: 60px;">
+							<th class="title align-middle table-success">작성일자</th>
+							<td class="user-id align-middle text-center"
+								style="text-align: left;">${notDetail.DATE}</td>
+						</tr>
+						<tr style="height: 150px;">
+							<th class="title align-middle table-success col-3"><a>글	내용</a></th>
+							<td class="user-id align-middle text-center"
+								style="text-align: left;">${notDetail.NOT_CONTENT}</td>
+						</tr>
 						</c:forEach>
-					<tr>
-						<th class="title align-middle table-success"><a>글 제목</a></th>
+						
+						<tr style="height: 60px;">
+						<th class="title align-middle table-success">글번호</th>
 						<td class="user-id align-middle text-center"
-							style="text-align: left;">공지 제목1</td>
+							style="text-align: left;">${notDetail.NOT_NO}</td>
 					</tr>
-					<tr>
-						<th class="title align-middle table-success"><a>작성자</a></th>
+					<tr style="height: 60px;">
+						<th class="title align-middle table-success">제목</th>
+						<td class="user-id align-middle text-center"
+							style="text-align: left;">${notDetail.NOT_TITLE}</td>
+					</tr>
+					<tr style="height: 60px;">
+						<th class="title align-middle table-success">작성자</th>
 						<td class="user-id align-middle text-center"
 							style="text-align: left;">관리자</td>
 					</tr>
-					<tr>
-						<th class="title align-middle table-success"><a>작성일자</a></th>
+					<tr style="height: 60px;">
+						<th class="title align-middle table-success">작성일자</th>
 						<td class="user-id align-middle text-center"
-							style="text-align: left;"><time>2023-12-21</time></td>
-					</tr>
-					<tr>
-						<th class="title align-middle table-success"><a>첨부파일</a></th>
-						<td ><img src="Admin/img/itwill.jpg"
-							style="width: 60%; height: 60%;"> <script>
-							
-				</script></td>
+							style="text-align: left;">${notDetail.DATE}</td>
 					</tr>
 					<tr style="height: 150px;">
 						<th class="title align-middle table-success col-3"><a>글
 								내용</a></th>
 						<td class="user-id align-middle text-center"
-							style="text-align: left;">공지 내용1</td>
+							style="text-align: left;">${notDetail.NOT_CONTENT}</td>
 					</tr>
 				</tbody>
 			</table>

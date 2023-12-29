@@ -76,42 +76,42 @@ a:active {
 <%@ include file="/Template/admin_sidebar_open.jsp"%>
 <!-- main은 속성 값은 왠만하면 건들지x -->
 <main
-	style="display: flex; align-items: center; text-align: center; padding: 20px;">
+	style="display: flex; align-items: center; text-align: center; padding: 5px;">
 
 	<!-- 예시div style속성 값 조절해서 사용! -->
 	<div class="grid-container"
-		style="width: 100%; height: 850px; background: white; padding: 0 80px 80px 80px;">
-		<div class="grid-item" id="item1" style="padding: 30px;">
-			<h2>
-				<a href="admin_noticeList.ad" class="notice link-success" 
-					style="text-decoration: none;;">최근 공지사항</a>
-			</h2>
-			<hr>
-			<iframe src="admin_noticeList.ad" style="position:relative; width: 140%; right: 270px; height: 80%;"></iframe>
+		style="width: 100%; height: 850px; background: white; padding: 80px 80px 80px 80px;">
+		<div class="grid-item" id="item1" style="padding: 30px;" onClick="location.href='admin_noticeList.ad'">
+<!-- 			<h6 style="text-align: right;"> -->
+<!-- 				<a href="admin_noticeList.ad" class="notice link-success"  -->
+<!-- 					style="text-decoration: none;">자세히</a> -->
+<!-- 			</h6> -->
+<!-- 			<hr> -->
+			<iframe src="admin_noticeList.ad" style="position:relative; width: 140%; right: 270px; height: 80%;" ></iframe>
 		</div>
 
 		<div class="grid-item" id="item2" style="padding: 30px;">
-			<h2>
-				<a href="admin_storeList.ad" class="notice link-success"
-					style="text-decoration: none;">식당 정보조회</a>
-			</h2>
-			<hr>
+<!-- 			<h2> -->
+<!-- 				<a href="admin_storeList.ad" class="notice link-success" -->
+<!-- 					style="text-decoration: none;">식당 정보조회</a> -->
+<!-- 			</h2> -->
+<!-- 			<hr> -->
 			<iframe src="admin_storeList.ad" style="position:relative; width: 140%; right: 270px; height: 80%;"></iframe>
 		</div>
 		<div class="grid-item" id="item3" style="padding: 30px;">
-			<h2>
-				<a href="admin_userReport.ad" class="notice link-success"
-					style="text-decoration: none;">리뷰 신고관리</a>
-			</h2>
-			<hr>
+<!-- 			<h2> -->
+<!-- 				<a href="admin_userReport.ad" class="notice link-success" -->
+<!-- 					style="text-decoration: none;">리뷰 신고관리</a> -->
+<!-- 			</h2> -->
+<!-- 			<hr> -->
 			<iframe src="admin_userReport.ad" style="position:relative; width: 140%; right: 270px; height: 80%;"></iframe>
 		</div>
 		<div class="grid-item" id="item4" style="padding: 30px;">
-			<h2>
-				<a href="admin_storeReport.ad" class="notice link-success"
-					style="text-decoration: none;">식당 신고관리</a>
-			</h2>
-			<hr>
+<!-- 			<h2> -->
+<!-- 				<a href="admin_storeReport.ad" class="notice link-success" -->
+<!-- 					style="text-decoration: none;">식당 신고관리</a> -->
+<!-- 			</h2> -->
+<!-- 			<hr> -->
 			<iframe src="admin_storeReport.ad" style="position:relative; width: 140%; right: 270px; height: 80%;"></iframe>
 		</div>
 	</div>
