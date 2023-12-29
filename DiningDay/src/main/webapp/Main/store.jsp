@@ -5,18 +5,23 @@
 <head>
 <%@ include file="/Template/header.jsp"%> 
     <meta charset="utf-8">
+   	<c:set var="storeInfo" value="${requestScope.storeInfo}"/>
+	<c:set var="menuList" value="${requestScope.menuList}"/>
+	<c:set var="tableList" value="${requestScope.tableList}"/>
+    
+    
     <!-- 식당 이름으로 타이틀 지정 -->
-    <title>식당 상세 페이지</title>
+    <title>Dining Day - ${storeInfo.STORE_NAME}</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
 	<link href="Main/css/store.css" rel="stylesheet" >
 	<link href="Main/css/storeModal.css" rel="stylesheet">
 	<script src="Main/js/storeModal.js"></script>
 	<script src="Main/js/store.js"></script>
+	<script src="Main/js/changeOption.js"></script>
+	
 </head>
-	<c:set var="storeInfo" value="${requestScope.storeInfo}"/>
-	<c:set var="menuList" value="${requestScope.menuList}"/>
-	<c:set var="tableList" value="${requestScope.tableList}"/>
+
 	
 	<!-- main은 속성 값은 왠만하면 건들지x -->
 	<main style="display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; margin-top: 100px; padding:20px 0 50px 0;">
@@ -169,16 +174,10 @@ ${storeInfo.STORE_INFO}
 												<li>${table.SEAT_CONTENT}</li>
 											</ul>
 										</div>
-										<c:if test="${table.SEAT_OC == 1}">
-											<div style="width: 20%;">
-												<button class="btn btn-outline-warning modalOpen reservationBtn" style="margin-top:80%">예약하기</button>
-											</div>
-										</c:if>
-										<c:if test="${table.SEAT_OC == 0}">
-											<div style="width: 20%;">
-												<button class="btn btn-outline-danger" style="margin-top:80%" disabled="disabled">예약마감</button>
-											</div>
-										</c:if>
+										<div style="width: 20%;">
+											<button class="btn btn-outline-warning modalOpen reservationBtn" style="margin-top:80%">예약하기</button>
+										</div>
+										
 									</div>
 								</div>
 							</div>

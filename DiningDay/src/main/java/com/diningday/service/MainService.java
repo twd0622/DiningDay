@@ -22,7 +22,6 @@ public class MainService {
 
 	public Map<String, String> getStore(HttpServletRequest req) {
 		 return mainDAO.getStore(TeamUtil.requestToMap(req));
-		
 	}
 
 	public List<Map<String, String>> getMenuList(HttpServletRequest req) {
@@ -31,6 +30,10 @@ public class MainService {
 
 	public List<Map<String, String>> getTableList(HttpServletRequest req) {
 		return mainDAO.getTableList(TeamUtil.requestToMap(req));
+	}
+	
+	public List<Map<String, String>> getTableList(HttpServletRequest req, Map<String, String>param) {
+		return mainDAO.getTableList(TeamUtil.requestToMap(req, param));
 	}
 
 	public JsonObject getTable(HttpServletRequest req) {

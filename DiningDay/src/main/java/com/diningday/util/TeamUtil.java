@@ -16,7 +16,6 @@ import com.oreilly.servlet.MultipartRequest;
 
 public class TeamUtil {
 	
-	
 	// request 받아온 파라미터 맵에 넣어주는 함수
 	public static Map<String, String> requestToMap(HttpServletRequest req) {
 		Map<String, String> dto = new HashMap<String, String>();
@@ -33,9 +32,13 @@ public class TeamUtil {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		
 		return dto;
+	}
+	
+	public static Map<String, String> requestToMap(HttpServletRequest req, Map<String, String> param) {
+		Map<String, String> map = requestToMap(req);
+		map.putAll(param);
+		return map;
 	}
 	
 	public static Map<String, String> requestToMap(MultipartRequest multi) {

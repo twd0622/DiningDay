@@ -1,8 +1,6 @@
 
 $(function(){
 	
-	
-	
 	$.ajax({
 		type: "get",
 		url:"getLocation2.lo",

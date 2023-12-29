@@ -64,6 +64,8 @@
 			, SEAT_MAX
 			, SEAT_CONTENT
 			, SEAT_OC
+<!-- 			, CASE WHEN CAST('10' as unsigned) &lt;= CAST(SEAT_MAX as unsigned) THEN 'block' -->
+<!-- 																			 ELSE 'none' END AS VISIBLE_YN -->
 		  from SEAT
 		 where STORE_NO = #{STORE_NO};
 	</select>
