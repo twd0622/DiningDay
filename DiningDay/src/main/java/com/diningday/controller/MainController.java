@@ -3,6 +3,8 @@ package com.diningday.controller;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -37,6 +39,7 @@ public class MainController extends HttpServlet {
 		System.out.println(sPath);
 		
 		if(sPath.equals("/main.ma")) {
+			// 로그인 할때 넣어주기
 			session.setAttribute("date", LocalDate.now());
 			session.setAttribute("people", "2");
 			
@@ -55,9 +58,13 @@ public class MainController extends HttpServlet {
 		
 		if(sPath.equals("/store.ma")) {
 			String store_no = req.getParameter("STORE_NO");
+			
+			Map<String, String> param = new HashMap<String, String>();
+			param.put("PEOPLE", session.getAttribute("people").toString());
+			
 			req.setAttribute("storeInfo", mainService.getStore(req));
 			req.setAttribute("menuList", mainService.getMenuList(req));
-			req.setAttribute("tableList", mainService.getTableList(req));
+			req.setAttribute("tableList", mainService.getTableList(req, param));
 			
 			dispatcher = req.getRequestDispatcher("Main/store.jsp");
 			dispatcher.forward(req, res);
@@ -70,6 +77,12 @@ public class MainController extends HttpServlet {
 			
 		}
 		
+		if(sPath.equals("/dateSession.ma")) {
+			session.setAttribute("date", req.getParameter("date"));
+		}
+		if(sPath.equals("/peopleSession.ma")) {
+			session.setAttribute("people", req.getParameter("people"));
+		}
 	}
 	
 }
