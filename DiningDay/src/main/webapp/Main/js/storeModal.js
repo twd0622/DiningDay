@@ -14,8 +14,6 @@ $(()=>{
 		$(".time").css("background", "white");
 		$(this).css("background", "orange");
 		
-			
-		
 	})
 	
 	

@@ -1,5 +1,6 @@
 <!-- 12/15/18:10_강현아 + 비밀번호 찾기 개설 -->
 <!-- 12/20/18:10_강현아 + 인증번호 관련 alert 추가 -->
+<!-- 12/26/14:10_강현아 + 페이지 연결 -->
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -27,7 +28,7 @@
 
 //         $('form[name="changePwForm"]').submit();
         
-//         location.href='new_pw.jsp';
+//         location.href='new_pw.ow';
 //     }
     
 	function checkField(){
@@ -42,9 +43,8 @@
 		}
 	}    
 	function move(){
-		location.href = 'owner_login.jsp';
+		location.href = 'owner_login.ow';
 	}
-</script>
 </script>
 </head>
 <%@ include file="/Template/header.jsp"%> 
@@ -80,8 +80,9 @@
 				    	<input type="text" name="pwcode" class="form-control" />
 				  </div>
 				  
-				  <button type="submit" class="btn btn-primary btn-block mb-4" onclick="move()"
-				  		  style="color: #111111; background-color: #FFF2A6; border-color: #ffffff;">다음</button>
+				  <button type="submit" class="btn btn-primary btn-block mb-4" 
+				  		  style="color: #111111; background-color: #FFF2A6; border-color: #ffffff;"
+				  		  onclick="move()"> 다음</button>
 				</form>
 			</div>
 		</div>
