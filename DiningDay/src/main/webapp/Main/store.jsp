@@ -64,6 +64,7 @@
 						<span class="material-symbols-outlined grade_icon">grade</span>
 						<span class="material-symbols-outlined grade_icon">grade</span>
 						<span class="material-symbols-outlined grade_icon">grade</span>
+						<a href=""> 신고하기 </a>
 					</p>
 				</div>
 				<div class="profile_btnBox">
