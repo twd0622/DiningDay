@@ -22,7 +22,6 @@ public class OwnerService {
 		Map<String, String> ownerDTO = TeamUtil.requestToMap(req);
 		
 		return ownerDAO.ownerCheck(ownerDTO);
-		
 	}
 
 }

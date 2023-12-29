@@ -46,12 +46,11 @@
 		if(!inputs.idcode.value){
 			alert("인증번호를 입력하세요.");
 			return false;	
-		} else {
+			if(true){
+				location.href = 'owner_login.ow';
+			}
 		}
-	}    
-	function move(){
-		location.href = 'owner_login.ow';
-	}
+	} 
 </script>
 </head>
 <%@ include file="/Template/header.jsp"%> 
@@ -85,7 +84,7 @@
 				  
 				  <button type="submit" class="btn btn-primary btn-block mb-4" 
 				  		  style="color: #111111; background-color: #FFF2A6; border-color: #ffffff;"
-				  		  onclick="move()"> 다음</button>
+				  		  > 다음</button>
 				</form>
 			</div>
 		</div>

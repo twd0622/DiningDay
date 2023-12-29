@@ -139,13 +139,13 @@
 					    찜 목록 보기
 					</a>
 					<div class="dropdown-divider"></div>
-					<c:if test="${empty sessionScope.CUS_ID}">
+					<c:if test="${empty sessionScope.CUS_NO}">
 						<a class="dropdown-item" href="login.cu" >
 						   <i class="fas fa-sign-in-alt fa-sm fa-fw mr-2 text-gray-400"></i>
 						   로그인
 						</a>
 					</c:if>
-					<c:if test="${!empty sessionScope.CUS_ID}">
+					<c:if test="${!empty sessionScope.CUS_NO}">
 						<a class="dropdown-item" href="logout.cu">
 							<i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
 							로그아웃

@@ -1,5 +1,6 @@
 <!-- 12/19/17:50_강현아 + 고객 정보 수정 개설 -->
 <!-- 12/26/14:10_강현아 + 페이지 연결 -->
+<!-- 12/27/9:50_강현아 + margin 수정 -->
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -11,16 +12,19 @@
 </head>
 <%@ include file="/Template/header.jsp"%> 
 <style>
+#body {
+  margin-top: 5%;
+}
+
  #div1{
  	margin-top: 100px;
  	padding-top: 100px;
  }
-
 </style>
-
+<body id="body">
 <div class="container rounded bg-white mt-5 mb-5">
     <div class="row">
-        <div class="col-md-3 border-right" id="div1">
+        <div class="col-md-3 border-right">
             <div class="d-flex flex-column align-items-center text-center p-3 py-5">
            	 <img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
             	<span class="font-weight-bold">고객1</span>
@@ -85,5 +89,6 @@
         </div>
     </div>
 </div>
+</body>
 <%@ include file="/Template/footer.jsp"%> 
 </html>

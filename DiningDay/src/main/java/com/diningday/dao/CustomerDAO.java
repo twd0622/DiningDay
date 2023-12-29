@@ -9,17 +9,26 @@ import com.diningday.sql.SqlMapClient;
 
 public class CustomerDAO {
 	private SqlSessionFactory sqlSessionFactory = SqlMapClient.getSqlSessionFactory();
-	SqlSession session = sqlSessionFactory.openSession();
 	
-	
-	public Boolean insertCustomer(Map<String, String> dto) {
-		session = sqlSessionFactory.openSession();
-		
-		int insertCustomer = session.insert("Customer.insert", dto); // namespace.id
-		
+	public Boolean insertCustomer(Map<String, String> customerDTO) {
+		SqlSession session = sqlSessionFactory.openSession();
+		int insertCustomer = session.insert("Customer.insert", customerDTO); // namespace.id
 		session.commit();
 		session.close();
-		
 		return insertCustomer > 0 ? true : false;
 	}
+	
+	public Map<String, String> searchId(Map<String, String> customerDTO) {
+		SqlSession session = sqlSessionFactory.openSession();
+		Map<String, String> searchId =  session.selectOne("Customer.searchId", customerDTO);
+		session.commit();
+		return searchId;
+	}
+	
+	
+	
+	
+	
+	
+	
 }

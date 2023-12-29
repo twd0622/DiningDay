@@ -2,6 +2,7 @@
 <!-- 12/21/15:30_강현아 + 예약내역 수정 및 회원탈퇴 모달창 추가 -->
 <!-- 12/22/11:00_강현아 + 예약내역 모달창 추가 -->
 <!-- 12/26/14:10_강현아 + 페이지 연결 -->
+<!-- 12/27/9:50_강현아 + margin 수정 -->
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -11,6 +12,10 @@
 <meta charset="UTF-8">
 <title>고객 마이페이지</title>
 <style>
+#body {
+  margin-top: 5%;
+}
+
 #label {
   font-weight: bold;
 }
@@ -109,7 +114,7 @@
 <%@ include file="/Template/header.jsp"%> 
 </head>
 
-<body>
+<body id="body">
 <div class="container rounded bg-white mt-5 mb-5">
     <div class="row">
         <div class="col-md-9 border-right">
@@ -314,12 +319,8 @@
 		</div>
 	</div>	
 </div>
+</body>
 <%@ include file="/Template/footer.jsp"%> 
-	
-
-
-
-
 <script>
 // 예약내역 모달
 var resModal = document.getElementById("resModal");
@@ -364,6 +365,4 @@ window.onclick = function(event) {
   }
 }
 </script>
-
-</body>
 </html>
