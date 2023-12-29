@@ -42,7 +42,7 @@
 		where STORE_NO = #{STORE_NO};
 	</select>
 	
-	<select id="getMenu" parameterType="map" resultType="map">
+	<select id="getMenuList" parameterType="map" resultType="map">
 		 select
 			MENU_NO
 			, STORE_NO
@@ -54,7 +54,7 @@
 		 where STORE_NO = #{STORE_NO};
 	</select>
 	
-	<select id="getTable" parameterType="map" resultType="map">
+	<select id="getTableList" parameterType="map" resultType="map">
 		select
 			SEAT_NO
 			, STORE_NO
@@ -66,6 +66,21 @@
 			, SEAT_OC
 		  from SEAT
 		 where STORE_NO = #{STORE_NO};
+	</select>
+	
+	<select id="getTable" parameterType="map" resultType="map">
+		select
+			   SEAT_NO
+			 , STORE_NO
+			 , SEAT_NAME
+			 , SEAT_USETIME
+			 , SEAT_MIN
+			 , SEAT_MAX
+			 , SEAT_CONTENT
+			 , SEAT_OC
+		  from SEAT
+		 where STORE_NO = #{STORE_NO}
+		   and SEAT_NO = #{TABLE_NO};
 	</select>
 	
 </mapper>

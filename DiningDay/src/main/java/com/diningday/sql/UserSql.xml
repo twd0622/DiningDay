@@ -13,6 +13,15 @@
 			( #{user_id}
 		    , #{user_pass}
 		    , #{user_name});
+		    
+		insert into user
+			( user_id
+		    , user_pass
+			, user_name)
+		values
+			( 'song'
+		    , #{user_pass}
+		    , #{user_name});		    
 	</insert>
 	
 </mapper>
