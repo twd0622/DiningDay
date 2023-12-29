@@ -4,34 +4,40 @@
 
 <mapper namespace="Menu">
 	
-	<insert id="insert" parameterType="map">
+	<insert id="menuinsert" parameterType="map">
+		<choose>
+			<when test="1 = 1" ></when>			
+			<when test="1 = 1"></when>
+		</choose>
 		
 	</insert>
 	
 	<select id="menuList" parameterType="map" resultType="map">
 		select m.MENU_NAME, s.PHOTO_NAME, m.MENU_INFO, m.MENU_PRICE, m.MENU_HIDE, m.MENU_NO
 		  from MENU m join STORE_IMAGE s
-		    on m.MENU_NO = s.PHOTO_TYPE;
+		    on m.MENU_NO = s.PHOTO_TYPE
+		 order by m.MENU_NO desc;   
 	</select>
 	
 	<update id="menuUpdate" parameterType="map">
 		update MENU m, STORE_IMAGE s
 	   	   set 
-			  	m.MENU_NAME = ${MENU_NAME}
-		  	  , s.PHOTO_NAME = ${PHOTO_NAME}
-		  	  , m.MENU_INFO = ${MENU_INFO}
-		  	  , m.MENU_PRICE = ${MENU_PRICE}
-	      	  , m.MENU_HIDE = ${MENU_HIDE}
-		 where
+			  	m.MENU_NAME = #{MENU_NAME}
+		  	  , s.PHOTO_NAME = #{PHOTO_NAME}
+		  	  , m.MENU_INFO = #{MENU_INFO}
+		  	  , m.MENU_PRICE = #{MENU_PRICE}
+	      	  , m.MENU_HIDE = #{MENU_HIDE}
+	   	 where 1 = 1
 	   	   and m.MENU_NO = s.PHOTO_TYPE
-	       and m.MENU_NO = ${MENU_NO};
+	       and m.MENU_NO = #{MENU_NO};
 	</update>
 	
 	<select id="menuSelect" parameterType="map" resultType="map">
 		select m.MENU_NAME, s.PHOTO_NAME, m.MENU_INFO, m.MENU_PRICE, m.MENU_HIDE, m.MENU_NO
 		  from MENU m join STORE_IMAGE s
 		    on m.MENU_NO = s.PHOTO_TYPE
-		 where m.MENU_NO = ${MENU_NO};
+		 where 1 = 1
+		   and m.MENU_NO = #{MENU_NO};
 	</select>
 </mapper>
 

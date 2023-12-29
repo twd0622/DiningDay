@@ -26,14 +26,8 @@ public class StoreService {
 		return storeDAO.menuList(TeamUtil.requestToMap(req));
 	}
 	
-	public JsonObject menuUpdate(HttpServletRequest req) {
-		boolean isTrue = storeDAO.menuUpdate(TeamUtil.requestToMap(req));
-		JsonObject jo = null;
-		if(isTrue) {
-			jo = TeamUtil.mapToJSON(storeDAO.menuSelect(TeamUtil.requestToMap(req)));
-		}
-
-		return jo;
+	public boolean menuUpdate(HttpServletRequest req) {
+		return storeDAO.menuUpdate(TeamUtil.fileRequestToMap(req));
 	}
 	
 }

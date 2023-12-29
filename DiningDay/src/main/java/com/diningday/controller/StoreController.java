@@ -8,9 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.diningday.dao.UserDAO;
 import com.diningday.service.StoreService;
-import com.diningday.service.UserService;
 import com.diningday.util.TeamUtil;
 import com.google.gson.JsonObject;
 
@@ -41,23 +39,26 @@ public class StoreController extends HttpServlet {
 		}
 		
 		if(sPath.equals("/smenuPro.st")) {
+			
 			boolean check = storeService.insertMenu(req);
 			if(!check) {
 				return;
 			}
-//			req.setAttribute("menuList", storeService.menuList(req)); 
 		}
 		
 		if(sPath.equals("/smenuUpdate.st")) {
-			System.out.println(TeamUtil.fileRequestToMap(req));
 			
-			JsonObject jo = storeService.menuUpdate(req);
-			if(jo == null) {
+			boolean bl = storeService.menuUpdate(req);
+			if(!bl) {
 				return;
 			}
+		}
+		
+		if(sPath.equals("/smenuInsert.st")) {
 			
-			res.setContentType("application/x-json; charset=utf-8");
-			res.getWriter().print(jo);
+		}
+		
+		if(sPath.equals("/upload")) {
 		}
 		
 	}
