@@ -44,6 +44,7 @@ public class ReportController extends HttpServlet {
 		if(sPath.equals("/reportWritePro.re")) {
 			System.out.println("/reportWritePro.re");
 			reportService = new ReportService();
+			
 			reportService.insertReport(req);
 		}
 		

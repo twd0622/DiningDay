@@ -11,7 +11,8 @@ public class ReportService {
 		// DAO 객체생성
 		
 		// request 파라미터값 가져오기
-		System.out.println(TeamUtil.requestToMap(req));
+		System.out.println(TeamUtil.fileRequestToMap(req));
+		// TeamUtil.fileRequestToMap(req);
 		
 		
 	}
