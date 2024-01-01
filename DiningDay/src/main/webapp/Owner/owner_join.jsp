@@ -35,37 +35,37 @@
 				  	<div style="text-align: left;"> <label>이름</label> </div>
 				    	<input type="email" name="OWN_NAME" class="form-control" />
 				  </div>
+  				  <div class="form-outline mb-4">
+				  	<div style="text-align: left;"> <label>전화번호</label> </div>
+				    	<input type="tel" name="OWN_TEL" class="form-control" />
+				  </div>	
 				  <div class="form-outline mb-4">
 				  	<div style="text-align: left;"> <label>이메일</label> </div>
 				    	<input type="email" name="OWN_EMAIL" class="form-control" />
-				  </div>
-				  <div class="form-outline mb-4">
-				  	<div style="text-align: left;"> <label>전화번호</label> </div>
-				    	<input type="tel" name="OWN_TEL" class="form-control" />
-				  </div>		  
+				  </div>	  
 				  <div class="form-outline mb-4">
 				  	<div style="text-align: left;"> <label>사업자번호</label> </div>
 				    	<input type="text" name="OWN_CRN" class="form-control" />
 				  </div>	
-  				  <div class="form-outline mb-4">
-				  	<div style="text-align: left;"> <label>식당명</label> </div>
-				    	<input type="text" name="STORE_NAME" class="form-control" />
-				  </div>					  
-  				  <div class="form-outline mb-4">
-				  	<div style="text-align: left;"> <label>식당 위치</label> </div>
-				    	<input type="text" name="STORE_LOCATION" class="form-control" />
-				  </div>
-  				  <div class="form-outline mb-4">
-				  	<div style="text-align: left;"> <label>식당 구분</label> </div>
-		    			<select name="STORE_CATEGORY" id="STORE_CATEGORY" class="form-select" aria-label="Default select example">
-							<option selected>업종 선택</option>
-							<option value="한식">한식</option>
-							<option value="일식">일식</option>
-							<option value="중식">중식</option>
-							<option value="레스토랑">레스토랑</option>
-							<option value="카페">카페</option>
-						</select>
-				  </div>
+<!--   				  <div class="form-outline mb-4"> -->
+<!-- 				  	<div style="text-align: left;"> <label>식당명</label> </div> -->
+<!-- 				    	<input type="text" name="STORE_NAME" class="form-control" /> -->
+<!-- 				  </div>					   -->
+<!--   				  <div class="form-outline mb-4"> -->
+<!-- 				  	<div style="text-align: left;"> <label>식당 위치</label> </div> -->
+<!-- 				    	<input type="text" name="STORE_LOCATION" class="form-control" /> -->
+<!-- 				  </div> -->
+<!--   				  <div class="form-outline mb-4"> -->
+<!-- 				  	<div style="text-align: left;"> <label>식당 구분</label> </div> -->
+<!-- 		    			<select name="STORE_CATEGORY" id="STORE_CATEGORY" class="form-select" aria-label="Default select example"> -->
+<!-- 							<option selected>업종 선택</option> -->
+<!-- 							<option value="한식">한식</option> -->
+<!-- 							<option value="일식">일식</option> -->
+<!-- 							<option value="중식">중식</option> -->
+<!-- 							<option value="레스토랑">레스토랑</option> -->
+<!-- 							<option value="카페">카페</option> -->
+<!-- 						</select> -->
+<!-- 				  </div> -->
 				  <br>
 				  
 				  

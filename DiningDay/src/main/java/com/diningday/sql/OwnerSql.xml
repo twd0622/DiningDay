@@ -16,9 +16,9 @@
 			  STORE_NO  ,
 			  OWN_DATE)  
 		values
-			( CONCAT('OWN_', (select * 
-							  from (select ifnull(MAX(cast(trim(leading 'OW_' from #{OWN_NO})as unsigned)), 0) + 1
-		 		              from OWNER) A))
+			(CONCAT('OW', ( select *             
+				from (select ifnull(max(cast(trim(leading 'OW' from OWN_NO) as unsigned)), 0) + 1
+					  from OWNER ) A ))
 			, #{OWN_ID}
 			, #{OWN_PW}
 			, #{OWN_NAME}

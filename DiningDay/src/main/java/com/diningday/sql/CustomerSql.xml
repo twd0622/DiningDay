@@ -16,15 +16,26 @@
 			  CUS_NICK  ,
 			  CUS_DATE)  
 		values
-			( #{CUS_NO}
+			(CONCAT('CU', ( select *             
+				from (select ifnull(max(cast(trim(leading 'CU' from CUS_NO) as unsigned)), 0) + 1
+					  from CUSTOMER ) A ))
 			, #{CUS_ID}
 			, #{CUS_NAME}
 			, #{CUS_BIRTH}
 			, #{CUS_TEL}
 			, #{CUS_EMAIL}
 			, #{CUS_GENDER}
-			, #{CUS_NICK}
-			, #{CUS_DATE});
+			, CONCAT('CU', ( select *             
+				from (select ifnull(max(cast(trim(leading 'CU' from CUS_NO) as unsigned)), 0) + 1
+					  from CUSTOMER ) A ))
+			, DATE_FORMAT(SYSDATE(), '%Y%m%d%H%i%s'));
 	</insert>
+	
+	
+	<select id="searchId" parameterType="map" resultType="map">
+		select CUS_NO, CUS_ID
+		from CUSTOMER
+		where CUS_ID = #{CUS_ID}
+	</select>
 	
 </mapper>
