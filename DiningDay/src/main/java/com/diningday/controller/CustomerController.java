@@ -1,6 +1,8 @@
 package com.diningday.controller;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -42,6 +44,7 @@ public class CustomerController extends HttpServlet {
 		
 		
 		if(sPath.equals("/loginPro.cu")) {
+
 			boolean result = false;
 			Map<String, String> searchId = customerService.searchId(req);
 			
@@ -60,7 +63,8 @@ public class CustomerController extends HttpServlet {
 				session.setAttribute("CUS_NO", searchId.get("CUS_NO"));
 				session.setAttribute("CUS_ID", searchId.get("CUS_ID"));
 				session.setAttribute("CUS_NICK", searchId.get("CUS_NICK"));
-				session.setAttribute("CUS_EMAIL", searchId.get("CUS_EMAIL"));
+				session.setAttribute("date", LocalDate.now().format(DateTimeFormatter.ofPattern("YYYY-MM-dd")));
+				session.setAttribute("people", "2");
 				res.sendRedirect("main.ma");
 			}
 		}

@@ -45,8 +45,7 @@ public class MainController extends HttpServlet {
 		
 		if(sPath.equals("/main.ma")) {
 			// 로그인 할때 넣어주기
-			session.setAttribute("date", LocalDate.now().format(DateTimeFormatter.ofPattern("YYYY-MM-dd")));
-			session.setAttribute("people", "2");
+			
 			
 			dispatcher = req.getRequestDispatcher("Main/main.jsp");
 			dispatcher.forward(req, res);
