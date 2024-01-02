@@ -47,7 +47,7 @@
 		<section class="page-section main_section" id="portfolio" style="background:white;">
             <div class="container" style="border-bottom: 1.5px solid #f0f0f3; padding-top: 50px;">
                 <div class="text-center">
-                    <h2 class="section-heading text-uppercase" style="margin-left:20px; text-align: left">추천 맛집</h2>
+                    <h2 class="section-heading text-uppercase" style="margin-left:20px; text-align: left">전국 추천 맛집</h2>
                 </div>
                 <div style="display: flex; flex-direction: row; justify-content: space-around;">
                     <div class="col-lg-3 mb-4">
