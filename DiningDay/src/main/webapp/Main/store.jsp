@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,8 +18,8 @@
 	<link href="Main/css/store.css" rel="stylesheet" >
 	<link href="Main/css/storeModal.css" rel="stylesheet">
 	<script src="Main/js/storeModal.js"></script>
-	<script src="Main/js/store.js"></script>
 	<script src="Main/js/changeOption.js"></script>
+	<script src="Main/js/store.js"></script>
 	
 </head>
 
@@ -45,7 +46,11 @@
 					<h1>${storeInfo.STORE_NAME}</h1>
 				</div>
 				<div class="store_category">
-					<p>${storeInfo.STORE_CATEGORY} | 라멘, 마제소바 !추가 사항</p>
+					<p>${storeInfo.STORE_CATEGORY} 
+					<c:if test="${!empty storeInfo.STORE_DETAIL}">
+					| ${storeInfo.STORE_DETAIL}
+					</c:if>
+					</p>
 				</div>
 				<div class="store_category">
 					<p>${storeInfo.STORE_TEL}</p>
@@ -64,8 +69,8 @@
 						<span class="material-symbols-outlined grade_icon">grade</span>
 						<span class="material-symbols-outlined grade_icon">grade</span>
 						<span class="material-symbols-outlined grade_icon">grade</span>
-						<a href=""> 신고하기 </a>
 					</p>
+					<a href=""> 신고하기 </a>
 				</div>
 				<div class="profile_btnBox">
 					<div class="profile_btn_sec" style="border-right: 2px solid #f0f0f0;">
@@ -97,23 +102,8 @@
 					<p class="tit">영업시간</p>
 					<ul class="list">
 						<li>
-							<p class="l-txt"><strong>화 ~ 목</strong></p>
-							<p class="r-txt">영업시간: ${storeInfo.STORE_TIME}</p>
-						</li>
-						<li>
-						  <p class="l-txt"> </p>
-						  <p class="r-txt">브레이크타임: ${storeInfo.STORE_BT}</p>
-						</li>
-              			<li>
-  							<p class="l-txt"> </p>
-  							<p class="r-txt">라스트오더: ${storeInfo.STORE_LO}</p>
-						</li>
-					</ul>
-					<hr class="hr">
-					<ul class="list">
-						<li>
-							<p class="l-txt"><strong>금 ~ 일</strong></p>
-							<p class="r-txt">영업시간: ${storeInfo.STORE_TIME}</p>
+							<p class="l-txt"><strong>화 ~ 일</strong></p>
+							<p class="r-txt">영업시간: ${storeInfo.STORE_ST} ~ ${storeInfo.STORE_ET}</p>
 						</li>
 						<li>
 						  <p class="l-txt"> </p>
@@ -169,8 +159,8 @@ ${storeInfo.STORE_INFO}
 									<div class="table_res">
 										<div style="width: 80%; height: 100%; line-height: 100%;">
 											<ul>
-												<li>최소인원: ${table.SEAT_MIN}명</li>
-												<li>최대인원: ${table.SEAT_MAX}명</li>
+												<li name="minPeople" class="${table.SEAT_MIN}">최소인원: ${table.SEAT_MIN}명</li>
+												<li name="maxPeople" class="${table.SEAT_MAX}">최대인원: ${table.SEAT_MAX}명</li>
 												<li>이용 시간: ${table.SEAT_USETIME}시간</li>
 												<li>${table.SEAT_CONTENT}</li>
 											</ul>
@@ -178,7 +168,6 @@ ${storeInfo.STORE_INFO}
 										<div style="width: 20%;">
 											<button class="btn btn-outline-warning modalOpen reservationBtn" style="margin-top:80%">예약하기</button>
 										</div>
-										
 									</div>
 								</div>
 							</div>
@@ -220,24 +209,22 @@ ${storeInfo.STORE_INFO}
 		     	<h5 id="SEAT_NAME"></h5>
 		     	<h5>인원</h5>
 		     	<div>
-		     		<button class="btn decreaseBtn">➖</button>
-		     		<span id="SEAT_MIN"></span>
-		     		<button class="btn increaseBtn">➕</button>
+		     		<div class="form-control" id="res_people"></div>
 		     	</div>
 		     	<hr>
 		     	<h5>날짜</h5>
-		     	<input class="form-control" type="date" id="date">
+		     	<div class="form-control" id="res_date"></div>
 		     	<hr>
 				<h5>시간</h5>
-				<div style="display: flex; flex-direction: rows;">
-					<div class="time" style="border:2px solid black; width: 90px; height: 40px; font-size: 25px; font-weight: 300;bold; text-align: center; margin-right: 5px;">
-						13:00
-						<input type="radio" class="selectTime" name="time" value="13" style="display: none;">
-					</div>
-					<div class="time" style="border:2px solid black; width: 90px; height: 40px; font-size: 25px; font-weight: 300;bold; text-align: center; margin-right: 5px;">
-						14:00
-						<input type="radio" class="selectTime" name="time" value="13" style="display: none;">
-					</div>
+				<div style="display: flex; flex-direction: row; flex-wrap: wrap; justify-content: center;">
+					<c:forEach var="i" begin="${storeInfo.STORE_RST}" end="${storeInfo.STORE_RET}" step="100">
+						<fmt:parseDate var="timeFmt" pattern="HHmm" value="${i}"/>
+						<fmt:formatDate var="timeFmtStr" pattern="HH:mm" value="${timeFmt}"/>
+						<div class="time" style="border:2px solid black; width: 90px; height: 40px; font-size: 25px; font-weight: 300; text-align: center; margin-right: 20px; margin-top: 5px;">
+							${timeFmtStr}						
+							<input type="radio" class="selectTime" name="time" value="13" style="display: none;">
+						</div>
+					</c:forEach>
 				</div>
 				<hr>
 		     </div>

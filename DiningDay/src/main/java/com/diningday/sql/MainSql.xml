@@ -9,6 +9,7 @@
 			   STORE_NO
 			 , STORE_NAME
 			 , STORE_CATEGORY
+			 , STORE_DETAIL
 			 , STORE_SCORE
 			 , LIKE_COUNT 
 		  from STORE
@@ -30,15 +31,19 @@
 			, STORE_TEL
 			, STORE_LOCATION
 			, STORE_CATEGORY
+			, STORE_DETAIL
 			, STORE_INFO
 			, STORE_PLUS
-			, DATE_FORMAT(STR_TO_DATE(STORE_TIME, '%H%i'), '%H:%i') STORE_TIME
+			, DATE_FORMAT(STR_TO_DATE(STORE_ST, '%H%i'), '%H:%i') STORE_ST
+			, DATE_FORMAT(STR_TO_DATE(STORE_ET, '%H%i'), '%H:%i') STORE_ET
 			, DATE_FORMAT(STR_TO_DATE(STORE_BT, '%H%i'), '%H:%i') STORE_BT
 			, DATE_FORMAT(STR_TO_DATE(STORE_LO, '%H%i'), '%H:%i') STORE_LO
+			, STORE_RST
+			, STORE_RET
 			, SOTRE_CLOSE
 			, STORE_SCORE
 			, LIKE_COUNT
-	 	from STORE
+		from STORE
 		where STORE_NO = #{STORE_NO};
 	</select>
 	
