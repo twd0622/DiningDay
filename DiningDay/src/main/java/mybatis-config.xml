@@ -29,7 +29,9 @@
 		<mapper resource="com/diningday/sql/ExCustomerSql.xml" />
 		<mapper resource="com/diningday/sql/LocationSql.xml" />
 		<mapper resource="com/diningday/sql/MainSql.xml" />
+		<mapper resource="com/diningday/sql/PaymentSql.xml" />
 		<mapper resource="com/diningday/sql/AdminSql.xml" />
+		
 	</mappers>
 
 </configuration>

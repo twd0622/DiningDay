@@ -166,7 +166,7 @@ ${storeInfo.STORE_INFO}
 											</ul>
 										</div>
 										<div style="width: 20%;">
-											<button class="btn btn-outline-warning modalOpen reservationBtn" style="margin-top:80%">예약하기</button>
+											<button class="btn btn-outline-warning modalOpen reservationModalBtn" style="margin-top:80%">예약하기</button>
 										</div>
 									</div>
 								</div>
@@ -205,14 +205,17 @@ ${storeInfo.STORE_INFO}
 	  <div id="modalContent">
 	     <h4>예약</h4>
 	     <form action="payment.pa" method="post">
+	     	 <input type="hidden" name="store_no" value="${storeInfo.STORE_NO}">
 		     <div>
 		     	<h5 id="SEAT_NAME"></h5>
 		     	<h5>인원</h5>
 		     	<div>
+		     		<input type="hidden" name="people" id="res_people_input" value="">
 		     		<div class="form-control" id="res_people"></div>
 		     	</div>
 		     	<hr>
 		     	<h5>날짜</h5>
+		     	<input type="hidden" name="date" id="res_date_input" value="">
 		     	<div class="form-control" id="res_date"></div>
 		     	<hr>
 				<h5>시간</h5>
@@ -222,7 +225,7 @@ ${storeInfo.STORE_INFO}
 						<fmt:formatDate var="timeFmtStr" pattern="HH:mm" value="${timeFmt}"/>
 						<div class="time" style="border:2px solid black; width: 90px; height: 40px; font-size: 25px; font-weight: 300; text-align: center; margin-right: 20px; margin-top: 5px;">
 							${timeFmtStr}						
-							<input type="radio" class="selectTime" name="time" value="13" style="display: none;">
+							<input type="radio" class="selectTime" name="time" value="${timeFmtStr}" style="display: none;">
 						</div>
 					</c:forEach>
 				</div>

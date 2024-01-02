@@ -5,19 +5,19 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <!-- 식당 이름 넣어주기 -->
-    <title>식당이름 / 메뉴 선택</title>
-    <link href="css/payment.css" rel="stylesheet" >
+    <title>메뉴 선택</title>
+    <link href="Payment/css/payment.css" rel="stylesheet" >
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
     
-    <script src="js/menuChoice.js"></script>
-    <script src="js/jquery-3.6.0.js"></script>
+    <script src="Payment/js/menuChoice.js"></script>
 	<script src="https://cdn.iamport.kr/v1/iamport.js"></script>
-	<script src="js/payment.js"></script>
+	<script src="Payment/js/payment.js"></script>
 </head>
-
+	
 	<!-- main은 속성 값은 왠만하면 건들지x -->
 	<main style="display: flex; justify-content: center; align-items: center; text-align: center; margin-top: 100px; padding:20px 0 50px 0; ">
+		<c:set var="customerInfo" value="${requestScope.customerInfo}"/>
+		<c:set var="reservationDTO" value="${requestScope.reservationDTO}"/>
 		
 		<!-- 예시div style속성 값 조절해서 사용! -->
 		<div class="main_container">
@@ -28,12 +28,17 @@
 					<p class="tit">예약자 정보</p>
 					<div class="cus_infoBox">
 						<label for="cus_name">예약자 이름</label>
-						<input class="form-control" type="text" name="cus_name">
+						<input class="form-control" type="text" name="cus_name" value="${customerInfo.CUS_NAME}">
 					</div>
 					
 					<div class="cus_infoBox">
 						<label for="cus_phone">휴대폰 번호</label>
-						<input class="form-control" type="text" name="cus_phone">
+						<input class="form-control" type="text" name="cus_phone" value="${customerInfo.CUS_TEL}">
+					</div>
+					
+					<div class="cus_infoBox">
+						<label for="cus_phone">요청 사항</label>
+						<input class="form-control" type="text" name="cus_plus" value="">
 					</div>
 					<div class="checkBtnBox">
 						<button class="btn fw-bold text-light" style="background:#9CED92;">확정</button>
@@ -50,18 +55,16 @@
 					<div class="table_infoBox">
 						<label for="table_people">인원수</label>
 						<div style="display: flex; flex-direction: row;">
-							<span>-</span>
-							<span>3</span>
-							<span>+</span>
+							<span>${reservationDTO.people}</span>
 						</div>
 					</div>
 					<div class="table_infoBox">
 						<label for="table_date">날짜</label>
-						<input class="form-control" type="date" name="table_date">
+						<div class="form-control" style="width: 50%;">${reservationDTO.date}</div>
 					</div>
 					<div class="table_infoBox">
 						<label for="table_time">시간</label>
-						<span style="text-align: left">13:00</span>
+						<span style="text-align: left">${reservationDTO.time}</span>
 					</div>
 					<div class="checkBtnBox">
 						<button class="btn fw-bold text-light" style="background: #9CED92;">확정</button>
@@ -83,23 +86,28 @@
 							</div>
 						</li>
 						<li>
-							<div class="menu">
-								<img alt="츠케멘.jpg" src="츠케멘.jpg" class="menu_img">
-								<div class="menu_info" >
-									<div class="menu_name_box">
-										<p class="menu_name">츠케멘</p>
-										<p class="menu_price"> 12,000 원</p>
-									</div>
-									<div class="menu_choice">
-										<div style="text-align: left;">
-											<p style="padding-left: 10px; margin: 0; font-size: 15px">
-												츠케멘은 츠케루(붙히다, 달다) 라는 뜻에서 붙여진 일본식 면에 육수를 찍어 먹는 라멘입니다
-											</p>
+							<c:forEach var="menuInfo" items="${requestScope.menuInfoList}">
+							<c:if test="${menuInfo.MENU_HIDE == 1}">
+								<div class="menu">
+									<img alt="츠케멘.jpg" src="Payment/츠케멘.jpg" class="menu_img">
+									<div class="menu_info" >
+										<div class="menu_name_box">
+											<p class="menu_name">${menuInfo.MENU_NAME}</p>
+											<p class="menu_price"> ${menuInfo.MENU_PRICE} 원</p>
+										</div>
+										<div class="menu_choice">
+											<div style="text-align: left;">
+												<p style="padding-left: 10px; margin: 0; font-size: 15px">
+													${menuInfo.MENU_INFO}
+												</p>
+											</div>
 										</div>
 									</div>
 								</div>
-							</div>
+							</c:if>
+							</c:forEach>
 						</li>
+						<!-- 사진없는 버전 -->
 						<li>
 							<div class="menu">
 								<div class="menu_info" >
@@ -135,6 +143,10 @@
 							<div>
 								<span>휴대폰 번호</span>
 								<span>010-1111-1111</span>
+							</div>
+							<div>
+								<span>요청 사항</span>
+								<span>아기 의자 1개 필요해요</span>
 							</div>
 						</div>
 						<div class="res_option">
