@@ -58,6 +58,9 @@ public class CustomerController extends HttpServlet {
 			}
 			if(result) {
 				session.setAttribute("CUS_NO", searchId.get("CUS_NO"));
+				session.setAttribute("CUS_ID", searchId.get("CUS_ID"));
+				session.setAttribute("CUS_NICK", searchId.get("CUS_NICK"));
+				session.setAttribute("CUS_EMAIL", searchId.get("CUS_EMAIL"));
 				res.sendRedirect("main.ma");
 			}
 		}
@@ -76,9 +79,27 @@ public class CustomerController extends HttpServlet {
 		}	
 		
 		if(sPath.equals("/cus_edit.cu")) {
+			session = req.getSession();
+			String CUS_NO = (String) session.getAttribute("CUS_NO");
+			// 정보 확인
+			req.setAttribute("customerInfo", customerService.getCustomer(CUS_NO));
+			
 			dispatcher = req.getRequestDispatcher("Customer/cus_edit.jsp");
 			dispatcher.forward(req, res);
 		}	
+		
+		if(sPath.equals("/cus_editPro.cu")) {			
+			// 정보 수정
+			session = req.getSession();
+			String CUS_NICK = (String)session.getAttribute("CUS_NICK");
+			Map<String, String> param = new HashMap<String, String>();
+			param.put("CUS_NO", session.getAttribute("CUS_NO").toString());
+			req.setAttribute("customerEdit", customerService.customerEdit(req, param));
+			
+			
+			
+			res.sendRedirect("mypage.cu");
+		}
 		
 //		-------------------------------------------------------------
 		

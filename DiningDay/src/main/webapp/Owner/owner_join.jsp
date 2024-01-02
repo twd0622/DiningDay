@@ -18,7 +18,7 @@
 				<h1 class="fw-bold mb-0 fs-2">점주 계정 회원가입</h1>
 			</div>
 			<div class="modal-body p-5 pt-0">
-				<form action="owner_joinPro.ow" style="text-align: center;" method="post" name="owner_join">
+				<form action="owner_joinPro.ow" style="text-align: center;" method="get" name="owner_join">
 				  <div class="form-outline mb-4">
 				  	<div style="text-align: left;"> <label>아이디</label> </div>
 				    	<input type="text" name="OWN_ID" class="form-control"  placeholder="영문, 글자 포함 최소 6자리 이상"/>

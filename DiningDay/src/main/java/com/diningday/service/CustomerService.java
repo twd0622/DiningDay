@@ -12,9 +12,7 @@ public class CustomerService {
 	
 	public boolean insertCustomer(HttpServletRequest req) {
 		Map<String, String> customerDTO = TeamUtil.requestToMap(req);
-
 		boolean result = customerDAO.insertCustomer(customerDTO);
-
 		return result;
 	}
 	
@@ -22,8 +20,20 @@ public class CustomerService {
 	
 	public Map<String, String> searchId(HttpServletRequest req) {
 		Map<String, String> customerDTO = TeamUtil.requestToMap(req);
-		
 		return customerDAO.searchId(customerDTO);
+	}
+
+
+
+	public Map<String, String> getCustomer(String CUS_NO) {
+		return customerDAO.getCustomer(CUS_NO);
+	}
+
+
+
+	public Map<String, String> customerEdit(HttpServletRequest req, Map<String, String> param) {
+		Map<String, String> customerDTO = TeamUtil.requestToMap(req, param);
+		return customerDAO.customerEdit(customerDTO);
 	}
 
 	
