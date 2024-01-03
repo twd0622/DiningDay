@@ -21,16 +21,16 @@
 						<tbody>
 							<tr>
 								<td>
-									<input type="hidden" name="cus_no" value="cus_1">
+									<input type="hidden" name="cus_no" value="${sessionScope.CUS_NO}">
 									<input type="text" class="form-control"
 									placeholder="제목명" name="srep_subject" maxlength="40">
 								</td>
 							</tr>
 							<tr>
 								<td>
-									<input type="hidden" name="store_no" value="1">
+									<input type="hidden" name="store_no" value="${requestScope.STORE_NO}">
 									<input type="text" class="form-control"
-									value="칸다 소바" name="store_name" maxlength="40" readonly="readonly">
+									value="${requestScope.STORE_NAME}" name="store_name" maxlength="40" readonly="readonly">
 								</td>
 							</tr>
 							<tr>

@@ -36,6 +36,8 @@ public class ReportController extends HttpServlet {
 		
 		if(sPath.equals("/reportWrite.re")) {
 			System.out.println("/reportWrite.re");
+			req.setAttribute("STORE_NO", req.getParameter("STORE_NO"));
+			req.setAttribute("STORE_NAME", req.getParameter("STORE_NAME"));
 			dispatcher = req.getRequestDispatcher("Review_Report/reportWrite.jsp");
 			dispatcher.forward(req, res);
 		}
@@ -45,6 +47,7 @@ public class ReportController extends HttpServlet {
 			reportService = new ReportService();
 			
 			reportService.insertReport(req);
+			res.sendRedirect("main.ma");
 		}
 		
 		
