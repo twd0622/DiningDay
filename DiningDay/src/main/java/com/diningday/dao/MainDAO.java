@@ -83,13 +83,26 @@ public class MainDAO {
 		return Like;
 	}
 
-	public void insertLike(Map<String, String> dto) {
+	public int insertLike(Map<String, String> dto) {
 		session = sqlSessionFactory.openSession();
 		
-		session.insert("Main.insertLike", dto);
+		int result = session.insert("Main.insertLike", dto);
 		
 		session.commit();
 		session.close();
+		
+		return result;
+	}
+
+	public int deleteLike(Map<String, String> dto) {
+		session = sqlSessionFactory.openSession();
+		
+		int result = session.delete("Main.deleteLike", dto);
+		
+		session.commit();
+		session.close();
+		
+		return result;
 	}
 	
 	

@@ -9,7 +9,7 @@
     <link href="Payment/css/payment.css" rel="stylesheet" >
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
     
-    <script src="Payment/js/menuChoice.js"></script>
+    <script src="Payment/js/reservation.js"></script>
 	<script src="https://cdn.iamport.kr/v1/iamport.js"></script>
 	<script src="Payment/js/payment.js"></script>
 </head>
@@ -28,20 +28,21 @@
 					<p class="tit">예약자 정보</p>
 					<div class="cus_infoBox">
 						<label for="cus_name">예약자 이름</label>
-						<input class="form-control" type="text" name="cus_name" value="${customerInfo.CUS_NAME}">
+						<input class="form-control" type="text" id="cus_name" name="cus_name" value="${customerInfo.CUS_NAME}">
 					</div>
 					
 					<div class="cus_infoBox">
 						<label for="cus_phone">휴대폰 번호</label>
-						<input class="form-control" type="text" name="cus_phone" value="${customerInfo.CUS_TEL}">
+						<input class="form-control" type="text" id="cus_phone" name="cus_phone" value="${customerInfo.CUS_TEL}">
 					</div>
 					
 					<div class="cus_infoBox">
-						<label for="cus_phone">요청 사항</label>
-						<input class="form-control" type="text" name="cus_plus" value="">
+						<label for="cus_plus">요청 사항</label>
+						<textarea class="form-control" id="cus_plus" name="cus_plus" ></textarea>
 					</div>
 					<div class="checkBtnBox">
-						<button class="btn fw-bold text-light" style="background:#9CED92;">확정</button>
+						<button class="btn fw-bold text-light decideCusBtn" style="background:#9CED92;">확정</button>
+						<input type="checkbox" id="cusCheck" style="display: none;">
 					</div>
 				</div>
 				
@@ -50,24 +51,25 @@
 					<p class="tit">좌석 정보</p>
 					<div class="table_infoBox">
 						<label for="table_name">좌석명</label>
-						<span style="text-align: left">A1</span>
+						<span id="table_name" style="text-align: left">A1</span>
 					</div>
 					<div class="table_infoBox">
 						<label for="table_people">인원수</label>
 						<div style="display: flex; flex-direction: row;">
-							<span>${reservationDTO.people}</span>
+							<span id="table_people">${reservationDTO.people}</span>
 						</div>
 					</div>
 					<div class="table_infoBox">
 						<label for="table_date">날짜</label>
-						<div class="form-control" style="width: 50%;">${reservationDTO.date}</div>
+						<div id="table_date" class="form-control" style="width: 30%; text-align: left; font-size: 20px;">${reservationDTO.date}</div>
 					</div>
 					<div class="table_infoBox">
 						<label for="table_time">시간</label>
-						<span style="text-align: left">${reservationDTO.time}</span>
+						<span id="table_time" style="text-align: left">${reservationDTO.time}</span>
 					</div>
 					<div class="checkBtnBox">
-						<button class="btn fw-bold text-light" style="background: #9CED92;">확정</button>
+						<button class="btn fw-bold text-light decideTableBtn" style="background: #9CED92;">확정</button>
+						<input type="checkbox" id="tableCheck" style="display: none;">
 					</div>
 				</div>				
 				
@@ -76,7 +78,7 @@
 					<p class="tit">메뉴 선택</p>
 					<ul class="list">
 						<li>
-							<div class="menu">
+							<div class="menu defaultBtn">
 								<div class="menu_info">
 									<div class="menu_name_box">
 										<p class="menu_name">현장에서 선택 하기</p>
@@ -85,28 +87,29 @@
 								</div>
 							</div>
 						</li>
+						<c:forEach var="menuInfo" items="${requestScope.menuInfoList}">
+						<c:if test="${menuInfo.MENU_HIDE == 1}">
 						<li>
-							<c:forEach var="menuInfo" items="${requestScope.menuInfoList}">
-							<c:if test="${menuInfo.MENU_HIDE == 1}">
-								<div class="menu">
-									<img alt="츠케멘.jpg" src="Payment/츠케멘.jpg" class="menu_img">
-									<div class="menu_info" >
-										<div class="menu_name_box">
-											<p class="menu_name">${menuInfo.MENU_NAME}</p>
-											<p class="menu_price"> ${menuInfo.MENU_PRICE} 원</p>
-										</div>
-										<div class="menu_choice">
-											<div style="text-align: left;">
-												<p style="padding-left: 10px; margin: 0; font-size: 15px">
-													${menuInfo.MENU_INFO}
-												</p>
-											</div>
+							<div class="menu menuPlusBtn">
+								<img alt="츠케멘.jpg" src="Payment/츠케멘.jpg" class="menu_img">
+								<div class="menu_info">
+									<div class="menu_name_box">
+										<p class="menu_name">${menuInfo.MENU_NAME}</p>
+										<p class="menu_price"> ${menuInfo.MENU_PRICE} 원</p>
+									</div>
+									<div class="menu_choice">
+										<div style="text-align: left;">
+											<p style="padding-left: 10px; margin: 0; font-size: 15px">
+												${menuInfo.MENU_INFO}
+											</p>
 										</div>
 									</div>
 								</div>
-							</c:if>
-							</c:forEach>
+							</div>
 						</li>
+						</c:if>
+						</c:forEach>
+						
 						<!-- 사진없는 버전 -->
 						<li>
 							<div class="menu">
@@ -136,42 +139,15 @@
 						</div>
 						<div class="cus_option">
 							<span class="cart_sub_tit">예약자 정보</span>
-							<div>
-								<span>예약자 이름</span>
-								<span>홍길동</span>
-							</div>
-							<div>
-								<span>휴대폰 번호</span>
-								<span>010-1111-1111</span>
-							</div>
-							<div>
-								<span>요청 사항</span>
-								<span>아기 의자 1개 필요해요</span>
-							</div>
 						</div>
 						<div class="res_option">
 							<span class="cart_sub_tit">좌석 정보</span>
-							<div>
-								<span>좌석명</span>
-								<span>A1</span>
-							</div>
-							<div>
-								<span>인원수</span>
-								<span>3</span>
-							</div>
-							<div>
-								<span>날짜</span>
-								<span>23-12-19</span>
-							</div>
-							<div>
-								<span>시간</span>
-								<span>13:00</span>
-							</div>
+							
 						</div>
 						<div class="choice_menu">
 							<span class="cart_sub_tit">메 뉴</span>
 							<ul>
-								<li class="choice_list">
+								<li class="choice_list defaultMenu">
 									<div style="display: flex; justify-content: space-around;">
 										<span>기본 예약금</span>
 										<span>10,000 원</span>
@@ -189,21 +165,7 @@
 											<span>+</span>
 										</div>
 									</div>
-									<span class="material-symbols-outlined" style="font-size: 18px;">delete</span>
-								</li>
-								<li class="choice_list cart_menu">
-									<div style="width: 80%;">
-										<div>
-											<span>츠케멘 </span>
-											<span>12,000 원</span>
-										</div>
-										<div class="count_box">
-											<span>-</span>
-											<span>1</span>
-											<span>+</span>
-										</div>
-									</div>
-									<span class="material-symbols-outlined" style="font-size: 18px;">delete</span>
+									<span class="material-symbols-outlined deleteBtn" style="font-size: 18px;">delete</span>
 								</li>
 							</ul>
 						</div>

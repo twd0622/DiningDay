@@ -77,8 +77,8 @@
 				</div>
 				<div class="profile_btnBox">
 					<div class="profile_btn_sec" style="border-right: 2px solid #f0f0f0;">
-						<a href="#" id="like_btn" class="profile_btn">
-							<span class="profile_btn_text">${storeInfo.LIKE_COUNT}</span>
+						<a id="like_btn" class="profile_btn">
+							<span class="profile_btn_text like_count">${storeInfo.LIKE_COUNT}</span>
 						</a>
 					</div>
 					<div class="profile_btn_sec" style="border-right: 2px solid #f0f0f0;">

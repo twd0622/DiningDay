@@ -35,6 +35,11 @@
     		border-color: #737373 !important;
     		box-shadow: 0 0 3px #737373 !important;
     	}
+    	textarea:focus {
+    		outline: none !important;
+    		border-color: #737373 !important;
+    		box-shadow: 0 0 3px #737373 !important;
+    	}
     	
     	#peopleOptionModal{
 			  display: none; /* Hidden by default */
@@ -62,7 +67,7 @@
 		</a>
 		
 		<!-- 날짜, 인원 설정 -->
-		<div style="display: flex; flex-direction: row; margin: 0 480px 0 50px">
+		<div id="optionBox" style="display: flex; flex-direction: row; margin: 0 480px 0 50px">
 			<div style="display: flex; flex-direction: column; margin-right: 10px;">
 				<span style="color: #bfbfbf; font-size: 12px;">예약 날짜</span>
 				<input id="dateOption" type="date" class="form-control" style="background: #f5f5f5; border: 0; padding: 20px 40px; width: 210px;"

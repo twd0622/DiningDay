@@ -53,7 +53,7 @@
                     <div class="col-lg-3 mb-4">
                         <!-- Portfolio item 4-->
                         <div class="portfolio-item">
-                            <a class="portfolio-link" href="store.ma?STORE_NO=1">
+                            <a class="portfolio-link" href="store.ma?STORE_NO=ST100">
                                 <div class="portfolio-hover">
                                     <div class="portfolio-hover-content"><span class="material-symbols-outlined" style="font-size: 80px;">search</span></div>
                                 </div>

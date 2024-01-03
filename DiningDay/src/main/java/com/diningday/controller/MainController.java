@@ -115,10 +115,15 @@ public class MainController extends HttpServlet {
 		}
 		
 		if(sPath.equals("/insertLike.ma")) {
-			mainService.insertLike(req);
+			String result = Integer.toString(mainService.insertLike(req));
 			
+			res.getWriter().print(result);
 		}
-		
+		if(sPath.equals("/deleteLike.ma")) {
+			String result = Integer.toString(mainService.deleteLike(req));
+			
+			res.getWriter().print(result);
+		}
 		
 		
 		

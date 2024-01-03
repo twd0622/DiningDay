@@ -99,8 +99,16 @@
 	
 	<insert id="insertLike" parameterType="map">
 		insert into LIKE_LIST
-		values('3', #{CUS_NO}, #{STORE_NO});
+		values( concat("LL" ,ifnull((select cast(max(replace(LIKE_NO, "LL", "")) as unsigned)+1 from LIKE_LIST a), 1))
+		      , #{CUS_NO}
+		      , #{STORE_NO});
 	</insert>
+	
+	<delete id="deleteLike">
+		delete from LIKE_LIST
+		 where STORE_NO = #{STORE_NO}
+		   and CUS_NO = #{CUS_NO};
+	</delete>
 </mapper>
 
 
