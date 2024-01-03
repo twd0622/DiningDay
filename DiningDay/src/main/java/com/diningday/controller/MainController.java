@@ -44,8 +44,12 @@ public class MainController extends HttpServlet {
 		System.out.println(sPath);
 		
 		if(sPath.equals("/main.ma")) {
-			// 로그인 할때 넣어주기
-			
+			if(session.getAttribute("date") == null) {
+				session.setAttribute("date", LocalDate.now().format(DateTimeFormatter.ofPattern("YYYY-MM-dd")));
+			}
+			if(session.getAttribute("people") == null) {
+				session.setAttribute("people", "2");
+			}
 			
 			dispatcher = req.getRequestDispatcher("Main/main.jsp");
 			dispatcher.forward(req, res);

@@ -70,8 +70,8 @@
 						<span class="material-symbols-outlined grade_icon">grade</span>
 						<span class="material-symbols-outlined grade_icon">grade</span>
 					</p>
-					<a href=""> 신고하기 </a>
-				</div>
+					<a href="reportWrite.re?STORE_NO=${storeInfo.STORE_NO}&STORE_NAME=${storeInfo.STORE_NAME}"> 신고하기 </a>
+ㄴ				</div>
 				<div class="profile_btnBox">
 					<div class="profile_btn_sec" style="border-right: 2px solid #f0f0f0;">
 						<a href="#" onclick="" class="profile_btn">
@@ -204,7 +204,7 @@ ${storeInfo.STORE_INFO}
 	<div id="modalContainer" class="hidden">
 	  <div id="modalContent">
 	     <h4>예약</h4>
-	     <form action="" method="post">
+	     <form action="payment.pa" method="post">
 		     <div>
 		     	<h5 id="SEAT_NAME"></h5>
 		     	<h5>인원</h5>

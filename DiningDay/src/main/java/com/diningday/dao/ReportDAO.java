@@ -7,22 +7,19 @@ import org.apache.ibatis.session.SqlSessionFactory;
 
 import com.diningday.sql.SqlMapClient;
 
-
-public class UserDAO {
+public class ReportDAO {
 
 	private SqlSessionFactory sqlSessionFactory = SqlMapClient.getSqlSessionFactory();
-	SqlSession session = sqlSessionFactory.openSession();
+	SqlSession session = null;
 	
-	
-	public Boolean insertUser(Map<String, String> dto) {
-		//dto = {user_id : choi , user_pass : 1234, user_name : 최승민}
+	public void insertReport(Map<String, String> reportDTO) {
 		session = sqlSessionFactory.openSession();
-		
-		int insertUser = session.insert("User.insert", dto); // namespace.id
+		session.insert("Report.insertReport",reportDTO);
 		
 		session.commit();
 		session.close();
-		
-		return insertUser > 0 ? true : false;
 	}
+
+	
+
 }
