@@ -8,7 +8,7 @@
 </head>
 <body>
 <%
-	response.sendRedirect("reportWrite.re");
+	response.sendRedirect("main.ma");
 %>
 </body>
 </html>

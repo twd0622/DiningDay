@@ -32,11 +32,12 @@ public class ReportController extends HttpServlet {
 	
 	protected void doProcess(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		String sPath = req.getServletPath();
-		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
 		System.out.println(sPath);
 		
 		if(sPath.equals("/reportWrite.re")) {
 			System.out.println("/reportWrite.re");
+			req.setAttribute("STORE_NO", req.getParameter("STORE_NO"));
+			req.setAttribute("STORE_NAME", req.getParameter("STORE_NAME"));
 			dispatcher = req.getRequestDispatcher("Review_Report/reportWrite.jsp");
 			dispatcher.forward(req, res);
 		}
@@ -46,6 +47,7 @@ public class ReportController extends HttpServlet {
 			reportService = new ReportService();
 			
 			reportService.insertReport(req);
+			res.sendRedirect("main.ma");
 		}
 		
 		
