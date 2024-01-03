@@ -104,6 +104,24 @@ public class MainController extends HttpServlet {
 			res.getWriter().print(TeamUtil.mapToJSON(sessionDTO));
 			
 		}
+		
+		if(sPath.equals("/getLike.ma")) {
+			String isLike = "1";
+			if(mainService.getLike(req) == null) {
+				isLike = "0";
+			}
+			
+			res.getWriter().print(isLike);
+		}
+		
+		if(sPath.equals("/insertLike.ma")) {
+			mainService.insertLike(req);
+			
+		}
+		
+		
+		
+		
+		
 	}
-	
 }

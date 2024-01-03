@@ -15,6 +15,7 @@
     <title>Dining Day - ${storeInfo.STORE_NAME}</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
 	<link href="Main/css/store.css" rel="stylesheet" >
 	<link href="Main/css/storeModal.css" rel="stylesheet">
 	<script src="Main/js/storeModal.js"></script>
@@ -22,7 +23,9 @@
 	<script src="Main/js/store.js"></script>
 	
 </head>
-
+	<script>
+		var cus_no = "${sessionScope.CUS_NO}";
+	</script>
 	
 	<!-- main은 속성 값은 왠만하면 건들지x -->
 	<main style="display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; margin-top: 100px; padding:20px 0 50px 0;">
@@ -74,15 +77,14 @@
 				</div>
 				<div class="profile_btnBox">
 					<div class="profile_btn_sec" style="border-right: 2px solid #f0f0f0;">
-						<a href="#" onclick="" class="profile_btn">
-							<span class="material-symbols-outlined profile_btn_icon" class="profile_btn_icon" style="color:red;">favorite</span>
-							<span class="profile_btn_text">찜하기</span>
+						<a href="#" id="like_btn" class="profile_btn">
+							<span class="profile_btn_text">${storeInfo.LIKE_COUNT}</span>
 						</a>
 					</div>
 					<div class="profile_btn_sec" style="border-right: 2px solid #f0f0f0;">
-						<a href="#" onclick="" class="profile_btn">
+						<a href="https://www.google.co.kr/maps/search/${storeInfo.STORE_LOCATION}"  target='_blank' class="profile_btn">
 							<span class="material-symbols-outlined profile_btn_icon" class="profile_btn_icon">map</span>
-							<span class="profile_btn_text">위치 보기</span>
+							<span class="profile_btn_text">위 치</span>
 						</a>
 					</div>
 					<div class="profile_btn_sec">

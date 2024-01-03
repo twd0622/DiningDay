@@ -29,7 +29,7 @@
 			, OWN_NO
 			, STORE_NAME
 			, STORE_TEL
-			, STORE_LOCATION
+			, replace(STORE_LOCATION, ' ', '+') STORE_LOCATION 
 			, STORE_CATEGORY
 			, STORE_DETAIL
 			, STORE_INFO
@@ -38,11 +38,11 @@
 			, DATE_FORMAT(STR_TO_DATE(STORE_ET, '%H%i'), '%H:%i') STORE_ET
 			, DATE_FORMAT(STR_TO_DATE(STORE_BT, '%H%i'), '%H:%i') STORE_BT
 			, DATE_FORMAT(STR_TO_DATE(STORE_LO, '%H%i'), '%H:%i') STORE_LO
-			, STORE_RST
-			, STORE_RET
+			, STORE_RST	
+			, STORE_RET	
 			, SOTRE_CLOSE
 			, STORE_SCORE
-			, LIKE_COUNT
+			, (select count(LIKE_NO) LIKE_COUNT from LIKE_LIST where STORE_NO = #{STORE_NO}) LIKE_COUNT
 		from STORE
 		where STORE_NO = #{STORE_NO};
 	</select>
@@ -90,6 +90,17 @@
 		   and SEAT_NO = #{TABLE_NO};
 	</select>
 	
+	<select id="getLike" parameterType="map" resultType="map">
+		select *
+		  from LIKE_LIST
+		 WHERE CUS_NO = #{CUS_NO}
+		   AND STORE_NO = #{STORE_NO};
+	</select>
+	
+	<insert id="insertLike" parameterType="map">
+		insert into LIKE_LIST
+		values('3', #{CUS_NO}, #{STORE_NO});
+	</insert>
 </mapper>
 
 

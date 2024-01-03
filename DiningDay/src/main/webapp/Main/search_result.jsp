@@ -59,8 +59,8 @@
 	                                <div class="portfolio-caption-heading">${list.STORE_NAME}</div>
 	                                <div class="portfolio-caption-subheading text-muted" style="margin-bottom: 20px;">${list.STORE_CATEGORY} | ${list.STORE_DETAIL}</div>
 	                                <div class="portfolio-caption-subheading text-muted">⭐ ${list.STORE_SCORE}점 (87명)</div>
-	                                <div class="portfolio-caption-subheading text-muted" style="display: flex;"><span class="material-icons" style="color: red;">favorite</span> ${list.LIKE_COUNT} </div>
-	                                <div class="portfolio-caption-subheading text-muted" style="display: flex;"><span class="material-symbols-outlined" style="color: red;">favorite</span> ${list.LIKE_COUNT} </div>
+	                                <div class="portfolio-caption-subheading text-muted" style="display: flex;"><span class="material-icons" style="color: #E21818;">favorite</span> ${list.LIKE_COUNT} </div>
+	                                <div class="portfolio-caption-subheading text-muted" style="display: flex;"><span class="material-symbols-outlined" style="color: #E21818;">favorite</span> ${list.LIKE_COUNT} </div>
 	                            </div>
 	                        </div>
 	                    </div>

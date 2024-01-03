@@ -1,4 +1,5 @@
 $(()=>{
+	// 테이블 정보 출력
 	var curPeople = Number($(".people").text());
 	var tables = $(".table_ ul");
 	for(var i = 0; i < tables.length; i++){
@@ -11,7 +12,7 @@ $(()=>{
 				}
 	}
 	
-	
+	// 예약 인원 수 별 가능한 테이블 예약 버튼 보여주기
 	$(".people").on(
 		"DOMSubtreeModified",
 		function(){
@@ -38,7 +39,53 @@ $(()=>{
 		}	
 	)
 	
+	// 찜 버튼
+	$.ajax({
+		type: "get",
+		url:"getLike.ma",
+		data: {
+			CUS_NO: cus_no,
+			STORE_NO: $(".store_profile").attr("id")
+		}
+	})
+	.done(
+		function(data){
+			if(data == '1'){
+				$("#like_btn").prepend('<span class="material-icons profile_btn_icon like" style="color: #E21818;">favorite</span>');
+			} else {
+				$("#like_btn").prepend('<span class="material-symbols-outlined profile_btn_icon unlike" style="color:#E21818;">favorite</span>');
+			}
+		}
+	)
 	
+	
+	$("#like_btn").on(
+		"click",
+		function(){
+			var url;
+			if($(this).children(".unlike").length == 1){
+				url = "insertLike.ma";
+			} else{
+				if(confirm('찜을 취소하시겠습니까?') == true) url = "deleteLike.ma";
+				else return;
+			}
+			
+			$.ajax({
+				type: "post",
+				url: url,
+				data: {
+					CUS_NO: cus_no,
+					STORE_NO: $(".store_profile").attr("id")
+				}
+			})
+			.done(
+				
+			)
+			
+		}
+	)
+	
+	// 예약 버튼 클릭시 모달 창에 정보 넣기
 	$(".reservationModalBtn").on(
 		"click",
 		function(){
