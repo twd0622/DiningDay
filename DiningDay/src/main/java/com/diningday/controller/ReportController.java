@@ -32,7 +32,6 @@ public class ReportController extends HttpServlet {
 	
 	protected void doProcess(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		String sPath = req.getServletPath();
-		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
 		System.out.println(sPath);
 		
 		if(sPath.equals("/reportWrite.re")) {

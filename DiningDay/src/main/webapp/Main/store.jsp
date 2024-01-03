@@ -70,7 +70,7 @@
 						<span class="material-symbols-outlined grade_icon">grade</span>
 						<span class="material-symbols-outlined grade_icon">grade</span>
 					</p>
-					<a href=""> 신고하기 </a>
+					<a href="reportWrite.re"> 신고하기 </a>
 				</div>
 				<div class="profile_btnBox">
 					<div class="profile_btn_sec" style="border-right: 2px solid #f0f0f0;">
