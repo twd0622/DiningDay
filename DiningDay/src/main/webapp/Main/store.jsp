@@ -59,7 +59,7 @@
 					<p>${storeInfo.STORE_TEL}</p>
 				</div>
 				<div class="store_score">
-					<p>
+					<p style="margin: 0;">
 						<strong style="font-size:18px; vertical-align:middle; padding-right:8px;">${storeInfo.STORE_SCORE}점</strong>
 						<span style="font-size: 13px; color: #66666e; margin-right: 5px;">
 							87명의 평가 !추가 사항
@@ -73,7 +73,7 @@
 						<span class="material-symbols-outlined grade_icon">grade</span>
 						<span class="material-symbols-outlined grade_icon">grade</span>
 					</p>
-					<a href=""> 신고하기 </a>
+					<a href="reportWrite.re?STORE_NO=${storeInfo.STORE_NO}&STORE_NAME=${storeInfo.STORE_NAME}"> 신고하기 </a>
 				</div>
 				<div class="profile_btnBox">
 					<div class="profile_btn_sec" style="border-right: 2px solid #f0f0f0;">
