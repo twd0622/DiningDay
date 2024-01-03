@@ -76,13 +76,22 @@ public class OwnerController extends HttpServlet {
 			Map<String, String> ownerCheck = ownerService.ownerCheck(req);
 			if(ownerCheck != null) {
 				System.out.println("로그인 성공");
-				HttpSession session = req.getSession();
+				session.setAttribute("STORE_NO", ownerCheck.get("STORE_NO"));
 				session.setAttribute("id", ownerCheck.get("OWN_ID"));
 				res.sendRedirect("smain.ow");
+
+				String adminId = (String)session.getAttribute("id");
+
+				// 관리자로 로그인할 경우 관리자페이지로 이동
+				if(adminId.equals("admin")) {
+					res.sendRedirect("admin_main.ad");
+				} else {
+					res.sendRedirect("smain.ow");
+				}
+
 			} else {
-				System.out.println("로그인 실패");
-				dispatcher = req.getRequestDispatcher("Owner/msg.jsp");
-				dispatcher.forward(req, res);
+				String msg = "아이디 혹은 비밀번호가 틀렸습니다.";
+				alertAndBack(res, msg);
 			}
 		}
 

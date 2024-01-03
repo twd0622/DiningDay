@@ -19,14 +19,13 @@
 		    , date_format(sysdate(), '%Y%m%d%H%i%s') );
 	</insert>
 	
-	<update id="noticeUpdate" parameterType="map">
+	<update id="noticeUpdate" parameterType="map" >
 		update 	NOTICE
 		set		NOT_TITLE 	= #{NOT_TITLE},
 				NOT_CONTENT = #{NOT_CONTENT},
-				NOT_DATE	= date_format(sysdate(), '%Y%m%d%H%i%s')
+				NOT_REDATE	= date_format(sysdate(), '%Y%m%d%H%i%s')
 		where	1 = 1
 		and		NOT_NO 		= #{NOT_NO} ;
-	
 	</update>
 	
 	<delete id="noticeDelete">
@@ -35,22 +34,52 @@
 	</delete>
 	
 	<select id="selectNoticeList" parameterType="map" resultType="map">
-		select NOT_NO, NOT_TITLE, NOT_CONTENT, date_format(ifnull(NOT_REDATE, NOT_DATE), '%Y-%m-%d') as "DATE"
+		select NOT_NO
+			 , NOT_TITLE
+			 , NOT_CONTENT
+			 , date_format(ifnull(NOT_REDATE, NOT_DATE), '%Y-%m-%d') as "DATE"
 		from NOTICE
-		order by NOT_NO desc;	
+		order by NOT_NO desc;
 	</select>
 	
 	<select id="selectNoticeDetail" parameterType="map" resultType="map">
-		select 	NOT_NO, NOT_TITLE, NOT_CONTENT, date_format(ifnull(NOT_REDATE, NOT_DATE), '%Y-%m-%d') as "DATE"
-		from 	NOTICE
-		where 	1 = 1
-		and		NOT_NO = #{NOT_NO};
+		select NOT_NO
+			 , NOT_TITLE, NOT_CONTENT
+			 , date_format(ifnull(NOT_REDATE, NOT_DATE)
+			 , '%Y-%m-%d') as "DATE"
+		from   NOTICE
+		where  NOT_NO = #{NOT_NO};
 	</select>
 	
 	<select id="selectStoreList" resultType="map">
-		select STORE_NO, STORE_NAME, STORE_CATEGORY, STORE_TEL, STORE_LOCATION
-		from STORE
+		select S.STORE_NO
+			 , S.STORE_NAME
+			 , S.STORE_CATEGORY
+			 , S.STORE_TEL, STORE_LOCATION
+		     , O.OWN_NO
+		from   STORE S join OWNER O
+		on S.OWN_NO = O.OWN_NO
 		order by STORE_NO desc;
+	</select>
+	
+	<select id="selectStoreDetail" parameterType="map" resultType="map">
+		select O.OWN_NO
+			 , O.OWN_ID
+			 , O.OWN_EMAIL
+			 , O.OWN_TEL
+			 , O.OWN_CRN
+			 , S.STORE_NAME
+			 , S.STORE_LOCATION
+			 , S.STORE_CATEGORY
+			 , S.STORE_TEL
+			 , S.STORE_ST
+			 , S.STORE_ET
+			 , S.STORE_INFO
+			 , S.STORE_PLUS
+		from   OWNER O join STORE S
+		on 	   O.OWN_NO = S.OWN_NO
+		where  O.OWN_NO = #{OWN_NO};
+		and    O.STORE_NO = #{STORE_
 	</select>
 	
 	<select id="selectUserList" resultType="map">
@@ -64,6 +93,25 @@
 		select SREP_NO, CUS_NO, STORE_NO, STORE_NAME, SREP_CONTENT, date_format(SREP_DATE, '%Y-%m-%d') as "DATE", SREP_PROCESS
 		from STORE_REPORT
 		order by SREP_NO desc;	
+	</select>
+	
+	<select id="selectSRepDetail" parameterType="map" resultType="map">
+		select SR.SREP_NO
+			 , C.CUS_NO
+			 , C.CUS_NAME
+		     , S.STORE_NO
+		     , S.STORE_NAME
+		     , SR.SREP_TITLE
+		     , SR.SREP_FILE
+		     , SR.SREP_CONTENT
+		     , date_format(SR.SREP_DATE, '%Y-%m-%d') as "DATE"
+		     , SR.SREP_PROCESS
+		from STORE_REPORT SR join CUSTOMER C
+		on SR.CUS_NO = C.CUS_NO
+		join STORE S
+		on SR.STORE_NO = S.STORE_NO
+		where SR.CUS_NO = #{CUS_NO}
+		and   SR.STORE_NO = #{STORE_NO};
 	</select>
 	
 	<select id="selectReviewReport" resultType="map">

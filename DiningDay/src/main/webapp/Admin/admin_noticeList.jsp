@@ -11,12 +11,12 @@
 </head>
 <%@ include file="/Template/admin_sidebar_open.jsp"%>
 <!-- main은 속성 값은 웬만하면 건들지x -->
-
+<
 <main
 	style="display: flex; align-items: center; text-align: center; padding: 20px 50px 50px 50px;">
 	<!-- 예시div style속성 값 조절해서 사용! -->
 	<div class="mainContainer"
-		style="width: 100%; height: 850px; background: white;">
+		style="width: 100%; background: white;">
 		<h4 style="text-align: left;">&lt; 공지사항 &gt;</h4>
 		<hr>
 		<div class="row" style="padding: 0 7% 0 7%;">
@@ -28,17 +28,16 @@
 						<th class="user-id col-2">내용</th>
 						<th class="created-at col-1">작성일자</th>
 					</tr>
-
 				</thead>
 				<tbody>
 				<c:set var="noticeList" value="${ requestScope.noticeList }"/>
 					<c:forEach var="notice" items="${noticeList }">
-						<tr style="height: 60px;" align="center" onClick="location.href='admin_noticeDetail.ad'">
-						<td class="title align-middle">${notice.NOT_NO}</td>
-						<td class="hashtag align-middle">${notice.NOT_TITLE}</td>
-						<td class="user-id align-middle" style="text-align: left;">${notice.NOT_CONTENT}</td>
-						<td class="created-at col-1 align-middle" id="dateRegex">${notice.DATE}</td>
-					</tr>
+						<tr id="datalist" style="height: 60px;" align="center" onclick="location.href='admin_noticeDetail.ad?NOT_NO=${ notice.NOT_NO }'">
+							<td class="title align-middle">${notice.NOT_NO}</td>
+							<td class="hashtag align-middle">${notice.NOT_TITLE}</td>
+							<td class="user-id align-middle" style="text-align: left;">${notice.NOT_CONTENT}</td>
+							<td class="created-at col-1 align-middle" id="dateRegex">${notice.DATE}</td>
+						</tr>
 					</c:forEach>
 				</tbody>
 			</table>
@@ -107,17 +106,4 @@
 </main>
 <%@ include file="/Template/admin_sidevar_close.jsp"%>
 </html>
-
-<%
-// 공지리스트 for문
-// <c:forEach var="boardDTO" items="${boardList}">
-// <tr>
-// <td>${boardDTO.num}</td>
-// <td>${boardDTO.name}</td>
-// <td><a href="content.bo?num=${boardDTO.num}">${boardDTO.subject}</td>
-// <td>${boardDTO.date}</td>
-// <td>${boardDTO.readcount}</td>
-// </tr>
-// </c:forEach>
-%>
 

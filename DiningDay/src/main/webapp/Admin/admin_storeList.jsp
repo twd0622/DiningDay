@@ -14,7 +14,7 @@
 
 	<!-- 예시div style속성 값 조절해서 사용! -->
 	<div class="mainContainer"
-		style="width: 100%; height: 850px; background: white;">
+		style="width: 100%; background: white;">
 		<h4 style="text-align: left;">&lt; 식당 조회 &gt;</h4>
 		<hr>
 		<div class="row" style="padding: 0 7% 0 7%;">
@@ -27,12 +27,12 @@
 						<th class="created-at col-2"> </th>
 
 					</tr>
-
+					
 				</thead>
 				<tbody>
 				<c:set var="storeList" value="${ requestScope.storeList }"/>
 					<c:forEach var="store" items="${storeList }">
-						<tr style="height: 60px;" onClick="location.href='admin_storeDetail.ad'">
+						<tr style="height: 60px;" onClick="location.href='admin_storeDetail.ad?OWN_NO=${store.OWN_NO}'">
 							<td class="title align-middle">${store.STORE_NO}</td>
 							<td class="align-middle">${store.STORE_NAME}</td>
 							<td class="created-at col-1 align-middle text-start">															

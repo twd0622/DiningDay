@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -20,41 +21,27 @@
 			<table class="table table-hover">
 
 				<tbody>
+				<c:set var="sRepDetail" value="${ requestScope.sRepDetail }"/>
 					<tr>
 						<th>글 제목</th>
-						<td>없는 가게라고 뜨네요</td>
+						<td>${sRepDetail.SREP_TITLE}</td>
 					</tr>
 					<tr>
 						<th>작성자</th>
-						<td>고객1</td>
+						<td>${sRepDetail.CUS_NO}</td>
 					</tr>
 					<tr>
 						<th>작성일자</th>
-						<td>2023-12-18</td>
+						<td>${sRepDetail.DATE}</td>
 					</tr>
 					<tr>
-						<td colspan="2"><img src="Admin/img/review.jpg" disabled='disabled'
+						<td colspan="2"><img src="Admin/img/${sRepDetail.SREP_FILE}" disabled='disabled'
 							style="max-width: 50%; max-height: 50%;"> <script>
-					function setDetailImage(event){
-						for(var image of event.target.files){
-							var reader = new FileReader();
-				
-							reader.onload = function(event){
-								var img = document.createElement("img");
-								img.setAttribute("src", event.target.result);
-								img.setAttribute("class", "col-lg-6");
-								document.querySelector("div#images_container").appendChild(img);
-							};
-				
-							console.log(image);
-							reader.readAsDataURL(image);
-						}
-					}
 				</script></td>
 					</tr>
 					<tr>
 						<th>글 내용</th>
-						<td>예약이 안돼서 찾아보니 없는 가게라고 뜨네요. 삭제 부탁드립니다.</td>
+						<td>${sRepDetail.SREP_CONTENT}</td>
 					</tr>
 				</tbody>
 			</table>

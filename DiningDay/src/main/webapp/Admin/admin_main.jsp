@@ -87,7 +87,7 @@ a:active {
 <!-- 					style="text-decoration: none;">자세히</a> -->
 <!-- 			</h6> -->
 <!-- 			<hr> -->
-			<iframe src="admin_noticeList.ad" style="position:relative; width: 140%; right: 270px; height: 80%;" ></iframe>
+			<iframe src="admin_noticeList.ad" style="position:relative; width: 140%; right: 270px; height: 80%;"></iframe>
 		</div>
 
 		<div class="grid-item" id="item2" style="padding: 30px;">

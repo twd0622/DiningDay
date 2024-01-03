@@ -24,15 +24,10 @@ public class AdminService {
 		
 	}
 	
-	public boolean updateBoard(HttpServletRequest req) {
-		// request 파라미터값 가져오기
-		Map<String, String> boardDTO = TeamUtil.requestToMap(req);
-//		boardDTO.put("NOT_DATE", LocalDateTime.now().toString());
+	public boolean noticeUpdate(HttpServletRequest req) {
+		boolean noticeUpdate = adminDAO.noticeUpdate(TeamUtil.requestToMap(req));
 		
-		
-		
-		return adminDAO.updateBoard(boardDTO);
-		
+		return noticeUpdate;
 	}
 
 	public List<Map<String, String>> getNoticeList() {
@@ -43,16 +38,20 @@ public class AdminService {
 	}
 
 	public Map<String, String> getNoticeDetail(HttpServletRequest req) {
-		Map<String, String> noticeDetail = TeamUtil.requestToMap(req);
 		
-		return adminDAO.getNoticeDetail(noticeDetail);
-		
+		return adminDAO.getNoticeDetail(TeamUtil.requestToMap(req));
 	}
 	
 	public List<Map<String, String>> getStoreList() {
 		List<Map<String, String>> storeList = adminDAO.getStoreList();
 		return storeList;
 	}
+	
+	public Map<String, String> getStoreDetail(HttpServletRequest req) {
+		
+		return adminDAO.getStoreDtail(TeamUtil.requestToMap(req));
+	}
+	
 
 	public List<Map<String, String>> getUserList() {
 		List<Map<String, String>> userList = adminDAO.getUserList();
@@ -62,6 +61,11 @@ public class AdminService {
 	public List<Map<String, String>> getStoreReport() {
 		List<Map<String, String>> storeReport = adminDAO.getStoreReport();
 		return storeReport;
+	}
+	
+	public Map<String, String> getSRepDetail(HttpServletRequest req) {
+		
+		return adminDAO.getSRepDetail(TeamUtil.requestToMap(req));
 	}
 	
 	public List<Map<String, String>> getReviewReport() {

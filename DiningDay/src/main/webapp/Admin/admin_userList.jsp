@@ -22,8 +22,8 @@
 				<thead>
 					<tr class="table-success">
 						<th class="title col-1 align-middle"><a>고객번호</a></th>
-						<th class="hashtag col-2 align-middle"><a>고객ID(닉네임)</a></th>
-						<th class="user-id col-2 align-middle"><a>가입정보</a></th>
+						<th class="hashtag col-1 align-middle"><a>고객ID(닉네임)</a></th>
+						<th class="user-id col-3 align-middle"><a>가입정보</a></th>
 						<th class="user-id col-1 align-middle"><a>가입날짜</a></th>
 						<th class="created-at col-1 align-middle"> </th>
 					</tr>
@@ -33,7 +33,7 @@
 						<c:forEach var="user" items="${userList}">
 							<tr style="height: 60px;">
 								<td class="title align-middle">${user.CUS_NO}</td>
-								<td class="hashtag align-middle">${user.CUS_ID} (${user.CUS_NICK})</td>
+								<td class="hashtag align-middle"><small>${user.CUS_ID}</small> (${user.CUS_NICK})</td>
 								<td class="created-at col-1 align-middle text-start">
 									<div style="display: flex; flex-direction: row; justify-content: space-between; padding: 0 60px;">
 										<span><b>　고객명 　: </b></span><span>${user.CUS_NAME} (${user.CUS_GENDER})</span>

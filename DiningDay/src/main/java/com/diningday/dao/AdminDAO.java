@@ -24,14 +24,14 @@ public class AdminDAO {
 		return insertBoard > 0 ? true : false;
 	}
 	
-	public boolean updateBoard(Map<String, String> adminDTO) {
-		session = sqlSessionFactory.openSession();
-		int updateBoard = session.update("Admin.noticeUpdate", adminDTO); // namespace.id
+	public boolean noticeUpdate(Map<String, String> adminDTO) {
 		
-		session.commit();
+		int updateNotice = session.update("Admin.noticeUpdate"); // namespace.id
+		
 		session.close();
 		
-		return updateBoard > 0 ? true : false;
+		return updateNotice > 0 ? true : false;
+		
 	}
 
 	public List<Map<String, String>> getNoticeList() {
@@ -48,7 +48,6 @@ public class AdminDAO {
 		session = sqlSessionFactory.openSession();
 		Map<String, String> noticeDetail = session.selectOne("Admin.selectNoticeDetail", adminDTO); // namespace.id
 		
-		session.commit();
 		session.close();
 		
 		return noticeDetail;
@@ -62,6 +61,16 @@ public class AdminDAO {
 		session.close();
 		
 		return storeList;
+		
+	}
+	
+	public Map<String, String> getStoreDtail(Map<String, String> adminDTO) {
+		session = sqlSessionFactory.openSession();
+		Map<String, String> storeDetail = session.selectOne("Admin.selectStoreDetail", adminDTO); // namespace.id
+		
+		session.close();
+		
+		return storeDetail;
 		
 	}
 
@@ -80,6 +89,16 @@ public class AdminDAO {
 		List<Map<String, String>> storeReport = session.selectList("Admin.selectStoreReport"); // namespace.id
 		
 		return storeReport;
+	}
+	
+	public Map<String, String> getSRepDetail(Map<String, String> adminDTO) {
+		session = sqlSessionFactory.openSession();
+		Map<String, String> sRepDetail = session.selectOne("Admin.selectSRepDetail", adminDTO); // namespace.id
+		
+		session.close();
+		
+		return sRepDetail;
+		
 	}
 
 	public List<Map<String, String>> getReviewReport() {

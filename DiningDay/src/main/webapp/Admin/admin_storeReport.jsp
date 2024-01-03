@@ -31,7 +31,7 @@
 				<tbody>
 					<c:set var="storeReport" value="${ requestScope.storeReport }"/>
 						<c:forEach var="sReport" items="${storeReport}">
-							<tr onClick="location.href='admin_storeReportDetail.ad'">
+							<tr onClick="location.href='admin_storeReportDetail.ad?CUS_NO=${sReport.CUS_NO}&STORE_NO=${sReport.STORE_NO}'">
 								<td class="title align-middle" id="td1">${sReport.SREP_NO}</td>
 								<td class="hashtag align-middle" id="td1">${sReport.STORE_NAME}</td>
 								<td class="user-id align-middle" style="text-align: left;" id="td1"> ${sReport.SREP_CONTENT}</td>
