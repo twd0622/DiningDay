@@ -24,4 +24,9 @@ public class OwnerService {
 		return ownerDAO.ownerCheck(ownerDTO);
 	}
 
+	public Map<String, String> joinCheck(HttpServletRequest req) {
+		Map<String, String> ownerDTO = TeamUtil.requestToMap(req);
+		
+		return ownerDAO.joinCheck(ownerDTO);
+	}
 }

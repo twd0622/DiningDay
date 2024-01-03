@@ -268,12 +268,13 @@
   		  		    style="color: #111111; background-color: white; border-color: #111111;">찜한 식당 보기</button>  	  
           	  
           	  
-			<a id="myBtn" data-mdb-toggle="pill" href="#" role="tab"
+			<a id="exBtn" data-mdb-toggle="pill" href="#" role="tab"
 			   aria-controls="register" aria-selected="true" style="color: gray;"> > 계정 삭제</a>
 			
 			<!-- 계정삭제 모달창 -->
-			<div id="myModal" class="modal">
+			<div id="exModal" class="modal">
 			  <div class="modal-content" id="quit-modal-content">
+			   <form action="deletePro.cu" method="post" name="deleteCustomer">
 			     <div class="modal-header" id="quit-modal-header">
 				     <h3 class="modal-title" id="quit-modal-title"><b>계정 삭제</b></h3>
 				     <button type="button" class="close" id="close" data-dismiss="modal" aria-label="Close">
@@ -292,14 +293,15 @@
 				     '계정 삭제'를 클릭하시면 탈퇴가 완료되니 신중하게 선택해 주십시오.
 				     </div>
 				     <div class="form-outline mt-5 mb-3 text-left">
-					  	<p><label>본인 계정 확인을 위해 비밀번호를 입력해 주세요.</label>
-					    	<input type="password" name="OWN_PWCHECK" class="form-control" 
-					    		   placeholder="비밀번호 입력"/></p>
+					  	<p><label>본인 계정 확인을 위해 이메일을 입력해 주십시오.</label>
+					    	<input type="text" name="CUS_EMAIL" class="form-control" 
+					    		   placeholder="이메일 입력"/></p>
 					 </div>
 				     <div class="form-outline mt-5 mb-3 text-left">
-				        <label>계정을 삭제하려는 이유를 선택해 주세요.</label>
+				        <label>계정을 삭제하려는 이유를 선택해 주십시오.</label>
 						<select name="quit_why" id="quit_why" class="form-select">
 							<option selected>계정 삭제 이유</option>
+							<hr>
 							<option value="다른 계정 이용">다른 계정 이용</option>
 							<option value="서비스 이용 불편">서비스 이용 불편</option>
 							<option value="사용빈도 적음">사용빈도 적음</option>
@@ -308,9 +310,10 @@
 					 </div>
 			     </div>
 			     <div class="modal-footer" id="quit-modal-footer">
-			       <button type="button" class="btn btn-outline-danger">계정 삭제</button>
-			       <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>     
+			       <button type="submit" class="btn btn-outline-danger">계정 삭제</button>
+			       <button type="button" id="cancelBtn" class="btn btn-secondary" data-dismiss="modal">취소</button>     
 			     </div>
+			   </form>
 			  </div>
 			</div>
 
@@ -348,9 +351,10 @@ window.onclick = function(event) {
 
 
 // 계정삭제 모달
-var modal = document.getElementById("myModal");
-var btn = document.getElementById("myBtn");
+var modal = document.getElementById("exModal");
+var btn = document.getElementById("exBtn");
 var span = document.getElementsByClassName("close")[0];
+var cancelBtn = document.getElementById("cancelBtn");
 
 btn.onclick = function() {
   modal.style.display = "block";
@@ -365,5 +369,9 @@ window.onclick = function(event) {
     modal.style.display = "none";
   }
 }
+
+cancelBtn.onclick = function() {
+	  modal.style.display = "none";
+	}
 </script>
 </html>
