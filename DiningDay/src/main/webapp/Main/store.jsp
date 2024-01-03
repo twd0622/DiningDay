@@ -69,10 +69,9 @@
 						<span class="material-symbols-outlined grade_icon">grade</span>
 						<span class="material-symbols-outlined grade_icon">grade</span>
 						<span class="material-symbols-outlined grade_icon">grade</span>
-						<a href="reportWrite.re?STORE_NO=${storeInfo.STORE_NO}&STORE_NAME=${storeInfo.STORE_NAME}"> 신고하기 </a>
 					</p>
-					<a href="reportWrite.re"> 신고하기 </a>
-				</div>
+					<a href="reportWrite.re?STORE_NO=${storeInfo.STORE_NO}&STORE_NAME=${storeInfo.STORE_NAME}"> 신고하기 </a>
+ㄴ				</div>
 				<div class="profile_btnBox">
 					<div class="profile_btn_sec" style="border-right: 2px solid #f0f0f0;">
 						<a href="#" onclick="" class="profile_btn">
