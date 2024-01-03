@@ -15,7 +15,6 @@ public class UserDAO {
 	
 	
 	public Boolean insertUser(Map<String, String> dto) {
-		//dto = {user_id : choi , user_pass : 1234, user_name : 최승민}
 		session = sqlSessionFactory.openSession();
 		
 		int insertUser = session.insert("User.insert", dto); // namespace.id

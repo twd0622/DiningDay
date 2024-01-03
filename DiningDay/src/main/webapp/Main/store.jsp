@@ -15,6 +15,7 @@
     <title>Dining Day - ${storeInfo.STORE_NAME}</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
 	<link href="Main/css/store.css" rel="stylesheet" >
 	<link href="Main/css/storeModal.css" rel="stylesheet">
 	<script src="Main/js/storeModal.js"></script>
@@ -22,7 +23,9 @@
 	<script src="Main/js/store.js"></script>
 	
 </head>
-
+	<script>
+		var cus_no = "${sessionScope.CUS_NO}";
+	</script>
 	
 	<!-- main은 속성 값은 왠만하면 건들지x -->
 	<main style="display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; margin-top: 100px; padding:20px 0 50px 0;">
@@ -56,7 +59,7 @@
 					<p>${storeInfo.STORE_TEL}</p>
 				</div>
 				<div class="store_score">
-					<p>
+					<p style="margin: 0;">
 						<strong style="font-size:18px; vertical-align:middle; padding-right:8px;">${storeInfo.STORE_SCORE}점</strong>
 						<span style="font-size: 13px; color: #66666e; margin-right: 5px;">
 							87명의 평가 !추가 사항
@@ -71,18 +74,17 @@
 						<span class="material-symbols-outlined grade_icon">grade</span>
 					</p>
 					<a href="reportWrite.re?STORE_NO=${storeInfo.STORE_NO}&STORE_NAME=${storeInfo.STORE_NAME}"> 신고하기 </a>
-ㄴ				</div>
+				</div>
 				<div class="profile_btnBox">
 					<div class="profile_btn_sec" style="border-right: 2px solid #f0f0f0;">
-						<a href="#" onclick="" class="profile_btn">
-							<span class="material-symbols-outlined profile_btn_icon" class="profile_btn_icon" style="color:red;">favorite</span>
-							<span class="profile_btn_text">찜하기</span>
+						<a id="like_btn" class="profile_btn">
+							<span class="profile_btn_text like_count">${storeInfo.LIKE_COUNT}</span>
 						</a>
 					</div>
 					<div class="profile_btn_sec" style="border-right: 2px solid #f0f0f0;">
-						<a href="#" onclick="" class="profile_btn">
+						<a href="https://www.google.co.kr/maps/search/${storeInfo.STORE_LOCATION}"  target='_blank' class="profile_btn">
 							<span class="material-symbols-outlined profile_btn_icon" class="profile_btn_icon">map</span>
-							<span class="profile_btn_text">위치 보기</span>
+							<span class="profile_btn_text">위 치</span>
 						</a>
 					</div>
 					<div class="profile_btn_sec">
@@ -166,7 +168,7 @@ ${storeInfo.STORE_INFO}
 											</ul>
 										</div>
 										<div style="width: 20%;">
-											<button class="btn btn-outline-warning modalOpen reservationBtn" style="margin-top:80%">예약하기</button>
+											<button class="btn btn-outline-warning modalOpen reservationModalBtn" style="margin-top:80%">예약하기</button>
 										</div>
 									</div>
 								</div>
@@ -205,14 +207,17 @@ ${storeInfo.STORE_INFO}
 	  <div id="modalContent">
 	     <h4>예약</h4>
 	     <form action="payment.pa" method="post">
+	     	 <input type="hidden" name="store_no" value="${storeInfo.STORE_NO}">
 		     <div>
 		     	<h5 id="SEAT_NAME"></h5>
 		     	<h5>인원</h5>
 		     	<div>
+		     		<input type="hidden" name="people" id="res_people_input" value="">
 		     		<div class="form-control" id="res_people"></div>
 		     	</div>
 		     	<hr>
 		     	<h5>날짜</h5>
+		     	<input type="hidden" name="date" id="res_date_input" value="">
 		     	<div class="form-control" id="res_date"></div>
 		     	<hr>
 				<h5>시간</h5>
@@ -222,7 +227,7 @@ ${storeInfo.STORE_INFO}
 						<fmt:formatDate var="timeFmtStr" pattern="HH:mm" value="${timeFmt}"/>
 						<div class="time" style="border:2px solid black; width: 90px; height: 40px; font-size: 25px; font-weight: 300; text-align: center; margin-right: 20px; margin-top: 5px;">
 							${timeFmtStr}						
-							<input type="radio" class="selectTime" name="time" value="13" style="display: none;">
+							<input type="radio" class="selectTime" name="time" value="${timeFmtStr}" style="display: none;">
 						</div>
 					</c:forEach>
 				</div>

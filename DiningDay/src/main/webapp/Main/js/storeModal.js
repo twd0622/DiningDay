@@ -1,6 +1,11 @@
 $(()=>{
 
 	$(".modalOpen").on("click",()=>{
+		if(cus_no == ""){
+			alert("로그인 후 예약 가능")
+			location.href = "login.cu";
+			return;
+		}
 		$("#modalContainer").removeClass("hidden")
 	})
 	
