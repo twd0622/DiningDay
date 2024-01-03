@@ -22,7 +22,11 @@ public class OwnerService {
 		Map<String, String> ownerDTO = TeamUtil.requestToMap(req);
 		
 		return ownerDAO.ownerCheck(ownerDTO);
-		
 	}
 
+	public Map<String, String> joinCheck(HttpServletRequest req) {
+		Map<String, String> ownerDTO = TeamUtil.requestToMap(req);
+		
+		return ownerDAO.joinCheck(ownerDTO);
+	}
 }

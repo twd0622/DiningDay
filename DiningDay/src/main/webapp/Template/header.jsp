@@ -1,5 +1,6 @@
 <!-- 12/26/14:10_강현아 + 로고(->메인페이지) & userDropdown(->계정정정보 및 수정페이지) 연결
 					  + 로그인 시, 로그아웃 / 로그아웃 시, 로그인페이지 연결 -->
+<!--  01/02/09:30_강현아 + userDropdown c:if문 위치 변경 -->
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -34,6 +35,19 @@
     		border-color: #737373 !important;
     		box-shadow: 0 0 3px #737373 !important;
     	}
+    	
+    	#peopleOptionModal{
+			  display: none; /* Hidden by default */
+			  position: fixed; /* Stay in place */
+			  z-index: 1; /* Sit on top */
+			  padding-top: 100px; /* Location of the box */
+			  left: 0;
+			  top: 0;
+			  width: 100%; /* Full width */
+			  height: 100%; /* Full height */
+			  overflow: auto; /* Enable scroll if needed */
+    	}
+
     </style>
     <script src="resources/js/selectOption.js"></script>
     <link href="resources/css/selectOption.css" rel="stylesheet" />
@@ -52,42 +66,44 @@
 			<div style="display: flex; flex-direction: column; margin-right: 10px;">
 				<span style="color: #bfbfbf; font-size: 12px;">예약 날짜</span>
 				<input id="dateOption" type="date" class="form-control" style="background: #f5f5f5; border: 0; padding: 20px 40px; width: 210px;"
-				       value="${sessionScope.date}">
+				       value="${sessionScope.date}" min="${sessionScope.date}">
 			</div>
 			<div style="display: flex; flex-direction: column;">
 				<span style="color: #bfbfbf; font-size: 12px;">예약 인원</span>
 				<input id="peopleOption" type="text" class="form-control" style="background: #f5f5f5; border: 0; padding: 20px 40px; width: 210px; text-align: center;"
 				       value="인원 ${sessionScope.people}명" readonly="readonly">
 				<!-- 인원 설정 모달창 -->
-				<div id="peopleOptionModal" class="hidden" style="position: absolute; inset: 0px auto auto 0px; transform: translate(840px, 90px); display: none;">
-					<div class="css-1k7dy5j" style="max-height: 577px;">
-						<div class="css-1eygow7">
-							<div class="css-e9pzjs">
-								<span class="css-1yqhrfc">인원</span>
-								<span class="css-1kmy7xr">유아 및 아동도 인원수에 <br>포함해주세요.<br></span>
-							</div>
-							<div class="css-1j7hnhe">
-								<div class="gc-stepper css-1mcn6si">
-									<button class="gc-icon-round-button css-11zi1w5 decrease" type="button">
-										<span>
-											<svg width="16" height="16" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-												<path d="M2 9h16v2H2V9z" fill="current"></path>
-											</svg>
-										</span>
-									</button>
-									<span class="css-gcrqic people">${sessionScope.people}</span>
-									<button class="gc-icon-round-button css-11zi1w5 increase" type="button">
-										<span>
-											<svg width="16" height="16" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-												<path d="M10.998 8.995H18v2h-7.002v7.001H8.995v-7.001H2v-2h6.995V2h2.003v6.995z" fill="current"></path>
-											</svg>
-										</span>
-									</button>
+				<div id="peopleOptionModal">
+					<div id="peopleOptionModalContent" style="position: absolute; inset: 0px auto auto 0px; transform: translate(840px, 90px);">
+						<div class="css-1k7dy5j" style="max-height: 577px;">
+							<div class="css-1eygow7">
+								<div class="css-e9pzjs">
+									<span class="css-1yqhrfc">인원</span>
+									<span class="css-1kmy7xr">유아 및 아동도 인원수에 <br>포함해주세요.<br></span>
+								</div>
+								<div class="css-1j7hnhe">
+									<div class="gc-stepper css-1mcn6si">
+										<button class="gc-icon-round-button css-11zi1w5 decrease" type="button">
+											<span>
+												<svg width="16" height="16" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+													<path d="M2 9h16v2H2V9z" fill="current"></path>
+												</svg>
+											</span>
+										</button>
+										<span class="css-gcrqic people">${sessionScope.people}</span>
+										<button class="gc-icon-round-button css-11zi1w5 increase" type="button">
+											<span>
+												<svg width="16" height="16" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+													<path d="M10.998 8.995H18v2h-7.002v7.001H8.995v-7.001H2v-2h6.995V2h2.003v6.995z" fill="current"></path>
+												</svg>
+											</span>
+										</button>
+									</div>
 								</div>
 							</div>
 						</div>
-					</div>
-				</div>				       
+					</div>				       
+				</div>
 			</div>
 		</div>
 		
@@ -126,29 +142,29 @@
 				<!-- Dropdown - User Information -->
 				<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
 				     aria-labelledby="userDropdown">
-					<a class="dropdown-item" href="mypage.cu">
-					    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-					    내 정보보기
-					</a>
-					<a class="dropdown-item" href="cus_edit.cu">
-					    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-					    정보 수정하기
-					</a>
-					<a class="dropdown-item" href="#">
-					    <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-					    찜 목록 보기
-					</a>
-					<div class="dropdown-divider"></div>
-					<c:if test="${empty sessionScope.CUS_ID}">
-						<a class="dropdown-item" href="login.cu" >
-						   <i class="fas fa-sign-in-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-						   로그인
+					<c:if test="${!empty sessionScope.CUS_NO}">
+						<a class="dropdown-item" href="mypage.cu">
+						    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+						    내 정보보기
 						</a>
-					</c:if>
-					<c:if test="${!empty sessionScope.CUS_ID}">
+						<a class="dropdown-item" href="cus_edit.cu">
+						    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+						    정보 수정하기
+						</a>
+						<a class="dropdown-item" href="#">
+						    <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
+						    찜 목록 보기
+						</a>
+						<div class="dropdown-divider"></div>
 						<a class="dropdown-item" href="logout.cu">
 							<i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
 							로그아웃
+						</a>
+					</c:if>
+					<c:if test="${empty sessionScope.CUS_NO}">
+						<a class="dropdown-item" href="login.cu" >
+						   <i class="fas fa-sign-in-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+						   로그인
 						</a>
 					</c:if>
 				</div>
