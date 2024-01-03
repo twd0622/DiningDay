@@ -45,7 +45,6 @@ public class OwnerController extends HttpServlet {
 			boolean result = false;
 			if(joinCheck == null || joinCheck.isEmpty()) {
 				result = ownerService.insertOwner(req);
-				joinCheck = ownerService.joinCheck(req);
 			} else {
 				String msg = "이미 가입된 사업자번호입니다.";
 				alertAndBack(res, msg);
@@ -85,7 +84,16 @@ public class OwnerController extends HttpServlet {
 				System.out.println("로그인 성공");
 				session.setAttribute("STORE_NO", ownerCheck.get("STORE_NO"));
 				session.setAttribute("id", ownerCheck.get("OWN_ID"));
-				res.sendRedirect("smain.ow");
+				
+				String adminId = (String)session.getAttribute("id");
+				
+				// 관리자로 로그인할 경우 관리자페이지로 이동
+				if(adminId.equals("admin")) {
+					res.sendRedirect("admin_main.ad");
+				} else {
+					res.sendRedirect("smain.ow");
+				}
+				
 			} else {
 				String msg = "아이디 혹은 비밀번호가 틀렸습니다.";
 				alertAndBack(res, msg);
