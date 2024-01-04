@@ -42,6 +42,30 @@ public class CustomerDAO {
 		return customerEdit;
 	}
 
+	
+	public Map<String, String> customerCheck(Map<String, String> customerDTO) {
+		session = sqlSessionFactory.openSession();
+		Map<String, String> customerCheck = session.selectOne("Customer.customerCheck", customerDTO);
+		session.commit();
+		return customerCheck;
+	}
+	
+	
+	
+//	public void deleteCustomer(Map<String, String> customerDTO) {
+//		session.selectOne("Customer.deleteCustomer", customerDTO);
+//		session.commit();
+//		session.close();
+//	}
+	public void deleteCustomer(String customerDTO) {
+		session.selectOne("Customer.deleteCustomer", customerDTO);
+		session.commit();
+		session.close();
+	}
+
+	
+	
+
 
 	
 	

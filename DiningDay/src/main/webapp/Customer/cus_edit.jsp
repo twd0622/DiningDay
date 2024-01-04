@@ -101,8 +101,6 @@
 </body>
 <script type="text/javascript">
 function check() {
-	// alert("체크");	
-	// 전송 (버튼 type=submit)
 	document.cus_edit.submit();
 }
 </script>

@@ -43,7 +43,7 @@
 		}
 	}    
 	function move(){
-		location.href = 'owner_login.ow';
+		location.href = 'new_pw.ow';
 	}
 </script>
 </head>

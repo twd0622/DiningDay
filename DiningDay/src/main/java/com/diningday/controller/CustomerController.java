@@ -1,6 +1,7 @@
 package com.diningday.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
@@ -44,7 +45,6 @@ public class CustomerController extends HttpServlet {
 		
 		
 		if(sPath.equals("/loginPro.cu")) {
-
 			boolean result = false;
 			Map<String, String> searchId = customerService.searchId(req);
 			
@@ -61,7 +61,6 @@ public class CustomerController extends HttpServlet {
 			}
 			if(result) {
 				session.setAttribute("CUS_NO", searchId.get("CUS_NO"));
-				session.setAttribute("CUS_ID", searchId.get("CUS_ID"));
 				session.setAttribute("CUS_NICK", searchId.get("CUS_NICK"));
 				session.setAttribute("date", LocalDate.now().format(DateTimeFormatter.ofPattern("YYYY-MM-dd")));
 				session.setAttribute("people", "2");
@@ -94,29 +93,52 @@ public class CustomerController extends HttpServlet {
 		
 		if(sPath.equals("/cus_editPro.cu")) {			
 			// 정보 수정
-			session = req.getSession();
-			String CUS_NICK = (String)session.getAttribute("CUS_NICK");
 			Map<String, String> param = new HashMap<String, String>();
 			param.put("CUS_NO", session.getAttribute("CUS_NO").toString());
 			req.setAttribute("customerEdit", customerService.customerEdit(req, param));
-			
-			
-			
+			session.setAttribute("CUS_NICK", req.getParameter("CUS_NICK"));
 			res.sendRedirect("mypage.cu");
 		}
 		
 //		-------------------------------------------------------------
 		
 		if(sPath.equals("/logout.cu")) {
-			System.out.println("주소비교 /logout.me 일치");
 			session = req.getSession();
 			session.invalidate();
 			res.sendRedirect("main.ma");
 		}
 		
+		if(sPath.equals("/deletePro.cu")) {
+			Map<String, String> customerCheck = customerService.customerCheck(req);
+			if(customerCheck != null) {
+				customerService.deleteCustomer(req);
+				session = req.getSession();
+				session.invalidate();
+				res.sendRedirect("main.ma");
+			} else {
+				String msg = "이메일을 다시 확인해 주십시오.";
+				alertAndBack(res, msg);
+			}
+		}
 		
 		
 		
+	}
+	
+	
+	
+	
+	
+	public static void alertAndBack(HttpServletResponse res, String msg) {
+	    try {
+	        res.setContentType("text/html; charset=utf-8");
+	        PrintWriter w = res.getWriter();
+	        w.write("<script>alert('"+msg+"');history.go(-1);</script>");
+	        w.flush();
+	        w.close();
+	    } catch(Exception e) {
+	        e.printStackTrace();
+	    }
 	}
 	
 }

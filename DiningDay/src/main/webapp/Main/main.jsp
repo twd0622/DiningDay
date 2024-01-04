@@ -60,7 +60,7 @@
                                 <img class="img-fluid" src="Main/칸다소바.jpg" alt="칸다소바.jpg" />
                             </a>
                             <div class="portfolio-caption">
-                                <div class="portfolio-caption-heading">칸다소바</div>
+                                <div class="portfolio-caption-heading">칸다소바 Test점</div>
                                 <div class="portfolio-caption-subheading text-muted">5.0</div>
                                 <div class="portfolio-caption-subheading text-muted">⭐⭐⭐⭐⭐</div>
                             </div>

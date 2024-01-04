@@ -1,6 +1,7 @@
 package com.diningday.controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
@@ -28,10 +29,10 @@ public class OwnerController extends HttpServlet {
 	
 	protected void doProcess(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		String sPath = req.getServletPath();
+		HttpSession session = req.getSession();
 		OwnerService ownerService = new OwnerService();
 		
 		System.out.println(sPath);
-		
 		
 		if(sPath.equals("/owner_join.ow")) {
 			dispatcher = req.getRequestDispatcher("Owner/owner_join.jsp");
@@ -40,11 +41,17 @@ public class OwnerController extends HttpServlet {
 		
 		if(sPath.equals("/owner_joinPro.ow")) {
 			req.setCharacterEncoding("UTF-8");
-			boolean result = ownerService.insertOwner(req);
-			
-			if (result) res.sendRedirect("owner_login.ow");
-			else		res.sendRedirect("owner_join.ow");
-			
+			Map<String, String> joinCheck = ownerService.joinCheck(req);
+			boolean result = false;
+			if(joinCheck == null || joinCheck.isEmpty()) {
+				result = ownerService.insertOwner(req);
+			} else {
+				String msg = "이미 가입된 사업자번호입니다.";
+				alertAndBack(res, msg);
+			}
+			if (result) {
+				res.sendRedirect("owner_login.ow");
+			}
 		}
 		
 //		-------------------------------------------------------------
@@ -75,13 +82,21 @@ public class OwnerController extends HttpServlet {
 			Map<String, String> ownerCheck = ownerService.ownerCheck(req);
 			if(ownerCheck != null) {
 				System.out.println("로그인 성공");
-				HttpSession session = req.getSession();
+				session.setAttribute("STORE_NO", ownerCheck.get("STORE_NO"));
 				session.setAttribute("id", ownerCheck.get("OWN_ID"));
-				res.sendRedirect("smain.ow");
+				
+				String adminId = (String)session.getAttribute("id");
+				
+				// 관리자로 로그인할 경우 관리자페이지로 이동
+				if(adminId.equals("admin")) {
+					res.sendRedirect("admin_main.ad");
+				} else {
+					res.sendRedirect("smain.ow");
+				}
+				
 			} else {
-				System.out.println("로그인 실패");
-				dispatcher = req.getRequestDispatcher("Owner/msg.jsp");
-				dispatcher.forward(req, res);
+				String msg = "아이디 혹은 비밀번호가 틀렸습니다.";
+				alertAndBack(res, msg);
 			}
 		}
 
@@ -93,12 +108,24 @@ public class OwnerController extends HttpServlet {
 			dispatcher.forward(req, res);
 		}
 
-//		-------------------------------------------------------------
-		
-		
-
-		
-		
-		
+	
+	
+	
 	}
+
+
+
+	public static void alertAndBack(HttpServletResponse res, String msg) {
+	    try {
+	        res.setContentType("text/html; charset=utf-8");
+	        PrintWriter w = res.getWriter();
+	        w.write("<script>alert('"+msg+"');history.go(-1);</script>");
+	        w.flush();
+	        w.close();
+	    } catch(Exception e) {
+	        e.printStackTrace();
+	    }
+	}
+
+
 }
