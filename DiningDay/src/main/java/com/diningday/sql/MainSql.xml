@@ -5,22 +5,30 @@
 <mapper namespace="Main">
 	
 	<select id="searchList" parameterType="map" resultType="map">
-		select
-			   STORE_NO
-			 , STORE_NAME
-			 , STORE_CATEGORY
-			 , STORE_DETAIL
-			 , STORE_SCORE
-			 , LIKE_COUNT 
-		  from STORE
-		 where STORE_NAME like CONCAT('%',#{searchInput},'%')
-		 order by LIKE_COUNT DESC;
+		 select
+			  s.STORE_NO
+			, s.STORE_NAME
+			, s.STORE_CATEGORY
+			, s.STORE_DETAIL
+			, s.STORE_SCORE
+			, ifnull(l.like_count, 0) as  LIKE_COUNT
+		  from STORE s
+		  LEFT JOIN (select STORE_NO, COUNT(*) as like_count
+				   from LIKE_LIST
+				  GROUP BY STORE_NO) l
+		    ON  s.STORE_NO = l.STORE_NO     
+		  where STORE_NAME like concat('%',#{searchInput},'%')
+		     or STORE_CATEGORY like concat('%',#{searchInput},'%')
+			 or STORE_DETAIL like concat('%',#{searchInput},'%')
+		 order by LIKE_COUNT desc;
 	</select>
 	
 	<select id="searchCount" parameterType="map" resultType="int">
-		 select count(*)
-		 from STORE
-		 where STORE_NAME like CONCAT('%',#{searchInput},'%');
+		select count(*)
+		  from STORE
+		 where STORE_NAME like CONCAT('%',#{searchInput},'%')
+ 		 	or STORE_CATEGORY like concat('%',#{searchInput},'%')
+	        or STORE_DETAIL like concat('%',#{searchInput},'%');
 	</select>
 	
 	<select id="getStore" parameterType="map" resultType="map">

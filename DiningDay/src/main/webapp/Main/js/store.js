@@ -62,6 +62,11 @@ $(()=>{
 	$("#like_btn").on(
 		"click",
 		function(){
+			if(cus_no == ""){
+				alert("로그인 후 가능");
+				return;
+			}
+			
 			var url;
 			var resultFuc;
 			if($(this).children(".unlike").length == 1){

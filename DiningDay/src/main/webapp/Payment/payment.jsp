@@ -92,7 +92,7 @@
 						<li>
 							<div class="menu menuPlusBtn">
 								<img alt="츠케멘.jpg" src="Payment/츠케멘.jpg" class="menu_img">
-								<div class="menu_info">
+								<div class="menu_info" name="${menuInfo.MENU_NO}">
 									<div class="menu_name_box">
 										<p class="menu_name">${menuInfo.MENU_NAME}</p>
 										<p class="menu_price"> ${menuInfo.MENU_PRICE} 원</p>
@@ -161,7 +161,7 @@
 										</div>
 										<div class="count_box">
 											<span>-</span>
-											<span>1</span>
+											<span class="menuCount" style="font-size: 18px; ">1</span>
 											<span>+</span>
 										</div>
 									</div>
@@ -169,10 +169,10 @@
 								</li>
 							</ul>
 						</div>
-						<div class="price_result">
+						<div class="price_result_box">
 							<div>
 								<span>합 계</span>
-								<span class="price">34,000 원</span>								
+								<span class="price_result">34,000 원</span>								
 							</div>
 						</div>
 						<div class="btn_box">
