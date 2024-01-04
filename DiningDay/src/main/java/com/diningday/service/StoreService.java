@@ -18,6 +18,10 @@ public class StoreService {
 		return storeDAO.insertMenu(TeamUtil.fileRequestToMap(req));
 	}
 	
+	public boolean insertMenu(Map<String, String> map) {
+		return storeDAO.insertMenu(map);
+	}
+	
 	public JsonArray menuList(HttpServletRequest req) {
 		return TeamUtil.mapListToJSONList(storeDAO.menuList(TeamUtil.requestToMap(req)));
 	}
@@ -26,8 +30,24 @@ public class StoreService {
 		return storeDAO.menuUpdate(TeamUtil.fileRequestToMap(req));
 	}
 	
-	public JsonObject menuSelect(HttpServletRequest req) {
-		return TeamUtil.mapToJSON(storeDAO.menuSelect(TeamUtil.requestToMap(req)));
+	public boolean menuUpdate(Map<String, String> map) {
+		return storeDAO.menuUpdate(map);
 	}
 	
+	public JsonObject menuSelect(HttpServletRequest req) {
+		JsonObject a = null;
+		return a;
+	}
+	
+	public JsonObject menuSelect(Map<String, String> map) {
+		return TeamUtil.mapToJSON(storeDAO.menuSelect(map));
+	}
+	
+	public JsonObject menuMax(HttpServletRequest req) {
+		return TeamUtil.mapToJSON(storeDAO.menuMax(TeamUtil.fileRequestToMap(req)));
+	}
+	
+	public boolean menuDelete(HttpServletRequest req) {
+		return storeDAO.deleteMenu(TeamUtil.fileRequestToMap(req));
+	}
 }

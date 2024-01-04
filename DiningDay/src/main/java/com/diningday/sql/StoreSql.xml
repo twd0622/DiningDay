@@ -13,12 +13,11 @@
 				, PHOTO_TYPE
 				)
 			values
-				( '1'
-				, (select ifnull(max(cast(PHOTO_NO as unsigned)), 0) + 1
+				( #{STORE_NO}
+				, (select concat('PH', ifnull(max(cast(REPLACE(#{MENU_NO}, 'ME', '') as unsigned)), 1))
 					 from STORE_IMAGE a)
 				, #{PHOTO_NAME}
-				, (select concat(#{MENU_NO}, "", ifnull(max(cast(PHOTO_NO as unsigned)), 0) + 1)
-					 from STORE_IMAGE b)
+				, #{MENU_NO}
 				)
 				;
 		insert		
@@ -31,23 +30,25 @@
 				, MENU_INFO
 				)
 			values
-				( '1'
-				, (select concat(#{MENU_NO}, "", ifnull(max(cast(MENU_NO as unsigned)), 0) + 1)
-					 from STORE_IMAGE c)
+				( #{STORE_NO}										
+				, #{MENU_NO}
 				, #{MENU_NAME}
 				, #{MENU_PRICE}
 				, #{MENU_HIDE}
 				, #{MENU_INFO}
-				);		
+				)
+				;		
 	</insert>
 	
 	<select id="menuList" parameterType="map" resultType="map">
-		select m.MENU_NAME, s.PHOTO_NAME, m.MENU_INFO, m.MENU_PRICE, m.MENU_HIDE, m.MENU_NO
-		  from MENU m join STORE_IMAGE s
+		select m.MENU_NAME, s.PHOTO_NAME, m.MENU_INFO, m.MENU_PRICE, m.MENU_HIDE, m.MENU_NO 
+		  from MENU m 
+		  join STORE_IMAGE s
 		    on m.MENU_NO = s.PHOTO_TYPE
 		 where 1 = 1
 		   and m.STORE_NO = #{STORE_NO}   
-		 order by m.MENU_NO desc;   
+		 order by CAST(REPLACE(m.MENU_NO, "ME", "") AS UNSIGNED) desc
+		 ;   
 	</select>
 	
 	<update id="menuUpdate" parameterType="map">
@@ -60,19 +61,47 @@
 	      	  , m.MENU_HIDE = #{MENU_HIDE}
 	   	 where 1 = 1
 	   	   and m.MENU_NO = s.PHOTO_TYPE
-	       and m.MENU_NO = #{MENU_NO};
+	   	   and m.STORE_NO = #{STORE_NO}
+	       and m.MENU_NO = #{MENU_NO}
+	       ;
 	</update>
 	
-	<select id="menuSelect" parameterType="map" resultType="map">
-		select m.MENU_NAME, s.PHOTO_NAME, m.MENU_INFO, m.MENU_PRICE, m.MENU_HIDE, m.MENU_NO
+ 	<select id="menuSelect" parameterType="map" resultType="map">
+ 		select m.MENU_NAME, s.PHOTO_NAME, m.MENU_INFO, m.MENU_PRICE, m.MENU_HIDE, m.MENU_NO
 		  from MENU m 
 		  join STORE_IMAGE s
 		    on m.MENU_NO = s.PHOTO_TYPE
 		 where 1 = 1
-		   and m.MENU_NO = (SELECT CONCAT("M", MAX(CAST(REPLACE(MENU_NO, "M", "") AS UNSIGNED)))
-							  FROM MENU)
-		   and m.STORE_NO = 1;
-	</select>
+	 	   and m.MENU_NO = #{MENU_NO}
+	   	   and m.STORE_NO = #{STORE_NO}
+	   	   ;
+ 	</select>
+ 	
+ 	<select id="menuMax" parameterType="map" resultType="map">
+ 		SELECT CONCAT("ME", ifnull(MAX(CAST(REPLACE(MENU_NO, "ME", "") AS UNSIGNED)), 0) + 1) as "MENU_NO"
+		  FROM MENU
+		 where 1 = 1
+		   and STORE_NO = #{STORE_NO}
+		   ;
+		   
+		   set a = 1, b = 2, c = 3
+		   
+ 	</select>
+ 	
+ 	<delete id="menuDelete" parameterType="map">
+ 		DELETE A, B
+		  FROM MENU A INNER JOIN STORE_IMAGE B 
+		 WHERE 1 = 1 
+		   AND A.MENU_NO = B.PHOTO_TYPE 
+		   AND A.STORE_NO = B.STORE_NO
+		   AND A.MENU_NO in
+		<foreach collection="array" item="MENU_NO" open="(" close=")" separator=",">
+			#{MENU_NO}
+		</foreach>
+		   AND A.STORE_NO = #{STORE_NO}
+		   ;   
+ 	</delete>
+ 	
 </mapper>
 
 

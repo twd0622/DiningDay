@@ -12,7 +12,7 @@ import com.diningday.sql.SqlMapClient;
 public class StoreDAO {
 
 	private SqlSessionFactory sqlSessionFactory = SqlMapClient.getSqlSessionFactory();
-	SqlSession session = sqlSessionFactory.openSession();
+	SqlSession session;
 	
 	
 	public Boolean insertMenu(Map<String, String> dto) {
@@ -26,6 +26,16 @@ public class StoreDAO {
 		return insertMenu > 0 ? true : false;
 	}
 	
+	public Boolean deleteMenu(Map<String, String> dto) {
+		session = sqlSessionFactory.openSession();
+		
+		int deleteMenu = session.delete("Menu.menuDelete", dto); 
+		
+		session.commit();
+		session.close();
+		
+		return deleteMenu > 0 ? true : false;
+	}
 	
 	public List<Map<String, String>> menuList(Map<String, String> dto) {
 		session = sqlSessionFactory.openSession();
@@ -52,6 +62,16 @@ public class StoreDAO {
 		session = sqlSessionFactory.openSession();
 		
 		Map<String, String> select = session.selectOne("Menu.menuSelect", dto); 
+
+		session.close();
+		
+		return select;
+	}
+	
+	public Map<String, String> menuMax(Map<String, String> dto) {
+		session = sqlSessionFactory.openSession();
+		
+		Map<String, String> select = session.selectOne("Menu.menuMax", dto); 
 		
 		session.close();
 		
