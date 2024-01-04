@@ -52,15 +52,15 @@
                 <div style="display: flex; flex-direction: column; justify-content: space-around;">
 					<!-- 검색 결과 -->	
                 	<c:forEach var="list" items="${searchList}">
-	                    <div id="store_result" name="${list.STORE_NO}" class="mb-4" style="margin: 20px 20px; padding:20px 40px; border-bottom: 2px solid #e6e6eb;">
+	                    <div name="${list.STORE_NO}" class="mb-4 store_result_btn" style="margin: 20px 20px; padding:20px 40px; border-bottom: 2px solid #e6e6eb;">
 	                        <div class="portfolio-item  store_result">
 	                                <img class="img-fluid" src="Main/칸다소바.jpg" alt="칸다소바.jpg" style="width: 550px; height: 250px;"/>
 	                            <div class="portfolio-caption" style="">
 	                                <div class="portfolio-caption-heading">${list.STORE_NAME}</div>
 	                                <div class="portfolio-caption-subheading text-muted" style="margin-bottom: 20px;">${list.STORE_CATEGORY} | ${list.STORE_DETAIL}</div>
 	                                <div class="portfolio-caption-subheading text-muted">⭐ ${list.STORE_SCORE}점 (87명)</div>
-	                                <div class="portfolio-caption-subheading text-muted" style="display: flex;"><span class="material-icons" style="color: red;">favorite</span> ${list.LIKE_COUNT} </div>
-	                                <div class="portfolio-caption-subheading text-muted" style="display: flex;"><span class="material-symbols-outlined" style="color: red;">favorite</span> ${list.LIKE_COUNT} </div>
+	                                <div class="portfolio-caption-subheading text-muted" style="display: flex;"><span class="material-icons" style="color: #E21818;">favorite</span> ${list.LIKE_COUNT} </div>
+	                                <div class="portfolio-caption-subheading text-muted" style="display: flex;"><span class="material-symbols-outlined" style="color: #E21818;">favorite</span> ${list.LIKE_COUNT} </div>
 	                            </div>
 	                        </div>
 	                    </div>

@@ -1,11 +1,14 @@
 package com.diningday.util;
 
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+
+import org.apache.el.stream.Stream;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
@@ -105,6 +108,42 @@ public class TeamUtil {
 		
 		return dto;
 	}
+	
+	// 파일request 받아온 파라미터 맵에 넣어주는 함수
+		public static Map<String, String[]> fileRequestToArrayMap(HttpServletRequest req) {
+			Map<String, String[]> dto = new HashMap<String, String[]>();
+			
+			String uploadPath = req.getRealPath("/upload");
+			int maxSize = 10 * 1024 * 1024;
+			
+			try {
+				MultipartRequest multi = new MultipartRequest(req, uploadPath, maxSize, "UTF-8", new DefaultFileRenamePolicy());
+				
+				@SuppressWarnings("unchecked")
+				Enumeration<String> parameterList = multi.getParameterNames();
+				@SuppressWarnings("unchecked")
+				Enumeration<String> fileList = multi.getFileNames();
+				
+				// 파일
+				while(fileList.hasMoreElements()) {
+					String reqName = fileList.nextElement();
+					dto.put(reqName, multi.getFilesystemName(reqName).split(","));
+				}
+				
+				// 파라미터
+				while(parameterList.hasMoreElements()) {
+					String reqName = parameterList.nextElement();
+					dto.put(reqName, multi.getParameter(reqName).split(","));
+				}
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+			
+			return dto;
+		}
+	
 	
 	//---------------------------------------------------------------------------------------
 	

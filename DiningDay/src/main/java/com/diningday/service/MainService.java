@@ -40,4 +40,16 @@ public class MainService {
 		return TeamUtil.mapToJSON(mainDAO.getTable(TeamUtil.requestToMap(req)));
 	}
 
+	public Map<String, String> getLike(HttpServletRequest req) {
+		return mainDAO.getLike(TeamUtil.requestToMap(req));
+	}
+
+	public int insertLike(HttpServletRequest req) {
+		return mainDAO.insertLike(TeamUtil.requestToMap(req));
+	}
+
+	public int deleteLike(HttpServletRequest req) {
+		return mainDAO.deleteLike(TeamUtil.requestToMap(req));
+	}
+
 }

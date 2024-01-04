@@ -37,7 +37,7 @@ public class MainDAO {
 		session = sqlSessionFactory.openSession();
 		
 		Map<String, String> storeInfo = session.selectOne("Main.getStore", storeDTO);
-		
+		System.out.println(storeInfo);
 		session.close();
 		
 		return storeInfo;
@@ -71,6 +71,38 @@ public class MainDAO {
 		session.close();
 		
 		return table;
+	}
+
+	public Map<String, String> getLike(Map<String, String> dto) {
+		session = sqlSessionFactory.openSession();
+		
+		Map<String, String> Like = session.selectOne("Main.getLike", dto);
+		
+		session.close();
+		
+		return Like;
+	}
+
+	public int insertLike(Map<String, String> dto) {
+		session = sqlSessionFactory.openSession();
+		
+		int result = session.insert("Main.insertLike", dto);
+		
+		session.commit();
+		session.close();
+		
+		return result;
+	}
+
+	public int deleteLike(Map<String, String> dto) {
+		session = sqlSessionFactory.openSession();
+		
+		int result = session.delete("Main.deleteLike", dto);
+		
+		session.commit();
+		session.close();
+		
+		return result;
 	}
 	
 	

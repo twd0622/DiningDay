@@ -22,7 +22,7 @@
 			, #{CUS_ID}
 			, #{CUS_NAME}
 			, #{CUS_BIRTH}
-			, #{CUS_TEL}
+			, replace(#{CUS_TEL}, "-", "")
 			, #{CUS_EMAIL}
 			, #{CUS_GENDER}
 			, CONCAT('CU', ( select *             

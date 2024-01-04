@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Payment">
+	
+	<select id="getCustomerInfo" parameterType="String" resultType="map">
+		select
+		       CUS_NO
+		     , CUS_NAME  
+		     , CUS_TEL
+		  from CUSTOMER
+		 where CUS_NO = #{CUS_NO};
+	</select>
+	
+	<select id="getMenuInfo" parameterType="map" resultType="map">
+		 select
+			 MENU_NO
+			 , STORE_NO
+			 , MENU_NAME
+			 , MENU_PRICE
+			 , MENU_HIDE
+			 , MENU_INFO
+		 from MENU
+ 		where STORE_NO = #{store_no};
+	</select>
+	
+	
+</mapper>
+
+
+
+
+

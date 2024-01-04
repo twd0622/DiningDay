@@ -51,60 +51,72 @@
 <script src="https://t1.kakaocdn.net/kakao_js_sdk/2.5.0/kakao.min.js" 
 		integrity="sha384-kYPsUbBPlktXsY6/oNHSUDZoTX6+YI51f63jCPEIPFP09ttByAdxd2mEjKuhdqn4" 
 		crossorigin="anonymous"></script>
+<script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 <script type="text/javascript" charset="utf-8">  
-// // <script>
-// // SDK 초기화 - 사용하려는 앱의 JavaScript 키 입력		
-// Kakao.init('a7cba1ba5ddd97c09d319895bb3e67f2'); 
-// // SDK 초기화 여부 판단
-// console.log(Kakao.isInitialized());
+// SDK 초기화 - 사용하려는 앱의 JavaScript 키 입력		
+Kakao.init('b769e12f4b0300d723c03ea88cce6413'); 
 
-//   function loginWithKakao() {
-//     Kakao.Auth.authorize({
-//       redirectUri: 'http://localhost:8080/DiningDay/main.ma',  // 로그인 후 인가 Code를 받을 주소
-//       state: 'userme',
-//     });
-//   }
+// SDK 초기화 여부 판단
+Kakao.isInitialized();
+
+// 카카오로그인 코드 확인
+function loginWithKakao() {
+    Kakao.Auth.login({
+        success: function (authObj) {
+            Kakao.Auth.setAccessToken(authObj.access_token); // access토큰값 저장
+            getInfo();
+        },
+        fail: function (err) {
+            console.log(err);
+        }
+    });
+}
+
+// 엑세스 토큰을 발급받고, 아래 함수를 호출시켜 사용자 정보 받아옴.
+function getInfo() {
+    Kakao.API.request({
+        url: '/v2/user/me',
+        success: function (res) {
+            console.log(res);
+	         $.ajax({
+		         type : "POST"
+		         , url : "loginPro.cu"
+		         , datatype : "json"
+		         , data : {
+		          CUS_ID : res.id,
+		           CUS_NAME : res.kakao_account.name,
+		           CUS_BIRTH: res.kakao_account.birthyear + res.kakao_account.birthday,
+		           CUS_TEL: res.kakao_account.phone_number.replace("+82 ", "0"),
+		           CUS_EMAIL : res.kakao_account.email,
+		           CUS_GENDER: (res.kakao_account.gender == "male") ?  "남" : "여"
+	         	  }
+	         })
+	         .done(
+				function(data){
+					Kakao.Auth.logout();
+					location.href="main.ma"					
+			}); 
+	         
+        },
+        fail: function (error) {
+            alert('카카오 로그인에 실패했습니다.' + JSON.stringify(error));
+        }
+    });
+}
   
-//   function requestUserInfo() {
-//     Kakao.API.request({
-//       url: '/v2/user/me',
-//     })
-//       .then(function(res) {
-//         alert(JSON.stringify(res));
-//       })
-//       .catch(function(err) {
-//         alert(
-//           'failed to request user information: ' + JSON.stringify(err)
-//         );
-//       });
-//   }
-
-// // 데모를 위한 UI 코드
-// displayToken()
-// function displayToken() {
-//   var token = getCookie('authorize-access-token');
-
-//   if(token) {
-//     Kakao.Auth.setAccessToken(token);
-//     Kakao.Auth.getStatusInfo()
-//       .then(function(res) {
-//         if (res.status === 'connected') {
-//           document.getElementById('token-result').innerText
-//             = 'login success, token: ' + Kakao.Auth.getAccessToken();
-//         }
-//       })
-//       .catch(function(err) {
-//         Kakao.Auth.setAccessToken(null);
-//       });
-//     document.querySelector('button.api-btn').style.visibility = 'visible';  // 생략 O
-//   }
-// }
-
-//   function getCookie(name) {
-//     var parts = document.cookie.split(name + '=');
-//     if (parts.length === 2) { return parts[1].split(';')[0]; }
-//   }
+  
+// 로그아웃 기능 - 카카오 서버에 접속하는 액세스 토큰을 만료 시킨다.
+function kakaoLogout() {
+    if (!Kakao.Auth.getAccessToken()) {
+        alert('로그인되어 있지 않습니다.');
+        return;
+    }
+    Kakao.Auth.logout(function() {
+        alert('로그아웃' + Kakao.Auth.getAccessToken());
+    });
+}
 </script>
+
 
 
 
