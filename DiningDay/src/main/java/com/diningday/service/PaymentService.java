@@ -16,5 +16,9 @@ public class PaymentService {
 	public List<Map<String, String>> getMenuInfo(Map<String, String> reservationDTO) {
 		return paymentDAO.getMenuInfo(reservationDTO);
 	}
+
+	public Map<String, String> getStoreInfo(Map<String, String> reservationDTO) {
+		return paymentDAO.getStoreInfo(reservationDTO);
+	}
 	
 }

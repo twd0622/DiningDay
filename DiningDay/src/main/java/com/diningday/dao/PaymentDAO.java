@@ -35,4 +35,13 @@ public class PaymentDAO {
 		
 	}
 
+	public Map<String, String> getStoreInfo(Map<String, String> reservationDTO) {
+		session = sqlSessionFactory.openSession();
+		Map<String, String> storeInfo = session.selectOne("Payment.getStoreInfo", reservationDTO);
+		
+		session.close();
+		
+		return storeInfo;
+	}
+
 }

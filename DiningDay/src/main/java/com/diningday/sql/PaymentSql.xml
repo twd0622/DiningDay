@@ -9,6 +9,7 @@
 		       CUS_NO
 		     , CUS_NAME  
 		     , CUS_TEL
+	         , CUS_EMAIL	
 		  from CUSTOMER
 		 where CUS_NO = #{CUS_NO};
 	</select>
@@ -25,6 +26,15 @@
  		where STORE_NO = #{store_no};
 	</select>
 	
+	<select id="getStoreInfo" parameterType="map" resultType="map">
+		 SELECT 
+			 STORE_NO	
+			, STORE_NAME	
+			, STORE_TEL	
+			, STORE_LOCATION
+		FROM STORE
+		WHERE STORE_NO = #{store_no};
+	</select>
 	
 </mapper>
 
