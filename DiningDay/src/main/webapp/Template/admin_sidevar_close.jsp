@@ -6,7 +6,7 @@
 	<footer class="py-5 bg-dark mt-auto">
     	<div class="container">
 				<p class="text-left">
-					<a style="color: white;" href="${ pageContext.request.contextPath }/jaewon/companyIntro.jsp">회사소개 </a><label style="color: white; font-size: large;"> | </label><a style="color: white;" href="${ pageContext.request.contextPath }/jaewon/admin_noticeList.jsp"> 공지사항</a>
+					<a style="color: white;" href="${ pageContext.request.contextPath }/companyIntro.ad">회사소개 </a><label style="color: white; font-size: large;"> | </label><a style="color: white;" href="${ pageContext.request.contextPath }/notice.ad"> 공지사항</a>
 				</p>
 			</div>
     </footer>

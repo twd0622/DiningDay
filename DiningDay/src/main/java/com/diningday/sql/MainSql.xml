@@ -9,6 +9,7 @@
 			   STORE_NO
 			 , STORE_NAME
 			 , STORE_CATEGORY
+			 , STORE_DETAIL
 			 , STORE_SCORE
 			 , LIKE_COUNT 
 		  from STORE
@@ -28,17 +29,21 @@
 			, OWN_NO
 			, STORE_NAME
 			, STORE_TEL
-			, STORE_LOCATION
+			, replace(STORE_LOCATION, ' ', '+') STORE_LOCATION 
 			, STORE_CATEGORY
+			, STORE_DETAIL
 			, STORE_INFO
 			, STORE_PLUS
-			, DATE_FORMAT(STR_TO_DATE(STORE_TIME, '%H%i'), '%H:%i') STORE_TIME
+			, DATE_FORMAT(STR_TO_DATE(STORE_ST, '%H%i'), '%H:%i') STORE_ST
+			, DATE_FORMAT(STR_TO_DATE(STORE_ET, '%H%i'), '%H:%i') STORE_ET
 			, DATE_FORMAT(STR_TO_DATE(STORE_BT, '%H%i'), '%H:%i') STORE_BT
 			, DATE_FORMAT(STR_TO_DATE(STORE_LO, '%H%i'), '%H:%i') STORE_LO
+			, STORE_RST	
+			, STORE_RET	
 			, SOTRE_CLOSE
 			, STORE_SCORE
-			, LIKE_COUNT
-	 	from STORE
+			, (select count(LIKE_NO) LIKE_COUNT from LIKE_LIST where STORE_NO = #{STORE_NO}) LIKE_COUNT
+		from STORE
 		where STORE_NO = #{STORE_NO};
 	</select>
 	
@@ -64,6 +69,8 @@
 			, SEAT_MAX
 			, SEAT_CONTENT
 			, SEAT_OC
+<!-- 			, CASE WHEN CAST('10' as unsigned) &lt;= CAST(SEAT_MAX as unsigned) THEN 'block' -->
+<!-- 																			 ELSE 'none' END AS VISIBLE_YN -->
 		  from SEAT
 		 where STORE_NO = #{STORE_NO};
 	</select>
@@ -83,6 +90,25 @@
 		   and SEAT_NO = #{TABLE_NO};
 	</select>
 	
+	<select id="getLike" parameterType="map" resultType="map">
+		select *
+		  from LIKE_LIST
+		 WHERE CUS_NO = #{CUS_NO}
+		   AND STORE_NO = #{STORE_NO};
+	</select>
+	
+	<insert id="insertLike" parameterType="map">
+		insert into LIKE_LIST
+		values( concat("LL" ,ifnull((select cast(max(replace(LIKE_NO, "LL", "")) as unsigned)+1 from LIKE_LIST a), 1))
+		      , #{CUS_NO}
+		      , #{STORE_NO});
+	</insert>
+	
+	<delete id="deleteLike">
+		delete from LIKE_LIST
+		 where STORE_NO = #{STORE_NO}
+		   and CUS_NO = #{CUS_NO};
+	</delete>
 </mapper>
 
 

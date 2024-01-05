@@ -1,8 +1,14 @@
 package com.diningday.controller;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,6 +19,7 @@ import javax.servlet.http.HttpSession;
 
 import com.diningday.service.LocationService;
 import com.diningday.service.MainService;
+import com.diningday.util.TeamUtil;
 import com.google.gson.JsonArray;
 
 public class MainController extends HttpServlet {
@@ -37,8 +44,12 @@ public class MainController extends HttpServlet {
 		System.out.println(sPath);
 		
 		if(sPath.equals("/main.ma")) {
-			session.setAttribute("date", LocalDate.now());
-			session.setAttribute("people", "2");
+			if(session.getAttribute("date") == null) {
+				session.setAttribute("date", LocalDate.now().format(DateTimeFormatter.ofPattern("YYYY-MM-dd")));
+			}
+			if(session.getAttribute("people") == null) {
+				session.setAttribute("people", "2");
+			}
 			
 			dispatcher = req.getRequestDispatcher("Main/main.jsp");
 			dispatcher.forward(req, res);
@@ -54,10 +65,16 @@ public class MainController extends HttpServlet {
 		}
 		
 		if(sPath.equals("/store.ma")) {
-			String store_no = req.getParameter("STORE_NO");
+//			Map<String, String> param = new HashMap<String, String>();
+//			param.put("PEOPLE", session.getAttribute("people").toString());
+			
+			
 			req.setAttribute("storeInfo", mainService.getStore(req));
 			req.setAttribute("menuList", mainService.getMenuList(req));
 			req.setAttribute("tableList", mainService.getTableList(req));
+			
+			String StrDate = LocalTime.now().format(DateTimeFormatter.ofPattern("HH:mm"));
+			session.setAttribute("time", StrDate);
 			
 			dispatcher = req.getRequestDispatcher("Main/store.jsp");
 			dispatcher.forward(req, res);
@@ -70,6 +87,46 @@ public class MainController extends HttpServlet {
 			
 		}
 		
+		if(sPath.equals("/dateSession.ma")) {
+			session.setAttribute("date", req.getParameter("date"));
+		}
+		if(sPath.equals("/peopleSession.ma")) {
+			session.setAttribute("people", req.getParameter("people"));
+		}
+		
+		if(sPath.equals("/getSession.ma")) {
+			Map<String, String> sessionDTO = new HashMap<String, String>();
+
+			sessionDTO.put("date", (String)session.getAttribute("date"));			
+			sessionDTO.put("people", (String) session.getAttribute("people"));
+			
+			res.setContentType("application/x-json; charset=utf-8");
+			res.getWriter().print(TeamUtil.mapToJSON(sessionDTO));
+			
+		}
+		
+		if(sPath.equals("/getLike.ma")) {
+			String isLike = "1";
+			if(mainService.getLike(req) == null) {
+				isLike = "0";
+			}
+			
+			res.getWriter().print(isLike);
+		}
+		
+		if(sPath.equals("/insertLike.ma")) {
+			String result = Integer.toString(mainService.insertLike(req));
+			
+			res.getWriter().print(result);
+		}
+		if(sPath.equals("/deleteLike.ma")) {
+			String result = Integer.toString(mainService.deleteLike(req));
+			
+			res.getWriter().print(result);
+		}
+		
+		
+		
+		
 	}
-	
 }

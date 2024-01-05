@@ -16,15 +16,75 @@
 			  CUS_NICK  ,
 			  CUS_DATE)  
 		values
-			( #{CUS_NO}
+			(CONCAT('CU', ( select *             
+				from (select ifnull(max(cast(trim(leading 'CU' from CUS_NO) as unsigned)), 0) + 1
+					  from CUSTOMER ) A ))
 			, #{CUS_ID}
 			, #{CUS_NAME}
 			, #{CUS_BIRTH}
-			, #{CUS_TEL}
+			, replace(#{CUS_TEL}, "-", "")
 			, #{CUS_EMAIL}
 			, #{CUS_GENDER}
-			, #{CUS_NICK}
-			, #{CUS_DATE});
+			, CONCAT('CU', ( select *             
+				from (select ifnull(max(cast(trim(leading 'CU' from CUS_NO) as unsigned)), 0) + 1
+					  from CUSTOMER ) A ))
+			, DATE_FORMAT(SYSDATE(), '%Y%m%d%H%i%s'));
 	</insert>
+	
+	
+	<select id="searchId" parameterType="map" resultType="map">
+		select CUS_NO, 
+			   CUS_ID, 
+			   CUS_EMAIL, 
+			   CUS_NICK
+		from CUSTOMER
+		where CUS_ID = #{CUS_ID};
+	</select>
+	
+	<select id="getCustomer" parameterType="String" resultType="map">
+		select CUS_NO    ,
+			  CUS_ID    ,
+			  CUS_NAME  ,
+			  CAST(CUS_BIRTH AS date) CUS_BIRTH,
+			  CUS_TEL   ,
+			  CUS_EMAIL ,
+			  CUS_GENDER,
+			  CUS_NICK
+		from CUSTOMER
+		where CUS_NO = #{CUS_NO};
+	</select>
+	
+	<update id="customerEdit" parameterType="String">
+		update 	CUSTOMER
+		set		CUS_NAME	= #{CUS_NAME},
+				CUS_NICK 	= #{CUS_NICK},
+				CUS_TEL 	= #{CUS_TEL},
+				CUS_EMAIL 	= #{CUS_EMAIL},
+				CUS_BIRTH 	= #{CUS_BIRTH},
+				CUS_REDATE	= DATE_FORMAT(SYSDATE(), '%Y%m%d%H%i%s')
+		where	1 = 1
+		and     CUS_NO = #{CUS_NO};
+	</update>
+	
+	
+	<select id="customerCheck" parameterType="map" resultType="map">
+		select CUS_NO    ,
+			   CUS_ID    ,
+			   CUS_NAME  ,
+			   CUS_BIRTH ,
+			   CUS_TEL   ,
+			   CUS_EMAIL ,
+			   CUS_GENDER,
+			   CUS_NICK  ,
+			   CUS_DATE
+		from CUSTOMER
+		where CUS_EMAIL=#{CUS_EMAIL};
+	</select> 
+	
+	<delete id="deleteCustomer"  parameterType="String">
+		delete
+		from CUSTOMER 
+		where CUS_EMAIL='${CUS_EMAIL}'
+	</delete>
 	
 </mapper>

@@ -14,8 +14,8 @@
 	<!-- 예시div style속성 값 조절해서 사용! -->
 
 	<div class="mainContainer"
-		style="width: 100%; height: 850px; background: white;">
-		<h4 style="text-align: left;">&lt; 식당 신고 상세내용&gt;</h4>
+		style="width: 100%; background: white;">
+		<h4 style="text-align: left; padding: 20px 0 0 20px;">&lt; 식당 신고 상세내용&gt;</h4>
 		<hr>
 		<div class="container" style="padding: 0 7% 0 7%;">
 			<table class="table table-hover">
@@ -23,24 +23,25 @@
 				<tbody>
 				<c:set var="sRepDetail" value="${ requestScope.sRepDetail }"/>
 					<tr>
-						<th>글 제목</th>
+						<th class="title align-middle table-success">글 제목</th>
 						<td>${sRepDetail.SREP_TITLE}</td>
 					</tr>
 					<tr>
-						<th>작성자</th>
+						<th class="title align-middle table-success">작성자</th>
 						<td>${sRepDetail.CUS_NO}</td>
 					</tr>
 					<tr>
-						<th>작성일자</th>
+						<th class="title align-middle table-success">작성일자</th>
 						<td>${sRepDetail.DATE}</td>
 					</tr>
 					<tr>
-						<td colspan="2"><img src="Admin/img/${sRepDetail.SREP_FILE}" disabled='disabled'
+						<th class="title align-middle table-success" style="vertical-align: middle;">첨부파일</th>
+						<td><img src="Admin/img/${sRepDetail.SREP_FILE}" disabled='disabled'
 							style="max-width: 50%; max-height: 50%;"> <script>
 				</script></td>
 					</tr>
 					<tr>
-						<th>글 내용</th>
+						<th class="title align-middle table-success">글 내용</th>
 						<td>${sRepDetail.SREP_CONTENT}</td>
 					</tr>
 				</tbody>

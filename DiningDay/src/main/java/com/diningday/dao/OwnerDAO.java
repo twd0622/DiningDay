@@ -16,14 +16,20 @@ import com.diningday.sql.SqlMapClient;
 
 public class OwnerDAO {
 	private SqlSessionFactory sqlSessionFactory = SqlMapClient.getSqlSessionFactory();
-	SqlSession session = sqlSessionFactory.openSession();
+	SqlSession session;
 
-	
-	
-	public Boolean insertOwner(Map<String, String> dto) {
+	public Map<String, String> joinCheck(Map<String, String> ownerDTO) {
 		session = sqlSessionFactory.openSession();
+		Map<String, String> joinCheck =  session.selectOne("Owner.joinCheck", ownerDTO);
 		
-		int insertOwner = session.insert("Owner.insert", dto); // namespace.id
+		session.commit();
+
+		return joinCheck;
+	}
+	
+	public Boolean insertOwner(Map<String, String> ownerDTO) {
+		session = sqlSessionFactory.openSession();
+		int insertOwner = session.insert("Owner.insert", ownerDTO); // namespace.id
 		
 		session.commit();
 		session.close();
@@ -32,7 +38,6 @@ public class OwnerDAO {
 	}
 	
 	public Map<String, String> ownerCheck(Map<String, String> ownerDTO) {
-
 		session = sqlSessionFactory.openSession();
 		Map<String, String> ownerCheck =  session.selectOne("Owner.ownerCheck", ownerDTO);
 		
@@ -40,8 +45,9 @@ public class OwnerDAO {
 		session.close();
 
 		return ownerCheck;
-	
 	}
+
+
 	
 	
 	

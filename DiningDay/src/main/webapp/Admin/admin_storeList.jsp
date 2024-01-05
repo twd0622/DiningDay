@@ -6,33 +6,43 @@
 <head>
 <meta charset="utf-8">
 <title>식당조회 | 다이닝데이</title>
+<style type="text/css">
+
+#storeTable {
+	max-height: 650px;
+	padding: 1rem;
+	overflow-y: auto;
+	direction: ltr;
+	scrollbar-color: #d4aa70 #e4e4e4;
+	scrollbar-width: thin;
+}
+
+</style>
 </head>
 <%@ include file="/Template/admin_sidebar_open.jsp"%>
 <!-- main은 속성 값은 왠만하면 건들지x -->
 <main
-	style="display: flex; align-items: center; text-align: center; padding: 20px 50px 50px 50px;">
+	style="display: flex; align-items: center; text-align: center; padding: 20px 50px 20px 50px;">
 
 	<!-- 예시div style속성 값 조절해서 사용! -->
 	<div class="mainContainer"
 		style="width: 100%; background: white;">
-		<h4 style="text-align: left;">&lt; 식당 조회 &gt;</h4>
+		<h4 style="text-align: left; padding: 20px 0 0 20px;">&lt; 식당 조회 &gt;</h4>
 		<hr>
-		<div class="row" style="padding: 0 7% 0 7%;">
+		<div class="row" style="padding: 1% 7% 1% 7%;" id="storeTable">
 			<table class="table table-hover" id="article-table">
 				<thead>
 					<tr class="table-success">
-						<th class="title col-1 align-middle"><a>No</a></th>
+						<th class="title col-1 align-middle"><a>식당번호</a></th>
 						<th class="hashtag col-2 align-middle"><a>식당명</a></th>
-						<th class="user-id col-2 align-middle"><a>식당 정보</a></th>
+						<th class="user-id col-3 align-middle"><a>식당 정보</a></th>
 						<th class="created-at col-2"> </th>
-
 					</tr>
-					
 				</thead>
 				<tbody>
 				<c:set var="storeList" value="${ requestScope.storeList }"/>
 					<c:forEach var="store" items="${storeList }">
-						<tr style="height: 60px;" onClick="location.href='admin_storeDetail.ad?OWN_NO=${store.OWN_NO}'">
+						<tr style="height: 60px;" onClick="location.href='admin_storeDetail.ad?STORE_NO=${store.STORE_NO}'">
 							<td class="title align-middle">${store.STORE_NO}</td>
 							<td class="align-middle">${store.STORE_NAME}</td>
 							<td class="created-at col-1 align-middle text-start">															
@@ -40,7 +50,7 @@
 								<b>전화</b> : ${store.STORE_TEL} <br>
 								<b>위치</b> : ${store.STORE_LOCATION}
 							</td>
-							<td class="align-middle"><a href="contentWrite.jsp" class="btn btn-outline-danger align-middle">삭제</a></td>
+							<td class="align-middle"><a href="admin_storeDelete.ad?STORE_NO=${store.STORE_NO}" class="btn btn-outline-danger align-middle">삭제</a></td>
 					</tr>
 					</c:forEach>
 				</tbody>
@@ -99,6 +109,7 @@
 				</ul>
 			</nav>
 		</div>
+		<br>
 	</div>
 
 </main>

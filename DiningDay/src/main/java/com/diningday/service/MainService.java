@@ -22,7 +22,6 @@ public class MainService {
 
 	public Map<String, String> getStore(HttpServletRequest req) {
 		 return mainDAO.getStore(TeamUtil.requestToMap(req));
-		
 	}
 
 	public List<Map<String, String>> getMenuList(HttpServletRequest req) {
@@ -32,9 +31,25 @@ public class MainService {
 	public List<Map<String, String>> getTableList(HttpServletRequest req) {
 		return mainDAO.getTableList(TeamUtil.requestToMap(req));
 	}
+	
+	public List<Map<String, String>> getTableList(HttpServletRequest req, Map<String, String>param) {
+		return mainDAO.getTableList(TeamUtil.requestToMap(req, param));
+	}
 
 	public JsonObject getTable(HttpServletRequest req) {
 		return TeamUtil.mapToJSON(mainDAO.getTable(TeamUtil.requestToMap(req)));
+	}
+
+	public Map<String, String> getLike(HttpServletRequest req) {
+		return mainDAO.getLike(TeamUtil.requestToMap(req));
+	}
+
+	public int insertLike(HttpServletRequest req) {
+		return mainDAO.insertLike(TeamUtil.requestToMap(req));
+	}
+
+	public int deleteLike(HttpServletRequest req) {
+		return mainDAO.deleteLike(TeamUtil.requestToMap(req));
 	}
 
 }

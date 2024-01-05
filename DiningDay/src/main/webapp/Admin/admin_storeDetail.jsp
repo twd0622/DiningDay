@@ -8,6 +8,13 @@
 <head>
 <meta charset="utf-8">
 <title>식당 상세조회</title>
+<style type="text/css">
+#pre1 {
+  white-space: pre-wrap;
+  word-break: break-all;
+  overflow: auto;
+}
+</style>
 </head>
 <%@ include file="/Template/admin_sidebar_open.jsp"%>
 <!-- main은 속성 값은 웬만하면 건들지x -->
@@ -16,7 +23,7 @@
 	<!-- 예시div style속성 값 조절해서 사용! -->
 	<div class="mainContainer"
 		style="width: 50%; background: white;">
-			<h4 style="text-align: left;">&lt; 식당 상세조회 &gt;</h4>
+			<h4 style="text-align: left; padding: 20px 0 0 20px;">&lt; 식당 상세조회 &gt;</h4>
 			<hr>
 			<div class="container" style="padding: 0 7% 0 7%;">
 
@@ -77,7 +84,7 @@
 				<table class="table table-striped">
 					<tr style="text-align: left;">
 						<td>
-						<pre>${storeDetail.STORE_INFO}</pre>
+						<pre id="pre1">${storeDetail.STORE_INFO}</pre>
 						<hr>
 						<p>
 							연락처　:	　${storeDetail.STORE_TEL} <br>

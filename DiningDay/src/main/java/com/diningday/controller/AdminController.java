@@ -33,6 +33,18 @@ public class AdminController extends HttpServlet {
 		AdminService adminService = new AdminService();
 		
 		if(sPath.equals("/admin_main.ad")) {
+			List<Map<String, String>> noticeList = adminService.getNoticeList();
+			req.setAttribute("noticeList", noticeList);
+			
+			List<Map<String, String>> storeList = adminService.getStoreList();
+			req.setAttribute("storeList", storeList);
+			
+			List<Map<String, String>> storeReport = adminService.getStoreReport();
+			req.setAttribute("storeReport", storeReport);
+			
+			List<Map<String, String>> reviewReport = adminService.getReviewReport();
+			req.setAttribute("reviewReport", reviewReport);
+			
 			dispatcher = req.getRequestDispatcher("Admin/admin_main.jsp");
 			dispatcher.forward(req, res);
 		}
@@ -52,10 +64,14 @@ public class AdminController extends HttpServlet {
 				res.sendRedirect("admin_noticeList.ad");
 				return;
 			} 
-
 			res.sendRedirect("admin_noticeWrite.ad");
-			
-			
+		}
+//		----------------------------------------------------------------------------------------------------
+		if(sPath.equals("/admin_noticeDelete.ad")) {
+			String result = Integer.toString(adminService.noticeDelete(req));
+			List<Map<String, String>> noticeList = adminService.getNoticeList();
+			req.setAttribute("noticeList", noticeList);
+			res.sendRedirect("admin_noticeList.ad");
 		}
 //		----------------------------------------------------------------------------------------------------
 		if(sPath.equals("/admin_noticeList.ad")) {
@@ -92,9 +108,7 @@ public class AdminController extends HttpServlet {
 			if(result) {
 				res.sendRedirect("admin_noticeList.ad");
 				return;
-			} 
-
-//			res.sendRedirect("admin_noticeUpdate.ad");
+			}
 		}
 //		----------------------------------------------------------------------------------------------------		
 		if(sPath.equals("/admin_storeList.ad")) {
@@ -102,6 +116,15 @@ public class AdminController extends HttpServlet {
 			req.setAttribute("storeList", storeList);
 			dispatcher = req.getRequestDispatcher("Admin/admin_storeList.jsp");
 			dispatcher.forward(req, res);
+		}
+//		----------------------------------------------------------------------------------------------------	
+		if(sPath.equals("/admin_storeDelete.ad")) {
+			String result = Integer.toString(adminService.storeDelete(req));
+			
+			List<Map<String, String>> storeList = adminService.getStoreList();
+			req.setAttribute("storeList", storeList);
+			
+			res.sendRedirect("admin_storeList.ad");
 		}
 //		----------------------------------------------------------------------------------------------------	
 		if(sPath.equals("/admin_storeDetail.ad")) {
@@ -119,11 +142,29 @@ public class AdminController extends HttpServlet {
 			dispatcher.forward(req, res);
 		}
 //		----------------------------------------------------------------------------------------------------
+		if(sPath.equals("/admin_userDelete.ad")) {
+			String result = Integer.toString(adminService.userDelete(req));
+			
+			List<Map<String, String>> userList = adminService.getUserList();
+			req.setAttribute("userList", userList);
+			
+			res.sendRedirect("admin_userList.ad");
+		}
+//		----------------------------------------------------------------------------------------------------
 		if(sPath.equals("/admin_storeReport.ad")) {
 			List<Map<String, String>> storeReport = adminService.getStoreReport();
 			req.setAttribute("storeReport", storeReport);
 			dispatcher = req.getRequestDispatcher("Admin/admin_storeReport.jsp");
 			dispatcher.forward(req, res);
+		}
+//		----------------------------------------------------------------------------------------------------	
+		if(sPath.equals("/admin_storeReportDelete.ad")) {
+			String result = Integer.toString(adminService.sRepReport(req));
+			
+			List<Map<String, String>> storeReport = adminService.getStoreReport();
+			req.setAttribute("storeReport", storeReport);
+			
+			res.sendRedirect("admin_storeReport.ad");
 		}
 //		----------------------------------------------------------------------------------------------------
 		if(sPath.equals("/admin_storeReportDetail.ad")) {
@@ -141,13 +182,46 @@ public class AdminController extends HttpServlet {
 			dispatcher.forward(req, res);
 		}
 //		----------------------------------------------------------------------------------------------------
+		if(sPath.equals("/admin_userReportDelete.ad")) {
+			String result = Integer.toString(adminService.cRepDelete(req));
+			
+			List<Map<String, String>> reviewReport = adminService.getReviewReport();
+			req.setAttribute("reviewReport", reviewReport);
+			
+			res.sendRedirect("admin_userReport.ad");
+		}
+		
+//		----------------------------------------------------------------------------------------------------
 		if(sPath.equals("/admin_userReportDetail.ad")) {
+			Map<String, String> cRepDetail = adminService.getCRepDetail(req);
+			req.setAttribute("cRepDetail", cRepDetail);
 			dispatcher = req.getRequestDispatcher("Admin/admin_userReportDetail.jsp");
 			dispatcher.forward(req, res);
 		}
 //		----------------------------------------------------------------------------------------------------
 		if(sPath.equals("/admin_reviewList.ad")) {
 			dispatcher = req.getRequestDispatcher("Admin/admin_reviewList.jsp");
+			dispatcher.forward(req, res);
+		}
+//		----------------------------------------------------------------------------------------------------
+		if(sPath.equals("/companyIntro.ad")) {
+			dispatcher = req.getRequestDispatcher("Main/companyIntro.jsp");
+			dispatcher.forward(req, res);
+		}
+//		----------------------------------------------------------------------------------------------------
+		if(sPath.equals("/notice.ad")) {
+			List<Map<String, String>> noticeList = adminService.getNoticeList();
+			req.setAttribute("noticeList", noticeList);
+			
+			dispatcher = req.getRequestDispatcher("Main/notice.jsp");
+			dispatcher.forward(req, res);
+		}
+//		----------------------------------------------------------------------------------------------------		
+		if(sPath.equals("/noticeDetail.ad")) {
+			System.out.println(req.getParameter("NOT_NO"));
+			Map<String, String> noticeDetail = adminService.getNoticeDetail(req);
+			req.setAttribute("noticeDetail", noticeDetail);
+			dispatcher = req.getRequestDispatcher("Main/noticeDetail.jsp");
 			dispatcher.forward(req, res);
 		}
 		

@@ -1,6 +1,6 @@
 $(()=>{
 
-	$("#store_result").on(
+	$(".store_result_btn").on(
 		"click",
 		function(){
 			var STORE_NO = $(this).attr('name');

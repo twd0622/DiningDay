@@ -47,20 +47,20 @@
 		<section class="page-section main_section" id="portfolio" style="background:white;">
             <div class="container" style="border-bottom: 1.5px solid #f0f0f3; padding-top: 50px;">
                 <div class="text-center">
-                    <h2 class="section-heading text-uppercase" style="margin-left:20px; text-align: left">추천 맛집</h2>
+                    <h2 class="section-heading text-uppercase" style="margin-left:20px; text-align: left">전국 추천 맛집</h2>
                 </div>
                 <div style="display: flex; flex-direction: row; justify-content: space-around;">
                     <div class="col-lg-3 mb-4">
                         <!-- Portfolio item 4-->
                         <div class="portfolio-item">
-                            <a class="portfolio-link" href="store.ma">
+                            <a class="portfolio-link" href="store.ma?STORE_NO=ST100">
                                 <div class="portfolio-hover">
                                     <div class="portfolio-hover-content"><span class="material-symbols-outlined" style="font-size: 80px;">search</span></div>
                                 </div>
                                 <img class="img-fluid" src="Main/칸다소바.jpg" alt="칸다소바.jpg" />
                             </a>
                             <div class="portfolio-caption">
-                                <div class="portfolio-caption-heading">칸다소바</div>
+                                <div class="portfolio-caption-heading">칸다소바 Test점</div>
                                 <div class="portfolio-caption-subheading text-muted">5.0</div>
                                 <div class="portfolio-caption-subheading text-muted">⭐⭐⭐⭐⭐</div>
                             </div>

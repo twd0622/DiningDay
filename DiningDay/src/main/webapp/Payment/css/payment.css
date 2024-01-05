@@ -215,7 +215,7 @@ ul.list li{
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
-	padding: 0 30px;
+	padding: 0 10px;
 }
 
 .choice_list .count_box{

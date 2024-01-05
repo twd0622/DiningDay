@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,8 +14,8 @@
 
 	<!-- 예시div style속성 값 조절해서 사용! -->
 	<div class="mainContainer"
-		style="width: 100%; height: 850px; background: white;">
-		<h4 style="text-align: left;">&lt; 전체 리뷰관리 &gt;</h4>
+		style="width: 100%; background: white;">
+		<h4 style="text-align: left; padding: 20px 0 0 20px;">&lt; 전체 리뷰관리 &gt;</h4>
 		<hr>
 		<div class="row" style="padding: 0 7% 0 7%;">
 			<table class="table" id="article-table">

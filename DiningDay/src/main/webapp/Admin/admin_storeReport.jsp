@@ -6,37 +6,47 @@
 <head>
 <meta charset="utf-8">
 <title>식당신고 | 다이닝데이</title>
+<style type="text/css">
+#sRepTable {
+	max-height: 650px;
+	padding: 1rem;
+	overflow-y: auto;
+	direction: ltr;
+	scrollbar-color: #d4aa70 #e4e4e4;
+	scrollbar-width: thin;
+}
+</style>
 </head>
 <%@ include file="/Template/admin_sidebar_open.jsp"%>
 <!-- main은 속성 값은 왠만하면 건들지x -->
 <main
-	style="display: flex; align-items: center; text-align: center; padding: 20px 50px 50px 50px;">
+	style="display: flex; align-items: center; text-align: center; padding: 20px 50px 20px 50px;">
 
 	<!-- 예시div style속성 값 조절해서 사용! -->
 	<div class="mainContainer"
-		style="width: 100%; height: 850px; background: white;">
-		<h4 style="text-align: left;">&lt; 식당신고 관리 &gt;</h4>
+		style="width: 100%; background: white;">
+		<h4 style="text-align: left; padding: 20px 0 0 20px;">&lt; 식당신고 관리 &gt;</h4>
 		<hr>
-		<div class="row" style="padding: 0 7% 0 7%;">
+		<div class="row" style="padding: 1% 7% 1% 7%;" id="sRepTable">
 			<table class="table table-hover" id="article-table">
 				<thead>
 					<tr class="table-success">
 						<th class="title col-1 align-middle"><a>번호</a></th>
 						<th class="hashtag col-1 align-middle"><a>식당명</a></th>
-						<th class="user-id col-3"><a>신고 내용</a></th>
-						<th class="created-at col-1"><a>작성일자</a></th>
+						<th class="user-id col-3"><a>글 제목</a></th>
+						<th class="created-at col-1"><a>신고일자</a></th>
 						<th class="created-at col-1"><a></a></th>
 					</tr>
 				</thead>
 				<tbody>
 					<c:set var="storeReport" value="${ requestScope.storeReport }"/>
 						<c:forEach var="sReport" items="${storeReport}">
-							<tr onClick="location.href='admin_storeReportDetail.ad?CUS_NO=${sReport.CUS_NO}&STORE_NO=${sReport.STORE_NO}'">
+							<tr onClick="location.href='admin_storeReportDetail.ad?SREP_NO=${sReport.SREP_NO}&CUS_NO=${sReport.CUS_NO}&STORE_NO=${sReport.STORE_NO}'">
 								<td class="title align-middle" id="td1">${sReport.SREP_NO}</td>
 								<td class="hashtag align-middle" id="td1">${sReport.STORE_NAME}</td>
-								<td class="user-id align-middle" style="text-align: left;" id="td1"> ${sReport.SREP_CONTENT}</td>
+								<td class="user-id align-middle" style="text-align: left;" id="td1"> ${sReport.SREP_TITLE}</td>
 								<td class="created-at col-1 align-middle" id="td1">${sReport.DATE}</td>
-								<td class="align-middle"><a href="contentWrite.jsp" class="btn btn-outline-danger">삭제</a></td>
+								<td class="align-middle"><a href="admin_storeReportDelete.ad?SREP_NO=${sReport.SREP_NO}" class="btn btn-outline-danger">삭제</a></td>
 							</tr>
 						</c:forEach>
 				</tbody>
@@ -92,6 +102,7 @@
 				</ul>
 			</nav>
 		</div>
+		<br>
 	</div>
 	
 

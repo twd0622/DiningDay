@@ -178,6 +178,7 @@ a {
 ul{
 	text-align: center;
 }
+
     </style>
 </head>
 <body class="d-flex flex-column min-vh-100" style="padding: 0 0 0 240px; background:#f0f0f3;">

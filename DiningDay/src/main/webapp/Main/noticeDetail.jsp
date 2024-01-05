@@ -1,19 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@page
-	import="org.apache.catalina.startup.ClassLoaderFactory.Repository"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">
-<title>공지상세 | 다이닝데이</title>
+    <meta charset="utf-8">
+    <title>아이티윌 2강 1조</title> 
 </head>
 
-<%@ include file="/Template/admin_sidebar_open.jsp"%>
-<!-- main은 속성 값은 왠만하면 건들지x -->
-
-<main style="display: flex; align-items: center; text-align: center; padding: 20px 50px 50px 50px;">
+<%@ include file="/Template/header.jsp"%> 
+	<!-- main은 속성 값은 왠만하면 건들지x -->
+	<main style="display: flex; align-items: center; text-align: center; padding: 20px 50px 50px 50px;">
 
 	<!-- 예시div style속성 값 조절해서 사용! -->
 	<div class="mainContainer"
@@ -25,27 +21,27 @@
 				<tbody>
 					<c:set var="noticeDetail" value="${ requestScope.noticeDetail }"/>
 						<tr style="height: 60px;">
-							<th class="title align-middle table-success">글번호</th>
+							<th class="title align-middle table-warning">글번호</th>
 							<td class="user-id align-middle text-center"
 								style="text-align: left;">${noticeDetail.NOT_NO}</td>
 						</tr>
 						<tr style="height: 60px;">
-							<th class="title align-middle table-success">제목</th>
+							<th class="title align-middle table-warning">제목</th>
 							<td class="user-id align-middle text-center"
 								style="text-align: left;">${noticeDetail.NOT_TITLE}</td>
 						</tr>
 						<tr style="height: 60px;">
-							<th class="title align-middle table-success">작성자</th>
+							<th class="title align-middle table-warning">작성자</th>
 							<td class="user-id align-middle text-center"
 								style="text-align: left;">관리자</td>
 						</tr>
 						<tr style="height: 60px;">
-							<th class="title align-middle table-success">작성일자</th>
+							<th class="title align-middle table-warning">작성일자</th>
 							<td class="user-id align-middle text-center"
 								style="text-align: left;">${noticeDetail.DATE}</td>
 						</tr>
 						<tr style="height: 150px;">
-							<th class="title align-middle table-success col-3"><a>글	내용</a></th>
+							<th class="title align-middle table-warning col-3"><a>글	내용</a></th>
 							<td class="user-id align-middle text-center"
 								style="text-align: left;">${noticeDetail.NOT_CONTENT}</td>
 						</tr>
@@ -61,9 +57,5 @@
 		</div>
 	</div>
 </main>
-
-<%@ include file="/Template/admin_sidevar_close.jsp"%>
-</html>
-
-
-
+<%@ include file="/Template/footer.jsp"%>
+</html> 

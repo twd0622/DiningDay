@@ -6,39 +6,47 @@
 <head>
 <meta charset="utf-8">
 <title>리뷰신고 | 다이닝데이</title>
+<style type="text/css">
+#cRepTable {
+	max-height: 650px;
+	padding: 1rem;
+	overflow-y: auto;
+	direction: ltr;
+	scrollbar-color: #d4aa70 #e4e4e4;
+	scrollbar-width: thin;
+}
+</style>
 </head>
 <%@ include file="/Template/admin_sidebar_open.jsp"%>
 <!-- main은 속성 값은 왠만하면 건들지x -->
 <main
-	style="display: flex; align-items: center; text-align: center; padding: 20px 50px 50px 50px;">
+	style="display: flex; align-items: center; text-align: center; padding: 20px 50px 20px 50px;">
 
 	<!-- 예시div style속성 값 조절해서 사용! -->
 	<div class="mainContainer"
-		style="width: 100%; height: 850px; background: white;">
-		<h4 style="text-align: left;">&lt; 고객 리뷰 신고관리 &gt;</h4>
+		style="width: 100%; background: white;">
+		<h4 style="text-align: left; padding: 20px 0 0 20px;">&lt; 고객 리뷰 신고관리 &gt;</h4>
 		<hr>
-		<div class="row" style="padding: 0 7% 0 7%;">
+		<div class="row" style="padding: 1 7% 1 7%;" id="cRepTable">
 			<table class="table table-hover" id="article-table">
 				<thead>
 					<tr class="table-success">
 						<th class="title col-1 align-middle"><a>번호</a></th>
 						<th class="hashtag col-1 align-middle"><a>점주번호</a></th>
-						<th class="user-id col-3"><a>신고 내용</a></th>
-						<th class="hashtag col-1 align-middle"><a>작성일자</a></th>
+						<th class="user-id col-3"><a>신고 제목</a></th>
+						<th class="hashtag col-1 align-middle"><a>신고일자</a></th>
 						<th class="created-at col-1"> </th>
-
 					</tr>
-
 				</thead>
 				<tbody>
 					<c:set var="reviewReport" value="${ requestScope.reviewReport }"/>
-						<c:forEach var="rReport" items="${reviewReport}">
-							<tr style="height: 60px;" onClick="location.href='admin_userReportDetail.ad'">
-								<td class="title align-middle">${rReport.CREP_NO}</td>
-								<td class="hashtag align-middle">${rReport.OWN_NO}</td>
-								<td class="created-at col-1 align-middle">${rReport.CREP_CONTENT}</td>
-								<td class="created-at col-1 align-middle">${rReport.DATE}</td>
-								<td><a href="contentWrite.jsp" class="btn btn-outline-danger">삭제</a></td>
+						<c:forEach var="cReport" items="${reviewReport}">
+							<tr style="height: 60px;" onClick="location.href='admin_userReportDetail.ad?CREP_NO=${cReport.CREP_NO}&REV_NO=${cReport.REV_NO}&OWN_NO=${cReport.OWN_NO}'">
+								<td class="title align-middle">${cReport.CREP_NO}</td>
+								<td class="hashtag align-middle">${cReport.OWN_NO}</td>
+								<td class="created-at col-1 align-middle">${cReport.CREP_TITLE}</td>
+								<td class="created-at col-1 align-middle">${cReport.DATE}</td>
+								<td><a href="admin_userReportDelete.ad?CREP_NO=${cReport.CREP_NO}" class="btn btn-outline-danger">삭제</a></td>
 							</tr>
 						</c:forEach>
 				</tbody>
@@ -98,6 +106,7 @@
 				</ul>
 			</nav>
 		</div>
+		<br>
 	</div>
 
 </main>
