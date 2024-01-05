@@ -4,7 +4,7 @@
 
 <mapper namespace="Admin">
 	
-	<insert id="insert" parameterType="map">
+	<insert id="noticeInsert" parameterType="map">
 		insert into NOTICE
 			( NOT_NO
 		    , NOT_TITLE
@@ -19,4 +19,169 @@
 		    , date_format(sysdate(), '%Y%m%d%H%i%s') );
 	</insert>
 	
+	<update id="noticeUpdate" parameterType="map" >
+		update 	NOTICE
+		set		NOT_TITLE 	= #{NOT_TITLE},
+				NOT_CONTENT = #{NOT_CONTENT},
+				NOT_REDATE	= date_format(sysdate(), '%Y%m%d%H%i%s')
+		where	1 = 1
+		and		NOT_NO 		= #{NOT_NO};
+	</update>
+	
+	<delete id="noticeDelete" parameterType="map">
+		delete 	from	NOTICE
+				where	NOT_NO = #{NOT_NO}	
+	</delete>
+	
+	<select id="selectNoticeList" parameterType="map" resultType="map">
+		select NOT_NO
+			 , NOT_TITLE
+			 , NOT_CONTENT
+			 , date_format(ifnull(NOT_REDATE, NOT_DATE), '%Y-%m-%d') as "DATE"
+		from NOTICE
+		order by NOT_NO desc;
+	</select>
+	
+	<select id="selectNoticeDetail" parameterType="map" resultType="map">
+		select NOT_NO
+			 , NOT_TITLE, NOT_CONTENT
+			 , date_format(ifnull(NOT_REDATE, NOT_DATE)
+			 , '%Y-%m-%d') as "DATE"
+		from   NOTICE
+		where  NOT_NO = #{NOT_NO};
+	</select>
+	
+	<select id="selectStoreList" resultType="map">
+		select STORE_NO
+			 , STORE_NAME
+			 , STORE_CATEGORY
+			 , STORE_TEL, STORE_LOCATION
+		     , OWN_NO
+		from   STORE
+		order by STORE_NO desc;
+	</select>
+	
+	<delete id="storeDelete" parameterType="map">
+		delete 	from	STORE
+				where	STORE_NO = #{STORE_NO};
+	</delete>
+	
+	<select id="selectStoreDetail" parameterType="map" resultType="map">
+		select O.OWN_NO
+			 , O.OWN_ID
+			 , O.OWN_EMAIL
+			 , O.OWN_TEL
+			 , O.OWN_CRN
+			 , S.STORE_NAME
+			 , S.STORE_LOCATION
+			 , S.STORE_CATEGORY
+			 , S.STORE_TEL
+			 , S.STORE_ST
+			 , S.STORE_ET
+			 , S.STORE_INFO
+			 , S.STORE_PLUS
+		from   OWNER O join STORE S
+		on 	   O.OWN_NO = S.OWN_NO
+		where  S.STORE_NO = #{STORE_NO};
+	</select>
+	
+	<select id="selectUserList" resultType="map">
+		select CUS_NO
+			 , CUS_ID
+			 , CUS_NICK
+			 , CUS_NAME
+			 , CUS_GENDER
+			 , CUS_BIRTH
+			 , CUS_TEL
+			 , CUS_EMAIL
+			 , date_format(ifnull(CUS_REDATE, CUS_DATE), '%Y-%m-%d') as "DATE"
+		from CUSTOMER
+		order by CUS_NO desc;	
+	</select>
+	
+	<delete id="userDelete" parameterType="map">
+		delete 	from	CUSTOMER
+				where	CUS_NO = #{CUS_NO};
+	</delete>
+	
+	<select id="selectStoreReport" resultType="map">
+		select SREP_NO
+			 , CUS_NO
+			 , STORE_NO
+			 , STORE_NAME
+			 , SREP_TITLE
+			 , SREP_CONTENT
+			 , date_format(SREP_DATE, '%Y-%m-%d') as "DATE"
+			 , SREP_PROCESS
+		from STORE_REPORT
+		order by SREP_NO desc;	
+	</select>
+	
+	<delete id="sRepReport" parameterType="map">
+		delete 	from	STORE_REPORT
+				where	SREP_NO = #{SREP_NO};
+	</delete>
+	
+	<select id="selectSRepDetail" parameterType="map" resultType="map">
+		select SR.SREP_NO
+			 , C.CUS_NO
+			 , C.CUS_NAME
+		     , S.STORE_NO
+		     , S.STORE_NAME
+		     , SR.SREP_TITLE
+		     , SR.SREP_FILE
+		     , SR.SREP_CONTENT
+		     , date_format(SR.SREP_DATE, '%Y-%m-%d') as "DATE"
+		     , SR.SREP_PROCESS
+		from STORE_REPORT SR join CUSTOMER C
+		on SR.CUS_NO = C.CUS_NO
+		join STORE S
+		on SR.STORE_NO = S.STORE_NO
+		where SR.CUS_NO = #{CUS_NO}
+		and  SR.STORE_NO = #{STORE_NO}
+		and  SR.SREP_NO = #{SREP_NO};
+	</select>
+	
+	<select id="selectReviewReport" resultType="map">
+		select CREP_NO
+			 , REV_NO
+			 , OWN_NO
+			 , CREP_TITLE
+			 , STORE_NAME
+			 , CREP_CONTENT
+			 , date_format(CREP_DATE, '%Y-%m-%d') as "DATE"
+			 , CREP_PROCESS
+		from REVIEW_REPORT
+		order by CREP_NO desc;	
+	</select>
+	
+	<delete id="cRepDelete" parameterType="map">
+		delete 	from	REVIEW_REPORT
+				where	CREP_NO = #{CREP_NO};
+	</delete>
+	
+	<select id="selectCRepDetail" parameterType="map" resultType="map">
+		select  CR.CREP_NO
+			,	R.REV_NO
+		    ,	S.OWN_NO
+		    ,	CR.CREP_TITLE
+		    ,	S.STORE_NAME
+		    ,	CR.CREP_CONTENT
+		    ,	date_format(CREP_DATE, '%Y-%m-%d') as "CRDATE"
+		    ,	CR.CREP_PROCESS
+		    ,	R.REV_CONTENT
+		    ,	R.REV_SCORE
+		    ,	date_format(R.REV_DATE, '%Y-%m-%d') as "RDATE"
+		from 	REVIEW_REPORT CR join REVIEW R
+		on 		CR.REV_NO = R.REV_NO
+		join 	STORE S
+		on 		CR.OWN_NO = S.OWN_NO
+		where 	CR.CREP_NO = #{CREP_NO}
+		and		CR.REV_NO = #{REV_NO}
+		and		CR.OWN_NO = #{OWN_NO};
+	</select>
+	
+	<select id="reviewList" parameterType="map" resultType="map">
+
+	</select>
 </mapper>

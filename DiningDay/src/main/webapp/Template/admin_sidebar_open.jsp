@@ -178,6 +178,7 @@ a {
 ul{
 	text-align: center;
 }
+
     </style>
 </head>
 <body class="d-flex flex-column min-vh-100" style="padding: 0 0 0 240px; background:#f0f0f3;">
@@ -238,17 +239,7 @@ ul{
 	                    </li>
                     </ul>
                 </div>
-                <div class="nav__list">
-	             	<ul>
-                   		<li>    
-		                    <a href="admin_storeConfirm.ad" class="nav__link">
-		                        <ion-icon name="checkmark-outline"></ion-icon>
-		                        <span class="nav_name">식당 승인</span>
-		                    </a>
-                    	</li>
-                    </ul>
-                </div>
-                <br>
+                <div>
                 <ul>
                    	<li>
 		                <a href="admin_reviewList.ad" class="nav__link">
@@ -257,7 +248,19 @@ ul{
 		                </a>
                 	</li>
             	</ul>
-            </div>
+            	</div>
+				<br>
+            	<div>
+                <ul>
+                   	<li>
+		                <a href="main.ma" class="nav__link">
+		                	<ion-icon name="log-out-outline"></ion-icon>
+		                    <span class="nav_name">로그아웃</span>
+		                </a>
+                	</li>
+            	</ul>
+            	</div>
+            	</div>
         </nav>
     </div>
 </html> 

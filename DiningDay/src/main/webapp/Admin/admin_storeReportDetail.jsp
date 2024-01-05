@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,54 +14,41 @@
 	<!-- 예시div style속성 값 조절해서 사용! -->
 
 	<div class="mainContainer"
-		style="width: 100%; height: 850px; background: white;">
-		<h4 style="text-align: left;">&lt; 식당 신고 상세내용&gt;</h4>
+		style="width: 100%; background: white;">
+		<h4 style="text-align: left; padding: 20px 0 0 20px;">&lt; 식당 신고 상세내용&gt;</h4>
 		<hr>
 		<div class="container" style="padding: 0 7% 0 7%;">
 			<table class="table table-hover">
 
 				<tbody>
+				<c:set var="sRepDetail" value="${ requestScope.sRepDetail }"/>
 					<tr>
-						<th>글 제목</th>
-						<td>없는 가게라고 뜨네요</td>
+						<th class="title align-middle table-success">글 제목</th>
+						<td>${sRepDetail.SREP_TITLE}</td>
 					</tr>
 					<tr>
-						<th>작성자</th>
-						<td>고객1</td>
+						<th class="title align-middle table-success">작성자</th>
+						<td>${sRepDetail.CUS_NO}</td>
 					</tr>
 					<tr>
-						<th>작성일자</th>
-						<td>2023-12-18</td>
+						<th class="title align-middle table-success">작성일자</th>
+						<td>${sRepDetail.DATE}</td>
 					</tr>
 					<tr>
-						<td colspan="2"><img src="img/review.jpg" disabled='disabled'
-							style="max-width: 40%; max-height: 30%;"> <script>
-					function setDetailImage(event){
-						for(var image of event.target.files){
-							var reader = new FileReader();
-				
-							reader.onload = function(event){
-								var img = document.createElement("img");
-								img.setAttribute("src", event.target.result);
-								img.setAttribute("class", "col-lg-6");
-								document.querySelector("div#images_container").appendChild(img);
-							};
-				
-							console.log(image);
-							reader.readAsDataURL(image);
-						}
-					}
+						<th class="title align-middle table-success" style="vertical-align: middle;">첨부파일</th>
+						<td><img src="Admin/img/${sRepDetail.SREP_FILE}" disabled='disabled'
+							style="max-width: 50%; max-height: 50%;"> <script>
 				</script></td>
 					</tr>
 					<tr>
-						<th>글 내용</th>
-						<td>예약이 안돼서 찾아보니 없는 가게라고 뜨네요. 삭제 부탁드립니다.</td>
+						<th class="title align-middle table-success">글 내용</th>
+						<td>${sRepDetail.SREP_CONTENT}</td>
 					</tr>
 				</tbody>
 			</table>
 		</div>
 		<hr>
-		<input type="button" class="btn btn-outline-success" value="확인"
+		<input type="button" class="btn btn-outline-dark" value="목록"
 			onclick="window.history.back()">
 	</div>
 </main>
