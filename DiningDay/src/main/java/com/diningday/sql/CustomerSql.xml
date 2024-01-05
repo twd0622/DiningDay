@@ -56,14 +56,14 @@
 	
 	<update id="customerEdit" parameterType="String">
 		update 	CUSTOMER
-		set		CUS_NAME	= #{CUS_NAME},
-				CUS_NICK 	= #{CUS_NICK},
-				CUS_TEL 	= #{CUS_TEL},
-				CUS_EMAIL 	= #{CUS_EMAIL},
-				CUS_BIRTH 	= #{CUS_BIRTH},
-				CUS_REDATE	= DATE_FORMAT(SYSDATE(), '%Y%m%d%H%i%s')
-		where	1 = 1
-		and     CUS_NO = #{CUS_NO};
+		set		CUS_NAME	= #{CUS_NAME}
+				, CUS_NICK 	= #{CUS_NICK}
+				, CUS_TEL 	= #{CUS_TEL}
+				, CUS_EMAIL = #{CUS_EMAIL}
+				, CUS_BIRTH = replace(cast(#{CUS_BIRTH} as char), "-", "")
+				, CUS_GENDER= #{CUS_GENDER}
+				, CUS_REDATE= DATE_FORMAT(SYSDATE(), '%Y%m%d%H%i%s')
+		where	CUS_NO = #{CUS_NO};
 	</update>
 	
 	
@@ -78,13 +78,14 @@
 			   CUS_NICK  ,
 			   CUS_DATE
 		from CUSTOMER
-		where CUS_EMAIL=#{CUS_EMAIL};
+		where CUS_EMAIL=#{CUS_EMAIL}
+		and CUS_NO=#{CUS_NO};
 	</select> 
 	
-	<delete id="deleteCustomer"  parameterType="String">
+	<delete id="deleteCustomer"  parameterType="map">
 		delete
 		from CUSTOMER 
-		where CUS_EMAIL='${CUS_EMAIL}'
+		where CUS_NO=#{CUS_NO};
 	</delete>
 	
 </mapper>

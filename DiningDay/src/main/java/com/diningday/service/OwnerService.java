@@ -29,4 +29,12 @@ public class OwnerService {
 		
 		return ownerDAO.joinCheck(ownerDTO);
 	}
+
+	public Map<String, String> authCheck(HttpServletRequest req) {
+		Map<String, String> ownerDTO = TeamUtil.requestToMap(req);
+		return ownerDAO.authCheck(ownerDTO);
+	}
+
+	
+
 }

@@ -61,4 +61,19 @@
 		and   OWN_PW=#{OWN_PW};
 	</select>
 	
+		<select id="authCheck" parameterType="map" resultType="map">
+ 		select OWN_NO    ,
+			  OWN_ID    ,
+			  OWN_PW  ,
+			  OWN_NAME ,
+			  OWN_TEL   ,
+			  OWN_EMAIL ,
+			  OWN_CRN, 
+			  STORE_NO  ,
+			  OWN_DATE
+ 		from  OWNER
+		where OWN_CRN=#{OWN_CRN}
+		and   OWN_EMAIL=#{OWN_EMAIL};
+	</select>
+	
 </mapper>

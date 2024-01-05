@@ -21,7 +21,7 @@
 				<h1 class="fw-bold mb-0 fs-2">점주 계정 로그인</h1>
 			</div>
 			<div class="modal-body p-5 pt-0">
-				<form action="owner_loginPro.ow" style="text-align: center;"  method="post">
+				<form action="owner_loginPro.ow" style="text-align: center;" method="post">
 				<!-- 사업자용 로그인 버튼 -->
 <!-- 				<button class="w-100 mb-2 btn btn-primary rounded-3" type="submit" style="font-size: 19px;"> -->
 <!-- 					점주용 로그인 -->
@@ -35,7 +35,7 @@
 				  	<div style="text-align: left;"> <label>비밀번호</label> </div>
 				    	<input type="password" name="OWN_PW" class="form-control" />
 				  </div>
-				<button type="submit" class="btn btn-primary btn-block mb-4" onclick="location.href='main.ma'"
+				<button type="submit" class="btn btn-primary btn-block mb-4"
 						style="color: #111111; background-color: #FFF2A6; border-color: #ffffff;">로그인</button>
 				  
 				

@@ -14,8 +14,20 @@
 <meta charset="utf-8">
 <title>로그인</title>
 </head>
+<style>
+#google-login-button iframe{
+  height: 100px !important;
+  transform: scale(1.5);
+  transform-origin: top;
+  border-style: none;
+  width: 100%; 
+  height: 120px;
+}  
+.nsm7Bb-HzV7m-LgbsSe {
+border: none;
+}
+</style>
 <%@ include file="/Template/header.jsp"%> 
-
 <main style="display: flex; justify-content: center; align-items: center; text-align: center; margin-top: 68.5px; padding:100px 0 250px 0; background:white;">
 <div class="position-static d-block bg-body p-4 py-md-5" tabindex="-1" role="dialog" id="modalSignin" style="width:500px;" >
 	<div class="modal-dialog" role="document">
@@ -63,10 +75,10 @@ Kakao.isInitialized();
 function loginWithKakao() {
     Kakao.Auth.login({
         success: function (authObj) {
-            Kakao.Auth.setAccessToken(authObj.access_token); // access토큰값 저장
+            Kakao.Auth.setAccessToken(authObj.access_token);
             getInfo();
-        },
-        fail: function (err) {
+        }
+        , fail: function (err) {
             console.log(err);
         }
     });
@@ -75,8 +87,8 @@ function loginWithKakao() {
 // 엑세스 토큰을 발급받고, 아래 함수를 호출시켜 사용자 정보 받아옴.
 function getInfo() {
     Kakao.API.request({
-        url: '/v2/user/me',
-        success: function (res) {
+        url: '/v2/user/me'
+        , success: function (res) {
             console.log(res);
 	         $.ajax({
 		         type : "POST"
@@ -84,11 +96,11 @@ function getInfo() {
 		         , datatype : "json"
 		         , data : {
 		          CUS_ID : res.id,
-		           CUS_NAME : res.kakao_account.name,
-		           CUS_BIRTH: res.kakao_account.birthyear + res.kakao_account.birthday,
-		           CUS_TEL: res.kakao_account.phone_number.replace("+82 ", "0"),
-		           CUS_EMAIL : res.kakao_account.email,
-		           CUS_GENDER: (res.kakao_account.gender == "male") ?  "남" : "여"
+		           CUS_NAME : res.kakao_account.name
+		           , CUS_BIRTH: res.kakao_account.birthyear + res.kakao_account.birthday
+		           , CUS_TEL: res.kakao_account.phone_number.replace("+82 ", "0")
+		           , CUS_EMAIL : res.kakao_account.email
+		           , CUS_GENDER: (res.kakao_account.gender == "male") ?  "M" : "F"
 	         	  }
 	         })
 	         .done(
@@ -96,23 +108,10 @@ function getInfo() {
 					Kakao.Auth.logout();
 					location.href="main.ma"					
 			}); 
-	         
-        },
-        fail: function (error) {
+        }
+        , fail: function (error) {
             alert('카카오 로그인에 실패했습니다.' + JSON.stringify(error));
         }
-    });
-}
-  
-  
-// 로그아웃 기능 - 카카오 서버에 접속하는 액세스 토큰을 만료 시킨다.
-function kakaoLogout() {
-    if (!Kakao.Auth.getAccessToken()) {
-        alert('로그인되어 있지 않습니다.');
-        return;
-    }
-    Kakao.Auth.logout(function() {
-        alert('로그아웃' + Kakao.Auth.getAccessToken());
     });
 }
 </script>
@@ -122,46 +121,65 @@ function kakaoLogout() {
 
 <!-- Google -->
 <meta name ="google-signin-client_id" 
-	  content="383007591516-vj9jddsusaj9kdj8mbd2ncgh46ktsuqd.apps.googleusercontent.com">
+	  content="AIzaSyBVfMqr34r31qxZCsCS2bcUDXRCYA-ckBQ.apps.googleusercontent.com">
+<script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
 <script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>
+<script src="https://apis.google.com/js/platform.js?onload=triggerGoogleLoaded"></script>
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+<script src="https://accounts.google.com/gsi/client" async defer></script>
 <script type="text/javascript" charset="utf-8">  
-// // <script>
-// //처음 실행하는 함수
-// function init() {
-// 	gapi.load('auth2', function() {
-// 		gapi.auth2.init();
-// 		options = new gapi.auth2.SigninOptionsBuilder();
-// 		options.setPrompt('select_account');
-//         // 추가는 Oauth 승인 권한 추가 후 띄어쓰기 기준으로 추가
-// 		options.setScope('email profile openid https://www.googleapis.com/auth/user.birthday.read');
-//         // 인스턴스의 함수 호출 - element에 로그인 기능 추가
-//         // GgCustomLogin은 li태그안에 있는 ID, 위에 설정한 options와 아래 성공,실패시 실행하는 함수들
-// 		gapi.auth2.getAuthInstance().attachClickHandler('GgCustomLogin', options, onSignIn, onSignInFailure);
-// 	})
-// }
+window.onload = function () {
+	  google.accounts.id.initialize({
+	    client_id: "383007591516-vj9jddsusaj9kdj8mbd2ncgh46ktsuqd.apps.googleusercontent.com"
+	    , callback: handleCredentialResponse
+	  });
+	  google.accounts.id.renderButton(
+	    document.getElementById("GgCustomLogin")
+	    , {text: "signin_with"
+	       , shape: "square"
+	       , width: "330px"
+	       , height: "50px"
+	       , logo_alignment: "center"
+	    });
+// 	  google.accounts.id.prompt();
+	}
 
-// function onSignIn(googleUser) {
-// 	var access_token = googleUser.getAuthResponse().access_token
-// 	$.ajax({
-//     	// people api를 이용하여 프로필 및 생년월일에 대한 선택동의후 가져온다.
-// 		url: 'https://people.googleapis.com/v1/people/me'
-//         // key에 자신의 API 키를 넣습니다.
-// 		, data: {personFields:'birthdays', key:'AIzaSyBVfMqr34r31qxZCsCS2bcUDXRCYA-ckBQ', 'access_token': access_token}
-// 		, method:'GET'
-// 	})
-// 	.done(function(e){
-//         //프로필을 가져온다.
-// 		var profile = googleUser.getBasicProfile();
-// 		console.log(profile)
-// 	})
-// 	.fail(function(e){
-// 		console.log(e);
-// 	})
-// }
-// function onSignInFailure(t){		
-// 	console.log(t);
-// }
+
+function parseJwt (token) {
+    var base64Url = token.split('.')[1];
+    var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+    return JSON.parse(jsonPayload);
+};
+
+function handleCredentialResponse(response) {
+	const responsePayload = parseJwt(response.credential);
+	console.log(responsePayload);
+	$.ajax({
+		 type : "POST"
+	   , url : "loginPro.cu"
+	   , datatype : "JSON"
+	   , data: {
+		   CUS_ID : responsePayload.sub
+		   , CUS_NAME :responsePayload.family_name + responsePayload.given_name
+		   , CUS_EMAIL: responsePayload.email
+	   }
+	})
+	.done(
+		function(data){
+			debugger;
+			location.href="main.ma"					
+	}); 
+}
+
+function onSignout() {
+    google.accounts.id.disableAutoSelect();
+  }
 </script>
+
+
 
 
 <!-- Naver -->
@@ -169,10 +187,10 @@ function kakaoLogout() {
 <script type="text/javascript">
 
 var naverLogin = new naver.LoginWithNaverId({
-	clientId: "CAuxVKiVTj4jz8eHQxaN", 
-	callbackUrl: "http://localhost:8080/DiningDay/login.cu",
-	isPopup: false,
-	callbackHandle: true
+	clientId: "CAuxVKiVTj4jz8eHQxaN"
+	, callbackUrl: "http://localhost:8080/DiningDay/login.cu"
+	, isPopup: false
+	, callbackHandle: true
 });	
 
 naverLogin.init();
@@ -185,12 +203,12 @@ window.addEventListener('load', function () {
 			   , url : "loginPro.cu"
 			   , datatype : "json"
 			   , data: {
-				   CUS_ID : naverLogin.user.id,
-				   CUS_NAME :naverLogin.user.name,
-				   CUS_BIRTH: naverLogin.user.birthyear + naverLogin.user.birthday.replace("-", ""),
-				   CUS_TEL: naverLogin.user.mobile,
-				   CUS_EMAIL: naverLogin.user.email,
-				   CUS_GENDER: (naverLogin.user.gender == "M") ?  "남" : "여"
+				   CUS_ID : naverLogin.user.id
+				   , CUS_NAME :naverLogin.user.name
+				   , CUS_BIRTH: naverLogin.user.birthyear + naverLogin.user.birthday.replace("-", "")
+				   , CUS_TEL: naverLogin.user.mobile
+				   , CUS_EMAIL: naverLogin.user.email
+				   , CUS_GENDER: naverLogin.user.gender
 			   }
 			})
 			.done(
@@ -201,24 +219,6 @@ window.addEventListener('load', function () {
 		}
 	});
 });
-
-
-
-// 로그아웃
-var testPopUp;
-function openPopUp() {
-    testPopUp= window.open("https://nid.naver.com/nidlogin.logout", "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,width=1,height=1");
-}
-function closePopUp(){
-    testPopUp.close();
-}
-
-function naverLogout() {
-	openPopUp();
-	setTimeout(function() {
-		closePopUp();
-		}, 1000);
-}
 </script>
 <%@ include file="/Template/footer.jsp"%> 
 </html>

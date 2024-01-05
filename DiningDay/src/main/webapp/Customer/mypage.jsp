@@ -165,7 +165,7 @@
                 	  	  	<td class="align-middle" scope="row" rowspan="2"><b>20231209-002718</b></td>
                 			<td class="align-middle" rowspan="2">2023-12-18</td>
                 			<td class="align-middle" width="50px" colspan="2">칸다소바</td>
-                			<td style="vertical-align: middle; color: orange;" rowspan="2"><b>예약대기</b></td>
+                			<td style="vertical-align: middle; color: orange;" rowspan="2"><b>예약완료</b></td>
                 			<td rowspan="2"></td>
                 		</tr>
                 		<tr>
