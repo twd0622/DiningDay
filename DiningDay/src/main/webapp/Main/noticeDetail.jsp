@@ -9,14 +9,14 @@
 
 <%@ include file="/Template/header.jsp"%> 
 	<!-- main은 속성 값은 왠만하면 건들지x -->
-	<main style="display: flex; align-items: center; text-align: center; padding: 20px 50px 50px 50px;">
+	<main style="display: flex; align-items: center; text-align: center; padding: 125px 50px 0 50px;">
 
 	<!-- 예시div style속성 값 조절해서 사용! -->
 	<div class="mainContainer"
 		style="width: 100%; background: white;">
 		<h4 style="text-align: left; padding: 20px 0 0 20px;">&lt; 공지사항 상세조회 &gt;</h4>
 		<hr>
-		<div class="row" style="padding: 0 10% 0 10%;">
+		<div class="row" style="padding: 0 15% 0 15%;">
 			<table class="table table-hover" id="article-table">
 				<tbody>
 					<c:set var="noticeDetail" value="${ requestScope.noticeDetail }"/>
@@ -51,10 +51,10 @@
 		<hr>
 		<div class="row" style="padding: 0px 20px;">
 			<div class="d-grid gap-2 d-md-flex justify-content-md-center">
-				<a href="admin_noticeUpdate.ad?NOT_NO=${ noticeDetail.NOT_NO }" type="button" class="btn btn-outline-success">수정</a> 
 				<input type="button" class="btn btn-outline-dark" value="목록" onclick="window.history.back()">
 			</div>
 		</div>
+		<br>
 	</div>
 </main>
 <%@ include file="/Template/footer.jsp"%>
