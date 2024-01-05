@@ -9,7 +9,10 @@
 	
     <!-- CSS -->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-	<script src="${ pageContext.request.contextPath }/resources/js/jquery-3.6.0.js"></script>
+    <script src="${ pageContext.request.contextPath }/resources/js/jquery-3.6.0.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js"></script>
+    <script src="${ pageContext.request.contextPath }/resources/js/jquery.twbsPagination.min.js" type="text/javascript"></script>
+	<link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/variable.css" />
     <title>SideBar sub menus</title>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
         <style>
@@ -34,7 +37,7 @@
     /* z index */
     --z-fixed: 100;
 }
-
+	
 /* BASE */
 *, ::before, ::after {
     box-sizing: border-box;
@@ -116,10 +119,6 @@ a {
     cursor: pointer;
 }
 
-.nav__link:hover {
-    background-color: var(--first-color);
-}
-
 .nav__icon {
     font-size: 1.25rem;
 }
@@ -137,10 +136,6 @@ a {
 .body-pd {
 }
 
-/* Active links menu */
-.active {
-    background-color: var(--first-color);
-}
 
 /* COLLAPSE */
 .collapse {
@@ -199,10 +194,10 @@ ul{
 		                        <span class="nav_name">정보</span>
 		                    </a>       
                     	</li>
-	                    <li><a class="nav__link" href="${ pageContext.request.contextPath }/smain.st" style="width: 130px;">
+	                    <li><a class="nav__link"  id="smain" href="${ pageContext.request.contextPath }/smain.st" style="width: 130px;">
 	                    	<small>● 상세 정보</small></a>
 	                    </li>
-	                    <li class="mt-2 mb-5"><a class="nav__link" href="${ pageContext.request.contextPath }/smenu.st" style="width: 130px;">
+	                    <li class="mt-2 mb-5"><a class="nav__link"  id="smenu" href="${ pageContext.request.contextPath }/smenu.st" style="width: 130px;">
 	                    	<small>● 메뉴 관리</small></a>
 	                    </li>
                     </ul>

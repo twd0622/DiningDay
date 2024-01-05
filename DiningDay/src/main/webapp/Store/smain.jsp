@@ -67,7 +67,7 @@
 				</form>	
 			</div>
     	</main>
-    	<script src="resour/js/photo_control.js"></script>
+    	<script src="${ pageContext.request.contextPath }/resources/js/photo_control.js"></script>
 	<%@ include file="/Template/store_sidevar_close.jsp"%> 	
 </html> 
 

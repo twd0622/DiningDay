@@ -83,9 +83,6 @@
 		 where 1 = 1
 		   and STORE_NO = #{STORE_NO}
 		   ;
-		   
-		   set a = 1, b = 2, c = 3
-		   
  	</select>
  	
  	<delete id="menuDelete" parameterType="map">
@@ -95,10 +92,13 @@
 		   AND A.MENU_NO = B.PHOTO_TYPE 
 		   AND A.STORE_NO = B.STORE_NO
 		   AND A.MENU_NO in
-		<foreach collection="array" item="MENU_NO" open="(" close=")" separator=",">
-			#{MENU_NO}
+		<foreach collection="MENU_NO" item="MENUList" open="(" close=")" separator=",">
+			#{MENUList}
 		</foreach>
-		   AND A.STORE_NO = #{STORE_NO}
+		   AND A.STORE_NO in 
+		<foreach collection="STORE_NO" item="STOREPK" open="(" close=")" separator=",">
+			#{STOREPK}
+		</foreach>   
 		   ;   
  	</delete>
  	

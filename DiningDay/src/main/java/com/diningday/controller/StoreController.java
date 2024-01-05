@@ -2,10 +2,7 @@ package com.diningday.controller;
 
 import java.io.IOException;
 import java.util.Arrays;
-import java.util.Enumeration;
 import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,14 +10,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.websocket.Session;
 
 import com.diningday.service.StoreService;
-import com.diningday.util.Abc;
 import com.diningday.util.TeamUtil;
-import com.google.gson.JsonObject;
-import com.oreilly.servlet.MultipartRequest;
-import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+import com.mysql.fabric.xmlrpc.base.Array;
 
 public class StoreController extends HttpServlet {
 	RequestDispatcher dispatcher = null;
@@ -37,8 +30,6 @@ public class StoreController extends HttpServlet {
 	
 	protected void doProcess(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		String sPath = req.getServletPath();
-		System.out.println("!@!@!@!@");
-		System.out.println(sPath);
 		StoreService storeService = new StoreService();
 		HttpSession session = req.getSession();
 		
@@ -74,7 +65,9 @@ public class StoreController extends HttpServlet {
 		
 		if(sPath.equals("/smenuDelete.st")) {
 			boolean bl = storeService.menuDelete(req);
-
+//			System.out.println(Arrays.toString(a.get("STORE_NO")));
+//			System.out.println(Arrays.toString(a.get("MENU_NO")));
+			
 			res.getWriter().print(bl);
 		}
 		

@@ -26,7 +26,7 @@ public class StoreDAO {
 		return insertMenu > 0 ? true : false;
 	}
 	
-	public Boolean deleteMenu(Map<String, String> dto) {
+	public Boolean deleteMenu(Map<String, String[]> dto) {
 		session = sqlSessionFactory.openSession();
 		
 		int deleteMenu = session.delete("Menu.menuDelete", dto); 

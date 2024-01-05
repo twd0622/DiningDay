@@ -1,10 +1,16 @@
 /**
  * 
  */
+
+/** 사진 미리보기 적용 js파일 */
 document.write('<script type="text/javascript"' + 
 			    	'src="/' + window.location.pathname.split("/")[1] + '/Store/resour/js/photo_control.js">' +
 			   '</script>');
 
+/** 페이징 처리 js파일 */
+document.write('<script type="text/javascript"' + 
+			    	'src="/' + window.location.pathname.split("/")[1] + '/resources/js/variableCode.js">' +
+			   '</script>');			   
 $(() => {
 	$.ajax({
 		data: {STORE_NO: $("input[name=STORE_NO]").val()},	
@@ -15,7 +21,7 @@ $(() => {
 	})										
 	.done(												
 		function(data){
-			
+			targetColor($("#smenu"));
 			/*html title 부트스트랩 코드 시작*/ 
 			const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
 			const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))			
@@ -31,7 +37,9 @@ $(() => {
 				$(select).find("option").eq(select.attr("name")).attr("selected", "selected");
 			}
 			
-			hideTag("#tbody_2");	//	수정불가 하게 태그들 숨김 및 readonly / DB에 저장된 MENU_HIDE 값으로 select 데이터 지정
+			hideTag("#tbody_2");		//	수정불가 하게 태그들 숨김 및 readonly / DB에 저장된 MENU_HIDE 값으로 select 데이터 지정
+			paging("#tbody_2 tr", 5);	//	페이징 처리 함수 호출
+			
 			
 			$(".form-switch").on("click", () => {
 				$(".form-check-input").prop("checked", $("#allCheck").prop("checked"))					
@@ -55,15 +63,19 @@ $(() => {
 				  console.log(value);
 				}
 				
+//				debugger;
+				
 				$.ajax(
 					aJaxFunction(dataList)
 				)
 				.done(function(data){
+//					debugger;
+					alert("성공");
 					ajaxDone.func(data);
 				})
 				.fail(function(fail){
-					var a = fail;
 					alert("실패");
+					var a = fail;
 				})
 			})
 		}
@@ -113,20 +125,22 @@ function clickFunction(e){
 			ajaxDone.func = (data) => {
 				$("#modalData").append('<input type="hidden" name="MENU_NO" value="' + data.MENU_NO +'">');
 				$("#modalData").find("input[type=file]").show();
+				if(typeof(file) == 'object'){
+					file = '0';	
+				}
+								
 				format("#modalData", false);
 			}
 			
 			window.onclick = e => {	
 				if (e.target == document.getElementById("sResModal")) {
-		    		$("#sResModal").css("display", "none");
-		    		$("#modalData").find("input[name=MENU_NO]").remove();
+		    		modalReset()
 		  		}
 			}
 			
 			$("#sResModal").css("display", "block");	
 			$(".close").on("click", () => {	
-				$("#sResModal").css("display", "none");
-				$("#modalData").find("input[name=MENU_NO]").remove();
+				modalReset()
 			})
 			break;
 			
@@ -136,21 +150,31 @@ function clickFunction(e){
 			ajaxDataList = ["smenuInsert.st", createData($("#modalData")), true];
 			ajaxDone.func = (data) => {
 				$("#sResModal").css("display", "none");
+				$("#modalForm")[0].reset();
 				$("#modalData").find("input[name=MENU_NO]").remove();
 				$("#tbody_2").prepend(htmlTag(data));
+				
+				// append 한 행 file event 걸어주기
+				file_image();
 				
 				var parents = $("#tbody_2").find("tr")[0];
 				$($(parents).find("select option"))
 				            .eq($(parents).find("select").attr("name"))
 				            .attr("selected", "selected");
-				            
+				
 				hideTag($("#tbody_2").find("tr")[0]);
+				paging("#tbody_2 tr", 5);
 			};
 			break;
 				
 		/* 한 행 수정 */	
 		case "save":	
-//			debugger;								
+//			debugger;	
+			var ischecked = $(tr).find(".form-check-input").prop("checked");
+			if(!ischecked){
+				break;
+			}
+										
 			ajaxDataList = ["smenuUpdate.st", createData(tr), true];
 			ajaxDone.func = (data) => {
 				$(indexControl(index)).remove();
@@ -163,7 +187,7 @@ function clickFunction(e){
 				$($(indexControl(index)).find("select option"))
 									 	.eq($(indexControl(index)).find("select").attr("name"))
 							         	.attr("selected", "selected");
-							         	
+							    
 				hideTag(indexControl(index));
 			};
 			break;
@@ -172,7 +196,6 @@ function clickFunction(e){
 		case "delete":	
 //			debugger;	
 			var ischecked = $(tr).find(".form-check-input").prop("checked");
-			console.log(ischecked);
 			if(!ischecked){
 				break;
 			}
@@ -186,7 +209,8 @@ function clickFunction(e){
 	        ajaxDataList = ["smenuDelete.st", formdata, true];
 			ajaxDone.func = (data) => {
 				if(new Boolean(data)){
-					$(indexControl(index)).remove();	
+					$(indexControl(index)).remove();
+					paging("#tbody_2 tr", 5);	
 				}
 			};	
 			break;
@@ -199,22 +223,26 @@ function clickFunction(e){
 				break;
 			}
 			
-//			debugger;	
-//	        $(".form-check-input:checked").each(function() {
-//	             formdata.append("MENU_NO", $(this).closest("tr").find("input[name=MENU_NO]").val());
-//	        });
-			var a = new Array();
+	        
+			var deleteAll = new Array();
 			
 			$(".form-check-input:checked").each(function() {
-	             a.push($(this).closest("tr").find("input[name=MENU_NO]").val());
+	             deleteAll.push($(this).closest("tr").find("input[name=MENU_NO]").val());
 	        });
 			
-			formdata.append("MENU_NO", a[0]);	       
+//			debugger;
+			formdata.append("MENU_NO", deleteAll);	       
 	       	formdata.append("STORE_NO", $("input[name=STORE_NO]").val());
 	        
 	        ajaxDataList = ["smenuDelete.st", formdata, true];
 	        ajaxDone.func = (data) => {
-				alert(data);				
+				if(new Boolean(data)){
+					$(".form-check-input:checked").each(function() {
+			        	$(this).closest("tr").remove();
+			        });
+			        
+					paging("#tbody_2 tr", 5);	
+				}
 			};				
 			break;	
 			
@@ -227,7 +255,10 @@ function clickFunction(e){
 			     .hide();
 			$(tr).find("button[name=cancel]")
 				 .show();
-			
+
+			var thisCheckBox = $(tr).find(".form-check-input");
+			$(thisCheckBox).prop("checked", true);
+
 			var fileInput = $(tr).find($("input[type=file]"))
 			$(fileInput).show();
 			format(tr, false);							//	해당 <tr> readonly 해제
@@ -271,12 +302,14 @@ function aJaxFunction(dataList){
 
 			 
 function createData(row){
-	
+//	debugger;
 	var formdata = new FormData();
-	var filedata = "0";
+	var filedata = file;
 	
-	if(file != null){
-		filedata = file[0];
+	if(typeof(filedata) == 'object'){
+		filedata = filedata[0];
+	} else {
+		filedata = '0';
 	}
 	
 	formdata.append('STORE_NO', $("input[name=STORE_NO]").val());
@@ -293,6 +326,13 @@ function createData(row){
 	//	}
 	
 	return formdata;
+}
+
+function modalReset(){
+	$("#sResModal").css("display", "none");
+	$("#modalData").find("input[name=MENU_NO]").remove();
+	$("#modalForm")[0].reset();
+	$('#img_1').empty();	
 }
 
 function htmlTag(menu){
@@ -331,9 +371,5 @@ function htmlTag(menu){
 			'</tr>' 
 }			 
 
-
-
-				
-				
 				
 							 

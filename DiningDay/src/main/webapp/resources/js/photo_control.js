@@ -1,17 +1,16 @@
 /**
  * 
  */
-var file;	
-
 $(() => {
 	file_image();
 });
 
+var file
 function file_image(){
 	$("input[type=file]").change(e => {
 		var index = $(e.currentTarget).attr('id').split('_')[1];
 		file = e.target.files;
-		
+				
 		var image = new Image();
 		var ImageTempUrl = window.URL.createObjectURL(file[0]);
 	

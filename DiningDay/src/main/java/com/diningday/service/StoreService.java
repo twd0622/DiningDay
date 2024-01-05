@@ -48,6 +48,6 @@ public class StoreService {
 	}
 	
 	public boolean menuDelete(HttpServletRequest req) {
-		return storeDAO.deleteMenu(TeamUtil.fileRequestToMap(req));
+		return storeDAO.deleteMenu(TeamUtil.fileRequestToArrayMap(req));
 	}
 }
