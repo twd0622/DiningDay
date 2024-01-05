@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <title>현재 페이지 타이틀</title>
-    <link href="${ pageContext.request.contextPath }/Store/resour/css/sResmodal.css" rel="stylesheet" />
+    <link href="${ pageContext.request.contextPath }/resources/css/sResmodal.css" rel="stylesheet" />
 	<style type="text/css">
 		td, th {
         	justify-content: center;
@@ -157,7 +157,7 @@
 		    	</div>
 		  	</div>
 		</div>
-<script type="text/javascript" src="${ pageContext.request.contextPath }/Store/resour/js/chart_control.js">
+<script type="text/javascript" src="${ pageContext.request.contextPath }/resources/js/chart_control.js">
 </script> 
     	<!-- Bootstrap core JavaScript-->
 	<%@ include file="/Template/store_sidevar_close.jsp"%> 	

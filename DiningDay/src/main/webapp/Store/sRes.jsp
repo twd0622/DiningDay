@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <title>현재 페이지 타이틀</title>
-    <link href="${ pageContext.request.contextPath }/Store/resour/css/sResButton.css" rel="stylesheet" />
+    <link href="${ pageContext.request.contextPath }/resources/css/sResButton.css" rel="stylesheet" />
     <%@ include file="/Template/store_sidebar_open.jsp"%>
     <style>
     	table {
@@ -200,6 +200,6 @@
 				</div>
 			</div>
     	</main>	
-    	<script src="${ pageContext.request.contextPath }/Store/resour/js/sRes_control.js"></script>
+    	<script src="${ pageContext.request.contextPath }/resources/js/sRes_control.js"></script>
 	<%@ include file="/Template/store_sidevar_close.jsp"%> 	
 </html> 
