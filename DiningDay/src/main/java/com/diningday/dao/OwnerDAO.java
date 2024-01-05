@@ -21,19 +21,15 @@ public class OwnerDAO {
 	public Map<String, String> joinCheck(Map<String, String> ownerDTO) {
 		session = sqlSessionFactory.openSession();
 		Map<String, String> joinCheck =  session.selectOne("Owner.joinCheck", ownerDTO);
-		
 		session.commit();
-
 		return joinCheck;
 	}
 	
 	public Boolean insertOwner(Map<String, String> ownerDTO) {
 		session = sqlSessionFactory.openSession();
 		int insertOwner = session.insert("Owner.insert", ownerDTO); // namespace.id
-		
 		session.commit();
 		session.close();
-		
 		return insertOwner > 0 ? true : false;
 	}
 	
@@ -45,6 +41,13 @@ public class OwnerDAO {
 		session.close();
 
 		return ownerCheck;
+	}
+
+	public Map<String, String> authCheck(Map<String, String> ownerDTO) {
+		session = sqlSessionFactory.openSession();
+		Map<String, String> authCheck =  session.selectOne("Owner.authCheck", ownerDTO);
+		session.commit();
+		return authCheck;
 	}
 
 

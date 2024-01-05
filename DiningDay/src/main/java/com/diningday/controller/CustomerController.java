@@ -46,6 +46,7 @@ public class CustomerController extends HttpServlet {
 		
 		if(sPath.equals("/loginPro.cu")) {
 			boolean result = false;
+			System.out.println("req: " + req.toString());
 			Map<String, String> searchId = customerService.searchId(req);
 			
 			// req id 값이 db에 있는 회원인지
@@ -82,7 +83,6 @@ public class CustomerController extends HttpServlet {
 		}	
 		
 		if(sPath.equals("/cus_edit.cu")) {
-			session = req.getSession();
 			String CUS_NO = (String) session.getAttribute("CUS_NO");
 			// 정보 확인
 			req.setAttribute("customerInfo", customerService.getCustomer(CUS_NO));
@@ -103,16 +103,19 @@ public class CustomerController extends HttpServlet {
 //		-------------------------------------------------------------
 		
 		if(sPath.equals("/logout.cu")) {
-			session = req.getSession();
 			session.invalidate();
 			res.sendRedirect("main.ma");
 		}
 		
 		if(sPath.equals("/deletePro.cu")) {
-			Map<String, String> customerCheck = customerService.customerCheck(req);
+			Map<String, String> param = new HashMap<String, String>();
+			param.put("CUS_NO", session.getAttribute("CUS_NO").toString());
+			Map<String, String> customerCheck = customerService.customerCheck(req, param);
+			req.setAttribute("customerCheck", customerCheck);
+			System.out.println("customerCheck: " + customerCheck);
+			
 			if(customerCheck != null) {
-				customerService.deleteCustomer(req);
-				session = req.getSession();
+				customerService.deleteCustomer(customerCheck);
 				session.invalidate();
 				res.sendRedirect("main.ma");
 			} else {

@@ -32,31 +32,21 @@ public class CustomerService {
 
 
 
-	public Map<String, String> customerEdit(HttpServletRequest req, Map<String, String> param) {
+	public boolean customerEdit(HttpServletRequest req, Map<String, String> param) {
 		Map<String, String> customerDTO = TeamUtil.requestToMap(req, param);
 		return customerDAO.customerEdit(customerDTO);
 	}
 
 	
 	
-	public Map<String, String> customerCheck(HttpServletRequest req) {
-		Map<String, String> customerDTO = TeamUtil.requestToMap(req);
+	public Map<String, String> customerCheck(HttpServletRequest req, Map<String, String> param) {
+		Map<String, String> customerDTO = TeamUtil.requestToMap(req, param);
 		return customerDAO.customerCheck(customerDTO);
 	}
 
 
-	public void deleteCustomer(HttpServletRequest req) {
-//		String email = req.getParameter("CUS_EMAIL");
-//		String[] emailArr = email.split("@");
-//		System.out.println(emailArr);
-//		Map<String, String> customerDTO = new HashMap<String, String>();
-//		customerDTO.put("email_1", emailArr[0]);
-//		customerDTO.put("email_2", emailArr[1]);
-//		System.out.println("email용 customerDTO:" + customerDTO);
-		
-		String customerDTO = req.getParameter("CUS_EMAIL");
-		
-		customerDAO.deleteCustomer(customerDTO);
+	public void deleteCustomer(Map<String, String> customerCheck) {
+		customerDAO.deleteCustomer(customerCheck);
 	}
 
 
