@@ -37,13 +37,30 @@ RequestDispatcher dispatcher = null;
 		
 		if(sPath.equals("/payment.pa")) {
 			Map<String, String> reservationDTO = TeamUtil.requestToMap(req);
-			
+			System.out.println(reservationDTO);
 			req.setAttribute("storeInfo", paymentService.getStoreInfo(reservationDTO));
 			req.setAttribute("customerInfo", paymentService.getCustomerInfo((String)session.getAttribute("CUS_NO")));
 			req.setAttribute("menuInfoList", paymentService.getMenuInfo(reservationDTO));
 			req.setAttribute("reservationDTO", reservationDTO);
 			
 			dispatcher = req.getRequestDispatcher("Payment/payment.jsp");
+			dispatcher.forward(req, res);
+		}
+		
+		if(sPath.equals("/paymentInsert.pa")) {
+			System.out.println("paymentInsert.pa에 들어옴");
+			
+			Map<String, String> paymentDTO = TeamUtil.requestToMap(req);
+			
+			System.out.println("paymentDTO");
+			System.out.println(paymentDTO);
+			
+			paymentService.paymentInsert(paymentDTO);
+			
+		}
+		
+		if(sPath.equals("/payment_success.pa")) {
+			dispatcher = req.getRequestDispatcher("Payment/payment_success.jsp");
 			dispatcher.forward(req, res);
 		}
 	}

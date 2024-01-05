@@ -209,6 +209,8 @@ ${storeInfo.STORE_INFO}
 	     <form action="payment.pa" method="post">
 	     	 <input type="hidden" name="store_no" value="${storeInfo.STORE_NO}">
 		     <div>
+		     	<input type="hidden" name="SEAT_NO" id="seat_no" value="">
+		     	<input type="hidden" name="SEAT_NAME" value="">
 		     	<h5 id="SEAT_NAME"></h5>
 		     	<h5>인원</h5>
 		     	<div>

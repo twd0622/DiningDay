@@ -36,6 +36,72 @@
 		WHERE STORE_NO = #{store_no};
 	</select>
 	
+	
+	<insert id="paymentInsert" parameterType="map">
+		INSERT INTO PAYMENT
+			( PAY_NO
+			, RES_NO
+			, CUS_NO
+			, MERCHANT_UID
+			, APPLY_NUM
+			, BUYER_NAME
+			, BUYER_EMAIL
+			, BUYER_TEL
+			, CARD_NAME
+			, CARD_NUMBER
+			, NAME
+			, PAID_AMOUNT
+			, PAID_AT
+			)
+		VALUES
+			( concat("PA" ,ifnull((select cast(max(replace(PAY_NO, "PA", "")) as unsigned)+1 from PAYMENT a), 1))
+			, concat("RS" ,ifnull((select cast(max(replace(RES_NO, "RS", "")) as unsigned)+1 from RESERVATION a), 1))
+			, #{CUS_NO}
+			, #{merchant_uid}
+			, #{apply_num}
+			, #{buyer_name}
+			, #{buyer_email}
+			, #{buyer_tel}
+			, #{card_name}
+			, #{card_number}
+			, #{name}
+			, #{paid_amount}
+			, #{paid_at}
+			);
+			
+		INSERT INTO RESERVATION
+			( RES_NO
+			, CUS_NO
+			, STORE_NO
+			, PAY_NO
+			, SEAT_NO
+			, CUS_NAME
+			, CUS_TEL
+			, RES_REQ
+			, RES_PEOPLE
+			, RES_DATE
+			, RES_TIME
+			, REQ_STATE
+			, RES_PAYTIME
+			)
+		VALUES
+			( concat("RS" ,(select cast(max(replace(RES_NO, "RS", "")) as unsigned)+1 from RESERVATION a))
+			, #{CUS_NO}
+			, #{STORE_NO}
+			, concat("PA" ,(select cast(max(replace(PAY_NO, "PA", "")) as unsigned)+1 from PAYMENT a))
+			, #{SEAT_NO}
+			, ( SELECT CUS_NAME FROM CUSTOMER WHERE CUS_NO = #{CUS_NO})
+			, ( SELECT CUS_TEL FROM CUSTOMER WHERE CUS_NO = #{CUS_NO})
+			, #{RES_DATE}
+			, #{RES_PEOPLE}
+			, #{RES_REQ}
+			, #{RES_TIME}
+			, '0'
+			, date_format(now(), '%Y%m%d%H%i%s')
+			);				
+		
+	</insert>
+	
 </mapper>
 
 

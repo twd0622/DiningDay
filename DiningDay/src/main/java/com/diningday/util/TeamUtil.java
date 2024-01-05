@@ -150,7 +150,6 @@ public class TeamUtil {
 	// map을 json으로
 	public static JsonObject mapToJSON(Map<String, String> map) {
 		JsonObject jsonObject = new JsonObject();
-		
 		map.forEach((key, value) -> {
 			jsonObject.addProperty(key, value);
 		});

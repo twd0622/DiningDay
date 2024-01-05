@@ -13,9 +13,19 @@
     <link href="Payment/css/payment.css" rel="stylesheet" >
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
     
-    <script src="Payment/js/reservation.js"></script>
 	<script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+    <script src="Payment/js/reservation.js"></script>
 	<script src="Payment/js/payment.js"></script>
+	
+	<script>
+		var cus_no = "${sessionScope.CUS_NO}";
+		var store_no = "${storeInfo.STORE_NO}";
+		var seat_no = "${reservationDTO.SEAT_NO}";
+		
+		var buyer_name = "${customerInfo.CUS_NAME}";
+		var buyer_email = "${customerInfo.CUS_EMAIL}";
+		var buyer_tel = "${customerInfo.CUS_TEL}";
+	</script>
 </head>
 	
 	<!-- main은 속성 값은 왠만하면 건들지x -->
@@ -37,12 +47,7 @@
 						<label for="cus_phone">휴대폰 번호</label>
 						<input class="form-control" type="text" id="cus_phone" name="cus_phone" value="${customerInfo.CUS_TEL}">
 					</div>
-					
-					<div class="cus_infoBox">
-						<label for="cus_phone">이메일</label>
-						<input class="form-control" type="text" id="cus_email" name="cus_email" value="${customerInfo.CUS_EMAIL}">
-					</div>
-					
+									
 					<div class="cus_infoBox">
 						<label for="cus_plus">요청 사항</label>
 						<textarea class="form-control" id="cus_plus" name="cus_plus" ></textarea>
@@ -58,7 +63,7 @@
 					<p class="tit">좌석 정보</p>
 					<div class="table_infoBox">
 						<label for="table_name">좌석명</label>
-						<span id="table_name" style="text-align: left">A1</span>
+						<span id="table_name" style="text-align: left">${reservationDTO.SEAT_NAME}</span>
 					</div>
 					<div class="table_infoBox">
 						<label for="table_people">인원수</label>
@@ -88,6 +93,7 @@
 							<div class="menu defaultBtn">
 								<div class="menu_info">
 									<div class="menu_name_box">
+										<input type="hidden">
 										<p class="menu_name">현장에서 선택 하기</p>
 										<p class="menu_price">기본 예약금 10,000 원</p>
 									</div>
@@ -150,15 +156,14 @@
 						</div>
 						<div class="res_option">
 							<span class="cart_sub_tit">좌석 정보</span>
-							
 						</div>
 						<div class="choice_menu">
 							<span class="cart_sub_tit">메 뉴</span>
 							<ul>
-								<li class="choice_list defaultMenu">
+								<li id="MEO" class="choice_list defaultMenu">
 									<div style="display: flex; justify-content: space-around;">
 										<span>기본 예약금</span>
-										<span>10,000 원</span>
+										<span class="price">10,000 원</span>
 									</div>
 								</li>
 							</ul>

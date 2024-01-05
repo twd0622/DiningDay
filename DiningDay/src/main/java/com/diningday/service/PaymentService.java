@@ -20,5 +20,10 @@ public class PaymentService {
 	public Map<String, String> getStoreInfo(Map<String, String> reservationDTO) {
 		return paymentDAO.getStoreInfo(reservationDTO);
 	}
+
+	public void paymentInsert(Map<String, String> paymentDTO) {
+		paymentDAO.paymentInsert(paymentDTO);
+		
+	}
 	
 }

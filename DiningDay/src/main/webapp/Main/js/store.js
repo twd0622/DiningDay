@@ -120,6 +120,10 @@ $(()=>{
 		function(){
 			var table_name = $(this).parents(".table_res").prev().children(".table_name").text();
 			$("#SEAT_NAME").text(table_name);
+			$("input[name=SEAT_NAME]").val(table_name);
+			
+			var seat_no = $(this).parents(".table_").attr("id");
+			$("#seat_no").val(seat_no);
 			
 			$.ajax({
 				type: "get",

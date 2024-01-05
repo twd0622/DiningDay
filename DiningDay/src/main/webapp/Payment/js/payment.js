@@ -14,12 +14,12 @@ $(()=>{
 			alert("메뉴를 선택해 주세요!");
 			return;
 		}
-		var cusInfo = [$("#cus_name").val(), $("#cus_phone").val(), $("#cus_email").val()]
-		
 		var storeName = $("#storeName").text();
+		
+		// calcSum();
 		var priceResult = parseInt($(".price_result").text().replace(/,/g , ''));
 		
-		requestPay(storeName, priceResult, cusInfo);
+		requestPay(storeName, priceResult);
 	})
 })
 
@@ -34,21 +34,54 @@ var milliseconds = today.getMilliseconds();
 var makeMerchantUid = hours +  minutes + seconds + milliseconds;
 
 
-function requestPay(storeName, priceResult, cusInfo) {
+function requestPay(storeName, priceResult) {
     IMP.request_pay({
         pg : 'html5_inicis.INIpayTest',
         pay_method : 'card',
-        merchant_uid: "IMP"+makeMerchantUid, 
+        merchant_uid: "DD"+makeMerchantUid, 
         name : storeName,
         amount : priceResult,
-        buyer_email : cusInfo[2],
-        buyer_name : cusInfo[0],
-        buyer_tel : cusInfo[1],
+        buyer_email : buyer_email,
+        buyer_name : buyer_name,
+        buyer_tel : buyer_tel,
     }, function (rsp) { // callback
         if (rsp.success) {
-            console.log(rsp);
+			rsp.CUS_NO = cus_no;
+			rsp.STORE_NO = store_no;
+			rsp.SEAT_NO = seat_no;
+			
+			rsp.RES_REQ = $("#cus_plus").val();
+			rsp.RES_PEOPLE = $("#table_people").text();
+			rsp.RES_DATE = $("#table_date").text();
+			rsp.RES_TIME = $("#table_time").text();
+			
+			var MENU_NO_list = [];
+			$(".choice_list").attr("id", function(i, id){
+				MENU_NO_list.push(id);
+			})
+			var MENU_COUNT_list = [];
+			$(".menuCount").text(function(i, text){
+				MENU_COUNT_list.push(text);
+			})
+			
+			
+			rsp.MENU_NO = MENU_NO_list.join();
+			rsp.MENU_COUNT = MENU_COUNT_list.join();
+			
+			
+			console.log(rsp);
+			debugger;
+            $.ajax({
+				type: "post",
+				url:"paymentInsert.pa",
+				data: rsp,
+			})
+			.done(function(){
+				location.href = "payment_success.pa";								
+			})
+
         } else {
-           	console.log("결제에 실패했습니다!");
+           alert("결제를 취소하였습니다.")
         }
     });
 }

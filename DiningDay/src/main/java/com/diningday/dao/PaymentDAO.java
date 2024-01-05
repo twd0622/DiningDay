@@ -44,4 +44,13 @@ public class PaymentDAO {
 		return storeInfo;
 	}
 
+	public void paymentInsert(Map<String, String> paymentDTO) {
+		session = sqlSessionFactory.openSession();
+		session.selectOne("Payment.paymentInsert", paymentDTO);
+		
+		session.commit();
+		session.close();
+		
+	}
+
 }

@@ -11,9 +11,7 @@ $(()=>{
 			$(".cus_option").append('<span class="cart_sub_tit">예약자 정보</span>');
 			$(".cus_option").append('<div><span>예약자 이름</span><span>' + $("#cus_name").val() + '</span></div>');
 			$(".cus_option").append('<div><span>휴대폰 번호</span><span>' + $("#cus_phone").val() + '</span></div>');
-			$(".cus_option").append('<div><span>이메일</span><span>' + $("#cus_email").val() + '</span></div>');
 			$(".cus_option").append('<div><span>요청 사항</span><span>' + $("#cus_plus").val() + '</span></div>');
-			
 		}
 	)
 	
@@ -34,7 +32,7 @@ $(()=>{
 		"click",
 		function(){
 			$(".choice_menu ul").empty();
-			$(".choice_menu ul").append('<li class="choice_list defaultMenu"><div style="display: flex; justify-content: space-around;"><span>기본 예약금</span><span class="price">10,000 원</span></div></li>');
+			$(".choice_menu ul").append('<li id="MEO" class="choice_list defaultMenu"><div style="display: flex; justify-content: space-around;"><span>기본 예약금</span><span class="price">10,000 원</span></div></li>');
 			calcSum();
 		}
 	)
@@ -56,7 +54,7 @@ $(()=>{
 			return;
 		}
 			
-		var menuInfo = '<li class="choice_list cart_menu '+$(this).find(".menu_info").attr("name")+'"><div style="width: 80%;"><div>'
+		var menuInfo = '<li id=' + no + ' class="choice_list cart_menu '+$(this).find(".menu_info").attr("name")+'"><div style="width: 80%;"><div>'
 		 +'<span>'+ $(this).find(".menu_name").text() +'</span>'
 		 +'<span class="price">'+ price +'</span></div><div class="count_box"><span class="minus">-</span><span class="menuCount" style="font-size: 18px;">1</span><span class="plus">+</span></div></div><span class="material-symbols-outlined deleteBtn" style="font-size: 18px;">delete</span></li>'
 		
@@ -107,7 +105,8 @@ function calcSum(){
 	var resultPrice = 0;
 	$('.choice_menu').find(".price").text(function(i,oldText){
 		
-		resultPrice += parseInt(oldText.replace(/,/g , ''));			
+		resultPrice += parseInt(oldText.replace(/,/g , ''));
+		
 	});
 	
 	$(".price_result").text(resultPrice.toLocaleString('ko-KR') + " 원");
