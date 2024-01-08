@@ -68,16 +68,14 @@ function requestPay(storeName, priceResult) {
 			rsp.MENU_NO = MENU_NO_list.join();
 			rsp.MENU_COUNT = MENU_COUNT_list.join();
 			
-			
-			console.log(rsp);
-			debugger;
             $.ajax({
 				type: "post",
 				url:"paymentInsert.pa",
 				data: rsp,
 			})
-			.done(function(){
-				location.href = "payment_success.pa";								
+			.done(function(data){
+				alert(data)
+				location.href = "payment_success.pa?RES_NO="+data.RES_NO;								
 			})
 
         } else {

@@ -68,7 +68,6 @@ public class MainController extends HttpServlet {
 //			Map<String, String> param = new HashMap<String, String>();
 //			param.put("PEOPLE", session.getAttribute("people").toString());
 			
-			
 			req.setAttribute("storeInfo", mainService.getStore(req));
 			req.setAttribute("menuList", mainService.getMenuList(req));
 			req.setAttribute("tableList", mainService.getTableList(req));

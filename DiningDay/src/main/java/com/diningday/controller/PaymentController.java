@@ -3,6 +3,9 @@ package com.diningday.controller;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
@@ -48,18 +51,31 @@ RequestDispatcher dispatcher = null;
 		}
 		
 		if(sPath.equals("/paymentInsert.pa")) {
-			System.out.println("paymentInsert.pa에 들어옴");
 			
 			Map<String, String> paymentDTO = TeamUtil.requestToMap(req);
-			
-			System.out.println("paymentDTO");
-			System.out.println(paymentDTO);
-			
 			paymentService.paymentInsert(paymentDTO);
 			
+			String[] menu_noList = req.getParameter("MENU_NO").split(",");
+			String[] menu_countList = req.getParameter("MENU_COUNT").split(",");
+			
+			List<Map<String,String>> menuDTOList = new ArrayList<Map<String, String>>();
+			for(int i=0; i < menu_countList.length; i++) {
+				Map<String,String> menuDTO = new HashMap<String, String>();
+				
+				menuDTO.put("STORE_NO", req.getParameter("STORE_NO"));
+				menuDTO.put("MENU_NO", menu_noList[i]);
+				menuDTO.put("MENU_COUNT", menu_countList[i]);
+				
+				menuDTOList.add(menuDTO);
+			}
+			paymentService.reservationMenuInsert(menuDTOList);
+			
+			res.setContentType("application/x-json; charset=utf-8");
+			res.getWriter().print(TeamUtil.mapToJSON(paymentService.getRES_NO(paymentDTO)));
 		}
 		
 		if(sPath.equals("/payment_success.pa")) {
+			req.setAttribute("resInfo", paymentService.getResInfo(TeamUtil.requestToMap(req)));
 			dispatcher = req.getRequestDispatcher("Payment/payment_success.jsp");
 			dispatcher.forward(req, res);
 		}

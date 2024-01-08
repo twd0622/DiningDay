@@ -66,7 +66,7 @@
 			, #{card_number}
 			, #{name}
 			, #{paid_amount}
-			, #{paid_at}
+			, date_format(from_unixtime(#{PAID_AT}), '%Y%m%d%H%i%s')
 			);
 			
 		INSERT INTO RESERVATION
@@ -85,22 +85,69 @@
 			, RES_PAYTIME
 			)
 		VALUES
-			( concat("RS" ,(select cast(max(replace(RES_NO, "RS", "")) as unsigned)+1 from RESERVATION a))
+			( concat("RS" ,ifnull((select cast(max(replace(RES_NO, "RS", "")) as unsigned)+1 from RESERVATION a), 1))
 			, #{CUS_NO}
 			, #{STORE_NO}
-			, concat("PA" ,(select cast(max(replace(PAY_NO, "PA", "")) as unsigned)+1 from PAYMENT a))
+			, concat("PA" ,ifnull((select cast(max(replace(PAY_NO, "PA", "")) as unsigned) from PAYMENT a), 1))
 			, #{SEAT_NO}
 			, ( SELECT CUS_NAME FROM CUSTOMER WHERE CUS_NO = #{CUS_NO})
 			, ( SELECT CUS_TEL FROM CUSTOMER WHERE CUS_NO = #{CUS_NO})
-			, #{RES_DATE}
+			, #{RES_REQ} 
 			, #{RES_PEOPLE}
-			, #{RES_REQ}
+			, #{RES_DATE}
 			, #{RES_TIME}
 			, '0'
 			, date_format(now(), '%Y%m%d%H%i%s')
 			);				
 		
 	</insert>
+	
+	<insert id="reservationMenuInsert" parameterType="java.util.List">
+			INSERT INTO RESERVATION_MENU
+				( RES_NO
+				, PAY_NO
+				, MENU_NO
+				, STORE_NO
+				, MENU_COUNT
+				, PAID_PRICE
+				)
+			VALUES
+		<foreach collection="list" item="menuDTO" separator=",">
+				(
+					concat("RS" ,ifnull((select cast(max(replace(RES_NO, "RS", "")) as unsigned) from RESERVATION r), 1))
+					, concat("PA" ,ifnull((select cast(max(replace(PAY_NO, "PA", "")) as unsigned) from PAYMENT a), 1))
+					, #{menuDTO.MENU_NO}
+					, #{menuDTO.STORE_NO}
+					, #{menuDTO.MENU_COUNT}
+					, (SELECT MENU_PRICE FROM MENU WHERE STORE_NO=#{menuDTO.STORE_NO} AND MENU_NO=#{menuDTO.MENU_NO}) * #{menuDTO.MENU_COUNT}
+				)
+		</foreach>
+	</insert>
+	
+	<select id="getRES_NO" parameterType="map" resultType="map">
+		SELECT RES_NO
+		  FROM RESERVATION
+		 WHERE CUS_NO = #{CUS_NO} 
+		   AND RES_PAYTIME = (select MAX(RES_PAYTIME) FROM RESERVATION A WHERE CUS_NO = #{CUS_NO});
+	</select>
+	
+	<select id="getResInfo" parameterType="map" resultType="map">
+		SELECT R.RES_NO
+		     , ST.STORE_NAME
+		     , SE.SEAT_NAME
+		     , R.RES_DATE
+		     , P.PAID_AMOUNT
+		FROM RESERVATION R
+		JOIN PAYMENT P
+		  ON R.PAY_NO = P.PAY_NO
+		JOIN STORE ST
+		  ON R.STORE_NO = ST.STORE_NO
+		JOIN SEAT SE
+		  ON (SE.SEAT_NO, SE.STORE_NO) = (R.SEAT_NO, ST.STORE_NO)
+		WHERE R.RES_NO = #{RES_NO};
+			   
+	
+	</select>
 	
 </mapper>
 

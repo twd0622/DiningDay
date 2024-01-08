@@ -1,6 +1,7 @@
 package com.diningday.service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -47,6 +48,12 @@ public class CustomerService {
 
 	public void deleteCustomer(Map<String, String> customerCheck) {
 		customerDAO.deleteCustomer(customerCheck);
+	}
+
+
+	// 01/08_준우 + 찜 목록 이동 기능
+	public List<Map<String, String>> getLikeList(String CUS_NO) {
+		return customerDAO.getLikeList(CUS_NO);
 	}
 
 

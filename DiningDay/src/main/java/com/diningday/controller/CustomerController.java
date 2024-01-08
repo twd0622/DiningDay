@@ -124,7 +124,13 @@ public class CustomerController extends HttpServlet {
 			}
 		}
 		
-		
+		// 01/08_준우 + 찜 목록 이동 기능	
+		if(sPath.equals("/like_list.cu")) {
+			req.setAttribute("LikeList", customerService.getLikeList((String)session.getAttribute("CUS_NO")));
+			
+			dispatcher = req.getRequestDispatcher("Customer/like_list.jsp");
+			dispatcher.forward(req, res);
+		}
 		
 	}
 	

@@ -67,11 +67,13 @@
 								${storeInfo.STORE_SCORE}점
 							</strong>
 						</span>
-						<span class="material-symbols-outlined grade_icon">grade</span>
-						<span class="material-symbols-outlined grade_icon">grade</span>
-						<span class="material-symbols-outlined grade_icon">grade</span>
-						<span class="material-symbols-outlined grade_icon">grade</span>
-						<span class="material-symbols-outlined grade_icon">grade</span>
+						<span class="gradeGroup">
+							<span class="material-icons grade_icon" style="color: #F7CE3E;">grade</span>
+							<span class="material-icons grade_icon" style="color: #F7CE3E;">grade</span>
+							<span class="material-icons grade_icon" style="color: #F7CE3E;">grade</span>
+							<span class="material-icons grade_icon" style="color: #F7CE3E;">star_half</span>
+							<span class="material-symbols-outlined grade_icon" style="color: #F7CE3E;">star</span>
+						</span>
 					</p>
 					<a href="reportWrite.re?STORE_NO=${storeInfo.STORE_NO}&STORE_NAME=${storeInfo.STORE_NAME}"> 신고하기 </a>
 				</div>
