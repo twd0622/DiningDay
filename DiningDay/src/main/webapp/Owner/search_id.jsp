@@ -1,5 +1,6 @@
 <!-- 12/15/18:10_강현아 + 아이디 찾기 개설 -->
 <!-- 12/20/18:10_강현아 + 인증번호 관련 alert 추가 -->
+<!-- 01/08/20:20_강현아 + 인증메일 연동 + 아이디 찾기 결과 모달창 -->
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -66,7 +67,7 @@
 </style>
 </head>
 <%@ include file="/Template/header.jsp"%> 
-<main style="display: flex; justify-content: center; align-items: center; text-align: center; margin-top: 68.5px; padding:100px 0 150px 0; background:white;">
+<main style="display: flex; justify-content: center; align-items: center; margin-top: 68.5px; padding:100px 0 150px 0; background:white;">
 <div class="position-static d-block bg-body p-4 py-md-5" tabindex="-1" role="dialog" id="modalSignin" style="width:500px;" >
 	<div class="modal-dialog" role="document">
 		<div class="modal-content rounded-4 shadow">
@@ -74,24 +75,22 @@
 				<h1 class="fw-bold mb-0 fs-2">아이디 찾기</h1>
 			</div>
 			<div class="modal-body p-5 pt-0">
-				<form action="search_idPro.ow" style="text-align: center;" method="post" name="searchId">
+				<form action="search_idPro.ow" method="post" name="searchId">
 				 <c:set var="storeInfo" value="${requestScope.authCheck}"/>
 				  <div class="form-outline mb-4">
-				  	<div style="text-align: left;"> <label>사업자번호</label> </div>
+				  	<div> <label>사업자번호</label> </div>
 				    	<input type="text" name="OWN_CRN" class="form-control" value="${authCheck.OWN_CRN}"/>
 				  </div>
 				  <div class="form-outline mb-4">
-				  	<div style="text-align: left;"> <label>이메일</label> </div>
+				  	<div> <label>이메일</label> </div>
 				    	<input type="email" name="OWN_EMAIL" class="form-control" value="${authCheck.OWN_EMAIL}"/>
 				  </div>
 				  
 				  <button type="submit" class="btn btn-primary btn-block mb-4"
 				  		  style="color: #111111; background-color: #FFF2A6; border-color: #ffffff;">인증번호 받기</button>
 				
-				
-
 			  <div class="form-outline mb-4">
-			  	<div style="text-align: left;"> <label>인증번호</label></div>
+			  	<div> <label>인증번호</label></div>
 			    	<input type="text" name="idCode" id="idCode" class="form-control" />
 			    </div>
 			  <button type="button" class="btn btn-primary btn-block mb-4" id="authBtn"
@@ -101,7 +100,7 @@
 				<div id="authModal" class="modal">
 				  <div class="modal-content" id="auth-modal-content">
 				     <div class="modal-header" id="auth-modal-header">
-					     <h2 class="modal-title" id="auth-modal-body">아이디 찾기 결과</h2><br>
+					     <h2 class="modal-title" id="auth-modal-body">아이디 찾기 - 결과</h2><br>
 					     <button type="button" class="auth-close" data-dismiss="modal" aria-label="Close">&times;</button>
 				     </div>
 				     <div class="modal-body" id="auth-modal-body">
@@ -152,12 +151,6 @@ authSpan.onclick = function() {
 authOk.onclick = function() {
 	authModal.style.display = "none";
 	location.href="owner_login.ow";
-}
-
-window.onclick = function(event) {
-  if (event.target == authModal) {
-	  authModal.style.display = "none";
-  }
 }
 </script>
 </main>

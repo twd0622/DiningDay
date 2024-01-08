@@ -55,19 +55,6 @@
                     	<div></div>
                     <div class="col-md-12"><label class="labels"><b>생년월일</b></label>
                     	<input type="date" name="CUS_BIRTH" class="form-control" value="${customerInfo.CUS_BIRTH}"></div>
-                    	<div></div>
-                    <div class="col-md-12"><label class="labels"><b>성별</b></label>
-                    <div></div>
-                    	 <c:if test="${customerInfo.CUS_GENDER eq 'M'}">
-							<input type="radio" class="css-radio" value="M" name="CUS_GENDER" checked>남
-							<input type="radio" class="css-radio" value="F" name="CUS_GENDER">여
-						 </c:if>
-						 <c:if test="${customerInfo.CUS_GENDER eq 'F'}">
-							<input type="radio" class="css-radio" value="M" name="CUS_GENDER">남
-							<input type="radio" class="css-radio" value="F" name="CUS_GENDER" checked>여
-						 </c:if>
-					</div>
-					
                 </div>
                 </div>
 <!-- 					<div class="d-inline p-2 bg-primary text-white">저장</div> -->

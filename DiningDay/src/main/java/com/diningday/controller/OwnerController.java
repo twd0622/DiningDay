@@ -79,7 +79,6 @@ public class OwnerController extends HttpServlet {
 		if(sPath.equals("/search_idPro.ow")) {
 			Map<String, String> authCheck = ownerService.authCheck(req);
 			session.setAttribute("authCheck", authCheck);
-			System.out.println("authCheck: " + authCheck);
 			
 			// receiver -> 사업장번호 authCheck 해서 db에 없으면 모달창 띄워서 실패 알림
 			if(authCheck == null) {
@@ -90,8 +89,6 @@ public class OwnerController extends HttpServlet {
 				Random random = new Random();
 				int randomNum = random.nextInt(1000000);
 				String AuthNumber = String.format("%06d", randomNum);
-				System.out.println(AuthNumber);
-				
 				session.setAttribute("AuthNumber", AuthNumber);
 				
 				// 인증번호 메일 발송
@@ -125,9 +122,7 @@ public class OwnerController extends HttpServlet {
 					Transport.send(mailMessage);
 					
 					String msg = "인증번호가 발송되었습니다.";
-					
 					alertAndGo(res, msg, "search_id.ow");
-					
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
@@ -142,7 +137,6 @@ public class OwnerController extends HttpServlet {
 		if(sPath.equals("/search_pwPro.ow")) {
 			Map<String, String> authPwCheck = ownerService.authPwCheck(req);
 			session.setAttribute("authPwCheck", authPwCheck);
-			System.out.println("authPwCheck: " + authPwCheck);
 			
 			// receiver -> 사업장번호 authCheck 해서 db에 없으면 모달창 띄워서 실패 알림
 			if(authPwCheck == null) {
@@ -153,8 +147,6 @@ public class OwnerController extends HttpServlet {
 				Random random = new Random();
 				int randomNum = random.nextInt(1000000);
 				String AuthNumber = String.format("%06d", randomNum);
-				System.out.println(AuthNumber);
-				
 				session.setAttribute("AuthNumber", AuthNumber);
 				
 				// 인증번호 메일 발송
@@ -188,28 +180,27 @@ public class OwnerController extends HttpServlet {
 					Transport.send(mailMessage);
 					
 					String msg = "인증번호가 발송되었습니다.";
-					
 					alertAndGo(res, msg, "search_pw.ow");
-					
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
 				}	
+			session.setAttribute("OWN_ID", authPwCheck.get("OWN_ID"));
 			}
 		
 			if(sPath.equals("/new_pw.ow")) {
+				String OWN_ID = (String)session.getAttribute("OWN_ID");
+				
 				Map<String, String> param = new HashMap<String, String>();
-				param.put("OWN_ID", session.getAttribute("OWN_ID").toString());
+				param.put("OWN_ID", OWN_ID);
 				req.setAttribute("newPw", ownerService.newPw(req, param));
 				
 				session.removeAttribute("AuthNumber");
 				session.removeAttribute("authPwCheck");
+				session.removeAttribute("OWN_ID");
 				
 				res.sendRedirect("owner_login.ow");
 			}	
-			
-			
-
 
 //		-------------------------------------------------------------
 		
