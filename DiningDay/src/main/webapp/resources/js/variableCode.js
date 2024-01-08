@@ -31,9 +31,8 @@
  */
 
 function paging(pgEvent, pageSize){
-	debugger;
 	var totalCount = $(pgEvent).last().index() + 1;
-	if(totalCount < 1){
+	if(totalCount === 0){
 		totalCount++;
 	} 
 
@@ -49,10 +48,8 @@ function paging(pgEvent, pageSize){
 	$('#pagination').twbsPagination('destroy');
 	
     window.pagObj = $('#pagination').twbsPagination({
-        startPage: _startPage,
     	totalPages: _totalPages,
     	pageSize: _pageSize,
-        visiblePages: _pageSize,
         first:'<span sris-hidden="true"><span class="material-symbols-outlined">keyboard_double_arrow_left</span></span>' ,
 	    last:'<span sris-hidden="true"><span class="material-symbols-outlined">keyboard_double_arrow_right</span></span>' ,
 	    prev:"이전",
@@ -62,12 +59,15 @@ function paging(pgEvent, pageSize){
 				_startPage = page;
 			}
 			
+			if(_startPage === 0){
+				_startPage++;
+			}
+			
 			var index = --_startPage * _pageSize;
 			for(var i = 0; i < totalCount; i++){
-				
 				var pgChange = $($(pgEvent)[i]); 
-				(i >= index && i < index + 5) ? pgChange.show() 
-											  : pgChange.hide();  
+				(i >= index && i < index + _pageSize) ? pgChange.show() 
+											  	 	  : pgChange.hide();  
 			}
         }
     })
