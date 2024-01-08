@@ -4,7 +4,7 @@
 
 /** 사진 미리보기 적용 js파일 */
 document.write('<script type="text/javascript"' + 
-			    	'src="/' + window.location.pathname.split("/")[1] + '/Store/resour/js/photo_control.js">' +
+			    	'src="/' + window.location.pathname.split("/")[1] + '/resources/js/photo_control.js">' +
 			   '</script>');
 
 /** 페이징 처리 js파일 */
@@ -125,9 +125,7 @@ function clickFunction(e){
 			ajaxDone.func = (data) => {
 				$("#modalData").append('<input type="hidden" name="MENU_NO" value="' + data.MENU_NO +'">');
 				$("#modalData").find("input[type=file]").show();
-				if(typeof(file) == 'object'){
-					file = '0';	
-				}
+				file = '0';	
 								
 				format("#modalData", false);
 			}

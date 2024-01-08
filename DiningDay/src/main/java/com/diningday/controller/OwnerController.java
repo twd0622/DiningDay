@@ -1,5 +1,4 @@
 package com.diningday.controller;
-
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Date;
@@ -7,7 +6,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Random;
-
 import javax.mail.Address;
 import javax.mail.Authenticator;
 import javax.mail.Message;
@@ -23,12 +21,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import org.eclipse.jdt.internal.compiler.ast.Receiver;
-
 import com.diningday.service.OwnerService;
 import com.diningday.util.TeamUtil;
-
 public class OwnerController extends HttpServlet {
 	RequestDispatcher dispatcher = null;
 	
@@ -36,7 +31,6 @@ public class OwnerController extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		doProcess(req, res);
 	}
-
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		doProcess(req, res);
@@ -70,7 +64,6 @@ public class OwnerController extends HttpServlet {
 		}
 		
 //		-------------------------------------------------------------
-
 		if(sPath.equals("/search_id.ow")) {
 			dispatcher = req.getRequestDispatcher("Owner/search_id.jsp");
 			dispatcher.forward(req, res);
