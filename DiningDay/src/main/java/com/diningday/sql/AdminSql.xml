@@ -4,18 +4,23 @@
 
 <mapper namespace="Admin">
 	
+	
+	
 	<insert id="noticeInsert" parameterType="map">
 		insert into NOTICE
 			( NOT_NO
 		    , NOT_TITLE
 			, NOT_CONTENT
+			, NOT_FILE
 			, NOT_DATE)
 		values
-			( ( select *             
-				from ( select ifnull(max(cast(NOT_NO as unsigned)), 0) + 1
-					   from NOTICE ) A )
+			( concat('NO',(
+			  select *
+			  from (select ifnull(max(cast(trim(leading 'NO' from NOT_NO) as unsigned)), 0) + 1
+      			    from NOTICE ) A ))
 		    , #{NOT_TITLE}
 		    , #{NOT_CONTENT}
+		    , #{NOT_FILE}
 		    , date_format(sysdate(), '%Y%m%d%H%i%s') );
 	</insert>
 	
@@ -30,8 +35,15 @@
 	
 	<delete id="noticeDelete" parameterType="map">
 		delete 	from	NOTICE
-				where	NOT_NO = #{NOT_NO}	
+				where	NOT_NO = #{NOT_NO};
 	</delete>
+	
+	<select id="admin" parameterType="map" resultType="map">
+		select ADM_ID
+			 , ADM_NAME
+			 , ADM_PW
+		from ADMIN;
+	</select>
 	
 	<select id="selectNoticeList" parameterType="map" resultType="map">
 		select NOT_NO
@@ -55,7 +67,8 @@
 		select STORE_NO
 			 , STORE_NAME
 			 , STORE_CATEGORY
-			 , STORE_TEL, STORE_LOCATION
+			 , STORE_TEL
+			 , STORE_LOCATION
 		     , OWN_NO
 		from   STORE
 		order by STORE_NO desc;
@@ -70,14 +83,14 @@
 		select O.OWN_NO
 			 , O.OWN_ID
 			 , O.OWN_EMAIL
-			 , O.OWN_TEL
-			 , O.OWN_CRN
+			 , concat(substr(O.OWN_TEL,1,3), '-' ,substr(O.OWN_TEL,4,4), '-' ,substr(O.OWN_TEL,8,4)) as OWN_TEL
+			 , concat(substr(O.OWN_CRN,1,3), '-' ,substr(O.OWN_CRN,4,2),'-' ,substr(O.OWN_CRN,6,5)) as OWN_CRN
 			 , S.STORE_NAME
 			 , S.STORE_LOCATION
 			 , S.STORE_CATEGORY
 			 , S.STORE_TEL
-			 , S.STORE_ST
-			 , S.STORE_ET
+			 , concat(substr(S.STORE_ST,1,2), ':', substr(S.STORE_ST,3,2)) as STORE_ST
+			 , concat(substr(S.STORE_ET,1,2), ':', substr(S.STORE_ET,3,2)) as STORE_ET
 			 , S.STORE_INFO
 			 , S.STORE_PLUS
 		from   OWNER O join STORE S
@@ -90,9 +103,15 @@
 			 , CUS_ID
 			 , CUS_NICK
 			 , CUS_NAME
-			 , CUS_GENDER
-			 , CUS_BIRTH
-			 , CUS_TEL
+			 , case
+			 	when CUS_GENDER = 'F'
+			 	then '여'
+			 	when CUS_GENDER = 'M'
+			 	then '남'
+			 	else CUS_GENDER
+			   end as CUS_GENDER
+			 , concat(substr(CUS_BIRTH,1,4), '.', substr(CUS_BIRTH,5,2), '.', substr(CUS_BIRTH,7,8)) as CUS_BIRTH
+			 , concat(substr(CUS_TEL,1,3), '-' ,substr(CUS_TEL,4,4), '-' ,substr(CUS_TEL,8,4)) as CUS_TEL
 			 , CUS_EMAIL
 			 , date_format(ifnull(CUS_REDATE, CUS_DATE), '%Y-%m-%d') as "DATE"
 		from CUSTOMER

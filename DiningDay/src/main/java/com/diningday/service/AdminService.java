@@ -13,21 +13,29 @@ public class AdminService {
 	
 	AdminDAO adminDAO = new AdminDAO();
 
+	public Map<String, String> admin() {
+		Map<String, String> admin = adminDAO.admin();
+		
+		return admin;
+		
+	}
+	
 	public boolean insertBoard(HttpServletRequest req) {
 		// request 파라미터값 가져오기
-		Map<String, String> boardDTO = TeamUtil.requestToMap(req);
+		Map<String, String> adminDTO = TeamUtil.requestToMap(req);
 //		boardDTO.put("NOT_DATE", LocalDateTime.now().toString());
 		
-		
-		
-		return adminDAO.insertBoard(boardDTO);
+		return adminDAO.insertBoard(adminDTO);
 		
 	}
 	
 	public boolean noticeUpdate(HttpServletRequest req) {
-		boolean noticeUpdate = adminDAO.noticeUpdate(TeamUtil.requestToMap(req));
+//		boolean noticeUpdate = adminDAO.noticeUpdate(TeamUtil.requestToMap(req));
+//		
+//		return adminDAO.noticeUpdate(TeamUtil.fileRequestToMap(req));
+		Map<String, String> adminDTO = TeamUtil.requestToMap(req);
 		
-		return adminDAO.noticeUpdate(TeamUtil.fileRequestToMap(req));
+		return adminDAO.noticeUpdate(adminDTO);
 	}
 	
 	public int noticeDelete(HttpServletRequest req) {

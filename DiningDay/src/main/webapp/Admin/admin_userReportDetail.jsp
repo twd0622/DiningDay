@@ -133,6 +133,7 @@
 					<input type="button" class="btn btn-outline-dark" value="목록" onclick="window.history.back()">
 			</div>
 		</div>
+		<br>
 	</div>
 </main>
 	<%@ include file="/Template/admin_sidevar_close.jsp"%> 	

@@ -24,6 +24,7 @@
 			<table class="table table-hover" id="article-table">
 				<tbody>
 					<c:set var="noticeDetail" value="${ requestScope.noticeDetail }"/>
+					<c:set var="admin" value="${ requestScope.admin }"/>
 						<tr style="height: 60px;">
 							<th class="title align-middle table-success">글번호</th>
 							<td class="user-id align-middle text-center"
@@ -37,13 +38,18 @@
 						<tr style="height: 60px;">
 							<th class="title align-middle table-success">작성자</th>
 							<td class="user-id align-middle text-center"
-								style="text-align: left;">관리자</td>
+								style="text-align: left;">${admin.ADM_NAME}</td>
 						</tr>
 						<tr style="height: 60px;">
 							<th class="title align-middle table-success">작성일자</th>
 							<td class="user-id align-middle text-center"
 								style="text-align: left;">${noticeDetail.DATE}</td>
 						</tr>
+<!-- 						<tr style="height: 60px;"> -->
+<!-- 							<th class="title align-middle table-success">첨부파일</th> -->
+<!-- 							<td class="user-id align-middle text-center" -->
+<%-- 								style="text-align: left;">${noticeDetail.NOT_FILE}</td> --%>
+<!-- 						</tr> -->
 						<tr style="height: 150px;">
 							<th class="title align-middle table-success col-3"><a>글	내용</a></th>
 							<td class="user-id align-middle text-center"
