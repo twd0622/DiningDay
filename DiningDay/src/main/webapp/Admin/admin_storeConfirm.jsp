@@ -13,7 +13,7 @@
 
 	<!-- 예시div style속성 값 조절해서 사용! -->
 	<div class="mainContainer"
-		style="width: 100%; height: 850px; background: white;">
+		style="width: 100%; background: white;">
 		<h4 style="text-align: left;">&lt; 식당 승인 &gt;</h4>
 		<hr>
 		<div class="row" style="padding: 0 7% 0 7%;">

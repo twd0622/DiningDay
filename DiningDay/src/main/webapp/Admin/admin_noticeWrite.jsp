@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@page
 	import="org.apache.catalina.startup.ClassLoaderFactory.Repository"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,25 +16,26 @@
 <main style="display: flex; align-items: center; text-align: center; padding: 20px 50px 50px 50px;">
 	<!-- 예시div style속성 값 조절해서 사용! -->
 	<div class="mainContainer"
-		style="width: 100%; height: 850px; background: white;">
+		style="width: 100%; background: white;">
 		<form method="post" action="admin_noticeWritePro.ad">
-			<h4 style="text-align: left; padding-top: 20px;">&lt; 공지사항 작성 &gt;</h4>
+			<h4 style="text-align: left; padding: 20px 0 0 20px;">&lt; 공지사항 작성 &gt;</h4>
 			<hr>
 			<div class="container" style="padding: 0 7% 0 7%;">
 				<table class="table table-hover">
 					<tbody>
+					<c:set var="admin" value="${ requestScope.admin }"/>
 						<tr>
 							<td><input type="text" class="form-control"
-								placeholder="관리자" name="admin_id" maxlength="40" readonly="readonly"></td>
+								placeholder="${admin.ADM_NAME }" name="admin_id" maxlength="40" readonly="readonly"></td>
 						</tr>
 						<tr>
 							<td><input type="text" class="form-control"
 								placeholder="제목명" name="NOT_TITLE" maxlength="40"></td>
 						</tr>
-						<tr>
-							<td><input type="file" class="form-control"
-								placeholder="파일첨부" name="NOT_FILE" maxlength="40"></td>
-						</tr>
+<!-- 						<tr> -->
+<!-- 							<td><input type="file" class="form-control" -->
+<!-- 								placeholder="파일첨부" name="NOT_FILE" maxlength="40"></td> -->
+<!-- 						</tr> -->
 						<tr>
 							<td><textarea type="text" class="form-control"
 									placeholder="글 내용을 작성하세요" name="NOT_CONTENT" maxlength="1024"

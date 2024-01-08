@@ -1,5 +1,6 @@
 package com.diningday.dao;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -55,6 +56,15 @@ public class CustomerDAO {
 		session.delete("Customer.deleteCustomer", customerCheck);
 		session.commit();
 		session.close();
+	}
+	
+	// 01/08_준우 + 찜 목록 이동 기능
+	public List<Map<String, String>> getLikeList(String CUS_NO) {
+		session = sqlSessionFactory.openSession();
+		List<Map<String, String>> LikeList = session.selectList("Customer.getLikeList", CUS_NO);
+		session.close();
+		
+		return LikeList;
 	}
 
 	

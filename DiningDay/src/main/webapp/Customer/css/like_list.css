@@ -4,6 +4,16 @@
 	font-family: Apple SD Gothic Neo, Noto Sans KR, sans-serif;
 }
 
+a {
+	text-decoration: none;
+	color: black;
+}
+
+a:hover{
+	text-decoration: none;
+	color:black;
+	
+}
 
 .main_container{
 	width: 1320px;
@@ -68,7 +78,7 @@
 	
 	margin-left: 10px;
 }
-.sotre_name{
+.store_name{
 	width: 100%;
 	height: 30%;
 	
@@ -89,14 +99,18 @@
 }
 
 .store_like{
-	margin-left: 20px;
+	height: 35%;
+	display: flex;
+	align-items: center;
+}
+
+.store_category{
 	height: 35%;
 	display: flex;
 	align-items: center;
 }
 
 .store_review_score{
-	margin-left: 20px;
 	height: 35%;
 	display: flex;
 	align-items: center;
@@ -110,5 +124,10 @@
 
 .store_info_text{
 	font-size: 14px;
+	margin-right: 10px;
+}
+
+.store_info_icon{
+	font-size: 20px;
 	margin-right: 10px;
 }

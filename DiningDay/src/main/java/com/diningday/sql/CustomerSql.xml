@@ -88,4 +88,19 @@
 		where CUS_NO=#{CUS_NO};
 	</delete>
 	
+	<!-- 01/08_준우 + 찜 목록 이동 기능 -->
+	<select id="getLikeList" parameterType="String" resultType="map">
+		SELECT S.STORE_NO
+		     , S.STORE_NAME
+		     , S.STORE_CATEGORY
+   			 , S.STORE_DETAIL
+		     , S.STORE_SCORE
+		     , (SELECT COUNT(*) FROM LIKE_LIST A WHERE STORE_NO = S.STORE_NO) LIKE_COUNT
+		  FROM LIKE_LIST L
+		  JOIN STORE S
+		    ON L.STORE_NO = S.STORE_NO
+		where L.CUS_NO = #{CUS_NO};
+	
+	</select>
+	
 </mapper>

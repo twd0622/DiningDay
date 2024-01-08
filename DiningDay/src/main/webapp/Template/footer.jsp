@@ -5,7 +5,7 @@
 		<footer class="py-3 bg-dark mt-auto">
 	    	<div class="container">
 				<p class="m-0 text-left">
-					<a style="color: white;" href="#">회사소개 </a><label style="color: white; font-size: large;"> | </label><a style="color: white;" href="#"> 공지사항</a>
+					<a style="color: white;" href="companyIntro.ad">회사소개 </a><label style="color: white; font-size: large;"> | </label><a style="color: white;" href="notice.ad"> 공지사항</a>
 				</p>
 			</div>
 	    </footer>

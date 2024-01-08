@@ -15,7 +15,7 @@
 			<transactionManager type="JDBC"/>
 			<dataSource type="POOLED">
 				<property name="driver" value="com.mysql.jdbc.Driver"/>
-				<property name="url" value="jdbc:mysql://itwillbs.com:3306/c2d2309t1?allowMultiQueries=true&amp;useSSL=false"/>
+				<property name="url" value="jdbc:mysql://itwillbs.com:3306/c2d2309t1?allowMultiQueries=true&amp;useSSL=false&amp;allowPublicKeyRetrieval=true"/>
 				<property name="username" value="c2d2309t1"/>
 				<property name="password" value="1234"/>
 			</dataSource>
@@ -28,6 +28,7 @@
 		<mapper resource="com/diningday/sql/OwnerSql.xml" />
 		<mapper resource="com/diningday/sql/ExCustomerSql.xml" />
 		<mapper resource="com/diningday/sql/LocationSql.xml" />
+		<mapper resource="com/diningday/sql/StoreSql.xml" />
 		<mapper resource="com/diningday/sql/MainSql.xml" />
 		<mapper resource="com/diningday/sql/PaymentSql.xml" />
 		<mapper resource="com/diningday/sql/AdminSql.xml" />

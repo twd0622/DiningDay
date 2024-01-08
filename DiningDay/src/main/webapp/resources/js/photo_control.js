@@ -1,24 +1,24 @@
 /**
  * 
  */
-	
 $(() => {
 	file_image();
 });
 
+var file
 function file_image(){
 	$("input[type=file]").change(e => {
 		var index = $(e.currentTarget).attr('id').split('_')[1];
-		const file = e.target.files;
-		
-		$($(e.target).prev()).html(file[0].name);	//	<span> 이미지 파일이름 출력
-		
+		file = e.target.files;
+				
 		var image = new Image();
 		var ImageTempUrl = window.URL.createObjectURL(file[0]);
 	
 		image.src = ImageTempUrl;
-		image.className = "p-3";
-		image.style = "width:400px; height:400px;";
+		image.style = "width:400px; height:400px; padding:6.5px; z-index: 1;";
+		$("button[type=reset]").on("click", () => {
+			$('#img_' + index).empty();
+		});
 		$('#img_' + index).empty();
 		$("#img_" + index).append(image);
 	});

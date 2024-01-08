@@ -67,11 +67,13 @@
 								${storeInfo.STORE_SCORE}점
 							</strong>
 						</span>
-						<span class="material-symbols-outlined grade_icon">grade</span>
-						<span class="material-symbols-outlined grade_icon">grade</span>
-						<span class="material-symbols-outlined grade_icon">grade</span>
-						<span class="material-symbols-outlined grade_icon">grade</span>
-						<span class="material-symbols-outlined grade_icon">grade</span>
+						<span class="gradeGroup">
+							<span class="material-icons grade_icon" style="color: #F7CE3E;">grade</span>
+							<span class="material-icons grade_icon" style="color: #F7CE3E;">grade</span>
+							<span class="material-icons grade_icon" style="color: #F7CE3E;">grade</span>
+							<span class="material-icons grade_icon" style="color: #F7CE3E;">star_half</span>
+							<span class="material-symbols-outlined grade_icon" style="color: #F7CE3E;">star</span>
+						</span>
 					</p>
 					<a href="reportWrite.re?STORE_NO=${storeInfo.STORE_NO}&STORE_NAME=${storeInfo.STORE_NAME}"> 신고하기 </a>
 				</div>
@@ -209,6 +211,8 @@ ${storeInfo.STORE_INFO}
 	     <form action="payment.pa" method="post">
 	     	 <input type="hidden" name="store_no" value="${storeInfo.STORE_NO}">
 		     <div>
+		     	<input type="hidden" name="SEAT_NO" id="seat_no" value="">
+		     	<input type="hidden" name="SEAT_NAME" value="">
 		     	<h5 id="SEAT_NAME"></h5>
 		     	<h5>인원</h5>
 		     	<div>

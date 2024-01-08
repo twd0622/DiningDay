@@ -48,7 +48,6 @@ public class TeamUtil {
 	public static Map<String, String> requestToMap(MultipartRequest multi) {
 		Map<String, String> dto = new HashMap<String, String>();
 		try {
-			
 			@SuppressWarnings("unchecked")
 			Enumeration<String> parameterList = multi.getParameterNames();
 			@SuppressWarnings("unchecked")
@@ -150,7 +149,6 @@ public class TeamUtil {
 	// map을 json으로
 	public static JsonObject mapToJSON(Map<String, String> map) {
 		JsonObject jsonObject = new JsonObject();
-		
 		map.forEach((key, value) -> {
 			jsonObject.addProperty(key, value);
 		});

@@ -60,6 +60,16 @@
   	<servlet-class>com.diningday.controller.ExCustomerController</servlet-class>
   </servlet>
   
+  <servlet-mapping>
+  	<servlet-name>StoreController</servlet-name>
+  	<url-pattern>*.st</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>StoreController</servlet-name>
+  	<servlet-class>com.diningday.controller.StoreController</servlet-class>
+  </servlet>
+  
   <!-- 12/26 mainController 생성 -->
   <servlet-mapping>
   	<servlet-name>MainController</servlet-name>

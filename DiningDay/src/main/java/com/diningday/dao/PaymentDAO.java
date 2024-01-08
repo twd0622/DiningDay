@@ -35,4 +35,47 @@ public class PaymentDAO {
 		
 	}
 
+	public Map<String, String> getStoreInfo(Map<String, String> reservationDTO) {
+		session = sqlSessionFactory.openSession();
+		Map<String, String> storeInfo = session.selectOne("Payment.getStoreInfo", reservationDTO);
+		
+		session.close();
+		
+		return storeInfo;
+	}
+
+	public void paymentInsert(Map<String, String> paymentDTO) {
+		session = sqlSessionFactory.openSession();
+		session.insert("Payment.paymentInsert", paymentDTO);
+		
+		session.commit();
+		session.close();
+		
+	}
+
+	public void reservationMenuInsert(List<Map<String, String>> menuDTOList) {
+		session = sqlSessionFactory.openSession();
+		session.insert("Payment.reservationMenuInsert", menuDTOList);
+		
+		session.commit();
+		session.close();
+	}
+	
+	public Map<String, String> getRES_NO(Map<String, String> paymentDTO) {
+		session = sqlSessionFactory.openSession();
+		Map<String, String> RES_NO = session.selectOne("Payment.getRES_NO", paymentDTO);
+		session.close();
+		
+		return RES_NO;
+	}
+
+	public Map<String, String> getResInfo(Map<String, String> dto) {
+		session = sqlSessionFactory.openSession();
+		Map<String, String> resInfo = session.selectOne("Payment.getResInfo", dto);
+		session.close();
+		
+		return resInfo;
+		
+	}
+
 }

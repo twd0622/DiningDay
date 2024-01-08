@@ -1,63 +1,54 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8">
 <title>리뷰신고 | 다이닝데이</title>
+<style type="text/css">
+#cRepTable {
+	max-height: 650px;
+	padding: 1rem;
+	overflow-y: auto;
+	direction: ltr;
+	scrollbar-color: #d4aa70 #e4e4e4;
+	scrollbar-width: thin;
+}
+</style>
 </head>
 <%@ include file="/Template/admin_sidebar_open.jsp"%>
 <!-- main은 속성 값은 왠만하면 건들지x -->
 <main
-	style="display: flex; align-items: center; text-align: center; padding: 20px 50px 50px 50px;">
+	style="display: flex; align-items: center; text-align: center; padding: 20px 50px 20px 50px;">
 
 	<!-- 예시div style속성 값 조절해서 사용! -->
 	<div class="mainContainer"
-		style="width: 100%; height: 850px; background: white;">
-		<h4 style="text-align: left;">&lt; 고객 리뷰 신고관리 &gt;</h4>
+		style="width: 100%; background: white;">
+		<h4 style="text-align: left; padding: 20px 0 0 20px;">&lt; 고객 리뷰 신고관리 &gt;</h4>
 		<hr>
-		<div class="row" style="padding: 0 7% 0 7%;">
+		<div class="row" style="padding: 1 13% 1 13%;" id="cRepTable">
 			<table class="table table-hover" id="article-table">
 				<thead>
 					<tr class="table-success">
-						<th class="title col-1 align-middle"><a>No</a></th>
-						<th class="hashtag col-1 align-middle"><a>리뷰 제목</a></th>
-						<th class="user-id col-3"><a>신고 내용</a></th>
-						<th class="hashtag col-1 align-middle"><a>작성일자</a></th>
+						<th class="title col-1 align-middle"><a>번호</a></th>
+						<th class="hashtag col-1 align-middle"><a>점주번호</a></th>
+						<th class="user-id col-3"><a>신고 제목</a></th>
+						<th class="hashtag col-1 align-middle"><a>신고일자</a></th>
 						<th class="created-at col-1"> </th>
-
 					</tr>
-
 				</thead>
 				<tbody>
-					<tr style="height: 60px;">
-						<td class="title align-middle"><a>4</a></td>
-						<td class="hashtag align-middle"><a href="admin_userReportDetail.jsp" class="review">리뷰4</a></td>
-						<td class="created-at col-1 align-middle"><a>내용4</a></td>
-						<td class="created-at col-1 align-middle"><a><time>2023-12-22</time></a></td>
-						<td><a href="contentWrite.jsp" class="btn btn-outline-danger">삭제</a></td>
-					</tr>
-					<tr style="height: 60px;">
-						<td class="title align-middle"><a>3</a></td>
-						<td class="hashtag align-middle"><a href="admin_userReportDetail.jsp" class="review">리뷰3</a></td>
-						<td class="created-at col-1 align-middle"><a>내용3</a></td>
-						<td class="created-at col-1 align-middle"><a><time>2023-12-21</time></a></td>
-						<td><a href="contentWrite.jsp" class="btn btn-outline-danger">삭제</a></td>
-					</tr>
-					<tr style="height: 60px;">
-						<td class="title align-middle"><a>2</a></td>
-						<td class="hashtag align-middle"><a href="admin_userReportDetail.jsp" class="review">리뷰2</a></td>
-						<td class="created-at col-1 align-middle"><a>내용2</a></td>
-						<td class="created-at col-1 align-middle"><a><time>2023-12-20</time></a></td>
-						<td><a href="contentWrite.jsp" class="btn btn-outline-danger">삭제</a></td>
-					</tr>
-					<tr style="height: 60px;">
-						<td class="title align-middle"><a>1</a></td>
-						<td class="hashtag align-middle"><a href="admin_userReportDetail.jsp" class="review">리뷰1</a></td>
-						<td class="created-at col-1 align-middle"><a>내용1</a></td>
-						<td class="created-at col-1 align-middle"><a><time>2023-12-19</time></a></td>						
-						<td><a href="contentWrite.jsp" class="btn btn-outline-danger">삭제</a></td>
-					</tr>
+					<c:set var="reviewReport" value="${ requestScope.reviewReport }"/>
+						<c:forEach var="cReport" items="${reviewReport}">
+							<tr style="height: 60px;" onClick="location.href='admin_userReportDetail.ad?CREP_NO=${cReport.CREP_NO}&REV_NO=${cReport.REV_NO}&OWN_NO=${cReport.OWN_NO}'">
+								<td class="title align-middle">${cReport.CREP_NO}</td>
+								<td class="hashtag align-middle">${cReport.OWN_NO}</td>
+								<td class="created-at col-1 align-middle">${cReport.CREP_TITLE}</td>
+								<td class="created-at col-1 align-middle">${cReport.DATE}</td>
+								<td><a href="admin_userReportDelete.ad?CREP_NO=${cReport.CREP_NO}" class="btn btn-outline-danger">삭제</a></td>
+							</tr>
+						</c:forEach>
 				</tbody>
 			</table>
 		</div>
@@ -115,6 +106,7 @@
 				</ul>
 			</nav>
 		</div>
+		<br>
 	</div>
 
 </main>

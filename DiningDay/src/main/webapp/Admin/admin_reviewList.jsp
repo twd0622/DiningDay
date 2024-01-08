@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,8 +14,8 @@
 
 	<!-- 예시div style속성 값 조절해서 사용! -->
 	<div class="mainContainer"
-		style="width: 100%; height: 850px; background: white;">
-		<h4 style="text-align: left;">&lt; 전체 리뷰관리 &gt;</h4>
+		style="width: 100%; background: white;">
+		<h4 style="text-align: left; padding: 20px 0 0 20px;">&lt; 전체 리뷰관리 &gt;</h4>
 		<hr>
 		<div class="row" style="padding: 0 7% 0 7%;">
 			<table class="table" id="article-table">
@@ -33,36 +34,27 @@
 					<tr>
 						<td class="title align-middle"><a>3</a></td>
 						<td class="hashtag align-middle">고객3</td>
-						<td><img src="img/gogi.jpg" width="200px" height="200px">
-						</td>
-						<td class="user-id align-middle" style="text-align: left;">고기
-							JMTGR</td>
+						<td><img src="Admin/img/gogi.jpg" width="200px" height="200px"></td>
+						<td class="user-id align-middle" style="text-align: left;">고기 JMTGR</td>
 						<td class="created-at col-1 align-middle"><a><time>2022-01-03</time></a></td>
-						<td class="align-middle">
-							<button type="button" class="btn btn-outline-danger">삭제</button>
-						</td>
+						<td class="align-middle"><a href="contentWrite.jsp" class="btn btn-outline-danger">삭제</a></td>
 					</tr>
 					<tr>
 						<td class="title align-middle"><a>2</a></td>
 						<td class="hashtag align-middle">고객2</td>
-						<td><img src="img/rice.jpg" width="200px" height="200px">
-						</td>
+						<td><img src="Admin/img/rice.jpg" width="200px" height="200px">
 						<td class="user-id align-middle" style="text-align: left;">존맛탱</td>
 						<td class="created-at col-1 align-middle"><a><time>2022-01-01</time></a></td>
-						<td class="align-middle">
-							<button type="button" class="btn btn-outline-danger">삭제</button>
-						</td>
+						<td class="align-middle"><a href="contentWrite.jsp" class="btn btn-outline-danger">삭제</a></td>
 					</tr>
 					<tr>
 						<td class="title align-middle"><a>1</a></td>
 						<td class="hashtag align-middle">고객1</td>
-						<td class="col-1"><img src="img/dduck.jpg" width="200px"
+						<td class="col-1"><img src="Admin/img/dduck.jpg" width="200px"
 							height="200px"></td>
 						<td class="user-id align-middle" style="text-align: left;">맛있어요</td>
 						<td class="created-at col-1 align-middle"><a><time>2022-01-03</time></a></td>
-						<td class="align-middle">
-							<button type="button" class="btn btn-outline-danger">삭제</button>
-						</td>
+						<td class="align-middle"><a href="contentWrite.jsp" class="btn btn-outline-danger">삭제</a></td>
 					</tr>
 				</tbody>
 			</table>
@@ -78,6 +70,15 @@
 			</nav>
 		</div>
 	</div>
+<script type="text/javascript">
+    $(document).ready(function(){
+    	
+    	$("#deleteForm").submit(function() {
+			return confirm("게시글을 삭제하시겠습니까?");
+		});//deleteForm
+		
+    });//ready	
+</script>
 
 </main>
 <%@ include file="/Template/admin_sidevar_close.jsp"%>

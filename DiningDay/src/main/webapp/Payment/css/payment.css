@@ -242,11 +242,11 @@ ul.list li{
 	font-size: 18px;
 }
 
-.price_result{
+.price_result_box{
 	border-bottom: solid 1.5px #e6e6eb;
 }
 
-.price_result div{
+.price_result_box div{
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
