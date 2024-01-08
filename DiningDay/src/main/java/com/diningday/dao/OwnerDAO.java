@@ -50,7 +50,21 @@ public class OwnerDAO {
 		return authCheck;
 	}
 
+	public Map<String, String> authPwCheck(Map<String, String> ownerDTO) {
+		session = sqlSessionFactory.openSession();
+		Map<String, String> authPwCheck =  session.selectOne("Owner.authPwCheck", ownerDTO);
+		session.commit();
+		return authPwCheck;
+	}
 
+	
+	public Boolean newPw(Map<String, String> ownerDTO) {
+		session = sqlSessionFactory.openSession();
+		int customerEdit = session.update("Owner.newPw", ownerDTO);
+		session.commit();
+		session.close();
+		return customerEdit > 0 ? true : false;
+	}
 	
 	
 	

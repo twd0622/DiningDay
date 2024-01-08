@@ -169,7 +169,6 @@ function handleCredentialResponse(response) {
 	})
 	.done(
 		function(data){
-			debugger;
 			location.href="main.ma"					
 	}); 
 }
