@@ -61,7 +61,7 @@
 		and   OWN_PW=#{OWN_PW};
 	</select>
 	
-		<select id="authCheck" parameterType="map" resultType="map">
+	<select id="authCheck" parameterType="map" resultType="map">
  		select OWN_NO    ,
 			  OWN_ID    ,
 			  OWN_PW  ,
@@ -75,5 +75,29 @@
 		where OWN_CRN=#{OWN_CRN}
 		and   OWN_EMAIL=#{OWN_EMAIL};
 	</select>
+	
+	<select id="authPwCheck" parameterType="map" resultType="map">
+ 		select OWN_NO    ,
+			  OWN_ID    ,
+			  OWN_PW  ,
+			  OWN_NAME ,
+			  OWN_TEL   ,
+			  OWN_EMAIL ,
+			  OWN_CRN, 
+			  STORE_NO  ,
+			  OWN_DATE
+ 		from  OWNER
+		where OWN_CRN=#{OWN_CRN}
+		and   OWN_ID=#{OWN_ID}
+		and   OWN_EMAIL=#{OWN_EMAIL};
+	</select>
+	
+	<update id="newPw" parameterType="map">
+ 		update OWNER
+ 		set OWN_PW = #{OWN_PW}
+ 		where OWN_ID = #{OWN_ID}; 
+		
+	</update>
+	
 	
 </mapper>

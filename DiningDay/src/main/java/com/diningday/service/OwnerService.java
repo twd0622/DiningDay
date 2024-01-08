@@ -35,6 +35,15 @@ public class OwnerService {
 		return ownerDAO.authCheck(ownerDTO);
 	}
 
+	public Map<String, String> authPwCheck(HttpServletRequest req) {
+		Map<String, String> ownerDTO = TeamUtil.requestToMap(req);
+		return ownerDAO.authPwCheck(ownerDTO);
+	}
+	
+	public boolean newPw(HttpServletRequest req, Map<String, String> param) {
+		Map<String, String> customerDTO = TeamUtil.requestToMap(req, param);
+		return ownerDAO.newPw(customerDTO);
+	}
 	
 
 }
