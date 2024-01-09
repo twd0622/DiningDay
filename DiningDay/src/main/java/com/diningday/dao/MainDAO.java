@@ -47,7 +47,6 @@ public class MainDAO {
 		session = sqlSessionFactory.openSession();
 		
 		List<Map<String, String>> menuList = session.selectList("Main.getMenuList", storeDTO);
-		
 		session.close();
 		
 		return menuList;
@@ -103,6 +102,16 @@ public class MainDAO {
 		session.close();
 		
 		return result;
+	}
+
+	public List<Map<String, String>> getResTime(Map<String, String> storeDTO) {
+		session = sqlSessionFactory.openSession();
+		
+		List<Map<String, String>> resTime = session.selectList("Main.getResTime", storeDTO);
+		
+		session.close();
+		
+		return resTime;
 	}
 	
 	

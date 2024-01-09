@@ -51,23 +51,23 @@
                 </div>
                 <div style="display: flex; flex-direction: column; justify-content: space-around;">
 					<!-- 검색 결과 -->	
-                	<c:forEach var="list" items="${searchList}">
-	                    <div name="${list.STORE_NO}" class="mb-4 store_result_btn" style="margin: 20px 20px; padding:20px 40px; border-bottom: 2px solid #e6e6eb;">
-	                        <div class="portfolio-item  store_result">
-	                                <img class="img-fluid" src="Main/칸다소바.jpg" alt="칸다소바.jpg" style="width: 550px; height: 250px;"/>
-	                            <div class="portfolio-caption" style="">
-	                                <div class="portfolio-caption-heading">${list.STORE_NAME}</div>
-	                                <div class="portfolio-caption-subheading text-muted" style="margin-bottom: 20px;">${list.STORE_CATEGORY} 
-	                                <c:if test="${!empty list.STORE_DETAIL}">
-										| ${list.STORE_DETAIL}
-									</c:if>
-									</div>
-	                                <div class="portfolio-caption-subheading text-muted" style="display: flex;"><span class="material-icons" style="color: #F7CE3E;">grade</span> ${list.STORE_SCORE}점 (87명)</div>
-	                                <div class="portfolio-caption-subheading text-muted" style="display: flex;"><span class="material-icons" style="color: #E21818;">favorite</span> ${list.LIKE_COUNT} </div>
-	                            </div>
-	                        </div>
-	                    </div>
-                	</c:forEach>
+	               	<c:forEach var="list" items="${searchList}">
+	                   <div name="${list.STORE_NO}" class="mb-4 store_result_btn" style="margin: 20px 20px; padding:20px 40px; border-bottom: 2px solid #e6e6eb;">
+	                       <div class="portfolio-item  store_result">
+	                              <img src="upload/${list.PHOTO_NAME}" alt="${list.PHOTO_NAME}" style="width: 385px; height: 250px; overflow-clip-margin:border-box;"/>
+	                           <div class="portfolio-caption" style="">
+	                               <div class="portfolio-caption-heading">${list.STORE_NAME}</div>
+	                               <div class="portfolio-caption-subheading text-muted" style="margin-bottom: 20px;">${list.STORE_CATEGORY} 
+	                               <c:if test="${!empty list.STORE_DETAIL}">
+									| ${list.STORE_DETAIL}
+								</c:if>
+								</div>
+	                               <div class="portfolio-caption-subheading text-muted" style="display: flex;"><span class="material-icons" style="color: #F7CE3E;">grade</span> ${list.STORE_SCORE}점 (87명)</div>
+	                               <div class="portfolio-caption-subheading text-muted" style="display: flex;"><span class="material-icons" style="color: #E21818;">favorite</span> ${list.LIKE_COUNT} </div>
+	                           </div>
+	                       </div>
+	                   </div>
+	               	</c:forEach>
                 </div>
             </div>
         </section>
