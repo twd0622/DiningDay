@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>    
 <!DOCTYPE html>
 <%@ include file="/Template/header.jsp"%> 
 <html>
@@ -77,7 +78,7 @@
 					</div>
 					<div class="table_infoBox">
 						<label for="table_time">시간</label>
-						<span id="table_time" style="text-align: left">${reservationDTO.time}</span>
+						<span id="table_time" style="text-align: left">${fn:substring(reservationDTO.time, 0, 2)}:${fn:substring(reservationDTO.time, 2, 4)}</span>
 					</div>
 					<div class="checkBtnBox">
 						<button class="btn fw-bold text-light decideTableBtn" style="background: #9CED92;">확정</button>

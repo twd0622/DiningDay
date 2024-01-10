@@ -9,8 +9,8 @@ $(()=>{
 			$(this).siblings("input[type=checkbox]").prop("checked", true);
 			$(".cus_option").empty();
 			$(".cus_option").append('<span class="cart_sub_tit">예약자 정보</span>');
-			$(".cus_option").append('<div><span>예약자 이름</span><span>' + $("#cus_name").val() + '</span></div>');
-			$(".cus_option").append('<div><span>휴대폰 번호</span><span>' + $("#cus_phone").val() + '</span></div>');
+			$(".cus_option").append('<div><span>예약자 이름</span><span id="res_name">' + $("#cus_name").val() + '</span></div>');
+			$(".cus_option").append('<div><span>휴대폰 번호</span><span id="res_tel">' + $("#cus_phone").val() + '</span></div>');
 			$(".cus_option").append('<div><span>요청 사항</span><span>' + $("#cus_plus").val() + '</span></div>');
 		}
 	)

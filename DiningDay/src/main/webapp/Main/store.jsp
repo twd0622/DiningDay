@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,11 +37,11 @@
 				<div class="bannerBox">
 					<div class="banner">
 						<div class="banner_img_box">
-							<img alt="칸다소바.jpg" src="Main/칸다소바.jpg" class="banner_img">
+							<img alt="${storeInfo.BA1}" src="upload/${storeInfo.BA1}" class="banner_img">
 						</div>
 						
 						<div class="banner_img_box">
-							<img alt="음식1.jpg" src="Main/음식1.jpg" class="banner_img">
+							<img alt="${storeInfo.BA2}" src="upload/${storeInfo.BA2}" class="banner_img">
 						</div>
 						
 					</div>
@@ -84,7 +85,7 @@
 						</a>
 					</div>
 					<div class="profile_btn_sec" style="border-right: 2px solid #f0f0f0;">
-						<a href="https://www.google.co.kr/maps/search/${storeInfo.STORE_LOCATION}"  target='_blank' class="profile_btn">
+						<a href="https://map.naver.com/p/search/${storeInfo.STORE_NAME}"  target='_blank' class="profile_btn">
 							<span class="material-symbols-outlined profile_btn_icon" class="profile_btn_icon">map</span>
 							<span class="profile_btn_text">위 치</span>
 						</a>
@@ -177,29 +178,6 @@ ${storeInfo.STORE_INFO}
 							</div>
 						</li>
 						</c:forEach>
-						<!-- 사진없는 버전 -->
-						<li>
-							<div class="table_">
-								<div class="table_info" >
-									<div class="table_name_box">
-										<p class="table_name">A2</p>
-									</div>
-									<div class="table_res">
-										<div style="width: 80%; height: 100%; line-height: 100%;">
-											<ul>
-												<li>최소인원: 2명</li>
-												<li>최대인원: 4명</li>
-												<li>이용 시간: 2시간</li>
-												<li>뷰: 오션뷰</li>
-											</ul>
-										</div>
-										<div style="width: 20%;">
-											<button class="btn btn-outline-warning modalOpen" style="margin-top:60%">예약하기</button>
-										</div>
-									</div>
-								</div>
-							</div>
-						</li>
 					</ul>
 				</div>	
 			</div>
@@ -225,13 +203,11 @@ ${storeInfo.STORE_INFO}
 		     	<div class="form-control" id="res_date"></div>
 		     	<hr>
 				<h5>시간</h5>
-				<div style="display: flex; flex-direction: row; flex-wrap: wrap; justify-content: center;">
-					<c:forEach var="i" begin="${storeInfo.STORE_RST}" end="${storeInfo.STORE_RET}" step="100">
-						<fmt:parseDate var="timeFmt" pattern="HHmm" value="${i}"/>
-						<fmt:formatDate var="timeFmtStr" pattern="HH:mm" value="${timeFmt}"/>
-						<div class="time" style="border:2px solid black; width: 90px; height: 40px; font-size: 25px; font-weight: 300; text-align: center; margin-right: 20px; margin-top: 5px;">
-							${timeFmtStr}						
-							<input type="radio" class="selectTime" name="time" value="${timeFmtStr}" style="display: none;">
+				<div style="display: flex; flex-direction: row; flex-wrap: wrap; justify-content: flex-start;">
+					<c:forEach var="i" begin="0"  end="${storeInfo.TIEMDIFF}" step="200">
+						<div class="time able" style="width: 115px; height: 44px; text-align: center; margin-right: 20px; margin-top: 5px;">
+							<input type="radio" class="selectTime" name="time" value="${storeInfo.STORE_RST + i}" style="display: none;">
+							<span class="timeFont">${fn:substring(storeInfo.STORE_RST + i, 0, 2)}:${fn:substring(storeInfo.STORE_RST + i, 2, 4)}</span>						
 						</div>
 					</c:forEach>
 				</div>

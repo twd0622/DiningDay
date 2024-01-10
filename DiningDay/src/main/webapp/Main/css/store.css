@@ -251,3 +251,22 @@ ul.list li{
 	display: block;
 	
 }
+
+.time{
+	border-radius: 10px;
+}
+
+.able{
+	border: 1px solid #b7b7b7;
+}
+
+.disable{
+	color:#b7b7b7;
+	background-color:#f5f7fa;
+	border: 0;
+}
+
+.timeFont{
+	font-size: 25px;
+	font-weight: 300;
+}
