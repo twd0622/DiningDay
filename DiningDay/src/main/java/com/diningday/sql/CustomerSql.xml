@@ -105,20 +105,36 @@
 	<select id="getReservation" parameterType="String" resultType="map">
 		SELECT R.RES_NO
   			 , CONCAT(DATE_FORMAT(CAST(R.RES_DATE AS date), '%Y년 %m월 %d일 '), DATE_FORMAT(CAST(R.RES_TIME AS time), '%H:%i')) "RES_DATE"
-			 , R.CUS_NAME
 			 , R.RES_PEOPLE
-			 , R.RES_REQ
 			 , R.REQ_STATE
-	 		 , DATE_FORMAT(CAST(R.RES_PAYTIME AS time), '%Y년 %m월 %d일 %H:%i:%s') RES_PAYTIME
-	 		 , R.STORE_NO
 			 , ST.STORE_NAME
-			 , ST.STORE_LOCATION
 			 , SE.SEAT_NAME
 		FROM RESERVATION R JOIN STORE ST
 			 ON R.STORE_NO = ST.STORE_NO
 		 	 JOIN SEAT SE
 			 ON (R.SEAT_NO, R.STORE_NO) = (SE.SEAT_NO, SE.STORE_NO)
 		WHERE R.CUS_NO = #{CUS_NO};
+	</select>
+	
+	<select id="reservationModal" parameterType="String" resultType="map">
+		SELECT 
+		       CONCAT('예약번호 : ', R.RES_NO) "RES_NO"
+		     , CONCAT(DATE_FORMAT(CAST(R.RES_DATE AS date), '%Y년 %m월 %d일 '), DATE_FORMAT(CAST(R.RES_TIME AS time), '%H:%i')) "RES_DATE"
+			 , R.CUS_NAME
+			 , CONCAT(R.RES_PEOPLE, "명") "RES_PEOPLE"
+			 , R.RES_REQ
+		--	 , R.REQ_STATE
+			 , DATE_FORMAT(CAST(R.RES_PAYTIME AS time), '%Y년 %m월 %d일 %H:%i:%s') "RES_PAYTIME"
+			 , R.STORE_NO
+			 , ST.STORE_NAME
+		     , ST.STORE_LOCATION
+			 , SE.SEAT_NAME
+		FROM RESERVATION R JOIN STORE ST
+			 ON R.STORE_NO = ST.STORE_NO
+		 	 JOIN SEAT SE
+			 ON (R.SEAT_NO, R.STORE_NO) = (SE.SEAT_NO, SE.STORE_NO)
+		WHERE R.RES_NO = #{RES_NO};
+		
 	</select>
 	
 </mapper>
