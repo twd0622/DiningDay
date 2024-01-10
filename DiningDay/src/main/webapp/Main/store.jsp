@@ -156,7 +156,11 @@ ${storeInfo.STORE_INFO}
 						<c:forEach var="table" items="${tableList}">
 						<li>
 							<div class="table_" id="${table.SEAT_NO}">
-								<div class="table_img"></div>
+								<c:if test="${!empty menuInfo.PHOTO_NAME and menuInfo.PHOTO_NAME != '0'}">
+								<div class="table_img">
+									<img alt="${menuInfo.PHOTO_NAME}" src="upload/${menuInfo.PHOTO_NAME}" class="menu_img">
+								</div>
+								</c:if>
 								<div class="table_info" >
 									<div class="table_name_box">
 										<p class="table_name">${table.SEAT_NAME}</p>
@@ -171,7 +175,7 @@ ${storeInfo.STORE_INFO}
 											</ul>
 										</div>
 										<div style="width: 20%;">
-											<button class="btn btn-outline-warning modalOpen reservationModalBtn" style="margin-top:80%">예약하기</button>
+												<button class="btn modalOpen reservationModalBtn" style="margin-top:80%">예약하기</button>
 										</div>
 									</div>
 								</div>
@@ -186,7 +190,7 @@ ${storeInfo.STORE_INFO}
 	<div id="modalContainer" class="hidden">
 	  <div id="modalContent">
 	     <h4>예약</h4>
-	     <form action="payment.pa" method="post">
+	     <form class="reservation" action="payment.pa" method="post">
 	     	 <input type="hidden" name="store_no" value="${storeInfo.STORE_NO}">
 		     <div>
 		     	<input type="hidden" name="SEAT_NO" id="seat_no" value="">
@@ -214,7 +218,7 @@ ${storeInfo.STORE_INFO}
 				<hr>
 		     </div>
 		     <div>
-			     <input class="btn btn-warning fw-bold text-light" type="submit" value="예약하기">
+			     <input class="btn fw-bold text-light reservationBtn" type="submit" value="예약하기">
 				 <button type="button" class="btn btn-dark fw-bold" id="modalCloseButton">닫기</button>
 		     </div>
 	     </form>

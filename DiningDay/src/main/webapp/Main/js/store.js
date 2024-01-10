@@ -6,9 +6,9 @@ $(()=>{
 				var min = Number(tables.eq(i).find("li[name=minPeople]").attr("class"));
 				var max = Number(tables.eq(i).find("li[name=maxPeople]").attr("class"));
 				if(curPeople < min || curPeople > max){
-					tables.eq(i).parent("div").next("div").find(".reservationModalBtn").css(
-						"display", "none"
-					)	
+					var btn = tables.eq(i).parent("div").next("div").find(".reservationModalBtn")
+					btn.attr('disabled', true)
+					btn.text('예약 불가')
 				}
 	}
 	
@@ -25,14 +25,13 @@ $(()=>{
 			for(var i = 0; i < tables.length; i++){
 				var min = Number(tables.eq(i).find("li[name=minPeople]").attr("class"));
 				var max = Number(tables.eq(i).find("li[name=maxPeople]").attr("class"));
+				var btn = tables.eq(i).parent("div").next("div").find(".reservationModalBtn");
 				if(curPeople < min || curPeople > max){
-					tables.eq(i).parent("div").next("div").find(".reservationModalBtn").css(
-						"display", "none"
-					)	
+					btn.attr('disabled', true);
+					btn.text('예약 불가');
 				} else {
-					tables.eq(i).parent("div").next("div").find(".reservationModalBtn").css(
-						"display", "block"
-					)
+					btn.attr('disabled', false);
+					btn.text('예약하기');
 				}
 			}
 			
@@ -127,6 +126,18 @@ $(()=>{
 	$("#modalCloseButton").on("click", ()=>{
 		$("#modalContainer").addClass("hidden")
 		$("#date").val(null);
+		
+		var timeBtn = $(".time").hasClass("disable");
+		for(var i = 0; i < timeBtn.length; i++){
+			timeBtn.eq(i).addClass("able");
+			timeBtn.eq(i).removeClass("disable");
+		}
+		$(".selectTime").prop("checked", false);
+		$(".able").css({
+			"background": "white",
+			"color": "black"
+		});
+		$(".timeFont").css("font-weight", "300");
 	})
 	
 	
@@ -193,4 +204,24 @@ $(()=>{
 			)
 		}
 	)
+	
+	$(".reservation").submit(function(){
+		var times = $(".selectTime");
+		var isChecked = false;
+		for(var i = 0 ; i < times.length ; i++){
+			var result = times.eq(i).prop("checked");
+			console.log(result);
+			if(result){
+				isChecked = result;
+			}
+		}
+		
+		if(!isChecked){
+			alert("시간을 선택해 주세요!")
+		}
+		
+		return isChecked;
+	})
+	
+	
 })

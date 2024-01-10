@@ -57,13 +57,11 @@
 			, SI.BA1
 	 	  	, SI.BA2
 	  	 from STORE ST
-		 LEFT JOIN (select
-					     STORE_NO,
-					     group_concat(case PHOTO_TYPE when 'BA1' then PHOTO_NAME end) BA1,
-						 group_concat(case PHOTO_TYPE when 'BA2' then PHOTO_NAME end) BA2
-					from STORE_IMAGE
-					where (PHOTO_TYPE='BA1' or PHOTO_TYPE='BA2')
-					group by STORE_NO) SI
+		 LEFT JOIN (SELECT STORE_NO
+						, MAX(CASE WHEN PHOTO_TYPE = 'BA1' THEN PHOTO_NAME END) AS BA1
+						, MAX(CASE WHEN PHOTO_TYPE = 'BA2' THEN PHOTO_NAME END) AS BA2
+					FROM STORE_IMAGE
+					GROUP BY STORE_NO ) SI
 		   ON ST.STORE_NO = SI.STORE_NO        
 		where ST.STORE_NO = #{STORE_NO};
 	</select>
@@ -73,7 +71,7 @@
 			  ME.MENU_NO
 			, ME.STORE_NO
 			, ME.MENU_NAME
-			, ME.MENU_PRICE
+			, FORMAT(ME.MENU_PRICE, 0) MENU_PRICE
 			, ME.MENU_HIDE
 			, ME.MENU_INFO
 			, SI.PHOTO_NAME

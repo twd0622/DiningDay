@@ -24,3 +24,32 @@
   display: none;
 }
 
+.time{
+	border-radius: 10px;
+}
+
+.able{
+	border: 1px solid #b7b7b7;
+}
+
+.disable{
+	color:#b7b7b7;
+	background-color:#f5f7fa;
+	border: 0;
+}
+
+.timeFont{
+	font-size: 25px;
+	font-weight: 300;
+}
+
+.reservationBtn:hover{
+	color: white;
+	background-color:#6AEB8A;
+}
+
+.reservationBtn{
+	font-size: 17px;
+	color: white;
+	background-color: #9ced92;
+}
