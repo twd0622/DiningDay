@@ -22,6 +22,3 @@
     	</main>	
 	<%@ include file="/Template/store_sidevar_close.jsp"%> 	
 </html> 
-
-
-

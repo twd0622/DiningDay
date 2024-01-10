@@ -50,4 +50,8 @@ public class StoreService {
 	public boolean menuDelete(HttpServletRequest req) {
 		return storeDAO.deleteMenu(TeamUtil.fileRequestToArrayMap(req));
 	}
+	
+	public void StoreSelect(Map<String, String> map) {
+		storeDAO.storeSelect(map);
+	}
 }
