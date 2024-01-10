@@ -114,7 +114,7 @@
 </style>
 <%@ include file="/Template/header.jsp"%> 
 </head>
-
+<c:set var="reservationInfo" value="${requestScope.reservationInfo}"/>
 <body id="body">
 <div class="container rounded bg-white mt-5 mb-5">
     <div class="row">
@@ -136,44 +136,35 @@
                 		</tr>
                 	</thead>
                 	<tbody>
-                	    <tr>
+                	<c:forEach var="reservationInfo" items="${reservationInfo}">
+<!--                 		예약내역 DB에서 가져온 정보 저장하기 -->
+                		<tr>
                 	  	  	<td class="align-middle" scope="row" rowspan="2">
-                	  	  		<b><a id="resBtn" href="#" style="color: gray;">20231210-001983</a></b></td>
-                	  	  	
-                			<td class="align-middle" rowspan="2">2023-12-11</td>
-                			<td class="align-middle" width="50px" colspan="2">샤브샤브</td>
-                			<td style="vertical-align: middle; color: green;" rowspan="2"><b>방문 완료</b></td>
-                			<td class="align-middle" rowspan="2">
-                				<button type="button" class="btn btn-outline-warning">작성하기</button></td>
+                	  	  		<b><a id="resBtn" href="#" style="color: gray;">${reservationInfo.RES_NO}</a></b></td>
+                			<td class="align-middle" rowspan="2">${reservationInfo.RES_DATE}</td>
+                			<td class="align-middle" colspan="2">${reservationInfo.STORE_NAME}</td>
+                			<c:if test="${reservationInfo.REQ_STATE eq '2'}">
+	                			<td style="vertical-align: middle; color: green;" rowspan="2"><b>방문완료</b></td>
+	                			<td class="align-middle" rowspan="2">
+	                				<button type="button" class="btn btn-outline-warning">작성하기</button></td>
+                			</c:if>	
+                			<c:if test="${reservationInfo.REQ_STATE eq '1'}">
+                			    <td style="vertical-align: middle; color: red;" rowspan="2"><b>예약취소</b></td>
+	                			<td class="align-middle" rowspan="2"></td>
+                			</c:if>	
+     			            <c:if test="${reservationInfo.REQ_STATE eq '0'}">
+                				<td style="vertical-align: middle; color: orange;" rowspan="2"><b>예약완료</b></td>
+	                			<td class="align-middle" rowspan="2"></td>
+                			</c:if>	
                 		</tr>
                 		<tr>
-                			<td class="align-middle" width="50px" >패밀리 테이블</td>
-                			<td class="align-middle" width="15px">4인</td>
+                			<td class="align-middle" width="50px" >${reservationInfo.SEAT_NAME}</td>
+                			<td class="align-middle" width="15px">${reservationInfo.RES_PEOPLE}명</td>
                 		</tr>
-                 	    <tr>
-                	  	  	<td class="align-middle"scope="row" rowspan="2"><b>20231211-015941</b></td>
-                			<td class="align-middle" rowspan="2">2023-12-13</td>
-                			<td class="align-middle" width="50px" colspan="2">그집곱도리탕</td>
-                			<td style="vertical-align: middle; color: red;" rowspan="2"><b>예약취소</b></td>
-                			<td rowspan="2"></td>
-                		</tr>
-                		<tr>
-                			<td class="align-middle" width="50px" >단체석</td>
-                			<td class="align-middle" width="15px">11인</td>
-                		</tr>
-                	    <tr>
-                	  	  	<td class="align-middle" scope="row" rowspan="2"><b>20231209-002718</b></td>
-                			<td class="align-middle" rowspan="2">2023-12-18</td>
-                			<td class="align-middle" width="50px" colspan="2">칸다소바</td>
-                			<td style="vertical-align: middle; color: orange;" rowspan="2"><b>예약완료</b></td>
-                			<td rowspan="2"></td>
-                		</tr>
-                		<tr>
-                			<td class="align-middle" width="50px" >4인석</td>
-                			<td class="align-middle" width="15px">3인</td>
-                		</tr>
+                	</c:forEach>
                 	</tbody>
                 	</table>
+                </div>
                 </div>
 			</div>
         </div>
@@ -186,7 +177,8 @@
 			     <button type="button" class="res-close" data-dismiss="modal" aria-label="Close">&times;</button>
 		     </div>
 		     <div class="modal-body" id="res-modal-body">
-			     <h5 class="res_num">예약번호: 20231210-001983</h5>
+		       <c:forEach var="reservationInfo" items="${reservationInfo}">
+			     <h5 class="res_num">예약번호: ${reservationInfo.RES_NO}</h5>
 				 <div class="col-md-12 mt-5">
 		          <div class="tab-content profile-tab" id="myTabContent">
 		             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
@@ -195,7 +187,15 @@
 		                        <label id="label">예약일</label>
 		                    </div>
 		                    <div class="col-md-6">
-		                        <p>2023년 12월 11일 오후 07:00</p>
+		                        <p>${reservationInfo.RES_DATE}</p>
+		                    </div>
+		                </div>
+		                <div class="row">
+		                    <div class="col-md-6">
+		                        <label id="label">예약자</label>
+		                    </div>
+		                    <div class="col-md-6">
+		                        <p>${reservationInfo.CUS_NAME}</p>
 		                    </div>
 		                </div>
 		                <div class="row">
@@ -203,8 +203,10 @@
 		                        <label id="label">식당명</label>
 		                    </div>
 		                    <div class="col-md-6">
-		                        <p style="color: gray;"><b><a href="#" style="color: gray; ">샤브샤브</a></b><br>
-		                        	  (부산, 부산진구 부전동)</p>
+		                        <p style="color: gray;">
+		                        	<b><a href="store.ma?STORE_NO=${reservationInfo.STORE_NO}" style="color: gray; ">
+		                        	   ${reservationInfo.STORE_NAME}</a></b><br>
+		                            (${reservationInfo.STORE_LOCATION})</p>
 		                    </div>
 		                </div>
 		                <div class="row">
@@ -212,7 +214,7 @@
 		                        <label id="label">좌석</label>
 		                    </div>
 		                    <div class="col-md-6">
-		                        <p>패밀리 테이블</p>
+		                        <p>${reservationInfo.SEAT_NAME}</p>
 		                    </div>
 		                </div>
 		                <div class="row">
@@ -220,15 +222,15 @@
 		                        <label id="label">인원</label>
 		                    </div>
 		                    <div class="col-md-6">
-		                        <p>4인</p>
+		                        <p>${reservationInfo.RES_PEOPLE}명</p>
 		                    </div>
 		                </div>
 		                <div class="row">
 		                    <div class="col-md-6">
-		                        <label id="label">기타 요구사항</label>
+		                        <label id="label">기타 요청사항</label>
 		                    </div>
 		                    <div class="col-md-6">
-		                        <p>유아용 의자 하나 부탁드려요! 땅콩 알레르기 한 분 있어서 땅콩 소스 빼주세요!</p>
+		                        <p>${reservationInfo.RES_REQ}</p>
 		                    </div>
 		                </div>
 		                
@@ -239,12 +241,13 @@
 		                        <label id="label">결제일</label>
 		                    </div>
 		                    <div class="col-md-6">
-		                        <p>2023년 12월 10일 오후 09:32</p>
+		                        <p>${reservationInfo.RES_PAYTIME}</p>
 		                    </div>
 		                </div>
 		            </div>
 		          </div>
 		       </div>
+		      </c:forEach>
 		     </div>
 		     <div class="modal-footer" id="res-modal-footer">
 		       <button type="button" class="btn btn-outline-warning">수정</button>
@@ -255,16 +258,16 @@
         
         
         
-        <div class="col-md-3 border-right">
+        <div class="col-md-3">
             <div class="d-flex flex-column align-items-center text-center p-3 py-5 mt-5">
             <h4>고객 정보</h4>
            	 <img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
             	<span class="font-weight-bold">${sessionScope.CUS_NICK}</span>
 			<button type="submit" class="btn btn-primary btn-block mt-5" onclick="location.href='cus_edit.cu'"
   		  		    style="color: #111111; background-color: white; border-color: #111111;">고객 정보 수정하기</button>
-			<button type="submit" class="btn btn-primary btn-block" onclick="move()"
+			<button type="submit" class="btn btn-primary btn-block" onclick="#"
   		  		    style="color: #111111; background-color: white; border-color: #111111;">나의 리뷰 보기</button>
-			<button type="submit" class="btn btn-primary btn-block mb-4" onclick="move()"
+			<button type="submit" class="btn btn-primary btn-block mb-4" onclick="location.href='like_list.cu'"
   		  		    style="color: #111111; background-color: white; border-color: #111111;">찜한 식당 보기</button>  	  
           	  
           	  
@@ -319,10 +322,10 @@
 
 
 
-			</div>
 		</div>
 	</div>	
 </div>
+
 </body>
 <%@ include file="/Template/footer.jsp"%> 
 <script>

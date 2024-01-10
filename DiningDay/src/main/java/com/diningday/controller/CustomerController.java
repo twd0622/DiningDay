@@ -78,6 +78,8 @@ public class CustomerController extends HttpServlet {
 //		-------------------------------------------------------------
 		
 		if(sPath.equals("/mypage.cu")) {
+			req.setAttribute("reservationInfo", customerService.getReservation((String)session.getAttribute("CUS_NO")));
+			
 			dispatcher = req.getRequestDispatcher("Customer/mypage.jsp");
 			dispatcher.forward(req, res);
 		}	

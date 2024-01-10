@@ -58,6 +58,13 @@ public class CustomerService {
 
 
 
+	public List<Map<String, String>> getReservation(String CUS_NO) {
+		System.out.println("customerDAO.getReservation(CUS_NO): " + customerDAO.getReservation(CUS_NO));
+		return customerDAO.getReservation(CUS_NO);
+	}
+
+
+
 
 
 	

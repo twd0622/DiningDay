@@ -67,6 +67,15 @@ public class CustomerDAO {
 		return LikeList;
 	}
 
+	public List<Map<String, String>> getReservation(String CUS_NO) {
+		session = sqlSessionFactory.openSession();
+		List<Map<String, String>> reservationInfo = session.selectList("Customer.getReservation", CUS_NO);
+		System.out.println("reservationInfo: " + reservationInfo);
+		session.close();
+		
+		return reservationInfo;
+	}
+
 	
 	
 

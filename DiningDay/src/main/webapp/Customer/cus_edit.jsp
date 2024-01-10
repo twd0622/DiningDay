@@ -22,7 +22,7 @@
  	padding-top: 100px;
  }
 </style>
-<c:set var="storeInfo" value="${requestScope.customerInfo}"/>
+<c:set var="customerInfo" value="${requestScope.customerInfo}"/>
 <body id="body">
 <form action="cus_editPro.cu" method="post" name="cus_edit">
 <div class="container rounded bg-white mt-5 mb-5">
