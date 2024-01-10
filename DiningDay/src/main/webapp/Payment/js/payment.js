@@ -4,6 +4,7 @@ $(()=>{
 			alert("예약자 정보를 확정해 주세요!");
 			return;
 		}
+		
 		if(!$("#tableCheck").prop("checked")){
 			alert("좌석 정보를 확정해 주세요!");
 			return;
@@ -50,6 +51,8 @@ function requestPay(storeName, priceResult) {
 			rsp.STORE_NO = store_no;
 			rsp.SEAT_NO = seat_no;
 			
+			rsp.CUS_NAME = $("#res_name").text();
+			rsp.CUS_TEL = $("#res_tel").text();
 			rsp.RES_REQ = $("#cus_plus").val();
 			rsp.RES_PEOPLE = $("#table_people").text();
 			rsp.RES_DATE = $("#table_date").text();
@@ -74,7 +77,6 @@ function requestPay(storeName, priceResult) {
 				data: rsp,
 			})
 			.done(function(data){
-				alert(data)
 				location.href = "payment_success.pa?RES_NO="+data.RES_NO;								
 			})
 

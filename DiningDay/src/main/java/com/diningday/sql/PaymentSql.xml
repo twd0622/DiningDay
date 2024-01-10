@@ -54,8 +54,8 @@
 			, PAID_AT
 			)
 		VALUES
-			( concat("PA" ,ifnull((select cast(max(replace(PAY_NO, "PA", "")) as unsigned)+1 from PAYMENT a), 1))
-			, concat("RS" ,ifnull((select cast(max(replace(RES_NO, "RS", "")) as unsigned)+1 from RESERVATION a), 1))
+			( concat("PA", IFNULL((select MAX(cast(replace(PAY_NO, "PA", "") AS unsigned))+1 FROM PAYMENT A), 1))
+			, concat("RS", IFNULL((select MAX(cast(replace(RES_NO, "RS", "") AS unsigned))+1 FROM RESERVATION R), 1))
 			, #{CUS_NO}
 			, #{merchant_uid}
 			, #{apply_num}
@@ -85,17 +85,17 @@
 			, RES_PAYTIME
 			)
 		VALUES
-			( concat("RS" ,ifnull((select cast(max(replace(RES_NO, "RS", "")) as unsigned)+1 from RESERVATION a), 1))
+			( concat("RS" ,ifnull((select max(cast(replace(RES_NO, "RS", "") as unsigned))+1 from RESERVATION a), 1))
 			, #{CUS_NO}
 			, #{STORE_NO}
-			, concat("PA" ,ifnull((select cast(max(replace(PAY_NO, "PA", "")) as unsigned) from PAYMENT a), 1))
+			, concat("PA" ,ifnull((select max(cast(replace(PAY_NO, "PA", "") as unsigned)) from PAYMENT a), 1))
 			, #{SEAT_NO}
-			, ( SELECT CUS_NAME FROM CUSTOMER WHERE CUS_NO = #{CUS_NO})
-			, ( SELECT CUS_TEL FROM CUSTOMER WHERE CUS_NO = #{CUS_NO})
+			, #{CUS_NAME}
+			, #{CUS_TEL}
 			, #{RES_REQ} 
 			, #{RES_PEOPLE}
-			, #{RES_DATE}
-			, #{RES_TIME}
+			, DATE_FORMAT(#{RES_DATE}, '%Y%m%d')
+			, DATE_FORMAT(STR_TO_DATE(#{RES_TIME}, '%H:%i'), '%H%i')
 			, '0'
 			, date_format(now(), '%Y%m%d%H%i%s')
 			);				
@@ -114,8 +114,8 @@
 			VALUES
 		<foreach collection="list" item="menuDTO" separator=",">
 				(
-					concat("RS" ,ifnull((select cast(max(replace(RES_NO, "RS", "")) as unsigned) from RESERVATION r), 1))
-					, concat("PA" ,ifnull((select cast(max(replace(PAY_NO, "PA", "")) as unsigned) from PAYMENT a), 1))
+					  concat("RS" ,ifnull((select max(cast(replace(RES_NO, "RS", "") as unsigned)) from RESERVATION r), 1))
+	 				, concat("PA" ,ifnull((select max(cast(replace(PAY_NO, "PA", "") as unsigned)) from PAYMENT a), 1))
 					, #{menuDTO.MENU_NO}
 					, #{menuDTO.STORE_NO}
 					, #{menuDTO.MENU_COUNT}
