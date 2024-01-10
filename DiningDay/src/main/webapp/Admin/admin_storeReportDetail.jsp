@@ -6,6 +6,16 @@
 <head>
 <meta charset="utf-8">
 <title>식당신고상세 | 다이닝데이</title>
+<style type="text/css">
+#sRepTable {
+	max-height: 650px;
+	padding: 1rem;
+	overflow-y: auto;
+	direction: ltr;
+	scrollbar-color: #d4aa70 #e4e4e4;
+	scrollbar-width: thin;
+}
+</style>
 </head>
 <%@ include file="/Template/admin_sidebar_open.jsp"%>
 <!-- main은 속성 값은 왠만하면 건들지x -->
@@ -17,7 +27,7 @@
 		style="width: 100%; background: white;">
 		<h4 style="text-align: left; padding: 20px 0 0 20px;">&lt; 식당 신고 상세내용&gt;</h4>
 		<hr>
-		<div class="container" style="padding: 0 7% 0 7%;">
+		<div class="container" style="padding: 0 7% 0 7%;" id="sRepTable">
 			<table class="table table-hover">
 
 				<tbody>

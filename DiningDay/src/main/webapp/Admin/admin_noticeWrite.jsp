@@ -28,9 +28,14 @@
 							<td><input type="text" class="form-control"
 								placeholder="${admin.ADM_NAME }" name="admin_id" maxlength="40" readonly="readonly"></td>
 						</tr>
+<!-- 						<tr> -->
+<!-- 							<td><input type="text" class="form-control" -->
+<!-- 								placeholder="제목명" name="NOT_TITLE" maxlength="40"></td> -->
+<!-- 						</tr> -->
 						<tr>
-							<td><input type="text" class="form-control"
-								placeholder="제목명" name="NOT_TITLE" maxlength="40"></td>
+							<td><textarea type="text" class="form-control"
+									placeholder="제목명" name="NOT_TITLE" maxlength="100"
+									style="height: 20px;"></textarea></td>
 						</tr>
 <!-- 						<tr> -->
 <!-- 							<td><input type="file" class="form-control" -->
@@ -38,7 +43,7 @@
 <!-- 						</tr> -->
 						<tr>
 							<td><textarea type="text" class="form-control"
-									placeholder="글 내용을 작성하세요" name="NOT_CONTENT" maxlength="1024"
+									placeholder="글 내용을 작성하세요" name="NOT_CONTENT" maxlength="1000"
 									style="height: 400px;"></textarea></td>
 						</tr>
 					</tbody>
@@ -47,6 +52,7 @@
 				<input type="submit" class="btn btn-outline-success" value="등록">
 				<input type="button" class="btn btn-outline-dark" value="취소" onclick="window.history.back()">
 			</div>
+			<br>
 		</form>
 	</div>
 </main>

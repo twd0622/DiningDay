@@ -9,9 +9,15 @@
 
     <!-- CSS -->
 	<link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/bootstrap.min.css">
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js"></script>
 	<script src="${ pageContext.request.contextPath }/resources/js/jquery-3.6.0.js"></script>
     <title>SideBar sub menus</title>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
         <style>
+        .material-symbols-outlined{
+        	vertical-align: middle;
+         } 
+        
     	/* GOOGLE FONTS */
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap");
 
@@ -137,9 +143,9 @@ a {
 }
 
 /* Active links menu */
-.active {
-    background-color: var(--first-color);
-}
+/* .active { */
+/*     background-color: var(--first-color); */
+/* } */
 
 /* COLLAPSE */
 .collapse {
@@ -250,16 +256,16 @@ ul{
             	</ul>
             	</div>
 				<br>
+            	</div>
             	<div>
                 <ul>
                    	<li>
-		                <a href="main.ma" class="nav__link">
+		                <a href="logout.ad" class="nav__link">
 		                	<ion-icon name="log-out-outline"></ion-icon>
 		                    <span class="nav_name">로그아웃</span>
 		                </a>
                 	</li>
             	</ul>
-            	</div>
             	</div>
         </nav>
     </div>

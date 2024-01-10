@@ -29,12 +29,8 @@ public class AdminService {
 		
 	}
 	
-	public boolean noticeUpdate(HttpServletRequest req) {
-//		boolean noticeUpdate = adminDAO.noticeUpdate(TeamUtil.requestToMap(req));
-//		
-//		return adminDAO.noticeUpdate(TeamUtil.fileRequestToMap(req));
-		Map<String, String> adminDTO = TeamUtil.requestToMap(req);
-		
+	public boolean noticeUpdate(HttpServletRequest req, Map<String, String> param) {
+		Map<String, String> adminDTO = TeamUtil.requestToMap(req, param);
 		return adminDAO.noticeUpdate(adminDTO);
 	}
 	
@@ -44,12 +40,15 @@ public class AdminService {
 		return noticeDelete;
 	}
 
-
 	public List<Map<String, String>> getNoticeList() {
 		List<Map<String, String>> noticeList = adminDAO.getNoticeList();
 		
 		return noticeList;
-		
+	}
+	
+	public List<Map<String, String>> getNoticeList(HttpServletRequest req) {
+		List<Map<String, String>> noticeList = adminDAO.getNoticeList(TeamUtil.requestToMap(req));
+		return noticeList;
 	}
 
 	public Map<String, String> getNoticeDetail(HttpServletRequest req) {
@@ -61,6 +60,12 @@ public class AdminService {
 		List<Map<String, String>> storeList = adminDAO.getStoreList();
 		return storeList;
 	}
+	
+	public List<Map<String, String>> getStoreList(HttpServletRequest req) {
+		List<Map<String, String>> storeList = adminDAO.getStoreList(TeamUtil.requestToMap(req));
+		return storeList;
+	}
+	
 	
 	public int storeDelete(HttpServletRequest req) {
 		int storeDelete = adminDAO.storeDelete(TeamUtil.requestToMap(req));
@@ -78,6 +83,11 @@ public class AdminService {
 		List<Map<String, String>> userList = adminDAO.getUserList();
 		return userList;
 	}
+	
+	public List<Map<String, String>> getUserList(HttpServletRequest req) {
+		List<Map<String, String>> userList = adminDAO.getUserList(TeamUtil.requestToMap(req));
+		return userList;
+	}
 
 	public int userDelete(HttpServletRequest req) {
 		int userDelete = adminDAO.userDelete(TeamUtil.requestToMap(req));
@@ -87,6 +97,11 @@ public class AdminService {
 	
 	public List<Map<String, String>> getStoreReport() {
 		List<Map<String, String>> storeReport = adminDAO.getStoreReport();
+		return storeReport;
+	}
+	
+	public List<Map<String, String>> getStoreReport(HttpServletRequest req) {
+		List<Map<String, String>> storeReport = adminDAO.getStoreReport(TeamUtil.requestToMap(req));
 		return storeReport;
 	}
 	
@@ -106,6 +121,11 @@ public class AdminService {
 		return reviewReport;
 	}
 	
+	public List<Map<String, String>> getReviewReport(HttpServletRequest req) {
+		List<Map<String, String>> reviewReport = adminDAO.getReviewReport(TeamUtil.requestToMap(req));
+		return reviewReport;
+	}
+	
 	public int cRepDelete(HttpServletRequest req) {
 		int cRepDelete = adminDAO.cRepDelete(TeamUtil.requestToMap(req));
 		
@@ -115,6 +135,18 @@ public class AdminService {
 	public Map<String, String> getCRepDetail(HttpServletRequest req) {
 		
 		return adminDAO.getCRepDetail(TeamUtil.requestToMap(req));
+	}
+	
+	public List<Map<String, String>> reviewList() {
+		List<Map<String, String>> reviewList = adminDAO.reviewList();
+		
+		return reviewList;
+	}
+	
+	public List<Map<String, String>> reviewComment() {
+		List<Map<String, String>> reviewComment = adminDAO.reviewComment();
+		
+		return reviewComment;
 	}
 	
 }
