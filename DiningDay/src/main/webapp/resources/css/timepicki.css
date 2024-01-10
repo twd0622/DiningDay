@@ -34,7 +34,7 @@ Author: senthil
 	cursor: pointer;
 	padding: 18px;
 	width: 28%;
-	border: 1px solid #ccc;
+	border: 1px solid white;
 	margin: auto;
 	background: url(/DiningDay/resources/img/arrow.png) no-repeat;
 	border-radius: 5px;
@@ -42,7 +42,7 @@ Author: senthil
 
 .prev:hover,
 .next:hover {
-	background-color: #ccc;
+	background-color: white;
 }
 
 .next {
@@ -58,17 +58,19 @@ Author: senthil
 }
 
 .timepicker_wrap {
-	padding: 10px;
+	padding: 15px;
 	border-radius: 5px;
 	z-index: 998;
 	display: none;
 	box-shadow: 2px 2px 5px 0 rgba(50,50,50,0.35);
-	background: #f6f6f6;
+	background: salmon;
 	border: 1px solid #ccc;
 	float: left;
 	position: absolute;
-	top: 0px !important;
-	left: 550px !important;
+	top: 40px !important;
+	left: 30% !important;
+	width: 275px !important;
+	height: 180px !important;
 }
 
 

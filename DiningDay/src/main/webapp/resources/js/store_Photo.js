@@ -1,28 +1,24 @@
 /**
  * 
  */
-$(() => {
-	file_image();
-});
 
-var file
-function file_image(){
+function thumbnail(){
 	$("input[type=file]").change(e => {
-		var index = $(e.currentTarget).attr('id').split('_')[1];
-		debugger;
 		file = e.target.files;
 				
 		var image = new Image();
 		var ImageTempUrl = window.URL.createObjectURL(file[0]);
 	
 		image.src = ImageTempUrl;
-		image.style = "width:400px; height:400px; padding:6.5px; z-index: 1;";
-		$("button[type=reset]").on("click", () => {
-			$('#img_' + index).empty();
-		});
-		$('#img_' + index).empty();
-		$("#img_" + index).append(image);
+		image.style = "width:300px; height:300px; padding:6.5px; z-index: 1;";
+
+		$('#img_1').empty();
+		$("#img_1").append(image);
 	});
+}
+
+function banner(){
+	
 }
 
 // 확장자가 이미지 파일인지 확인

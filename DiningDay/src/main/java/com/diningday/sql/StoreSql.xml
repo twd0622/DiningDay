@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="Menu">
+<mapper namespace="Store">
 	
 	<insert id="menuInsert" parameterType="map">
 		insert		
@@ -43,8 +43,8 @@
 	<select id="menuList" parameterType="map" resultType="map">
 		select m.MENU_NAME, s.PHOTO_NAME, m.MENU_INFO, m.MENU_PRICE, m.MENU_HIDE, m.MENU_NO 
 		  from MENU m 
-		  join STORE_IMAGE s
-		    on m.MENU_NO = s.PHOTO_TYPE
+		  left join STORE_IMAGE s
+		    on (m.MENU_NO, m.STORE_NO) = (s.PHOTO_TYPE, s.STORE_NO)
 		 where 1 = 1
 		   and m.STORE_NO = #{STORE_NO}   
 		 order by CAST(REPLACE(m.MENU_NO, "ME", "") AS UNSIGNED) desc
@@ -102,6 +102,17 @@
 		   ;   
  	</delete>
  	
+ 	<!--  메뉴 sql 끝 -->
+	<!--  식당 메인 시작 -->
+ 	<select id="storeSelect" parameterType="map" resultType="map">
+ 		SELECT *
+ 		  FROM STORE
+ 		 WHERE STORE_NO = #{STORE_NO}
+ 		     ;
+ 	</select>
 </mapper>
+
+
+
 
 

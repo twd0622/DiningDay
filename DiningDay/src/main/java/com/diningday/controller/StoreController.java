@@ -2,6 +2,7 @@ package com.diningday.controller;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
@@ -32,11 +33,6 @@ public class StoreController extends HttpServlet {
 		String sPath = req.getServletPath();
 		StoreService storeService = new StoreService();
 		HttpSession session = req.getSession();
-		
-		if(sPath.equals("/smain.st")) {
-			dispatcher = req.getRequestDispatcher("Store/smain.jsp");
-			dispatcher.forward(req, res);
-		}
 		
 		if(sPath.equals("/smenu.st")) {
 			System.out.println(session.getAttribute("STORE_NO"));
@@ -78,6 +74,62 @@ public class StoreController extends HttpServlet {
 			
 			res.setContentType("application/x-json; charset=utf-8");
 			res.getWriter().print(storeService.menuSelect(stSession));
+		}
+		
+
+		if(sPath.equals("/smain.st")) {
+			Map<String, String> STORE_NO = new HashMap<String, String>();
+
+			STORE_NO.put("STORE_NO", (String)session.getAttribute("STORE_NO"));
+			storeService.StoreSelect(STORE_NO);
+			
+			
+			dispatcher = req.getRequestDispatcher("Store/smain.jsp");
+			dispatcher.forward(req, res);
+		}
+		
+		if(sPath.equals("/smainInsert.st")) {
+			
+		}
+		
+		if(sPath.equals("/smainDelete.st")) {
+			
+		}
+		
+		if(sPath.equals("/info_update.st")) {
+			dispatcher = req.getRequestDispatcher("Store/info_update.jsp");
+			dispatcher.forward(req, res);
+		}
+		
+		if(sPath.equals("/sRes_control.st")) {
+			dispatcher = req.getRequestDispatcher("Store/sRes_control.jsp");
+			dispatcher.forward(req, res);
+		}
+		
+		if(sPath.equals("/sRes.st")) {
+			dispatcher = req.getRequestDispatcher("Store/sRes.jsp");
+			dispatcher.forward(req, res);
+		}
+		
+		if(sPath.equals("/sreview.st")) {
+			dispatcher = req.getRequestDispatcher("Store/sreview.jsp");
+			dispatcher.forward(req, res);
+		}
+		
+		
+		if(sPath.equals("/stable_insert.st")) {
+			dispatcher = req.getRequestDispatcher("Store/stable_insert.jsp");
+			dispatcher.forward(req, res);
+		}
+		
+		if(sPath.equals("/stable.st")) {
+			dispatcher = req.getRequestDispatcher("Store/stable.jsp");
+			dispatcher.forward(req, res);
+		}
+		
+		if(sPath.equals("/sdeclare.st")) {
+			dispatcher = req.getRequestDispatcher("Store/sdeclare.jsp");
+			dispatcher.forward(req, res);
 		}
 		
 		if(sPath.equals("/upload")) {

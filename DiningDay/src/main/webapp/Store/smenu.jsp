@@ -162,7 +162,7 @@ keyframes blink {
 									</div>
 								</li>
 			    				<li>
-			    					<input type="file" class="form-control border border-dark" id="inputFile_1" name="PHOTO_NAME" aria-describedby="fileButton_1">
+			    					<input type="file" class="form-control border border-dark" id="inputFile_1" name="hiddenfile" aria-describedby="fileButton_1">
 									<input type="hidden" name="PHOTO_TYPE">
 			    				</li>
 			    				<li>
