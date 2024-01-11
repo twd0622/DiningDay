@@ -101,15 +101,102 @@
 		</foreach>   
 		   ;   
  	</delete>
- 	
  	<!--  메뉴 sql 끝 -->
+	
 	<!--  식당 메인 시작 -->
  	<select id="storeSelect" parameterType="map" resultType="map">
  		SELECT *
  		  FROM STORE
- 		 WHERE STORE_NO = #{STORE_NO}
+ 		 WHERE 1 = 1
+ 		   and STORE_NO = #{STORE_NO}
  		     ;
  	</select>
+ 	
+ 	<insert id="storeInsert" parameterType="map">
+ 		insert 
+			into STORE
+				( 
+		          STORE_NO
+				, OWN_NO
+				, STORE_NAME
+				, STORE_TEL
+				, STORE_LOCATION
+				, STORE_CATEGORY
+				, STORE_DETAIL
+				, STORE_INFO
+				, STORE_PLUS
+				, STORE_ST
+				, STORE_ET
+				, STORE_RT
+				, STORE_BTS
+				, STORE_BTE
+				, STORE_LO
+				, STORE_RST
+				, STORE_RET
+				, STORE_CLOSE
+				)
+			VALUES
+				(
+		          concat('ST', replace(#{STORE_NO}, '0', "") + CAST(replace(#{OWN_NO}, 'OW', "") AS UNSIGNED))
+		        , #{OWN_NO}
+		        , #{STORE_NAME}
+		        , #{STORE_TEL}
+		        , #{STORE_LOCATION}
+		        , #{STORE_CATEGORY}
+		        , #{STORE_DETAIL}
+		        , #{STORE_INFO}
+		        , #{STORE_PLUS}
+		        , date_format(STR_TO_DATE(#{STORE_ST}, '%h:%i:%p'), '%H%i')
+		        , date_format(STR_TO_DATE(#{STORE_ET}, '%h:%i:%p'), '%H%i')
+		        , #{STORE_RT}
+		        , if(#{STORE_BTS} = '0', '0', date_format(STR_TO_DATE(#{STORE_BTS}, '%h:%i:%p'), '%H%i'))
+		        , if(#{STORE_BTE} = '0', '0', date_format(STR_TO_DATE(#{STORE_BTE}, '%h:%i:%p'), '%H%i'))
+		        , #{STORE_LO}
+		        , date_format(STR_TO_DATE(#{STORE_RST}, '%h:%i:%p'), '%H%i')
+		        , date_format(STR_TO_DATE(#{STORE_RET}, '%h:%i:%p'), '%H%i')
+		        , #{STORE_CLOSE}
+		        )
+		        ;
+		        
+		insert
+			into STORE_IMAGE
+				(
+				  STORE_NO
+		        , PHOTO_NO
+		        , PHOTO_NAME
+		        , PHOTO_TYPE
+				)
+		    values
+				(
+		          concat('ST', replace(#{STORE_NO}, '0', "") + CAST(replace(#{OWN_NO}, 'OW', "") AS UNSIGNED))
+		        , 'PH1'
+		        , #{SU1_PHOTO_NAME}
+		        , 'SU1'
+				)
+		        ,
+		        (
+		          concat('ST', replace(#{STORE_NO}, '0', "") + CAST(replace(#{OWN_NO}, 'OW', "") AS UNSIGNED))
+		        , 'PH2'
+		        , #{BA1_PHOTO_NAME}
+		        , 'BA1'
+				)
+		        ,
+		        (
+				  concat('ST', replace(#{STORE_NO}, '0', "") + CAST(replace(#{OWN_NO}, 'OW', "") AS UNSIGNED))
+		        , 'PH3'
+		        , #{BA2_PHOTO_NAME}
+		        , 'BA2'
+				)
+				;
+ 	</insert>
+ 	<update id="firstInsertStore_OwnerUpdate" parameterType="map">
+ 		update OWNER
+ 		   set STORE_NO = (select STORE_NO
+ 		                     from STORE
+ 		                    where OWN_NO = #{OWN_NO})
+ 		 where OWN_NO = #{OWN_NO}
+ 		       ;              
+ 	</update>
 </mapper>
 
 

@@ -33,20 +33,34 @@
 		<main style="display: flex;  align-items: center; text-align: center; padding:100px;">
 			<div class="mainContainer" style="width: 100%; height: 3000px; background:#f0f0f3; 
 			display: flex; flex-direction: column; justify-content: center; align-items: center;">
-				<form method="post" enctype="multipart/form-data">
-<!-- 				 style="display: none;" -->
-					<input type="file" id="inputfile_1" name="PHOTO_NAME">
-					<input type="file" id="inputfile_2" name="PHOTO_NAME">	
+				<form id="STORE_DATA" method="post" enctype="multipart/form-data">
+<!-- 				 style="display: none;" --> 
+					<input type="file" id="inputfile_1" name="SU1_PHOTO_NAME">
+					<input type="file" id="inputfile_2" name="BA1_PHOTO_NAME">
+					<input type="file" id="inputfile_3" name="BA2_PHOTO_NAME">
 					<input type="text" name="STORE_CLOSE">
-					<input type="text" name="STORE_NO" value="${ sessionScope.STORE_NO }">
+					<input type="text" name="OWN_NO" value="OW2">
+					<input type="text" name="STORE_NO" value="0">
 					<input type="text" name="STORE_ST">
 					<input type="text" name="STORE_ET">
 					<input type="text" name="STORE_BTS">
 					<input type="text" name="STORE_BTE">
+					<input type="text" name="STORE_RST">
+					<input type="text" name="STORE_RET">
 					<input type="text" name="STORE_LO">
+					<input type="text" name="STORE_RT">
+					<input type="text" name="STORE_NAME">
+					<input type="text" name="STORE_TEL">
+					<input type="text" name="STORE_LOCATION">
+					<input type="text" name="STORE_CATEGORY">
+					<input type="text" name="STORE_DETAIL">
+					<input type="text" name="STORE_INFO">
+					<input type="text" name="STORE_PLUS">
 				</form>	
+				<button type="button" id="insert">insert</button>
 				<div style="display: flex;">
 					<div name="storeBold" style="width: 700px; padding:30px; background-color: white; display: flex; border-radius: 25px; flex-direction: column; align-items: center;">
+						<div><h3>가게 설정</h3></div>
 						<div class="mt-3" style="width:500px; display: flex; justify-content: center">
 							<div style="width: 150px; text-align: left;">
 								<label for="storeName">식당 이름</label>
@@ -88,6 +102,33 @@
 							</div>
 						</div>
 						<div class="mt-3" style="width:500px; display: flex; justify-content: center">
+							<div style="width: 150px; text-align: left;">
+								<label for="storeLastOrder">라스트 오더</label>
+							</div>
+							<div style="width: 350px; display: flex;">	
+								<select id="storeLastOrder" style="width: 200px;">
+									<option value="0" selected>없음</option>
+									<option value="1">1시간</option>
+									<option value="2">2시간</option>
+									<option value="3">3시간</option>
+								</select>
+							</div>
+						</div>
+						<div class="mt-3" style="width:500px; display: flex; justify-content: center">
+							<div style="width: 150px; text-align: left;">
+								<label for="storeResTerm">예약 이용시간</label>
+							</div>
+							<div style="width: 350px; display: flex;">	
+								<select id="storeResTerm" style="width: 200px;">
+									<option value="1" selected>1시간</option>
+									<option value="2">2시간</option>
+									<option value="3">3시간</option>
+									<option value="4">4시간</option>
+									<option value="5">5시간</option>
+								</select>
+							</div>
+						</div>
+						<div class="mt-3" style="width:500px; display: flex; justify-content: center">
 							<div style="width: 150px; text-align: left;">	
 								<label for="storeDetail">식당 세부정보</label>
 							</div>	
@@ -125,18 +166,18 @@
 								</div>	
 								<div class="input-group mt-3" id="weekdiv" style="width: 300px; display: flex; flex-direction: column">
 									<select multiple class="select" id="weekdays" style="width:300px; height:150px !important;" multiple="multiple">
-										<option value="1">월요일</option>
-										<option value="2">화요일</option>
-										<option value="3">수요일</option>
-										<option value="4">목요일</option>
-										<option value="5">금요일</option>
-										<option value="6">토요일</option>
-										<option value="7">일요일</option>
+										<option value="월">월요일</option>
+										<option value="화">화요일</option>
+										<option value="수">수요일</option>
+										<option value="목">목요일</option>
+										<option value="금">금요일</option>
+										<option value="토">토요일</option>
+										<option value="일">일요일</option>
 									</select>
 									<button type="button" id="save" style="border-radius: 10px;" class="btn btn-outline-success">저장</button>
 								</div>  				
 							</div>
-							<div name="storeBold" class="mt-4" style="width: 700px; padding:30px; background-color: white; display: flex; justify-content: center; flex-direction: column; border-radius: 25px;">
+							<div name="storeBold" class="mt-5" style="width: 700px; padding:30px; background-color: white; display: flex; justify-content: center; flex-direction: column; border-radius: 25px;">
 								<div>
 									<div style="display: flex; justify-content: space-around">
 										<h4 style="text-align: left;">영업시간(월~일)</h4>
@@ -151,18 +192,18 @@
 								  		<input id="timepicker_1_2" name="timepicker" type="text" class="form-control is-invalid" aria-describedby="span_1_2">
 									</div>
 									<div>
-										<button type="button" id="saveStoreOpen" class="btn btn-outline-success">저장하기</button>
+										<button type="button" name="saveTimepicker" class="btn btn-outline-success">저장하기</button>
 									</div>
 								</div>		
 							</div>
-							<div name="storeBold" class="mt-4" style="width: 700px; padding:30px; background-color: white; display: flex; justify-content: center; flex-direction: column; border-radius: 25px;">	
+							<div name="storeBold" class="mt-5" style="width: 700px; padding:30px; background-color: white; display: flex; justify-content: center; flex-direction: column; border-radius: 25px;">	
 								<h3>휴게 시간이 있나요?</h3>
 								<div>
 									<button name="isRestTime" class="btn btn-outline-warning" type="button">휴게 시간이 있어요</button>
 									<button name="isRestTime" class="btn btn-outline-warning" type="button">휴게 시간이 없어요</button>
 								</div>
 							</div>
-							<div name="storeBold" id="restTime" class="mt-4" style="width: 700px; padding:30px; background-color: white; display: flex; justify-content: center; flex-direction: column; border-radius: 25px;">		 
+							<div name="storeBold" id="restTime" class="mt-5" style="width: 700px; padding:30px; background-color: white; display: flex; justify-content: center; flex-direction: column; border-radius: 25px;">		 
 								<div style="display: flex; justify-content: space-around">
 									<h4 style="text-align: left;">휴게시간(월~일)</h4>
 									<div></div>
@@ -176,43 +217,67 @@
 								  	<input id="timepicker_2_2" name="timepicker" type="text" class="form-control is-invalid" aria-describedby="span_2_2">
 								</div>
 								<div>
-									<button type="button" id="saveRest" class="btn btn-outline-success">저장하기</button>
+									<button type="button" name="saveTimepicker" class="btn btn-outline-success">저장하기</button>
 								</div>
 							</div>
-						</div>
-						<div>
-							<div name="storeBold" class="mt-4" style="width: 700px; padding:30px; background-color: white; display: flex; align-items: center; flex-direction: column; border-radius: 25px;">
-								<h3>사진 등록 하시나요?</h3>
+							<div name="storeBold" id="resIstrueTimeCheck" class="mt-5" style="width: 700px; padding:30px; background-color: white; display: flex; justify-content: center; flex-direction: column; border-radius: 25px;">
 								<div>
-									<button class="btn btn-outline-success" type="button" name="isphoto">사진 등록 : 네</button>
-									<button class="btn btn-outline-success" type="button" name="isphoto">사진 등록 : 아니요</button>
-								</div>
+									<div style="display: flex; justify-content: space-around">
+										<h4 style="text-align: left;">예약 가능시간(월~일)</h4>
+										<div></div>
+									</div>
+									<div class="input-group mb-3" style="display: flex; justify-content: center;">
+								  		<span class="input-group-text" id="span_3_1">first</span>
+								  		<input id="timepicker_3_1" name="timepicker" type="text" class="form-control is-invalid" aria-describedby="span_3_1">
+									</div>
+									<div class="input-group mb-3" style="display: flex; justify-content: center;">
+								  		<span class="input-group-text" id="span_3_2">last</span>
+								  		<input id="timepicker_3_2" name="timepicker" type="text" class="form-control is-invalid" aria-describedby="span_3_2">
+									</div>
+									<div>
+										<button type="button" name="saveTimepicker" class="btn btn-outline-success">저장하기</button>
+									</div>
+								</div>		
+							</div>
+							<div name="storeBold" class="mt-5" style="width: 700px; padding:30px; background-color: white; display: flex; align-items: center; flex-direction: column; border-radius: 25px;">
+								<h3>사진 등록 해주세요 :)</h3>
 							</div>
 						</div>
 					</div>
 				</div>
-				<div style="display: flex;" class="mt-3">			
-					<div name="storeBold" style="background-color: white; width: 700px; border-radius: 25px; display: flex;flex-direction: column">
-					<h1 class="p-5">썸네일 사진 미리보기</h1>
-						<div class="p-2" style="display: flex; align-items: center; flex-direction: column;">
-							<div class="input-group 1" style="width: 400px; margin: 0 auto;">
-								<input type="file" class="form-control" id="hiddenFile_1" aria-describedby="fileButton_1"
-								aria-label="썸네일 사진 미리보기" name="hiddenfile">
-								<button class="btn btn-outline-success" type="button" id="fileButton_1">등록하기</button>
+				<div style="display: flex; flex-direction: column; align-items: center" class="mt-3">			
+					<div style="display: flex;">
+						<div name="storeBold" style="background-color: white; width: 500px; border-radius: 25px; display: flex;flex-direction: column">
+							<h1 class="p-3">썸네일 사진 미리보기</h1>
+							<div>
+								<h5 style="color:salmon;">※ 최대 1개 가능 ※</h5>
 							</div>
-							<div class="image_container" id="img_1" style="width: 400px; height: 400px;">
+							<div class="p-2" style="display: flex; align-items: center; flex-direction: column;">
+								<div>
+									<input class="btn btn-outline-success" type="button" id="fileButton_1" value="썸네일 사진확인" readonly>
+								</div>
+								<div class="p-2" id="fileEdge_1" style="display: flex; align-items: center; justify-content: center;">
+								</div>
 							</div>
-						</div>
-					</div>&nbsp;&nbsp;&nbsp;
-					<div name="storeBold" style="background-color: white; width: 700px; border-radius: 25px; display: flex;flex-direction: column; border: 1px ">
-						<h1 class="p-5">배너 사진 미리보기</h1>
-						<div class="p-2" style="display: flex; align-items: center; flex-direction: column;">
-							<div class="input-group 2" style="width: 400px; margin: 0 auto;">
-								<input type="file" class="form-control" id="hiddenFile_2" aria-describedby="fileButton_2" 
-								aria-label="배너 사진 미리보기" name="hiddenfile">
-								<button class="btn btn-outline-success" type="button" id="fileButton_2">등록하기</button>
+						</div>&nbsp;&nbsp;&nbsp;
+						<div name="storeBold" style="background-color: white; width: 900px; border-radius: 25px; display: flex;flex-direction: column; border: 1px ">
+							<h1 class="p-3">배너 사진 미리보기</h1>
+							<div>
+								<h5 style="color:salmon;">※ 최대 2개 가능 ※</h5>
 							</div>
-							<div class="image_container" id="img_2" style="width: 400px; height: 400px;">
+							<div style="display: flex; justify-content: space-around">
+								<div>
+									<input class="btn btn-outline-success" type="button" id="fileButton_2" value="배너 좌측 사진 오는곳" readonly>
+								</div>
+								<div>
+									<input class="btn btn-outline-success" type="button" id="fileButton_3" value="배너 우측 사진 오는곳" readonly>
+								</div>
+							</div>
+							<div style="display: flex; justify-content: space-around;">
+								<div class="p-2" id="fileEdge_2" style="display: flex; align-items: center; justify-content: center; width: 300px; height: 300px;">
+								</div>
+								<div class="p-2" id="fileEdge_3" style="display: flex; align-items: center; justify-content: center; width: 300px; height: 300px;">
+								</div>
 							</div>
 						</div>
 					</div>

@@ -51,7 +51,15 @@ public class StoreService {
 		return storeDAO.deleteMenu(TeamUtil.fileRequestToArrayMap(req));
 	}
 	
-	public void StoreSelect(Map<String, String> map) {
-		storeDAO.storeSelect(map);
+	public JsonObject storeSelect(HttpServletRequest req) {
+		return TeamUtil.mapToJSON(storeDAO.storeSelect(TeamUtil.requestToMap(req)));
+	}
+	
+	public boolean storeInsert(Map<String, String> storeDTO) {
+		return storeDAO.storeInsert(storeDTO);
+	}
+	
+	public boolean firstInsertStore_OwnerUpdate(Map<String, String> storeDTO) {
+		return storeDAO.firstInsertStore_OwnerUpdate(storeDTO);
 	}
 }

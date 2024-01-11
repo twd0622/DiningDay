@@ -100,6 +100,7 @@ public class TeamUtil {
 				dto.put(reqName, multi.getParameter(reqName));
 			}
 			
+			System.out.println(dto);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -126,6 +127,8 @@ public class TeamUtil {
 				// 파일
 				while(fileList.hasMoreElements()) {
 					String reqName = fileList.nextElement();
+					System.out.println("@@@@@@@@@@@@@@@@@@@@");
+					System.out.println(multi.getFilesystemName(reqName));
 					dto.put(reqName, multi.getFilesystemName(reqName).split(","));
 				}
 				

@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import com.diningday.service.StoreService;
 import com.diningday.util.TeamUtil;
+import com.google.gson.JsonObject;
 import com.mysql.fabric.xmlrpc.base.Array;
 
 public class StoreController extends HttpServlet {
@@ -78,18 +79,21 @@ public class StoreController extends HttpServlet {
 		
 
 		if(sPath.equals("/smain.st")) {
-			Map<String, String> STORE_NO = new HashMap<String, String>();
-
-			STORE_NO.put("STORE_NO", (String)session.getAttribute("STORE_NO"));
-			storeService.StoreSelect(STORE_NO);
-			
-			
 			dispatcher = req.getRequestDispatcher("Store/smain.jsp");
 			dispatcher.forward(req, res);
 		}
 		
-		if(sPath.equals("/smainInsert.st")) {
+		if(sPath.equals("/storeInsert.st")) {
 			
+			Map<String,String> storeDTO = TeamUtil.fileRequestToMap(req);
+			boolean bl = storeService.storeInsert(storeDTO);
+			
+			if(bl) {
+				bl = storeService.firstInsertStore_OwnerUpdate(storeDTO);
+			}
+			
+			res.setContentType("application/x-json; charset=utf-8");
+			res.getWriter().print(bl);
 		}
 		
 		if(sPath.equals("/smainDelete.st")) {

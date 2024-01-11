@@ -17,11 +17,12 @@ $(() => {
 		type: "get",
 		dataType: "json",
 		url: "smenuList.st",
-		async: false											
+		async: false	
 	})										
 	.done(												
 		function(data){
 			targetColor($("#smenu"));
+			
 			/*html title 부트스트랩 코드 시작*/ 
 			const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
 			const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))			
