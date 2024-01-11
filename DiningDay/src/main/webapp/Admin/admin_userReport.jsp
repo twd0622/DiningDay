@@ -27,7 +27,7 @@
 		style="width: 100%; background: white;">
 		<h4 style="text-align: left; padding: 20px 0 0 20px;">&lt; 고객 리뷰 신고관리 &gt;</h4>
 		<hr>
-		<div class="row" style="padding: 1 7% 1 7%;" id="cRepTable">
+		<div class="row" style="padding: 1 13% 1 13%;" id="cRepTable">
 			<table class="table table-hover" id="article-table">
 				<thead>
 					<tr class="table-success">

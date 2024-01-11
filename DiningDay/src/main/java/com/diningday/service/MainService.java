@@ -52,4 +52,8 @@ public class MainService {
 		return mainDAO.deleteLike(TeamUtil.requestToMap(req));
 	}
 
+	public List<Map<String, String>> getResTime(Map<String, String> storeDTO) {
+		return mainDAO.getResTime(storeDTO);
+	}
+
 }

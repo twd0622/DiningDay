@@ -93,14 +93,13 @@ public class MainController extends HttpServlet {
 			session.setAttribute("people", req.getParameter("people"));
 		}
 		
-		if(sPath.equals("/getSession.ma")) {
-			Map<String, String> sessionDTO = new HashMap<String, String>();
-
-			sessionDTO.put("date", (String)session.getAttribute("date"));			
-			sessionDTO.put("people", (String) session.getAttribute("people"));
+		if(sPath.equals("/getResModal.ma")) {
+			
+			Map<String, String> map = new HashMap<String, String>();
+			map.put("DATE", (String)session.getAttribute("date"));
 			
 			res.setContentType("application/x-json; charset=utf-8");
-			res.getWriter().print(TeamUtil.mapToJSON(sessionDTO));
+			res.getWriter().print(TeamUtil.mapListToJSONList(mainService.getResTime(TeamUtil.requestToMap(req, map))));
 			
 		}
 		

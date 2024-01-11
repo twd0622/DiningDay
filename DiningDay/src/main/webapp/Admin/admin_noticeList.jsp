@@ -8,6 +8,12 @@
 <head>
 <meta charset="utf-8">
 <title>공지사항 | 다이닝데이</title>
+<c:set var="noticeList" value="${ requestScope.noticeList }"/>
+<script>
+function delBtn(){
+	alert("정말 삭제하시겠습니까?")
+}
+</script>
 <style type="text/css">
 #noticeTable {
 	max-height: 650px;
@@ -40,14 +46,16 @@
 					</tr>
 				</thead>
 				<tbody>
-				<c:set var="noticeList" value="${ requestScope.noticeList }"/>
+<%-- 				<c:set var="noticeList" value="${ requestScope.noticeList }"/> --%>
 					<c:forEach var="notice" items="${noticeList }">
-						<tr id="datalist" style="height: 60px;" align="center" onclick="location.href='admin_noticeDetail.ad?NOT_NO=${ notice.NOT_NO }'">
-							<td class="title align-middle">${notice.NOT_NO}</td>
-							<td class="hashtag align-middle">${notice.NOT_TITLE}</td>
-							<td class="user-id align-middle" style="text-align: left;">${notice.NOT_CONTENT}</td>
-							<td class="created-at col-1 align-middle" id="dateRegex">${notice.DATE}</td>
-							<td class="align-middle"><a href="admin_noticeDelete.ad?NOT_NO=${notice.NOT_NO}" class="btn btn-outline-danger">삭제</a></td>
+						<tr id="datalist" style="height: 60px;" align="center" >
+							<td class="title align-middle" onclick="location.href='admin_noticeDetail.ad?NOT_NO=${ notice.NOT_NO }'">${notice.NOT_NO}</td>
+							<td class="hashtag align-middle" onclick="location.href='admin_noticeDetail.ad?NOT_NO=${ notice.NOT_NO }'">${notice.NOT_TITLE}</td>
+							<td class="user-id align-middle" style="text-align: left;" onclick="location.href='admin_noticeDetail.ad?NOT_NO=${ notice.NOT_NO }'">${notice.NOT_CONTENT}</td>
+							<td class="created-at col-1 align-middle" id="dateRegex" onclick="location.href='admin_noticeDetail.ad?NOT_NO=${ notice.NOT_NO }'">${notice.DATE}</td>
+<%-- 							<td class="align-middle "><a href="admin_noticeDelete.ad?NOT_NO=${notice.NOT_NO}" class="btn btn-outline-danger">삭제</a></td> --%>
+<!-- 							<td><input class="align-middle btn btn-outline-danger" type="button" value="삭제" id="btnLogin"></td> -->
+							<td><input type="button" class="align-middle btn btn-outline-danger" value="삭제" onclick="delBtn(); location.href='admin_noticeDelete.ad?NOT_NO=${notice.NOT_NO}'"></td>
 						</tr>
 					</c:forEach>
 				</tbody>
@@ -76,6 +84,8 @@
 		</div>
 		<br>
 	</div>
+
+
 
 </main>
 <%@ include file="/Template/admin_sidevar_close.jsp"%>

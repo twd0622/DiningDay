@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@page
 	import="org.apache.catalina.startup.ClassLoaderFactory.Repository"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,14 +23,19 @@
 			<div class="container" style="padding: 0 7% 0 7%;">
 				<table class="table table-hover">
 					<tbody>
+					<c:set var="admin" value="${ requestScope.admin }"/>
 						<tr>
 							<td><input type="text" class="form-control"
-								placeholder="관리자" name="admin_id" maxlength="40" readonly="readonly"></td>
+								placeholder="${admin.ADM_NAME }" name="admin_id" maxlength="40" readonly="readonly"></td>
 						</tr>
 						<tr>
 							<td><input type="text" class="form-control"
 								placeholder="제목명" name="NOT_TITLE" maxlength="40"></td>
 						</tr>
+<!-- 						<tr> -->
+<!-- 							<td><input type="file" class="form-control" -->
+<!-- 								placeholder="파일첨부" name="NOT_FILE" maxlength="40"></td> -->
+<!-- 						</tr> -->
 						<tr>
 							<td><textarea type="text" class="form-control"
 									placeholder="글 내용을 작성하세요" name="NOT_CONTENT" maxlength="1024"

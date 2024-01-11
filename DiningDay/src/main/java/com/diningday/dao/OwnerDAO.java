@@ -56,7 +56,6 @@ public class OwnerDAO {
 		session.commit();
 		return authPwCheck;
 	}
-
 	
 	public Boolean newPw(Map<String, String> ownerDTO) {
 		session = sqlSessionFactory.openSession();

@@ -50,6 +50,8 @@ public class AdminController extends HttpServlet {
 		}
 //		----------------------------------------------------------------------------------------------------
 		if(sPath.equals("/admin_noticeWrite.ad")) {
+			Map<String, String> admin = adminService.admin();
+			req.setAttribute("admin", admin);
 			dispatcher = req.getRequestDispatcher("Admin/admin_noticeWrite.jsp");
 			dispatcher.forward(req, res);
 		}
@@ -85,6 +87,8 @@ public class AdminController extends HttpServlet {
 		if(sPath.equals("/admin_noticeDetail.ad")) {
 			System.out.println(req.getParameter("NOT_NO"));
 			Map<String, String> noticeDetail = adminService.getNoticeDetail(req);
+			Map<String, String> admin = adminService.admin();
+			req.setAttribute("admin", admin);
 			req.setAttribute("noticeDetail", noticeDetail);
 			dispatcher = req.getRequestDispatcher("Admin/admin_noticeDetail.jsp");
 			dispatcher.forward(req, res);
@@ -109,6 +113,7 @@ public class AdminController extends HttpServlet {
 				res.sendRedirect("admin_noticeList.ad");
 				return;
 			}
+			res.sendRedirect("admin_noticeList.ad");
 		}
 //		----------------------------------------------------------------------------------------------------		
 		if(sPath.equals("/admin_storeList.ad")) {

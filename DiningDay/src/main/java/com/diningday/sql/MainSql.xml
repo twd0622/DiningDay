@@ -6,21 +6,24 @@
 	
 	<select id="searchList" parameterType="map" resultType="map">
 		 select
-			  s.STORE_NO
-			, s.STORE_NAME
-			, s.STORE_CATEGORY
-			, s.STORE_DETAIL
-			, s.STORE_SCORE
-			, ifnull(l.like_count, 0) as  LIKE_COUNT
-		  from STORE s
-		  LEFT JOIN (select STORE_NO, COUNT(*) as like_count
-				   from LIKE_LIST
-				  GROUP BY STORE_NO) l
-		    ON  s.STORE_NO = l.STORE_NO     
+			    ST.STORE_NO
+		 	  , ST.STORE_NAME
+			  , ST.STORE_CATEGORY
+			  , ST.STORE_DETAIL
+			  , ST.STORE_SCORE
+			  , (select count(LIKE_NO) LIKE_COUNT from LIKE_LIST where STORE_NO = ST.STORE_NO) LIKE_COUNT
+			  , SI.PHOTO_NAME
+		   from STORE ST
+		   LEFT JOIN (select STORE_NO
+						   , group_concat(case PHOTO_TYPE when 'SU1' then PHOTO_NAME end) PHOTO_NAME
+					    from STORE_IMAGE
+					   where PHOTO_TYPE='SU1'
+					   group by STORE_NO) SI 
+			 ON ST.STORE_NO = SI.STORE_NO
 		  where STORE_NAME like concat('%',#{searchInput},'%')
 		     or STORE_CATEGORY like concat('%',#{searchInput},'%')
 			 or STORE_DETAIL like concat('%',#{searchInput},'%')
-		 order by LIKE_COUNT desc;
+		  order by LIKE_COUNT DESC;
 	</select>
 	
 	<select id="searchCount" parameterType="map" resultType="int">
@@ -32,55 +35,79 @@
 	</select>
 	
 	<select id="getStore" parameterType="map" resultType="map">
-		 select
-			STORE_NO
-			, OWN_NO
-			, STORE_NAME
-			, STORE_TEL
-			, replace(STORE_LOCATION, ' ', '+') STORE_LOCATION 
-			, STORE_CATEGORY
-			, STORE_DETAIL
-			, STORE_INFO
-			, STORE_PLUS
-			, DATE_FORMAT(STR_TO_DATE(STORE_ST, '%H%i'), '%H:%i') STORE_ST
-			, DATE_FORMAT(STR_TO_DATE(STORE_ET, '%H%i'), '%H:%i') STORE_ET
-			, DATE_FORMAT(STR_TO_DATE(STORE_BT, '%H%i'), '%H:%i') STORE_BT
-			, DATE_FORMAT(STR_TO_DATE(STORE_LO, '%H%i'), '%H:%i') STORE_LO
-			, STORE_RST	
-			, STORE_RET	
-			, SOTRE_CLOSE
-			, STORE_SCORE
-			, (select count(LIKE_NO) LIKE_COUNT from LIKE_LIST where STORE_NO = #{STORE_NO}) LIKE_COUNT
-		from STORE
-		where STORE_NO = #{STORE_NO};
+	   select
+			  ST.STORE_NO
+			, ST.OWN_NO
+			, ST.STORE_NAME
+			, ST.STORE_TEL
+			, replace(ST.STORE_LOCATION, ' ', '+') STORE_LOCATION 
+			, ST.STORE_CATEGORY
+			, ST.STORE_DETAIL
+			, ST.STORE_INFO
+			, ST.STORE_PLUS
+			, DATE_FORMAT(STR_TO_DATE(ST.STORE_ST, '%H%i'), '%H:%i') STORE_ST
+			, DATE_FORMAT(STR_TO_DATE(ST.STORE_ET, '%H%i'), '%H:%i') STORE_ET
+			, DATE_FORMAT(STR_TO_DATE(ST.STORE_BT, '%H%i'), '%H:%i') STORE_BT
+			, DATE_FORMAT(STR_TO_DATE(ST.STORE_LO, '%H%i'), '%H:%i') STORE_LO
+			, ST.STORE_RST	
+			, date_format(timediff(STR_TO_DATE(STORE_RET, '%H%i') , STR_TO_DATE(STORE_RST, "%H%i")), '%H%i') TIEMDIFF	
+			, ST.SOTRE_CLOSE
+			, ST.STORE_SCORE
+			, (select count(LIKE_NO) LIKE_COUNT from LIKE_LIST where STORE_NO = ST.STORE_NO) LIKE_COUNT
+			, SI.BA1
+	 	  	, SI.BA2
+	  	 from STORE ST
+		 LEFT JOIN (select
+					     STORE_NO,
+					     group_concat(case PHOTO_TYPE when 'BA1' then PHOTO_NAME end) BA1,
+						 group_concat(case PHOTO_TYPE when 'BA2' then PHOTO_NAME end) BA2
+					from STORE_IMAGE
+					where (PHOTO_TYPE='BA1' or PHOTO_TYPE='BA2')
+					group by STORE_NO) SI
+		   ON ST.STORE_NO = SI.STORE_NO        
+		where ST.STORE_NO = #{STORE_NO};
 	</select>
 	
 	<select id="getMenuList" parameterType="map" resultType="map">
-		 select
-			MENU_NO
-			, STORE_NO
-			, MENU_NAME
-			, FORMAT(MENU_PRICE, 0) MENU_PRICE
-			, MENU_HIDE
-			, MENU_INFO
-		  from MENU
-		 where STORE_NO = #{STORE_NO};
+	   select
+			  ME.MENU_NO
+			, ME.STORE_NO
+			, ME.MENU_NAME
+			, ME.MENU_PRICE
+			, ME.MENU_HIDE
+			, ME.MENU_INFO
+			, SI.PHOTO_NAME
+		 from MENU ME
+		 LEFT JOIN (select STORE_NO
+						 , PHOTO_TYPE
+						 , PHOTO_NAME
+					  from STORE_IMAGE
+					 where PHOTO_TYPE LIKE 'ME%') SI
+	 	   ON (ME.STORE_NO, ME.MENU_NO) = (SI.STORE_NO, SI.PHOTO_TYPE)
+	    where ME.STORE_NO = #{STORE_NO};
 	</select>
 	
 	<select id="getTableList" parameterType="map" resultType="map">
 		select
-			SEAT_NO
-			, STORE_NO
-			, SEAT_NAME
-			, SEAT_USETIME
-			, SEAT_MIN
-			, SEAT_MAX
-			, SEAT_CONTENT
-			, SEAT_OC
-<!-- 			, CASE WHEN CAST('10' as unsigned) &lt;= CAST(SEAT_MAX as unsigned) THEN 'block' -->
-<!-- 																			 ELSE 'none' END AS VISIBLE_YN -->
-		  from SEAT
-		 where STORE_NO = #{STORE_NO};
+				  SE.SEAT_NO
+				, SE.STORE_NO
+				, SE.SEAT_NAME
+				, SE.SEAT_USETIME
+				, SE.SEAT_MIN
+				, SE.SEAT_MAX
+				, SE.SEAT_CONTENT
+				, SE.SEAT_OC
+				, SI.PHOTO_NAME
+		  from SEAT SE
+		  LEFT JOIN (select
+							STORE_NO,
+							PHOTO_TYPE,
+							PHOTO_NAME
+					from STORE_IMAGE
+					where PHOTO_TYPE LIKE 'SE%') SI
+		    ON (SE.STORE_NO, SE.SEAT_NO) = (SI.STORE_NO, SI.PHOTO_TYPE) 
+		 where SE.STORE_NO = #{STORE_NO}
+		 ORDER BY SEAT_NO;
 	</select>
 	
 	<select id="getTable" parameterType="map" resultType="map">
@@ -117,6 +144,14 @@
 		 where STORE_NO = #{STORE_NO}
 		   and CUS_NO = #{CUS_NO};
 	</delete>
+	
+	<select id="getResTime" parameterType="map" resultType="map">
+		SELECT RES_NO, RES_TIME
+		  FROM RESERVATION
+		 WHERE STORE_NO = #{STORE_NO}
+		   AND SEAT_NO = #{SEAT_NO}
+		   AND RES_DATE = date_format(#{DATE}, '%Y%m%d');
+	</select>
 </mapper>
 
 

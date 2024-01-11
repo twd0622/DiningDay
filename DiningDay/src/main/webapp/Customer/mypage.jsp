@@ -54,7 +54,6 @@
 
 #res-modal-footer {
   padding-top: 20px;
-  align-content: right;
 }
 
 .res-close {
@@ -77,6 +76,14 @@
 .res_num {
   border-left: 10px solid #FFF2A6;
   color: orange;
+}
+
+#resEdit {
+  justify-content: flex-start;
+}
+
+#resOk {
+  justify-content: flex-end;
 }
 
 /* 계정삭제 모달 */
@@ -114,13 +121,16 @@
 </style>
 <%@ include file="/Template/header.jsp"%> 
 </head>
-
+<c:set var="reservationInfo" value="${requestScope.reservationInfo}"/>
+<c:set var="reservationModal" value="${requestScope.reservationModal}"/>
+<c:set var="menuModal" value="${requestScope.menuModal}"/>
 <body id="body">
 <div class="container rounded bg-white mt-5 mb-5">
     <div class="row">
+    
         <div class="col-md-9 border-right">
             <div class="p-3 py-5">
-          	  <div class="d-flex justify-content-between align-items-center mb-3">
+          	  	<div class="d-flex justify-content-between align-items-center mb-3">
           	      <h2><b>고객 마이페이지</b></h2>
                 </div>
                 <div class="row mt-3">
@@ -128,56 +138,56 @@
                 	<table class="table" id="table">
                 	<thead class="table-warning">
                 		<tr>
-                			<th scope="col" width="30px">예약번호</th>
-                			<th scope="col" width="20px">예약일</th>
+                			<th scope="col" >예약번호</th>
+                			<th scope="col" >예약일</th>
                 			<th scope="col" colspan="2">예약내용</th>
-                			<th scope="col" width="40px">예약상황</th>
-                			<th scope="col" width="20px">리뷰</th>
+                			<th scope="col" >예약상황</th>
+                			<th scope="col" >리뷰</th>
                 		</tr>
                 	</thead>
-                	<tbody>
+                	<tbody>		
+		
+                	  <c:if test="${empty reservationInfo}">
                 	    <tr>
-                	  	  	<td class="align-middle" scope="row" rowspan="2">
-                	  	  		<b><a id="resBtn" href="#" style="color: gray;">20231210-001983</a></b></td>
-                	  	  	
-                			<td class="align-middle" rowspan="2">2023-12-11</td>
-                			<td class="align-middle" width="50px" colspan="2">샤브샤브</td>
-                			<td style="vertical-align: middle; color: green;" rowspan="2"><b>방문 완료</b></td>
-                			<td class="align-middle" rowspan="2">
-                				<button type="button" class="btn btn-outline-warning">작성하기</button></td>
-                		</tr>
-                		<tr>
-                			<td class="align-middle" width="50px" >패밀리 테이블</td>
-                			<td class="align-middle" width="15px">4인</td>
-                		</tr>
-                 	    <tr>
-                	  	  	<td class="align-middle"scope="row" rowspan="2"><b>20231211-015941</b></td>
-                			<td class="align-middle" rowspan="2">2023-12-13</td>
-                			<td class="align-middle" width="50px" colspan="2">그집곱도리탕</td>
-                			<td style="vertical-align: middle; color: red;" rowspan="2"><b>예약취소</b></td>
-                			<td rowspan="2"></td>
-                		</tr>
-                		<tr>
-                			<td class="align-middle" width="50px" >단체석</td>
-                			<td class="align-middle" width="15px">11인</td>
-                		</tr>
-                	    <tr>
-                	  	  	<td class="align-middle" scope="row" rowspan="2"><b>20231209-002718</b></td>
-                			<td class="align-middle" rowspan="2">2023-12-18</td>
-                			<td class="align-middle" width="50px" colspan="2">칸다소바</td>
-                			<td style="vertical-align: middle; color: orange;" rowspan="2"><b>예약완료</b></td>
-                			<td rowspan="2"></td>
-                		</tr>
-                		<tr>
-                			<td class="align-middle" width="50px" >4인석</td>
-                			<td class="align-middle" width="15px">3인</td>
-                		</tr>
+                	  		<td class="align-middle"colspan="6">
+                	  			존재하는 예약내역이 없습니다.
+                	  		</td>
+                	  	</tr>
+                	  </c:if>
+                	  <c:if test="${!empty reservationInfo}">
+	                	  <c:forEach var="reservationInfo" items="${reservationInfo}">
+	                		<tr>
+	                	  	  	<td class="align-middle" scope="row" rowspan="2" width="30px">
+	                	  	  		<b><a id="resBtn_${reservationInfo.RES_NO}" href="#" style="color: gray;" class="RES_NO">${reservationInfo.RES_NO}</a></b></td>
+	                			<td class="align-middle" rowspan="2" width="20px">${reservationInfo.RES_DATE}</td>
+	                			<td class="align-middle" colspan="2">${reservationInfo.STORE_NAME}</td>
+	                			<c:if test="${reservationInfo.REQ_STATE eq '2'}">
+		                			<td style="vertical-align: middle; color: green;" rowspan="2" width="40px"><b>방문완료</b></td>
+		                			<td class="align-middle" rowspan="2" width="20px">
+		                				<button type="button" class="btn btn-outline-warning">작성하기</button></td>
+	                			</c:if>	
+	                			<c:if test="${reservationInfo.REQ_STATE eq '1'}">
+	                			    <td style="vertical-align: middle; color: red;" rowspan="2" width="40px"><b>예약취소</b></td>
+		                			<td class="align-middle" rowspan="2" width="20px"></td>
+	                			</c:if>	
+	     			            <c:if test="${reservationInfo.REQ_STATE eq '0'}">
+	                				<td style="vertical-align: middle; color: orange;" rowspan="2" width="40px"><b>예약완료</b></td>
+		                			<td class="align-middle" rowspan="2" width="20px"></td>
+	                			</c:if>	
+	                		</tr>
+	                		<tr>
+	                			<td class="align-middle" width="50px" >${reservationInfo.SEAT_NAME}</td>
+	                			<td class="align-middle" width="15px">${reservationInfo.RES_PEOPLE}명</td>
+	                		</tr>
+	                	  </c:forEach>
+                	  </c:if>
                 	</tbody>
                 	</table>
                 </div>
+                </div>
 			</div>
-        </div>
-        
+		
+		
         <!-- 예약내역 모달창 -->
 		<div id="resModal" class="modal">
 		  <div class="modal-content" id="res-modal-content">
@@ -186,95 +196,117 @@
 			     <button type="button" class="res-close" data-dismiss="modal" aria-label="Close">&times;</button>
 		     </div>
 		     <div class="modal-body" id="res-modal-body">
-			     <h5 class="res_num">예약번호: 20231210-001983</h5>
+			     <h5 id="modal_res_no" class="res_num"></h5>
 				 <div class="col-md-12 mt-5">
 		          <div class="tab-content profile-tab" id="myTabContent">
 		             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
 		                <div class="row">
+		                    <div class="col-md-6"><label id="label">예약일</label></div>
+		                    <div class="col-md-6"><p id="modal_res_date"></p></div>
+		                </div>
+		                <div class="row">
+		                    <div class="col-md-6"><label id="label">예약자</label></div>
+		                    <div class="col-md-6"><p id="modal_cus_name"></p></div>
+		                </div>
+		                <div class="row">
+		                    <div class="col-md-6"><label id="label">전화번호</label></div>
+		                    <div class="col-md-6"><p id="modal_cus_tel"></p></div>
+		                </div>
+		                <div class="row">
+		                    <div class="col-md-6"><label id="label">식당명</label></div>
 		                    <div class="col-md-6">
-		                        <label id="label">예약일</label>
-		                    </div>
-		                    <div class="col-md-6">
-		                        <p>2023년 12월 11일 오후 07:00</p>
+		                        <p style="color: gray;">
+		                        <b><a id="modal_store_no" style="color: gray;">
+		                        <label id="modal_store_name" style="text-decoration: underline;"></label></a></b><br>
+		                        (<label id="modal_store_location"></label>)</p>
 		                    </div>
 		                </div>
 		                <div class="row">
-		                    <div class="col-md-6">
-		                        <label id="label">식당명</label>
-		                    </div>
-		                    <div class="col-md-6">
-		                        <p style="color: gray;"><b><a href="#" style="color: gray; ">샤브샤브</a></b><br>
-		                        	  (부산, 부산진구 부전동)</p>
-		                    </div>
+		                    <div class="col-md-6"><label id="label">좌석</label></div>
+		                    <div class="col-md-6"><p id="modal_seat_name"></p></div>
 		                </div>
 		                <div class="row">
-		                    <div class="col-md-6">
-		                        <label id="label">좌석</label>
-		                    </div>
-		                    <div class="col-md-6">
-		                        <p>패밀리 테이블</p>
-		                    </div>
+		                    <div class="col-md-6"><label id="label">인원</label></div>
+		                    <div class="col-md-6"><p id="modal_res_people">명</p></div>
 		                </div>
 		                <div class="row">
-		                    <div class="col-md-6">
-		                        <label id="label">인원</label>
-		                    </div>
-		                    <div class="col-md-6">
-		                        <p>4인</p>
-		                    </div>
+		                    <div class="col-md-6"><label id="label">기타 요청사항</label></div>
+		                    <div class="col-md-6"><p id="modal_res_req"></p></div>
+		                </div>
+
+		                <hr style="color: gray; margin-bottom: 20px;">
+		                <h5 class="res_num">결제정보</h5>
+
+		                <div class="row">
+		                    <div class="col-md-6"><label id="label">결제일</label></div>
+		                    <div class="col-md-6"><p id="modal_res_paytime"></p></div>
+		                </div>
+		                <c:forEach var="menuModal" items="${menuModal}">
+		                <div class="row">
+		                    <div class="col-md-2"><label id="label">메뉴명</label></div>
+		                    <div class="col-md-2"><p id="modal_menu_name"></p></div>
+		                    <div class="col-md-2"><label id="label">메뉴수량</label></div>
+		                    <div class="col-md-2"><p id="modal_menu_count"></p></div>
+		                    <div class="col-md-2"><label id="label">금액</label></div>
+		                    <div class="col-md-2"><p id="modal_paid_price"></p></div>
+		                </div>
+		                </c:forEach>		                
+		                <hr style="border:2px dashed;">
+		                <div class="row">
+		                    <div class="col-md-6"><label id="label">총 결제금액</label></div>
+		                    <div class="col-md-6"><p id="modal_paid_amount"></p></div>
 		                </div>
 		                <div class="row">
-		                    <div class="col-md-6">
-		                        <label id="label">기타 요구사항</label>
-		                    </div>
-		                    <div class="col-md-6">
-		                        <p>유아용 의자 하나 부탁드려요! 땅콩 알레르기 한 분 있어서 땅콩 소스 빼주세요!</p>
-		                    </div>
+		                    <div class="col-md-6"><label id="label">결제자명</label></div>
+		                    <div class="col-md-6"><p id="modal_buyer_name"></p></div>
 		                </div>
-		                
-		                <hr style="color: gray;">
-		                
-		                <div class="row">
-		                    <div class="col-md-6">
-		                        <label id="label">결제일</label>
-		                    </div>
-		                    <div class="col-md-6">
-		                        <p>2023년 12월 10일 오후 09:32</p>
-		                    </div>
+	                	<div class="row">
+		                    <div class="col-md-6"><label id="label">결제카드</label></div>
+		                    <div class="col-md-6"><p id="modal_card_name"></p></div>
+		                </div>
+	                	<div class="row">
+		                    <div class="col-md-6"><label id="label">카드번호</label></div>
+		                    <div class="col-md-6"><p id="modal_card_number"></p></div>
 		                </div>
 		            </div>
 		          </div>
 		       </div>
 		     </div>
 		     <div class="modal-footer" id="res-modal-footer">
-		       <button type="button" class="btn btn-outline-warning">수정</button>
-		       <button type="button" class="btn btn-secondary" data-dismiss="modal" id="resOk">확인</button>     
+		       <div align="left">
+			       <button type="button" class="btn btn-outline-warning" id="resEdit">수정</button>
+			       <button type="button" class="btn btn-outline-danger" id="resDelete">취소</button>
+		       </div> 
+		       <div align="right">
+      		  	 <button type="button" class="btn btn-secondary right" data-dismiss="modal" id="resOk">확인</button>   
+      		   </div> 
 		     </div>
+
 		  </div>
 		</div>
+
         
         
-        
-        <div class="col-md-3 border-right">
+        <div class="col-md-3">
             <div class="d-flex flex-column align-items-center text-center p-3 py-5 mt-5">
             <h4>고객 정보</h4>
            	 <img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
             	<span class="font-weight-bold">${sessionScope.CUS_NICK}</span>
 			<button type="submit" class="btn btn-primary btn-block mt-5" onclick="location.href='cus_edit.cu'"
   		  		    style="color: #111111; background-color: white; border-color: #111111;">고객 정보 수정하기</button>
-			<button type="submit" class="btn btn-primary btn-block" onclick="move()"
+			<button type="submit" class="btn btn-primary btn-block" onclick="#"
   		  		    style="color: #111111; background-color: white; border-color: #111111;">나의 리뷰 보기</button>
-			<button type="submit" class="btn btn-primary btn-block mb-4" onclick="move()"
+			<button type="submit" class="btn btn-primary btn-block mb-4" onclick="location.href='like_list.cu'"
   		  		    style="color: #111111; background-color: white; border-color: #111111;">찜한 식당 보기</button>  	  
           	  
           	  
 			<a id="exBtn" data-mdb-toggle="pill" href="#" role="tab"
 			   aria-controls="register" aria-selected="true" style="color: gray;"> > 계정 삭제</a>
-			
+		
+		
 			<!-- 계정삭제 모달창 -->
 			<div id="exModal" class="modal">
 			  <div class="modal-content" id="quit-modal-content">
-			   <form action="deletePro.cu" method="post" name="deleteCustomer">
 			     <div class="modal-header" id="quit-modal-header">
 				     <h3 class="modal-title" id="quit-modal-title"><b>계정 삭제</b></h3>
 				     <button type="button" class="close" id="close" data-dismiss="modal" aria-label="Close">
@@ -310,68 +342,124 @@
 					 </div>
 			     </div>
 			     <div class="modal-footer" id="quit-modal-footer">
-			       <button type="submit" class="btn btn-outline-danger">계정 삭제</button>
+			       <button type="button" id="deleteBtn" class="btn btn-outline-danger">계정 삭제</button>
 			       <button type="button" id="cancelBtn" class="btn btn-secondary" data-dismiss="modal">취소</button>     
 			     </div>
-			   </form>
 			  </div>
 			</div>
-
-
-
 			</div>
-		</div>
-	</div>	
+		</div>	
+		
+	</div>
 </div>
 </body>
 <%@ include file="/Template/footer.jsp"%> 
 <script>
-// 예약내역 모달
-var resModal = document.getElementById("resModal");
-var resBtn = document.getElementById("resBtn");
-var resSpan = document.getElementsByClassName("res-close")[0];
-var resOk = document.getElementById("resOk");
+$(function(){
+	// 예약내역 모달
+	var resModal = document.getElementById("resModal");
 
-resBtn.onclick = function() {
-	resModal.style.display = "block";
-}
+	$('.RES_NO').on('click', function(){
+	 	$.ajax({
+	 		type: "get",
+	 		url: "resDetail.cu",
+	 		data: { id: this.text}
+	 	})
+	 	.done(function(data){
+	 		debugger;
+	 		$('#modal_res_no').text(data.RES_NO);
+	 		$('#modal_res_date').text(data.RES_DATE);
+	 		$('#modal_cus_name').text(data.CUS_NAME);
+	 		$('#modal_res_people').text(data.RES_PEOPLE); 
+	 		$('#modal_res_req').text(data.RES_REQ);
+	 		$('#modal_res_paytime').text(data.RES_PAYTIME);
+	 		$('#modal_store_name').text(data.STORE_NAME);
+	 		$('#modal_store_location').text(data.STORE_LOCATION);
+	 		$('#modal_seat_name').text(data.SEAT_NAME);
 
-resSpan.onclick = function() {
-	resModal.style.display = "none";
-}
-resOk.onclick = function() {
-	resModal.style.display = "none";
-}
+	 		$('#modal_cus_tel').text(data.CUS_TEL);
+		 	$.ajax({
+		 		type: "get",
+		 		url: "menuDetail.cu",
+		 		data: { id: data.RES_NO}
+		 	})
+		 	.done(function(data){
+	 	 		$('#modal_menu_name').text(data.MENU_NAME);
+	 	 		$('#modal_menu_count').text(data.MENU_COUNT);
+	 	 		$('#modal_paid_price').text(data.PAID_PRICE);	
+		 	})
+	 		$('#modal_paid_amount').text(data.PAID_AMOUNT);
+	 		$('#modal_buyer_name').text(data.BUYER_NAME);
+	 		$('#modal_card_name').text(data.CARD_NAME);
+	 		$('#modal_card_number').text(data.CARD_NUMBER);
+	 		
+	 		resModal.style.display = "block";	
+	 		
+	 		$('#modal_store_no').on('click', function(){
+	 			location.href = "store.ma?STORE_NO="+data.STORE_NO;
+	 		})
+	 	})
+	});
 
-window.onclick = function(event) {
-  if (event.target == resModal) {
-	  resModal.style.display = "none";
-  }
-}
+	$('.res-close').on('click', function(){
+		resModal.style.display = "none";
+	})
+	
+	$('#resEdit').on('click', function(){
+		location.href = "payment_change.pa";
+	})
+	
+	$('#resDelete').on('click', function(){
+		var result = confirm("예약을 취소하시겠습니까?");
+        if(result){
+    	 	$.ajax({
+//             	debugger;
+    	 		type: "get",
+    	 		url: "resDetail.cu",
+    	 		data: { id: this.text}
+    	 	})
+        	alert("예약취소가 되었습니다.");
+    	 	location.reload(true);
+       	} else {
+       		return false;
+       	}
+	})
+	
+	$('#resOk').on('click', function(){
+		resModal.style.display = "none";
+	})
 
-
-// 계정삭제 모달
-var modal = document.getElementById("exModal");
-var btn = document.getElementById("exBtn");
-var span = document.getElementsByClassName("close")[0];
-var cancelBtn = document.getElementById("cancelBtn");
-
-btn.onclick = function() {
-  modal.style.display = "block";
-}
-
-span.onclick = function() {
-  modal.style.display = "none";
-}
-
-window.onclick = function(event) {
-  if (event.target == modal) {
-    modal.style.display = "none";
-  }
-}
-
-cancelBtn.onclick = function() {
-	  modal.style.display = "none";
+	
+	// 계정삭제 모달
+	var modal = document.getElementById("exModal");
+	var btn = document.getElementById("exBtn");
+	var span = document.getElementsByClassName("close")[0];
+	var cancelBtn = document.getElementById("cancelBtn");
+	
+	$('#exBtn').on('click', function(){
+		modal.style.display = "block";	
+	})
+	
+	$('#close').on('click', function(){
+		modal.style.display = "none";
+	})
+	
+	$('#cancelBtn').on('click', function(){
+		modal.style.display = "none";
+	})
+	
+	// 계정삭제 버튼
+	$('#deleteBtn').on('click', function(){
+		alert('정말로 삭제하시겠습니까?');
+		location.href = "deletePro.cu";
+	})
+	
+	
+	window.onclick = function(event) {
+	  if (event.target == modal) {
+	    modal.style.display = "none";
+	  }
 	}
+});
 </script>
 </html>

@@ -67,6 +67,31 @@ public class CustomerDAO {
 		return LikeList;
 	}
 
+	public List<Map<String, String>> getReservation(String CUS_NO) {
+		session = sqlSessionFactory.openSession();
+		List<Map<String, String>> reservationInfo = session.selectList("Customer.getReservation", CUS_NO);
+		session.close();
+		
+		return reservationInfo;
+	}
+	
+	public Map<String, String> reservationModal(String RES_NO) {
+		session = sqlSessionFactory.openSession();
+		Map<String, String> reservationModal = session.selectOne("Customer.reservationModal", RES_NO);
+		System.out.println("reservationModal: " + reservationModal);
+		session.close();
+		
+		return reservationModal;
+	}
+	
+	public List<Map<String, String>> menuModal(String RES_NO) {
+		session = sqlSessionFactory.openSession();
+		List<Map<String, String>> menuModal = session.selectList("Customer.menuModal", RES_NO);
+		session.close();
+		
+		return menuModal;
+	}
+
 	
 	
 

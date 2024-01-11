@@ -1,5 +1,5 @@
 $(()=>{
-	// 테이블 정보 출력
+	// 최초 예약 인원 수 별 가능한 테이블 예약 버튼 보여주기
 	var curPeople = Number($(".people").text());
 	var tables = $(".table_ ul");
 	for(var i = 0; i < tables.length; i++){
@@ -12,7 +12,7 @@ $(()=>{
 				}
 	}
 	
-	// 예약 인원 수 별 가능한 테이블 예약 버튼 보여주기
+	// 헤더 버튼 조작 시 예약 인원 수 별 가능한 테이블 예약 버튼 보여주기
 	$(".people").on(
 		"DOMSubtreeModified",
 		function(){
@@ -114,6 +114,22 @@ $(()=>{
 		}
 	)
 	
+	// 예약 모달 열기
+	$(".modalOpen").on("click",()=>{
+		if(cus_no == ""){
+			alert("로그인 후 예약 가능")
+			location.href = "login.cu";
+			return;
+		}
+		$("#modalContainer").removeClass("hidden")
+	})
+	
+	$("#modalCloseButton").on("click", ()=>{
+		$("#modalContainer").addClass("hidden")
+		$("#date").val(null);
+	})
+	
+	
 	// 예약 버튼 클릭시 모달 창에 정보 넣기
 	$(".reservationModalBtn").on(
 		"click",
@@ -124,18 +140,54 @@ $(()=>{
 			
 			var seat_no = $(this).parents(".table_").attr("id");
 			$("#seat_no").val(seat_no);
+
+			const regex = /[^0-9]/g;
+			var people= $("#peopleOption").val().replace(regex, "");
+			$("#res_people_input").val(people);
+			$("#res_people").text(people);
+
+			$("#res_date_input").val($("#dateOption").val());
+			$("#res_date").text($("#dateOption").val());
+			
 			
 			$.ajax({
 				type: "get",
-				url: "getSession.ma",
+				url: "getResModal.ma",
+				data: {
+					STORE_NO: $(".store_profile").attr("id"),
+					SEAT_NO: seat_no
+				},
 				dataType:"json"
 			})
 			.done(
 				function(data){
-					$("#res_date_input").val(data.date);
-					$("#res_date").text(data.date);
-					$("#res_people_input").val(data.people);
-					$("#res_people").text(data.people);
+					for(soldOut of data){
+						$(".selectTime").val(function(i, val){
+							if(soldOut.RES_TIME == val){
+								$(".time").eq(i).removeClass("able");
+								$(".time").eq(i).addClass("disable");
+							}
+							return val;
+						})
+					}
+					$(".able").on("click", function(){
+						$(this).children(".selectTime").prop("checked", true);
+						
+						$(".able").css({
+							"background": "white",
+							"color": "black"
+						});
+						$(this).css({
+							"background": "#9ced92",
+							"color": "white",
+						});
+						
+						$(".timeFont").css("font-weight", "300");
+						$(this).children(".timeFont").css({
+							"font-weight": "400"
+						})
+						
+					})
 					
 				}
 			)

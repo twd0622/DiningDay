@@ -14,6 +14,17 @@ public class AdminDAO {
 	private SqlSessionFactory sqlSessionFactory = SqlMapClient.getSqlSessionFactory();
 	SqlSession session;
 	
+	public Map<String, String> admin() {
+		session = sqlSessionFactory.openSession();
+		
+		Map<String, String> admin = session.selectOne("Admin.admin"); // namespace.id
+		
+		
+		session.close();
+		
+		return admin;
+	}
+	
 	public boolean insertBoard(Map<String, String> adminDTO) {
 		session = sqlSessionFactory.openSession();
 		int insertBoard = session.insert("Admin.noticeInsert", adminDTO); // namespace.id
@@ -27,7 +38,7 @@ public class AdminDAO {
 	public boolean noticeUpdate(Map<String, String> adminDTO) {
 		session = sqlSessionFactory.openSession();
 		
-		int updateNotice = session.update("Admin.noticeUpdate"); // namespace.id
+		int updateNotice = session.update("Admin.noticeUpdate", adminDTO); // namespace.id
 		
 		session.commit();
 		session.close();

@@ -1,9 +1,9 @@
 $(()=>{
 
-	$(".store_result_btn").on(
+	$(".portfolio-item").on(
 		"click",
 		function(){
-			var STORE_NO = $(this).attr('name');
+			var STORE_NO = $(this).parent().attr("name");
 			location.href = 'store.ma?STORE_NO='+STORE_NO;
 		}
 	)
