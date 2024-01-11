@@ -121,18 +121,18 @@
 		       CONCAT('예약번호 : ', R.RES_NO) "RES_NO"
 		     , CONCAT(DATE_FORMAT(CAST(R.RES_DATE AS date), '%Y년 %m월 %d일 '), DATE_FORMAT(CAST(R.RES_TIME AS time), '%H:%i')) "RES_DATE"
 			 , R.CUS_NAME
-			 , R.CUS_TEL
+			 , CONCAT(LEFT(R.CUS_TEL, 3),'-',SUBSTR(R.CUS_TEL,4,4),'-',RIGHT(R.CUS_TEL, 4)) "CUS_TEL"
 			 , R.RES_REQ
 			 , DATE_FORMAT(CAST(R.RES_PAYTIME AS time), '%Y년 %m월 %d일 %H:%i:%s') "RES_PAYTIME"
 			 , R.STORE_NO
-			 , CONCAT(R.RES_PEOPLE, "명") "RES_PEOPLE"
+			 , CONCAT(R.RES_PEOPLE, '명') "RES_PEOPLE"
 			 , ST.STORE_NAME
 		     , ST.STORE_LOCATION
 			 , SE.SEAT_NAME
-			 , RM.MENU_NAME
-			 , RM.MENU_COUNT
-			 , RM.PAID_PRICE
-			 , P.PAID_AMOUNT
+		--	 , RM.MENU_NAME
+		--	 , RM.MENU_COUNT
+		--	 , RM.PAID_PRICE
+			 , CONCAT(format(P.PAID_AMOUNT, 0), '원') "PAID_AMOUNT"
 			 , P.BUYER_NAME
 			 , P.CARD_NAME
 			 , P.CARD_NUMBER
@@ -140,12 +140,21 @@
 			 ON R.STORE_NO = ST.STORE_NO
 		 	 JOIN SEAT SE
 			 ON (R.SEAT_NO, R.STORE_NO) = (SE.SEAT_NO, SE.STORE_NO)
-			 JOIN RESERVATION_MENU RM
-			 ON R.RES_NO = RM.RES_NO
+		--	 JOIN RESERVATION_MENU RM
+		--	 ON R.RES_NO = RM.RES_NO
 			 JOIN PAYMENT P
 			 ON R.RES_NO = P.RES_NO
 		WHERE R.RES_NO = #{RES_NO};
-		
 	</select>
 	
+	
+	<select id="menuModal" parameterType="String" resultType="map">	
+		SELECT 
+			   RM.MENU_NAME
+			  , RM.MENU_COUNT
+			  , RM.PAID_PRICE
+		FROM  RESERVATION R JOIN RESERVATION_MENU RM
+		ON    R.RES_NO = RM.RES_NO
+		WHERE R.RES_NO = #{RES_NO};
+	</select>
 </mapper>

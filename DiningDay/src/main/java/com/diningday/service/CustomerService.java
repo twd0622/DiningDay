@@ -57,7 +57,6 @@ public class CustomerService {
 	}
 
 
-
 	public List<Map<String, String>> getReservation(String CUS_NO) {
 		return customerDAO.getReservation(CUS_NO);
 	}
@@ -68,6 +67,10 @@ public class CustomerService {
 		return customerDAO.reservationModal(RES_NO);
 	}
 
+	
+	public List<Map<String, String>> menuModal(String RES_NO) {
+		return customerDAO.menuModal(RES_NO);
+	}
 
 
 

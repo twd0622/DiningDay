@@ -83,6 +83,14 @@ public class CustomerDAO {
 		
 		return reservationModal;
 	}
+	
+	public List<Map<String, String>> menuModal(String RES_NO) {
+		session = sqlSessionFactory.openSession();
+		List<Map<String, String>> menuModal = session.selectList("Customer.menuModal", RES_NO);
+		session.close();
+		
+		return menuModal;
+	}
 
 	
 	

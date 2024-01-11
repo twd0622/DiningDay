@@ -18,6 +18,7 @@ import javax.servlet.http.HttpSession;
 
 import com.diningday.service.CustomerService;
 import com.diningday.util.TeamUtil;
+import com.google.gson.JsonArray;
 
 public class CustomerController extends HttpServlet {
 	RequestDispatcher dispatcher = null;
@@ -89,6 +90,14 @@ public class CustomerController extends HttpServlet {
 			String RES_NO = req.getParameter("id");
 			res.setContentType("application/x-json; charset=utf-8");
 			res.getWriter().print(TeamUtil.mapToJSON(customerService.reservationModal(RES_NO)));
+//			res.getWriter().print(TeamUtil.mapListToJSONList(customerService.menuModal(RES_NO)));
+		}
+		
+		if(sPath.equals("/menuDetail.cu")) {
+			String RES_NO = req.getParameter("id");
+			res.setContentType("application/x-json; charset=utf-8");
+//			res.getWriter().print(TeamUtil.mapToJSON(customerService.reservationModal(RES_NO)));
+			res.getWriter().print(TeamUtil.mapListToJSONList(customerService.menuModal(RES_NO)));
 		}
 		
 		

@@ -123,12 +123,14 @@
 </head>
 <c:set var="reservationInfo" value="${requestScope.reservationInfo}"/>
 <c:set var="reservationModal" value="${requestScope.reservationModal}"/>
+<c:set var="menuModal" value="${requestScope.menuModal}"/>
 <body id="body">
 <div class="container rounded bg-white mt-5 mb-5">
     <div class="row">
+    
         <div class="col-md-9 border-right">
             <div class="p-3 py-5">
-          	  <div class="d-flex justify-content-between align-items-center mb-3">
+          	  	<div class="d-flex justify-content-between align-items-center mb-3">
           	      <h2><b>고객 마이페이지</b></h2>
                 </div>
                 <div class="row mt-3">
@@ -143,7 +145,8 @@
                 			<th scope="col" >리뷰</th>
                 		</tr>
                 	</thead>
-                	<tbody>
+                	<tbody>		
+		
                 	  <c:if test="${empty reservationInfo}">
                 	    <tr>
                 	  		<td class="align-middle"colspan="6">
@@ -183,7 +186,8 @@
                 </div>
                 </div>
 			</div>
-        
+		
+		
         <!-- 예약내역 모달창 -->
 		<div id="resModal" class="modal">
 		  <div class="modal-content" id="res-modal-content">
@@ -197,133 +201,72 @@
 		          <div class="tab-content profile-tab" id="myTabContent">
 		             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
 		                <div class="row">
-		                    <div class="col-md-6">
-		                        <label id="label">예약일</label>
-		                    </div>
-		                    <div class="col-md-6">
-		                        <p id="modal_res_date"></p>
-		                    </div>
+		                    <div class="col-md-6"><label id="label">예약일</label></div>
+		                    <div class="col-md-6"><p id="modal_res_date"></p></div>
 		                </div>
 		                <div class="row">
-		                    <div class="col-md-6">
-		                        <label id="label">예약자</label>
-		                    </div>
-		                    <div class="col-md-6">
-		                        <p id="modal_cus_name"></p>
-		                    </div>
+		                    <div class="col-md-6"><label id="label">예약자</label></div>
+		                    <div class="col-md-6"><p id="modal_cus_name"></p></div>
 		                </div>
 		                <div class="row">
-		                    <div class="col-md-6">
-		                        <label id="label">전화번호</label>
-		                    </div>
-		                    <div class="col-md-6">
-		                        <p id="modal_cus_tel"></p>
-		                    </div>
+		                    <div class="col-md-6"><label id="label">전화번호</label></div>
+		                    <div class="col-md-6"><p id="modal_cus_tel"></p></div>
 		                </div>
 		                <div class="row">
-		                    <div class="col-md-6">
-		                        <label id="label">식당명</label>
-		                    </div>
+		                    <div class="col-md-6"><label id="label">식당명</label></div>
 		                    <div class="col-md-6">
 		                        <p style="color: gray;">
-		                        	<b><a id="modal_store_no" style="color: gray;">
-		                        	   <label id="modal_store_name" style="text-decoration: underline;"></label></a></b><br>
-		                            (<label id="modal_store_location"></label>)</p>
+		                        <b><a id="modal_store_no" style="color: gray;">
+		                        <label id="modal_store_name" style="text-decoration: underline;"></label></a></b><br>
+		                        (<label id="modal_store_location"></label>)</p>
 		                    </div>
 		                </div>
 		                <div class="row">
-		                    <div class="col-md-6">
-		                        <label id="label">좌석</label>
-		                    </div>
-		                    <div class="col-md-6">
-		                        <p id="modal_seat_name"></p>
-		                    </div>
+		                    <div class="col-md-6"><label id="label">좌석</label></div>
+		                    <div class="col-md-6"><p id="modal_seat_name"></p></div>
 		                </div>
 		                <div class="row">
-		                    <div class="col-md-6">
-		                        <label id="label">인원</label>
-		                    </div>
-		                    <div class="col-md-6">
-		                        <p id="modal_res_people">명</p>
-		                    </div>
+		                    <div class="col-md-6"><label id="label">인원</label></div>
+		                    <div class="col-md-6"><p id="modal_res_people">명</p></div>
 		                </div>
 		                <div class="row">
-		                    <div class="col-md-6">
-		                        <label id="label">기타 요청사항</label>
-		                    </div>
-		                    <div class="col-md-6">
-		                        <p id="modal_res_req"></p>
-		                    </div>
+		                    <div class="col-md-6"><label id="label">기타 요청사항</label></div>
+		                    <div class="col-md-6"><p id="modal_res_req"></p></div>
 		                </div>
-		                
-		                <hr style="color: gray;">
+
+		                <hr style="color: gray; margin-bottom: 20px;">
 		                <h5 class="res_num">결제정보</h5>
-		                <div class="col-md-12 mt-5">
-			                <div class="row">
-			                    <div class="col-md-6">
-			                        <label id="label">결제일</label>
-			                    </div>
-			                    <div class="col-md-6">
-			                        <p id="modal_res_paytime"></p>
-			                    </div>
-			                </div>
-			                <div class="row">
-			                    <div class="col-md-2">
-			                        <label id="label">메뉴명</label>
-			                    </div>
-			                    <div class="col-md-2">
-			                        <p id="modal_menu_name"></p>
-			                    </div>
-<!-- 			                </div> -->
-<!-- 			                <div class="row"> -->
-			                    <div class="col-md-2">
-			                        <label id="label">메뉴수량</label>
-			                    </div>
-			                    <div class="col-md-2">
-			                        <p id="modal_menu_count"></p>
-			                    </div>
-<!-- 			                </div> -->
-<!-- 			                <div class="row"> -->
-			                    <div class="col-md-2">
-			                        <label id="label">금액</label>
-			                    </div>
-			                    <div class="col-md-2">
-			                        <p id="modal_paid_price"></p>
-			                    </div>
-			                </div>
-			                <hr style="border:2px dashed;">
-			                <div class="row">
-			                    <div class="col-md-6">
-			                        <label id="label">총 결제금액</label>
-			                    </div>
-			                    <div class="col-md-6">
-			                        <p id="modal_paid_amount"></p>
-			                    </div>
-			                </div>
-			                <div class="row">
-			                    <div class="col-md-6">
-			                        <label id="label">결제자명</label>
-			                    </div>
-			                    <div class="col-md-6">
-			                        <p id="modal_buyer_name"></p>
-			                    </div>
-			                </div>
-		                	<div class="row">
-			                    <div class="col-md-6">
-			                        <label id="label">결제카드</label>
-			                    </div>
-			                    <div class="col-md-6">
-			                        <p id="modal_card_name"></p>
-			                    </div>
-		                	<div class="row">
-			                    <div class="col-md-6">
-			                        <label id="label">카드번호</label>
-			                    </div>
-			                    <div class="col-md-6">
-			                        <p id="modal_card_number"></p>
-			                    </div>
-			                </div>
-			                
+
+		                <div class="row">
+		                    <div class="col-md-6"><label id="label">결제일</label></div>
+		                    <div class="col-md-6"><p id="modal_res_paytime"></p></div>
+		                </div>
+		                <c:forEach var="menuModal" items="${menuModal}">
+		                <div class="row">
+		                    <div class="col-md-2"><label id="label">메뉴명</label></div>
+		                    <div class="col-md-2"><p id="modal_menu_name"></p></div>
+		                    <div class="col-md-2"><label id="label">메뉴수량</label></div>
+		                    <div class="col-md-2"><p id="modal_menu_count"></p></div>
+		                    <div class="col-md-2"><label id="label">금액</label></div>
+		                    <div class="col-md-2"><p id="modal_paid_price"></p></div>
+		                </div>
+		                </c:forEach>		                
+		                <hr style="border:2px dashed;">
+		                <div class="row">
+		                    <div class="col-md-6"><label id="label">총 결제금액</label></div>
+		                    <div class="col-md-6"><p id="modal_paid_amount"></p></div>
+		                </div>
+		                <div class="row">
+		                    <div class="col-md-6"><label id="label">결제자명</label></div>
+		                    <div class="col-md-6"><p id="modal_buyer_name"></p></div>
+		                </div>
+	                	<div class="row">
+		                    <div class="col-md-6"><label id="label">결제카드</label></div>
+		                    <div class="col-md-6"><p id="modal_card_name"></p></div>
+		                </div>
+	                	<div class="row">
+		                    <div class="col-md-6"><label id="label">카드번호</label></div>
+		                    <div class="col-md-6"><p id="modal_card_number"></p></div>
 		                </div>
 		            </div>
 		          </div>
@@ -331,17 +274,17 @@
 		     </div>
 		     <div class="modal-footer" id="res-modal-footer">
 		       <div align="left">
-		       <button type="button" class="btn btn-outline-warning" id="resEdit">수정</button>
-		       <button type="button" class="btn btn-outline-danger" id="resDelete">취소</button>
+			       <button type="button" class="btn btn-outline-warning" id="resEdit">수정</button>
+			       <button type="button" class="btn btn-outline-danger" id="resDelete">취소</button>
 		       </div> 
 		       <div align="right">
-      		   <button type="button" class="btn btn-secondary right" data-dismiss="modal" id="resOk">확인</button>   
+      		  	 <button type="button" class="btn btn-secondary right" data-dismiss="modal" id="resOk">확인</button>   
       		   </div> 
 		     </div>
-		     
+
 		  </div>
 		</div>
-        
+
         
         
         <div class="col-md-3">
@@ -359,11 +302,11 @@
           	  
 			<a id="exBtn" data-mdb-toggle="pill" href="#" role="tab"
 			   aria-controls="register" aria-selected="true" style="color: gray;"> > 계정 삭제</a>
-			
+		
+		
 			<!-- 계정삭제 모달창 -->
 			<div id="exModal" class="modal">
 			  <div class="modal-content" id="quit-modal-content">
-<!-- 			   <form action="deletePro.cu" method="post" name="deleteCustomer"> -->
 			     <div class="modal-header" id="quit-modal-header">
 				     <h3 class="modal-title" id="quit-modal-title"><b>계정 삭제</b></h3>
 				     <button type="button" class="close" id="close" data-dismiss="modal" aria-label="Close">
@@ -402,15 +345,13 @@
 			       <button type="button" id="deleteBtn" class="btn btn-outline-danger">계정 삭제</button>
 			       <button type="button" id="cancelBtn" class="btn btn-secondary" data-dismiss="modal">취소</button>     
 			     </div>
-<!-- 			   </form> -->
 			  </div>
 			</div>
-
 			</div>
 		</div>	
+		
 	</div>
 </div>
-
 </body>
 <%@ include file="/Template/footer.jsp"%> 
 <script>
@@ -425,6 +366,7 @@ $(function(){
 	 		data: { id: this.text}
 	 	})
 	 	.done(function(data){
+	 		debugger;
 	 		$('#modal_res_no').text(data.RES_NO);
 	 		$('#modal_res_date').text(data.RES_DATE);
 	 		$('#modal_cus_name').text(data.CUS_NAME);
@@ -434,6 +376,23 @@ $(function(){
 	 		$('#modal_store_name').text(data.STORE_NAME);
 	 		$('#modal_store_location').text(data.STORE_LOCATION);
 	 		$('#modal_seat_name').text(data.SEAT_NAME);
+
+	 		$('#modal_cus_tel').text(data.CUS_TEL);
+		 	$.ajax({
+		 		type: "get",
+		 		url: "menuDetail.cu",
+		 		data: { id: data.RES_NO}
+		 	})
+		 	.done(function(data){
+	 	 		$('#modal_menu_name').text(data.MENU_NAME);
+	 	 		$('#modal_menu_count').text(data.MENU_COUNT);
+	 	 		$('#modal_paid_price').text(data.PAID_PRICE);	
+		 	})
+	 		$('#modal_paid_amount').text(data.PAID_AMOUNT);
+	 		$('#modal_buyer_name').text(data.BUYER_NAME);
+	 		$('#modal_card_name').text(data.CARD_NAME);
+	 		$('#modal_card_number').text(data.CARD_NUMBER);
+	 		
 	 		resModal.style.display = "block";	
 	 		
 	 		$('#modal_store_no').on('click', function(){
@@ -454,7 +413,7 @@ $(function(){
 		var result = confirm("예약을 취소하시겠습니까?");
         if(result){
     	 	$.ajax({
-//             	debbuger;
+//             	debugger;
     	 		type: "get",
     	 		url: "resDetail.cu",
     	 		data: { id: this.text}

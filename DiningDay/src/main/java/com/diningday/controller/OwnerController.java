@@ -208,9 +208,9 @@ public class OwnerController extends HttpServlet {
 			if(ownerCheck != null) {
 				System.out.println("로그인 성공");
 				session.setAttribute("STORE_NO", ownerCheck.get("STORE_NO"));
-				session.setAttribute("id", ownerCheck.get("OWN_ID"));
+				session.setAttribute("OWN_NO", ownerCheck.get("OWN_NO"));
 
-				String adminId = (String)session.getAttribute("id");
+				String adminId = (String)session.getAttribute("OWN_NO");
 				
 				// 관리자로 로그인할 경우 관리자페이지로 이동
 				if(adminId.equals("admin")) {
