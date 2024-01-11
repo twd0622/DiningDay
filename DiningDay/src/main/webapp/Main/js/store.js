@@ -1,11 +1,12 @@
 $(()=>{
+	// -------------- 예약 버튼 ------------------------
 	// 최초 예약 인원 수 별 가능한 테이블 예약 버튼 보여주기
 	var curPeople = Number($(".people").text());
 	var tables = $(".table_ ul");
 	for(var i = 0; i < tables.length; i++){
 				var min = Number(tables.eq(i).find("li[name=minPeople]").attr("class"));
 				var max = Number(tables.eq(i).find("li[name=maxPeople]").attr("class"));
-				if(curPeople < min || curPeople > max){
+				if((curPeople < min || curPeople > max)){
 					var btn = tables.eq(i).parent("div").next("div").find(".reservationModalBtn")
 					btn.attr('disabled', true)
 					btn.text('예약 불가')
@@ -38,7 +39,7 @@ $(()=>{
 		}	
 	)
 	
-	// 찜 버튼
+	// -------------- 찜 버튼 ------------------------
 	$.ajax({
 		type: "get",
 		url:"getLike.ma",
@@ -113,6 +114,48 @@ $(()=>{
 		}
 	)
 	
+	// -------------- 모달 ------------------------
+	// 예약 날짜가 오늘인 경우 현재 시간 기준 2시간 뒤 예약 가능
+	var dateObj = new Date();
+	var today = dateObj.getFullYear() + "-" + ('0' + (dateObj.getMonth() + 1)).slice(-2) + "-" + ('0' + dateObj.getDate()).slice(-2);
+	var curTime = ('0' + (dateObj.getHours())).slice(-2) + dateObj.getMinutes();
+	var resAbleTime = 0;
+	
+	var curTimeCheck = function(){
+		if($("#dateOption").val() == today){
+			resAbleTime = Number(curTime) + 200;
+			
+			var allSelectTime = $(".selectTime");
+			for(var i = 0; i < allSelectTime.length; i++){
+				var selectTimeTag = allSelectTime.eq(i)
+				if(selectTimeTag.val() < resAbleTime){
+					selectTimeTag.parent(".able").addClass("disable");
+					selectTimeTag.parent(".able").removeClass("able");
+				}
+			}
+		}
+	}
+	
+	// 브레이크 타임 고려하기
+	var breakTime = $("#BT").attr("class").split("~");
+	var breakStart = breakTime[0].replace(":","");
+	var breakEnd = breakTime[1].replace(":","");
+	
+	var breakTimeCheck = function(){
+		var allAbleTime = $(".able");
+		for(var i = 0; i < allAbleTime.length; i++){
+			var ableTime = allAbleTime.eq(i).children(".selectTime")
+			console.log(breakStart);
+			console.log(ableTime.val());
+			console.log(breakEnd);
+			console.log(breakStart < ableTime.val() && ableTime.val() < breakEnd)
+			if(breakStart < ableTime.val() && ableTime.val() < breakEnd){
+				ableTime.parent(".time").addClass("disable");
+				ableTime.parent(".time").removeClass("able");
+			}
+		}
+	}
+	
 	// 예약 모달 열기
 	$(".modalOpen").on("click",()=>{
 		if(cus_no == ""){
@@ -123,23 +166,22 @@ $(()=>{
 		$("#modalContainer").removeClass("hidden")
 	})
 	
+	// 모달 닫기 버튼
 	$("#modalCloseButton").on("click", ()=>{
 		$("#modalContainer").addClass("hidden")
 		$("#date").val(null);
 		
-		var timeBtn = $(".time").hasClass("disable");
-		for(var i = 0; i < timeBtn.length; i++){
-			timeBtn.eq(i).addClass("able");
-			timeBtn.eq(i).removeClass("disable");
+		for(var i = 0; i < $(".time").length; i++){
+			var timeBtn = $(".time").eq(i);
+			if(timeBtn.hasClass("disable")){
+				timeBtn.addClass("able");
+				timeBtn.removeClass("disable");
+			}
 		}
+		$(".selected").removeClass("selected");
 		$(".selectTime").prop("checked", false);
-		$(".able").css({
-			"background": "white",
-			"color": "black"
-		});
 		$(".timeFont").css("font-weight", "300");
 	})
-	
 	
 	// 예약 버튼 클릭시 모달 창에 정보 넣기
 	$(".reservationModalBtn").on(
@@ -181,17 +223,18 @@ $(()=>{
 							return val;
 						})
 					}
+					curTimeCheck();
+					breakTimeCheck();
+					
 					$(".able").on("click", function(){
-						$(this).children(".selectTime").prop("checked", true);
+						if($(this).hasClass("disable")) return;
 						
-						$(".able").css({
-							"background": "white",
-							"color": "black"
-						});
-						$(this).css({
-							"background": "#9ced92",
-							"color": "white",
-						});
+						$(this).children(".selectTime").prop("checked", true);
+						if($(".able").hasClass("selected")){
+							$(".able").removeClass("selected");
+						}
+						
+						$(this).addClass("selected")
 						
 						$(".timeFont").css("font-weight", "300");
 						$(this).children(".timeFont").css({
@@ -205,12 +248,12 @@ $(()=>{
 		}
 	)
 	
+	// -------------- 모달 예약 버튼 클릭 ------------------------
 	$(".reservation").submit(function(){
 		var times = $(".selectTime");
 		var isChecked = false;
 		for(var i = 0 ; i < times.length ; i++){
 			var result = times.eq(i).prop("checked");
-			console.log(result);
 			if(result){
 				isChecked = result;
 			}

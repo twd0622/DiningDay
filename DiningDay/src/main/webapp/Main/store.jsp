@@ -107,25 +107,27 @@
 					<p class="tit">영업시간</p>
 					<ul class="list">
 						<li>
-							<p class="l-txt"><strong>화 ~ 일</strong></p>
+							<p class="l-txt"> </p>
 							<p class="r-txt">영업시간: ${storeInfo.STORE_ST} ~ ${storeInfo.STORE_ET}</p>
 						</li>
+						<c:if test="${storeInfo.STORE_BTS != '0'}">
 						<li>
 						  <p class="l-txt"> </p>
-						  <p class="r-txt">브레이크타임: ${storeInfo.STORE_BT}</p>
+						  <p class="r-txt">브레이크타임: ${storeInfo.STORE_BTS} ~ ${storeInfo.STORE_BTE}</p>
+						  <div id="BT" class="${storeInfo.STORE_BTS}~${storeInfo.STORE_BTE}" style="display:none;"></div>
 						</li>
+						</c:if>
               			<li>
   							<p class="l-txt"> </p>
   							<p class="r-txt">라스트오더: ${storeInfo.STORE_LO}</p>
 						</li>
-					</ul>
-					<hr class="hr">
-					<ul class="list">
 						<li>
-							<p class="l-txt"><strong>월</strong></p>
-							<p class="r-txt">정기 휴무</p>
+							<c:if test="${storeInfo.STORE_CLOSE != '0'}" >
+							<p class="l-txt"> </p>
+							<p class="r-txt"><strong>정기 휴무:</strong> ${storeInfo.STORE_CLOSE}</p>
+							</c:if>
 						</li>
-					</ul>					
+					</ul>
 				</div>
 				<!-- 메뉴 -->
 				<div class="menuBox">
@@ -208,7 +210,7 @@ ${storeInfo.STORE_INFO}
 		     	<hr>
 				<h5>시간</h5>
 				<div style="display: flex; flex-direction: row; flex-wrap: wrap; justify-content: flex-start;">
-					<c:forEach var="i" begin="0"  end="${storeInfo.TIEMDIFF}" step="200">
+					<c:forEach var="i" begin="0"  end="${storeInfo.TIEMDIFF}" step="${storeInfo.STORE_RT}">
 						<div class="time able" style="width: 115px; height: 44px; text-align: center; margin-right: 20px; margin-top: 5px;">
 							<input type="radio" class="selectTime" name="time" value="${storeInfo.STORE_RST + i}" style="display: none;">
 							<span class="timeFont">${fn:substring(storeInfo.STORE_RST + i, 0, 2)}:${fn:substring(storeInfo.STORE_RST + i, 2, 4)}</span>						
