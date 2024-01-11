@@ -125,6 +125,7 @@
 							<c:if test="${storeInfo.STORE_CLOSE != '0'}" >
 							<p class="l-txt"> </p>
 							<p class="r-txt"><strong>정기 휴무:</strong> ${storeInfo.STORE_CLOSE}</p>
+							<div id="close" class="${storeInfo.STORE_CLOSE}" style="display:none;"></div>
 							</c:if>
 						</li>
 					</ul>

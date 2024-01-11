@@ -1,43 +1,76 @@
+//======================= 함수 =====================================
+var checkWeekday = function(day){
+	var result = "";
+	switch(day){
+		case 0: result="일"; break;
+		case 1: result="월"; break;
+		case 2: result="화"; break;
+		case 3: result="수"; break;
+		case 4: result="목"; break;
+		case 5: result="금"; break;
+		case 6: result="토"; break;
+	}
+	return result;
+}
+
+//================================================================
+
 $(()=>{
 	// -------------- 예약 버튼 ------------------------
-	// 최초 예약 인원 수 별 가능한 테이블 예약 버튼 보여주기
-	var curPeople = Number($(".people").text());
-	var tables = $(".table_ ul");
-	for(var i = 0; i < tables.length; i++){
-				var min = Number(tables.eq(i).find("li[name=minPeople]").attr("class"));
-				var max = Number(tables.eq(i).find("li[name=maxPeople]").attr("class"));
-				if((curPeople < min || curPeople > max)){
-					var btn = tables.eq(i).parent("div").next("div").find(".reservationModalBtn")
-					btn.attr('disabled', true)
-					btn.text('예약 불가')
+	// 최초 페이지 접속 시 날짜, 인원 옵션으로 예약버튼 판단하기
+	var disableReservationBtn = function(){
+		// 휴무날로 판단하기
+		var weekday = new Date($("#dateOption").val()).getDay();
+		var weekend = $("#close").attr("class").split(",");
+		var resModalBtn = $(".reservationModalBtn");
+		for(holiday of weekend){
+			var result = checkWeekday(weekday)
+			if(holiday == result){
+				for(var i = 0 ; i < resModalBtn.length; i++){
+					var modalbtn = resModalBtn.eq(i);
+					if(!modalbtn.prop("disabled")){
+						modalbtn.attr('disabled', true);
+						modalbtn.text('예약 불가');
+					}
 				}
-	}
-	
-	// 헤더 버튼 조작 시 예약 인원 수 별 가능한 테이블 예약 버튼 보여주기
-	$(".people").on(
-		"DOMSubtreeModified",
-		function(){
-			curPeople = Number($(".people").text());
-			if(curPeople == ""){
 				return;
 			}
-						
-			
-			for(var i = 0; i < tables.length; i++){
-				var min = Number(tables.eq(i).find("li[name=minPeople]").attr("class"));
-				var max = Number(tables.eq(i).find("li[name=maxPeople]").attr("class"));
-				var btn = tables.eq(i).parent("div").next("div").find(".reservationModalBtn");
-				if(curPeople < min || curPeople > max){
-					btn.attr('disabled', true);
-					btn.text('예약 불가');
-				} else {
-					btn.attr('disabled', false);
-					btn.text('예약하기');
-				}
+		}
+		
+		// 좌석별 최소, 최대 인원으로 판단하기
+		var tables = $(".table_ ul");
+		var curPeople = Number($(".people").text());
+		if(curPeople == ""){
+			return;
+		}
+		
+		
+		for(var i = 0; i < tables.length; i++){
+			var min = Number(tables.eq(i).find("li[name=minPeople]").attr("class"));
+			var max = Number(tables.eq(i).find("li[name=maxPeople]").attr("class"));
+			var btn = tables.eq(i).parent("div").next("div").find(".reservationModalBtn");
+			if(curPeople < min || curPeople > max){
+				btn.attr('disabled', true);
+				btn.text('예약 불가');
+			} else {
+				btn.attr('disabled', false);
+				btn.text('예약하기');
 			}
-			
-		}	
-	)
+		}
+	}
+	
+	disableReservationBtn();
+	
+	
+	// 헤더 버튼 조작 시 예약 인원 수 별 가능한 테이블 예약 버튼 보여주기
+	$(".people").on("DOMSubtreeModified",function(){
+		disableReservationBtn();
+	})
+	
+	$("#dateOption").on("input", function(){
+		disableReservationBtn();
+	})
+	
 	
 	// -------------- 찜 버튼 ------------------------
 	$.ajax({
@@ -145,10 +178,6 @@ $(()=>{
 		var allAbleTime = $(".able");
 		for(var i = 0; i < allAbleTime.length; i++){
 			var ableTime = allAbleTime.eq(i).children(".selectTime")
-			console.log(breakStart);
-			console.log(ableTime.val());
-			console.log(breakEnd);
-			console.log(breakStart < ableTime.val() && ableTime.val() < breakEnd)
 			if(breakStart < ableTime.val() && ableTime.val() < breakEnd){
 				ableTime.parent(".time").addClass("disable");
 				ableTime.parent(".time").removeClass("able");
