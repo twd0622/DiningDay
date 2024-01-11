@@ -214,6 +214,14 @@
 		                </div>
 		                <div class="row">
 		                    <div class="col-md-6">
+		                        <label id="label">전화번호</label>
+		                    </div>
+		                    <div class="col-md-6">
+		                        <p id="modal_cus_tel"></p>
+		                    </div>
+		                </div>
+		                <div class="row">
+		                    <div class="col-md-6">
 		                        <label id="label">식당명</label>
 		                    </div>
 		                    <div class="col-md-6">
@@ -250,21 +258,79 @@
 		                
 		                <hr style="color: gray;">
 		                <h5 class="res_num">결제정보</h5>
-		                
-		                <div class="row">
-		                    <div class="col-md-6">
-		                        <label id="label">결제일</label>
-		                    </div>
-		                    <div class="col-md-6">
-		                        <p id="modal_res_paytime"></p>
-		                    </div>
+		                <div class="col-md-12 mt-5">
+			                <div class="row">
+			                    <div class="col-md-6">
+			                        <label id="label">결제일</label>
+			                    </div>
+			                    <div class="col-md-6">
+			                        <p id="modal_res_paytime"></p>
+			                    </div>
+			                </div>
+			                <div class="row">
+			                    <div class="col-md-2">
+			                        <label id="label">메뉴명</label>
+			                    </div>
+			                    <div class="col-md-2">
+			                        <p id="modal_menu_name"></p>
+			                    </div>
+<!-- 			                </div> -->
+<!-- 			                <div class="row"> -->
+			                    <div class="col-md-2">
+			                        <label id="label">메뉴수량</label>
+			                    </div>
+			                    <div class="col-md-2">
+			                        <p id="modal_menu_count"></p>
+			                    </div>
+<!-- 			                </div> -->
+<!-- 			                <div class="row"> -->
+			                    <div class="col-md-2">
+			                        <label id="label">금액</label>
+			                    </div>
+			                    <div class="col-md-2">
+			                        <p id="modal_paid_price"></p>
+			                    </div>
+			                </div>
+			                <hr style="border:2px dashed;">
+			                <div class="row">
+			                    <div class="col-md-6">
+			                        <label id="label">총 결제금액</label>
+			                    </div>
+			                    <div class="col-md-6">
+			                        <p id="modal_paid_amount"></p>
+			                    </div>
+			                </div>
+			                <div class="row">
+			                    <div class="col-md-6">
+			                        <label id="label">결제자명</label>
+			                    </div>
+			                    <div class="col-md-6">
+			                        <p id="modal_buyer_name"></p>
+			                    </div>
+			                </div>
+		                	<div class="row">
+			                    <div class="col-md-6">
+			                        <label id="label">결제카드</label>
+			                    </div>
+			                    <div class="col-md-6">
+			                        <p id="modal_card_name"></p>
+			                    </div>
+		                	<div class="row">
+			                    <div class="col-md-6">
+			                        <label id="label">카드번호</label>
+			                    </div>
+			                    <div class="col-md-6">
+			                        <p id="modal_card_number"></p>
+			                    </div>
+			                </div>
+			                
 		                </div>
 		            </div>
 		          </div>
 		       </div>
 		     </div>
 		     <div class="modal-footer" id="res-modal-footer">
-		       <div align="le">
+		       <div align="left">
 		       <button type="button" class="btn btn-outline-warning" id="resEdit">수정</button>
 		       <button type="button" class="btn btn-outline-danger" id="resDelete">취소</button>
 		       </div> 

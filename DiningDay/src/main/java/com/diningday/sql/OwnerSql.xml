@@ -39,9 +39,7 @@
 			, #{OWN_TEL}
 			, #{OWN_EMAIL}
 			, #{OWN_CRN}
-			, CONCAT('ST', ( select *             
-				from (select ifnull(max(cast(trim(leading 'ST' from STORE_NO) as unsigned)), 0) + 1
-					  from OWNER ) A ))
+			, '0'
 			, DATE_FORMAT(SYSDATE(), '%Y%m%d%H%i%s'));
 	</insert>
 	
