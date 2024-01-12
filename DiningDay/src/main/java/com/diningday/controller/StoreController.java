@@ -77,12 +77,18 @@ public class StoreController extends HttpServlet {
 			res.getWriter().print(storeService.menuSelect(stSession));
 		}
 		
+//		---------------------------------------------------------------------------------------------
 
-		if(sPath.equals("/smain.st")) {
+		if(sPath.equals("/smainIsNotExist.st")) {
 			dispatcher = req.getRequestDispatcher("Store/smain.jsp");
 			dispatcher.forward(req, res);
 		}
-		
+
+		if(sPath.equals("/smainIsExist.st")) {
+			dispatcher = req.getRequestDispatcher("Store/smainisExist.jsp");
+			dispatcher.forward(req, res);
+		}
+
 		if(sPath.equals("/storeInsert.st")) {
 			
 			Map<String,String> storeDTO = TeamUtil.fileRequestToMap(req);
@@ -99,6 +105,12 @@ public class StoreController extends HttpServlet {
 		if(sPath.equals("/smainDelete.st")) {
 			
 		}
+		
+		if(sPath.equals("/smainUpdate.st")) {
+			
+		}
+		
+//		---------------------------------------------------------------------------------------------
 		
 		if(sPath.equals("/info_update.st")) {
 			dispatcher = req.getRequestDispatcher("Store/info_update.jsp");

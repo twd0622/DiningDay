@@ -22,7 +22,7 @@ $(() => {
 //	$("#first").hide();
 //	$("#second").hide();
 //	$("#third").show();
-	
+
 	targetColor($("#smain"));
 	$("#restTime").hide();
 	$("#weekdiv").hide();
@@ -42,15 +42,6 @@ $(() => {
 	saveStoreOpen;			//	영업시간, 휴무시간 컨트롤
 	thumbnail_banner();		//	썸네일, 배너 사진 컨트롤
 	
-	storeName;	
-	storeTel;
-	storeLocat;
-	storeDetail;
-	storeInfo;
-	storeService;
-	storeLastOrder;
-	storeRes;
-	
 	$("input[type=button]").on("click", function(){
 		var index = ($(this).attr("id")).split("_")[1];
 		$("#inputfile_" + index).click();
@@ -62,7 +53,7 @@ $(() => {
 	
 	$("#insert").on("click", function(){
 		var formdata = new FormData($("#STORE_DATA")[0]);
-		debugger;
+
 		for (let key of formdata.keys()) {
 		  console.log(key);
 		}
@@ -89,44 +80,7 @@ $(() => {
 		})
 	})
 })
-
 	
-var storeName =	$("#storeName").focusout(function(){
-	$("input[name=STORE_NAME]").val($(this).val());
-})
-	
-var storeTel = $("#storeTell").focusout(function(){
-	$("input[name=STORE_TEL]").val($(this).val());
-})
-	
-var storeLocat = $("#storeLocation").focusout(function(){
-	$("input[name=STORE_LOCATION]").val($(this).val());
-}) 	
-	
-var storeDetail = $("#storeDetail").focusout(function(){
-	$("input[name=STORE_DETAIL]").val($(this).val());
-})
-	
-var storeInfo =	$("#storeInfo").focusout(function(){
-	$("input[name=STORE_INFO]").val($(this).val());
-})
-	
-var storeService = $("#storeService").focusout(function(){
-	$("input[name=STORE_PLUS]").val($(this).val());
-})
-
-var storeCate = $("#storeLastOrder").on("change", function(){
-	$("input[name=STORE_LO]").val($(this).val());
-})
-	
-var storeLastOrder = $("#storeCategory").on("change", function(){
-	$("input[name=STORE_CATEGORY]").val($(this).val());
-})
-	
-var storeRes = $("#storeResTerm").on("change", function(){
-	$("input[name=STORE_RT]").val($(this).val());
-})	
-
 function ValidationCheckBox(){
 	$("form").append(
 		'<input class="0" type="checkbox" disabled>' +
@@ -135,12 +89,15 @@ function ValidationCheckBox(){
 		'<input class="3" type="checkbox" disabled>' +
 		'<input class="4" type="checkbox" disabled>' +
 		'<input class="5" type="checkbox" disabled>' +
-		'<input class="6" type="checkbox" disabled>' +
+		'<input class="5" type="checkbox" disabled>' +
+		'<input class="5" type="checkbox" disabled>' +
 		'<input class="7" type="checkbox" disabled>'
 	);
 	
+	$($("input[type=checkbox]")[4]).prop("checked", true);
+	
 	for(var i = 0; i < $("input[type=checkbox]").length; i++){
-		indexArr.push($($("input[type=checkbox]")[i]).attr("class"));
+		indexArr.push(parseInt($($("input[type=checkbox]")[i]).attr("class")));
 	}
 	
 	CheckboxIndex.zero = indexArr[0];
@@ -155,14 +112,14 @@ function ValidationCheckBox(){
 
 var indexArr = [] 
 var CheckboxIndex = {
-	zero: "",
-	one: "",
-	two: "",
-	three: "",
-	four: "",
-	five: "",
-	six: "",
-	seven: ""		
+	zero: 0,
+	one: 0,
+	two: 0,
+	three: 0,
+	four: 0,
+	five: 0,
+	six: 0,
+	seven: 0		
 }
 
 const variable = {
@@ -180,22 +137,61 @@ var saveStore = $("#saveStore").on("click", function(){
 	
 	var btnclass = "btn btn-success btn-lg";
 	var btntext = "저장하기";
-	var btncheck = false;
 	variable.valid = false;
+	var istrue = true;
+	variable.borderlist["border-color"] = "red"
+	var textareaValue;
+	var selectValue;
+	var currentTargetTag = $(this).closest("div[name=storeBold]");
 	
+	textareaValue = $(this).closest("div[name=storeBold]").find("textarea").val(function(i, value){
+		
+		if(value === ''){               
+			istrue = false;	
+			return; 
+		}
+		
+		return value;  
+	})
+	
+	selectValue = $(this).closest("div[name=storeBold]").find("select").val(function(i, value){
+		
+		if(value === '' || istrue === false) return;
+		return value;
+	})
+	
+	if(!istrue){
+		
+		alert("모든 항목은 필수 항목입니다. 입력란을 다시 확인해주세요 :)");		
+		return;
+	}
+
+
 	if($(this).text() == "저장하기"){
 		btnclass = "btn btn-danger btn-lg";
 		btntext = "취소하기";
-		btncheck = true;	
-	}
+		variable.valid = true;
+		variable.borderlist["border-color"] = "green";
+	} 
 	
+	$($("input[type=checkbox]")[CheckboxIndex.zero]).prop("checked", variable.valid);
+	$(currentTargetTag).css(variable.borderlist);
 	$(this).text(btntext);
 	$(this).attr("class", btnclass);
-	$(this).closest("div[name=storeBold]").find("textarea").prop("readonly", btncheck);
-	$(this).closest("div[name=storeBold]").find("select").prop("disabled", btncheck);	
+	$(currentTargetTag).find("textarea")
+	                   .prop("readonly", variable.valid);
+	$(currentTargetTag).find("select")
+					   .prop("disabled", variable.valid);
 	
-	if($('#storeCategory').val() != "" && $(this).find("textarea").val() != ""){
-		variable.valid = true;	
+	if(variable.valid){
+		
+		for(var i = 0; i < textareaValue.length; i++){
+			$($("#STORE_DATA").find("input[type=text]")[i]).val($($(textareaValue)[i]).val());	
+		}
+
+		for(var i = 0; i < selectValue.length; i++){
+			$($("#STORE_DATA").find("input[type=text]")[i + 7]).val($($(selectValue)[i]).val());	
+		}
 	}
 	
 })
@@ -232,7 +228,7 @@ var saveRestWeek = $("#save").on("click", function(){
 	$("#weekdays").prop("disabled", check);
 	$("input[name=STORE_CLOSE]").val(isValue);
 	
-	$($(".validCheckBox")[CheckboxIndex.one]).prop("checked", variable.valid);
+	$($("input[type=checkbox]")[CheckboxIndex.one]).prop("checked", variable.valid);
 	$($("div[name=storeBold]")[CheckboxIndex.one]).css(variable.borderlist);
 })
 /** 식당 휴무일 저장 함수 끝 */
@@ -267,7 +263,7 @@ var isRestWeek = $("button[name=is-rest]").on("click", function(){
 	}
 	
 	$($("div[name=storeBold]")[CheckboxIndex.one]).css(variable.borderlist);
-	$($(".validCheckBox")[CheckboxIndex.one]).prop("checked", variable.valid);
+	$($("input[type=checkbox]")[CheckboxIndex.one]).prop("checked", variable.valid);
 })
 /** 식당 휴무일 여부 확인 함수 끝 */
 
@@ -294,7 +290,7 @@ var isRestTime = $("button[name=isRestTime]").on("click", function(){
 	$("input[name=STORE_BTS]").val(variable.value);
 	$("input[name=STORE_BTE]").val(variable.value);
 	$($("div[name=storeBold]")[CheckboxIndex.three]).css(variable.borderlist);
-	$($(".validCheckBox")[CheckboxIndex.three]).prop("checked", variable.valid);
+	$($("input[type=checkbox]")[CheckboxIndex.three]).prop("checked", variable.valid);
 })
 /** 식당 브레이크타임 여부 확인 함수 끝 */
 
@@ -349,10 +345,49 @@ var saveStoreOpen = $("button[name=saveTimepicker]").on("click", function(){
 	for(var i = 0; i < index.length; i++){
 		$($("div[name=storeBold]")[index[i]]).css(variable.borderlist);
 		if(i > 0) continue;
-		$($(".validCheckBox")[index[i]]).prop("checked", variable.valid);
+		$($("input[type=checkbox]")[index[i]]).prop("checked", variable.valid);
 	}
 });
 /** 식당 영업시간 함수 종료 */
+
+var photoisExistCheck = $("button[name=photoCheck]").on("click", function(){
+	debugger;
+	variable.borderlist["border-color"] = "red";
+	variable.valid = false;
+	var index = $(this).index();
+	var addcount = 1;
+	var btnclaseName = "btn btn-success mb-4";
+	var btnText = "저장";
+	var checkBIndex = CheckboxIndex.six + 2;
+
+	if(i > 0){
+		checkBIndex = CheckboxIndex.seven + 2;
+		addcount = 2;
+	}
+	
+	for(var i = index; i < index + addcount; i++){
+		btnclaseName = "btn btn-danger mb-4";
+		btnText = "취소";
+		variable.borderlist["border-color"] = "green";
+		variable.valid = true;
+		
+		if(files[i]) return;
+	}
+	
+	if($(this).text() === "취소"){
+		btnclaseName = "btn btn-success mb-4";
+		btnText = "저장";
+		variable.valid = false;
+		variable.borderlist["border-color"] = "red";
+	}
+	
+	$($("div[name=storeBold]")[checkBIndex]).css(variable.borderlist);
+	$($("input[type=checkbox]")[checkBIndex - 1]).prop("checked", variable.valid);
+	$(this).attr("class", btnclaseName);
+	$(this).text(btnText);
+	$(this).closest("div[name=storeBold]").find("input[type=button]").prop("disabled", variable.valid);
+})
+
 
 /** select2() cutomize */
 var customSelect2 = function(tag){

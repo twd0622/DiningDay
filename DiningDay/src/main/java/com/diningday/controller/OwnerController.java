@@ -212,13 +212,19 @@ public class OwnerController extends HttpServlet {
 
 				String adminId = (String)session.getAttribute("OWN_NO");
 				
+				String checkExistStore = (String)session.getAttribute("STORE_NO");
+				String domainText = "";
+				
 				// 관리자로 로그인할 경우 관리자페이지로 이동
 				if(adminId.equals("admin")) {
-					res.sendRedirect("admin_main.ad");
+					domainText = "admin_main.ad";
+				} else if(checkExistStore.equals("0")){
+					domainText = "smainIsNotExist.st";
 				} else {
-					res.sendRedirect("smain.ow");
+					domainText = "smainIsExist.st";
 				}
 				
+				res.sendRedirect(domainText);
 			} else {
 				String msg = "아이디 혹은 비밀번호가 틀렸습니다.";
 				alertAndBack(res, msg);
@@ -226,20 +232,7 @@ public class OwnerController extends HttpServlet {
 		}
 
 //		-------------------------------------------------------------
-		
-		if(sPath.equals("/smain.ow")) {
-			System.out.println("주소비교 /smain.ow 일치");
-			dispatcher = req.getRequestDispatcher("Store/smain.jsp");
-			dispatcher.forward(req, res);
-		}
-		
-		
-		
-		
-		
-		
-
-		
+//		밑에 맵핑은 지울게요, STORE_CONTROLLER 에서 맵핑 할거라
 
 	}
 	

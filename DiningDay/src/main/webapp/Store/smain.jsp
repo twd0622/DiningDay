@@ -35,27 +35,27 @@
 			display: flex; flex-direction: column; justify-content: center; align-items: center;">
 				<form id="STORE_DATA" method="post" enctype="multipart/form-data">
 <!-- 				 style="display: none;" --> 
-					<input type="file" id="inputfile_1" name="SU1_PHOTO_NAME">
-					<input type="file" id="inputfile_2" name="BA1_PHOTO_NAME">
-					<input type="file" id="inputfile_3" name="BA2_PHOTO_NAME">
+					<input type="text" name="STORE_NAME">
+					<input type="text" name="STORE_TEL">
+					<input type="text" name="STORE_LOCATION">
+					<input type="text" name="STORE_DETAIL">
+					<input type="text" name="STORE_INFO">
+					<input type="text" name="STORE_PLUS">
+					<input type="text" name="STORE_CATEGORY">
+					<input type="text" name="STORE_LO">
+					<input type="text" name="STORE_RT">
 					<input type="text" name="STORE_CLOSE">
-					<input type="text" name="OWN_NO" value="OW2">
-					<input type="text" name="STORE_NO" value="0">
 					<input type="text" name="STORE_ST">
 					<input type="text" name="STORE_ET">
 					<input type="text" name="STORE_BTS">
 					<input type="text" name="STORE_BTE">
 					<input type="text" name="STORE_RST">
 					<input type="text" name="STORE_RET">
-					<input type="text" name="STORE_LO">
-					<input type="text" name="STORE_RT">
-					<input type="text" name="STORE_NAME">
-					<input type="text" name="STORE_TEL">
-					<input type="text" name="STORE_LOCATION">
-					<input type="text" name="STORE_CATEGORY">
-					<input type="text" name="STORE_DETAIL">
-					<input type="text" name="STORE_INFO">
-					<input type="text" name="STORE_PLUS">
+					<input type="file" id="inputfile_1" name="SU1_PHOTO_NAME">
+					<input type="file" id="inputfile_2" name="BA1_PHOTO_NAME">
+					<input type="file" id="inputfile_3" name="BA2_PHOTO_NAME">
+					<input type="text" name="OWN_NO" value="${ sessionScope.OWN_NO}">
+					<input type="text" name="STORE_NO" value="${ sessionScope.STORE_NO }">
 				</form>	
 				<button type="button" id="insert">insert</button>
 				<div style="display: flex;">
@@ -239,7 +239,8 @@
 									</div>
 								</div>		
 							</div>
-							<div name="storeBold" class="mt-5" style="width: 700px; padding:30px; background-color: white; display: flex; align-items: center; flex-direction: column; border-radius: 25px;">
+							<div name="storeBold" class="mt-5" style="width: 700px; padding:30px; background-color: white; display: flex; align-items: center; flex-direction: column;
+							 border-radius: 25px; border: ipx solid salmon !impotant;">
 								<h3>사진 등록 해주세요 :)</h3>
 							</div>
 						</div>
@@ -256,8 +257,11 @@
 								<div>
 									<input class="btn btn-outline-success" type="button" id="fileButton_1" value="썸네일 사진확인" readonly>
 								</div>
-								<div class="p-2" id="fileEdge_1" style="display: flex; align-items: center; justify-content: center;">
+								<div class="p-2" id="fileEdge_1" style="display: flex; align-items: center; justify-content: center; width: 300px; height: 300px;">
 								</div>
+							</div>
+							<div>
+								<button type="button" name="photoCheck" class="btn btn-success mb-4">저장하기</button>
 							</div>
 						</div>&nbsp;&nbsp;&nbsp;
 						<div name="storeBold" style="background-color: white; width: 900px; border-radius: 25px; display: flex;flex-direction: column; border: 1px ">
@@ -273,14 +277,18 @@
 									<input class="btn btn-outline-success" type="button" id="fileButton_3" value="배너 우측 사진 오는곳" readonly>
 								</div>
 							</div>
-							<div style="display: flex; justify-content: space-around;">
+							<div id="photoParent" style="display: flex; justify-content: space-around;">
 								<div class="p-2" id="fileEdge_2" style="display: flex; align-items: center; justify-content: center; width: 300px; height: 300px;">
 								</div>
 								<div class="p-2" id="fileEdge_3" style="display: flex; align-items: center; justify-content: center; width: 300px; height: 300px;">
 								</div>
 							</div>
+							<div>
+								<button type="button" name="photoCheck" class="btn btn-success mb-4">저장하기</button>
+							</div>
 						</div>
 					</div>
+					<img src="upload/">
 				</div>	
 			</div>
     	</main>

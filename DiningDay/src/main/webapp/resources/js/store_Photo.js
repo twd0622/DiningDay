@@ -17,22 +17,24 @@
 //	});
 //}
 
-var file;
+var files = ['', '', ''];
 
 function thumbnail_banner(){
 	$("input[type=file]").change(function(){
-		debugger;
+
 		var index = $(this).attr("id").split("_")[1];
 		var currentImageEdge = $("#fileEdge_" + index);
+		var btnclassName = "btn btn-success";
 		file = this.files;
 		
+		files[index - 1]
 		$(currentImageEdge).empty()
 		var image = new Image();
 		image.src = window.URL.createObjectURL(file[0]);
 		image.style = "width:300px; height:300px; padding:6.5px; z-index: 1;";
 
+		files[index - 1] = file;
 		$(currentImageEdge).append(image);
-
 	});
 }
 
