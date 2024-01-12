@@ -116,6 +116,7 @@
 				, PAY_NO
 				, MENU_NO
 				, STORE_NO
+				, MENU_NAME
 				, MENU_COUNT
 				, PAID_PRICE
 				)
@@ -126,6 +127,7 @@
 	 				, concat("PA" ,ifnull((select max(cast(replace(PAY_NO, "PA", "") as unsigned)) from PAYMENT a), 1))
 					, #{menuDTO.MENU_NO}
 					, #{menuDTO.STORE_NO}
+					, #{menuDTO.MENU_NAME}
 					, #{menuDTO.MENU_COUNT}
 					, (SELECT MENU_PRICE FROM MENU WHERE STORE_NO=#{menuDTO.STORE_NO} AND MENU_NO=#{menuDTO.MENU_NO}) * #{menuDTO.MENU_COUNT}
 				)
@@ -144,7 +146,7 @@
 		     , ST.STORE_NAME
 		     , SE.SEAT_NAME
 		     , str_to_date(R.RES_DATE, '%Y%m%d') RES_DATE
-		     , P.PAID_AMOUNT
+		     , FORMAT(P.PAID_AMOUNT, 0) PAID_AMOUNT
 		FROM RESERVATION R
 		JOIN PAYMENT P
 		  ON R.PAY_NO = P.PAY_NO

@@ -55,7 +55,7 @@ $(()=>{
 		}
 			
 		var menuInfo = '<li id=' + no + ' class="choice_list cart_menu '+$(this).find(".menu_info").attr("name")+'"><div style="width: 80%;"><div>'
-		 +'<span>'+ $(this).find(".menu_name").text() +'</span>'
+		 +'<span id="'+$(this).find(".menu_name").text()+'" class="cart_menu_name">'+ $(this).find(".menu_name").text() +'</span>'
 		 +'<span class="price">'+ price +'</span></div><div class="count_box"><span class="minus">-</span><span class="menuCount" style="font-size: 18px;">1</span><span class="plus">+</span></div></div><span class="material-symbols-outlined deleteBtn" style="font-size: 18px;">delete</span></li>'
 		
 		$(".choice_menu ul").append(menuInfo);

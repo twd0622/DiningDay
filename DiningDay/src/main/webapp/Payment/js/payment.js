@@ -62,6 +62,12 @@ function requestPay(storeName, priceResult) {
 			$(".choice_list").attr("id", function(i, id){
 				MENU_NO_list.push(id);
 			})
+			
+			var MENU_NAME_list = [];
+			$(".cart_menu_name").attr("id", function(i, id){
+				MENU_NAME_list.push(id);
+			})
+			
 			var MENU_COUNT_list = [];
 			$(".menuCount").text(function(i, text){
 				MENU_COUNT_list.push(text);
@@ -69,7 +75,9 @@ function requestPay(storeName, priceResult) {
 			
 			
 			rsp.MENU_NO = MENU_NO_list.join();
+			rsp.MENU_NAME = MENU_NAME_list.join();
 			rsp.MENU_COUNT = MENU_COUNT_list.join();
+			
 			
             $.ajax({
 				type: "post",

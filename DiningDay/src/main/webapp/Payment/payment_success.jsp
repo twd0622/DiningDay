@@ -39,7 +39,7 @@
 					</div>
 					<div class="infoBoxStyle1">
 						<span class="infoTit">결제 금액</span>
-						<span class="infocnt">${resInfo.PAID_AMOUNT}</span>
+						<span class="infocnt">${resInfo.PAID_AMOUNT} 원</span>
 					</div>
 				</div>
 				

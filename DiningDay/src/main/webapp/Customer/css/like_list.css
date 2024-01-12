@@ -16,7 +16,7 @@ a:hover{
 }
 
 .main_container{
-	width: 1320px;
+	width: 1568px;
 	background:white;
 	box-shadow: 1px 1px 3px #d8d8d8;
 	
@@ -41,16 +41,16 @@ a:hover{
 .store_listBox{
 	height: 100%;
 	margin: 10px 0;
-	padding: 0 130px;
+	padding: 0 130px 0 180px;
 	
 	display: flex;
 	flex-direction: row;
-   	justify-content: space-between;
+   	justify-content: flex-start;
     flex-wrap: wrap;
 }
 
 .storeBox{
-	width: 40%;
+	width: 45%;
 	height: 164px;
 	margin: 15px 20px;
 	
@@ -88,7 +88,7 @@ a:hover{
 	
 	display: flex;
 	flex-direction: row;
-	justify-content: space-between
+	justify-content: space-between;
 }
 
 .store_info{
@@ -108,12 +108,18 @@ a:hover{
 	height: 35%;
 	display: flex;
 	align-items: center;
+	
+	margin: 11px 0 0 2px;
+	
+	color:#A3A3A3;
 }
 
 .store_review_score{
 	height: 35%;
 	display: flex;
 	align-items: center;
+	
+	
 }
 .price{
 	margin-left: 20px;
@@ -129,5 +135,5 @@ a:hover{
 
 .store_info_icon{
 	font-size: 20px;
-	margin-right: 10px;
+	margin-right: 3px;
 }

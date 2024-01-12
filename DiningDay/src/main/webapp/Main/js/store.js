@@ -21,7 +21,10 @@ $(()=>{
 	var disableReservationBtn = function(){
 		// 휴무날로 판단하기
 		var weekday = new Date($("#dateOption").val()).getDay();
-		var weekend = $("#close").attr("class").split(",");
+		var weekend = [];
+		if($("#close").length != 0){
+			weekend = $("#close").attr("class").split(",");	
+		}
 		var resModalBtn = $(".reservationModalBtn");
 		for(holiday of weekend){
 			var result = checkWeekday(weekday)

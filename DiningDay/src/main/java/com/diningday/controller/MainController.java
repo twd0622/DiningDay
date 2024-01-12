@@ -56,6 +56,12 @@ public class MainController extends HttpServlet {
 			dispatcher.forward(req, res);
 		}
 		
+		if(sPath.equals("/getMainInfo.ma")) {
+			
+			res.setContentType("application/x-json; charset=utf-8");
+			res.getWriter().print(TeamUtil.mapListToJSONList(mainService.getMainInfo(req)));
+		}
+		
 		if(sPath.equals("/searchResult.ma")) {
 			req.setAttribute("searchCount", mainService.searchCount(req));
 			req.setAttribute("searchList", mainService.searchResult(req));
