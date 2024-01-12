@@ -1,5 +1,6 @@
 package com.diningday.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -82,13 +83,32 @@ public class StoreDAO {
 		session = sqlSessionFactory.openSession();
 		
 		Map<String, String> select = session.selectOne("Store.storeSelect", dto); 
-		if(select.isEmpty()) {
-			select.put("STORE_SELECT", "true");
-		}
 		
 		session.close();
 		
 		return select;
+	}
+	
+	public Boolean storeInsert(Map<String, String> dto) {
+		session = sqlSessionFactory.openSession();
+		
+		int insertMenu = session.insert("Store.storeInsert", dto); 
+		
+		session.commit();
+		session.close();
+		
+		return insertMenu > 0 ? true : false;
+	}
+	
+	public Boolean firstInsertStore_OwnerUpdate(Map<String, String> dto) {
+		session = sqlSessionFactory.openSession();
+		
+		int insertMenu = session.update("Store.firstInsertStore_OwnerUpdate", dto); 
+		
+		session.commit();
+		session.close();
+		
+		return insertMenu > 0 ? true : false;
 	}
 	
 }

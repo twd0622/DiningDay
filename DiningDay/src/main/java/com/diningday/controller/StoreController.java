@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import com.diningday.service.StoreService;
 import com.diningday.util.TeamUtil;
+import com.google.gson.JsonObject;
 import com.mysql.fabric.xmlrpc.base.Array;
 
 public class StoreController extends HttpServlet {
@@ -76,25 +77,54 @@ public class StoreController extends HttpServlet {
 			res.getWriter().print(storeService.menuSelect(stSession));
 		}
 		
+//		---------------------------------------------------------------------------------------------
 
-		if(sPath.equals("/smain.st")) {
-			Map<String, String> STORE_NO = new HashMap<String, String>();
-
-			STORE_NO.put("STORE_NO", (String)session.getAttribute("STORE_NO"));
-			storeService.StoreSelect(STORE_NO);
-			
-			
+		if(sPath.equals("/smainIsNotExist.st")) {
 			dispatcher = req.getRequestDispatcher("Store/smain.jsp");
 			dispatcher.forward(req, res);
 		}
-		
-		if(sPath.equals("/smainInsert.st")) {
+
+		if(sPath.equals("/smainIsExist.st")) {
 			
+			
+			dispatcher = req.getRequestDispatcher("Store/smainisExist.jsp");
+			dispatcher.forward(req, res);
+		}
+
+		if(sPath.equals("/storeInsert.st")) {
+			
+			Map<String,String> storeDTO = TeamUtil.fileRequestToMap(req);
+			boolean bl = storeService.storeInsert(storeDTO);
+			
+			if(bl) {
+				bl = storeService.firstInsertStore_OwnerUpdate(storeDTO);
+			}
+			
+			if(bl) {
+				storeDTO = storeService.storeSelect(storeDTO);
+			}
+			
+			if(storeDTO.get("STORE_NO").equals("0")) {
+				System.out.println("오류발생!");
+				return;
+			}
+			
+			session.setAttribute("STORE_NO", storeDTO.get("STORE_NO"));
+			session.setAttribute("OWN_NO", storeDTO.get("OWN_NO"));
+			
+			res.setContentType("application/x-json; charset=utf-8");
+			res.getWriter().print(bl);
 		}
 		
 		if(sPath.equals("/smainDelete.st")) {
 			
 		}
+		
+		if(sPath.equals("/smainUpdate.st")) {
+			
+		}
+		
+//		---------------------------------------------------------------------------------------------
 		
 		if(sPath.equals("/info_update.st")) {
 			dispatcher = req.getRequestDispatcher("Store/info_update.jsp");

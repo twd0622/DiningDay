@@ -57,12 +57,20 @@ public class CustomerService {
 	}
 
 
-
 	public List<Map<String, String>> getReservation(String CUS_NO) {
-		System.out.println("customerDAO.getReservation(CUS_NO): " + customerDAO.getReservation(CUS_NO));
 		return customerDAO.getReservation(CUS_NO);
 	}
+	
+	
+	public Map<String, String> reservationModal(String RES_NO) {
+		System.out.println("customerDAO.reservationModal(RES_NO): " + customerDAO.reservationModal(RES_NO));
+		return customerDAO.reservationModal(RES_NO);
+	}
 
+	
+	public List<Map<String, String>> menuModal(String RES_NO) {
+		return customerDAO.menuModal(RES_NO);
+	}
 
 
 

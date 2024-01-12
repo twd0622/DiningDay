@@ -17,11 +17,12 @@ $(() => {
 		type: "get",
 		dataType: "json",
 		url: "smenuList.st",
-		async: false											
+		async: false	
 	})										
 	.done(												
 		function(data){
 			targetColor($("#smenu"));
+			
 			/*html title 부트스트랩 코드 시작*/ 
 			const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
 			const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))			
@@ -38,7 +39,7 @@ $(() => {
 			}
 			
 			hideTag("#tbody_2");		//	수정불가 하게 태그들 숨김 및 readonly / DB에 저장된 MENU_HIDE 값으로 select 데이터 지정
-			paging("#tbody_2 tr", 5);	//	페이징 처리 함수 호출
+			paging("#tbody_2 tr", 5, 1);	//	페이징 처리 함수 호출
 			
 			
 			$(".form-switch").on("click", () => {

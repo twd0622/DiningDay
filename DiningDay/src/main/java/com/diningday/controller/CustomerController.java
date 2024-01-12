@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
@@ -17,6 +18,7 @@ import javax.servlet.http.HttpSession;
 
 import com.diningday.service.CustomerService;
 import com.diningday.util.TeamUtil;
+import com.google.gson.JsonArray;
 
 public class CustomerController extends HttpServlet {
 	RequestDispatcher dispatcher = null;
@@ -79,10 +81,25 @@ public class CustomerController extends HttpServlet {
 		
 		if(sPath.equals("/mypage.cu")) {
 			req.setAttribute("reservationInfo", customerService.getReservation((String)session.getAttribute("CUS_NO")));
-			
 			dispatcher = req.getRequestDispatcher("Customer/mypage.jsp");
 			dispatcher.forward(req, res);
 		}	
+		
+		
+		if(sPath.equals("/resDetail.cu")) {
+			String RES_NO = req.getParameter("id");
+			res.setContentType("application/x-json; charset=utf-8");
+			res.getWriter().print(TeamUtil.mapToJSON(customerService.reservationModal(RES_NO)));
+//			res.getWriter().print(TeamUtil.mapListToJSONList(customerService.menuModal(RES_NO)));
+		}
+		
+		if(sPath.equals("/menuDetail.cu")) {
+			String RES_NO = req.getParameter("id");
+			res.setContentType("application/x-json; charset=utf-8");
+//			res.getWriter().print(TeamUtil.mapToJSON(customerService.reservationModal(RES_NO)));
+			res.getWriter().print(TeamUtil.mapListToJSONList(customerService.menuModal(RES_NO)));
+		}
+		
 		
 		if(sPath.equals("/cus_edit.cu")) {
 			String CUS_NO = (String) session.getAttribute("CUS_NO");
@@ -92,6 +109,7 @@ public class CustomerController extends HttpServlet {
 			dispatcher = req.getRequestDispatcher("Customer/cus_edit.jsp");
 			dispatcher.forward(req, res);
 		}	
+		
 		
 		if(sPath.equals("/cus_editPro.cu")) {			
 			// 정보 수정

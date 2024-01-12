@@ -2,24 +2,42 @@
  * 
  */
 
-function thumbnail(){
-	$("input[type=file]").change(e => {
-		file = e.target.files;
-				
+//function thumbnail(){
+//	$("#inputfile_1").change(e => {
+//		var file = e.target.files;
+//				
+//		var image = new Image();
+//		var ImageTempUrl = window.URL.createObjectURL(file[0]);
+//	
+//		image.src = ImageTempUrl;
+//		image.style = "width:300px; height:300px; padding:6.5px; z-index: 1;";
+//
+//		$('#img_1').empty();
+//		$("#img_1").append(image);
+//	});
+//}
+
+var files = [true, true, true];
+
+function thumbnail_banner(){
+	$("input[type=file]").change(function(){
+
+		var index = $(this).attr("id").split("_")[1];
+		var currentImageEdge = $("#fileEdge_" + index);
+		var btnclassName = "btn btn-success";
+		file = this.files;
+		
+		files[index - 1] = true;
+		$(currentImageEdge).empty()
 		var image = new Image();
-		var ImageTempUrl = window.URL.createObjectURL(file[0]);
-	
-		image.src = ImageTempUrl;
+		image.src = window.URL.createObjectURL(file[0]);
 		image.style = "width:300px; height:300px; padding:6.5px; z-index: 1;";
 
-		$('#img_1').empty();
-		$("#img_1").append(image);
+		files[index - 1] = false;
+		$(currentImageEdge).append(image);
 	});
 }
 
-function banner(){
-	
-}
 
 // 확장자가 이미지 파일인지 확인
 function isImageFile(file) {
