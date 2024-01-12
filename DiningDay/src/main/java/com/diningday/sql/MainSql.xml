@@ -43,7 +43,7 @@
 		  where STORE_NAME like concat('%',#{searchInput},'%')
 		     or STORE_CATEGORY like concat('%',#{searchInput},'%')
 			 or STORE_DETAIL like concat('%',#{searchInput},'%')
-		  order by LIKE_COUNT DESC;
+		  ORDER BY STORE_SCORE DESC, LIKE_COUNT DESC;
 	</select>
 	
 	<select id="searchCount" parameterType="map" resultType="int">

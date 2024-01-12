@@ -30,7 +30,7 @@
 						<button class="btn btn-danger" type="button" id="locationBtn">
 						<i class="bi bi-geo-alt-fill"></i>
 						</button>
-                    	<input id="searchInput" name="searchInput" type="text" class="form-control bg-light border-0 small" placeholder="식당이름을 검색하세요!"
+                    	<input id="searchInput" name="searchInput" type="text" class="form-control bg-light border-0 small" value="${requestScope.searchInput}"
                          aria-label="Search" aria-describedby="basic-addon2" style="height: 100%">
                      	<div class="input-group-append">
                        		<button class="btn btn-warning" type="button" id="searchBtn">

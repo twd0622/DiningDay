@@ -27,12 +27,15 @@ $(()=>{
 var IMP = window.IMP;
 IMP.init('imp13773025');
 
-var today = new Date();   
+var today = new Date();
+var year = today.getsetFullYear();
+var month = today.getMonth() + 1;
+var date = today.getDate();
 var hours = today.getHours(); // 시
 var minutes = today.getMinutes();  // 분
 var seconds = today.getSeconds();  // 초
 var milliseconds = today.getMilliseconds();
-var makeMerchantUid = hours +  minutes + seconds + milliseconds;
+var makeMerchantUid = year + month + date + hours +  minutes + seconds + milliseconds;
 
 
 function requestPay(storeName, priceResult) {

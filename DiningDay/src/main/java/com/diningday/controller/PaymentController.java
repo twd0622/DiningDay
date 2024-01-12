@@ -85,6 +85,12 @@ RequestDispatcher dispatcher = null;
 			dispatcher = req.getRequestDispatcher("Payment/payment_success.jsp");
 			dispatcher.forward(req, res);
 		}
+		
+		if(sPath.equals("/payment_cancel.pa")) {
+			
+			dispatcher = req.getRequestDispatcher("Payment/payment_cancel.jsp");
+			dispatcher.forward(req, res);
+		}
 	}
 
 }
