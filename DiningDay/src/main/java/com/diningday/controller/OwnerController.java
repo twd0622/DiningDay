@@ -211,14 +211,15 @@ public class OwnerController extends HttpServlet {
 				session.setAttribute("OWN_NO", ownerCheck.get("OWN_NO"));
 
 				String adminId = (String)session.getAttribute("OWN_NO");
-				
 				String checkExistStore = (String)session.getAttribute("STORE_NO");
+				
+				
 				String domainText = "";
 				
 				// 관리자로 로그인할 경우 관리자페이지로 이동
-				if(adminId.equals("admin")) {
+				if(adminId.equals("OW0")) {
 					domainText = "admin_main.ad";
-				} else if(checkExistStore.equals("0")){
+				} else if(checkExistStore.equals("0")) {
 					domainText = "smainIsNotExist.st";
 				} else {
 					domainText = "smainIsExist.st";
