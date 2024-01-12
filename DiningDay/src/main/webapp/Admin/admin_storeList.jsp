@@ -7,7 +7,7 @@
 <head>
 <meta charset="utf-8">
 <title>식당조회 | 다이닝데이</title>
-<c:set var="storeList" value="${ requestScope.storeList }"/>
+
 <style type="text/css">
 pre{
     background-color: #E6E6FA;
@@ -15,15 +15,70 @@ pre{
     overflow: auto;
     white-space: pre-wrap;
 }  
+
+button{
+  width: 250px;
+  background-color: black;
+  color: white;
+}
+
+img{
+  width: 100px;
+}
 </style>
 <link href="resources/css/variable_admin.css" rel="stylesheet">
 <script src="resources/js/variableCode.js"></script>
 <script src="resources/js/jquery.twbsPagination.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-	$(()=>{
-		paging("tbody tr" ,5);
-	})
+
+// var store_no = $(this).parent("td").siblings(".title").text();
+	
+$(()=>{
+	paging("tbody tr" ,5);
+		
+// 		$(".delBtn").on("click", function() {
+			
+// 			if(confirm('정말 삭제하시겠습니까?')){
+// 				location.href = "admin_storeDelete.ad?STORE_NO="+store_no;
+// 			}
+// 		})
+		
+	$(".delBtn").on("click", function() {
+		Swal.fire({	
+			title: "정말 삭제하시겠습니까?",
+			text: "다시 되돌릴 수 없습니다.",
+			icon: "warning",
+			showCancelButton: true,
+			confirmButtonColor: "#d33",
+			cancelButtonColor: "#3085d6",
+			confirmButtonText: "삭제",
+			cancelButtonText: "취소",
+			showCancelButton: true,
+			showConfirmButton: true,
+			})
+			.then((result) => {
+				if (result.isConfirmed) {
+					Swal.fire({
+						title: "삭제됨",
+					    icon: "success",
+					})
+					.then((result) => {
+			    		var store_no = $(this).parent("td").siblings(".title").text();
+				    	location.href = "admin_storeDelete.ad?STORE_NO="+store_no;
+					})
+				}
+			});
+	})	
+	
+})
+	
+		
+	
+// 	main
+	
 </script>
+
 </head>
 <!-- main은 속성 값은 왠만하면 건들지x -->
 <main
@@ -75,6 +130,7 @@ pre{
 				</div>
 			</div>
 		</div>
+		<c:set var="storeList" value="${ requestScope.storeList }"/>
 		<div class="row" style="padding: 1% 7% 1% 7%;" id="storeTable">
 			<table class="table table-hover" id="article-table">
 				<thead>
@@ -86,8 +142,8 @@ pre{
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach var="store" items="${storeList }">
-						<tr style="height: 60px;">
+					<c:forEach var="store" items="${storeList}">
+						<tr class="store_no" id="${store.STORE_NO}" style="height: 60px;">
 							<td class="title align-middle" onClick="location.href='admin_storeDetail.ad?STORE_NO=${store.STORE_NO}'">${store.STORE_NO}</td>
 							<td class="align-middle" onClick="location.href='admin_storeDetail.ad?STORE_NO=${store.STORE_NO}'">${store.STORE_NAME}</td>
 							<td class="created-at col-1 align-middle text-start" onClick="location.href='admin_storeDetail.ad?STORE_NO=${store.STORE_NO}'">															
@@ -95,7 +151,11 @@ pre{
 								<b>전화</b> : ${store.STORE_TEL} <br>
 								<b>위치</b> : ${store.STORE_LOCATION}
 							</td>
-							<td class="align-middle"><a href="admin_storeDelete.ad?STORE_NO=${store.STORE_NO}" onclick="return confirm('정말 삭제하시겠습니까?');" class="align-middle btn btn-outline-danger">삭제</a></td>
+<%-- 							<td class="align-middle"><a href="admin_storeDelete.ad?STORE_NO=${store.STORE_NO}" onclick="return confirm('정말 삭제하시겠습니까?');" class="align-middle btn btn-outline-danger">삭제</a></td> --%>
+<!-- 							<td class="align-middle"><div><button id="confirmAlert" class="align-middle btn btn-outline-danger">삭제</button></div></td> -->
+							<td class="align-middle"><input type="button" class="delBtn btn btn-outline-danger" value="삭제" ></td>
+<%-- 								<td class="align-middle"><input class="btn btn-outline-danger" id="confirmAlert" type="button" value="삭제" onclick="del('${store.STORE_NO}');"></td> --%>
+<!-- 								<td><a href="javascript:check();" class="btn btn-outline-danger">삭제</a></td> -->
 					</tr>
 					</c:forEach>
 				</tbody>
@@ -110,7 +170,6 @@ pre{
 		<hr>
 		<br>
 	</div>
-
 </main>
 <%@ include file="/Template/admin_sidevar_close.jsp"%>
 </html>

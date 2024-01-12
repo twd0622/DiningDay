@@ -11,7 +11,7 @@
 	<link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/bootstrap.min.css">
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js"></script>
 	<script src="${ pageContext.request.contextPath }/resources/js/jquery-3.6.0.js"></script>
-    <title>SideBar sub menus</title>
+    <title>다이닝데이</title>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
         <style>
         .material-symbols-outlined{

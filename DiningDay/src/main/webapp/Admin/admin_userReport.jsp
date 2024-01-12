@@ -82,7 +82,7 @@
 						<c:forEach var="cReport" items="${reviewReport}">
 							<tr style="height: 60px;">
 								<td class="title align-middle" onClick="location.href='admin_userReportDetail.ad?CREP_NO=${cReport.CREP_NO}&REV_NO=${cReport.REV_NO}&OWN_NO=${cReport.OWN_NO}'">${cReport.CREP_NO}</td>
-								<td class="hashtag align-middle" onClick="location.href='admin_userReportDetail.ad?CREP_NO=${cReport.CREP_NO}&REV_NO=${cReport.REV_NO}&OWN_NO=${cReport.OWN_NO}'">${cReport.OWN_NO}</td>
+								<td class="hashtag align-middle" onClick="location.href='admin_userReportDetail.ad?CREP_NO=${cReport.CREP_NO}&REV_NO=${cReport.REV_NO}&OWN_NO=${cReport.OWN_NO}'">${cReport.OWN_NO} <br><small>(${cReport.STORE_NAME})</small></td>
 								<td class="created-at col-1 align-middle" onClick="location.href='admin_userReportDetail.ad?CREP_NO=${cReport.CREP_NO}&REV_NO=${cReport.REV_NO}&OWN_NO=${cReport.OWN_NO}'">${cReport.CREP_TITLE}</td>
 								<td class="created-at col-1 align-middle" onClick="location.href='admin_userReportDetail.ad?CREP_NO=${cReport.CREP_NO}&REV_NO=${cReport.REV_NO}&OWN_NO=${cReport.OWN_NO}'">${cReport.DATE}</td>
 								<td class="align-middle"><a href="admin_userReportDelete.ad?CREP_NO=${cReport.CREP_NO}" onclick="return confirm('정말 삭제하시겠습니까?');" class="align-middle btn btn-outline-danger">삭제</a></td>

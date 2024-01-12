@@ -237,7 +237,7 @@
 		<if test="searchType == '점주번호'">
 		and OWN_NO like concat("%",#{searchValue},"%")
 		</if>
-		order by cast(trim(leading 'CR' from CREP_NO) as unsigned) desc;	
+		order by cast(trim(leading 'RR' from CREP_NO) as unsigned) desc;
 	</select>
 	
 	<delete id="cRepDelete" parameterType="map">
@@ -248,9 +248,9 @@
 	<select id="selectCRepDetail" parameterType="map" resultType="map">
 		select  CR.CREP_NO
 			,	R.REV_NO
-		    ,	S.OWN_NO
+		    ,	CR.OWN_NO
 		    ,	CR.CREP_TITLE
-		    ,	S.STORE_NAME
+		    ,	CR.STORE_NAME
 		    ,	CR.CREP_CONTENT
 		    ,	date_format(CREP_DATE, '%Y-%m-%d') as "CRDATE"
 		    ,	CR.CREP_PROCESS
@@ -259,8 +259,6 @@
 		    ,	date_format(R.REV_DATE, '%Y-%m-%d') as "RDATE"
 		from 	REVIEW_REPORT CR join REVIEW R
 		on 		CR.REV_NO = R.REV_NO
-		join 	STORE S
-		on 		CR.OWN_NO = S.OWN_NO
 		where 	1 = 1
 		and		CR.CREP_NO = #{CREP_NO}
 		and		CR.REV_NO = #{REV_NO}
