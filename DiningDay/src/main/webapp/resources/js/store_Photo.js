@@ -17,7 +17,7 @@
 //	});
 //}
 
-var files = ['', '', ''];
+var files = [true, true, true];
 
 function thumbnail_banner(){
 	$("input[type=file]").change(function(){
@@ -27,13 +27,13 @@ function thumbnail_banner(){
 		var btnclassName = "btn btn-success";
 		file = this.files;
 		
-		files[index - 1]
+		files[index - 1] = true;
 		$(currentImageEdge).empty()
 		var image = new Image();
 		image.src = window.URL.createObjectURL(file[0]);
 		image.style = "width:300px; height:300px; padding:6.5px; z-index: 1;";
 
-		files[index - 1] = file;
+		files[index - 1] = false;
 		$(currentImageEdge).append(image);
 	});
 }

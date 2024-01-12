@@ -52,7 +52,11 @@ public class StoreService {
 	}
 	
 	public JsonObject storeSelect(HttpServletRequest req) {
-		return TeamUtil.mapToJSON(storeDAO.storeSelect(TeamUtil.requestToMap(req)));
+		return TeamUtil.mapToJSON(storeDAO.storeSelect(TeamUtil.fileRequestToMap(req)));
+	}
+	
+	public Map<String, String> storeSelect(Map<String, String> storeDTO) {
+		return storeDAO.storeSelect(storeDTO);
 	}
 	
 	public boolean storeInsert(Map<String, String> storeDTO) {

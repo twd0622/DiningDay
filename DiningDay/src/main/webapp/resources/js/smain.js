@@ -19,10 +19,6 @@ document.write('<script type="text/javascript"' +
 
 $(() => {
 	
-//	$("#first").hide();
-//	$("#second").hide();
-//	$("#third").show();
-
 	targetColor($("#smain"));
 	$("#restTime").hide();
 	$("#weekdiv").hide();
@@ -46,12 +42,25 @@ $(() => {
 		var index = ($(this).attr("id")).split("_")[1];
 		$("#inputfile_" + index).click();
 	})
-	
+
 	for(var i = 0; i < $("input[type=checkbox]").length; i++){
 		$($("div[name=storeBold]")[i]).css(variable.borderlist);
 	}
 	
-	$("#insert").on("click", function(){
+//	$("#totalInsert").prop("disabled", true);
+	paging("main .storePaging", 1, 0);
+	
+	$("#totalInsert").on("click", function(){
+		for(var i = 0; i < $("input[type=checkbox]").length; i++){
+			
+			var isChecked = $($("input[type=checkbox]")[i]).prop("checked");
+			
+			if(!isChecked){
+				alert("식당 등록에 실패 하였습니다. 다시 한 번 확인해주세요.");
+				return;
+			}
+		}
+		
 		var formdata = new FormData($("#STORE_DATA")[0]);
 
 		for (let key of formdata.keys()) {
@@ -72,8 +81,8 @@ $(() => {
 		})
 		.done(function(data){
 			if(new Boolean(data)){
-				debugger;
-				alert("성공");
+				alert("식당 등록 성공");
+				location.href = "smainIsExist.st";
 				return;
 			}
 			alert("실패");
@@ -82,16 +91,15 @@ $(() => {
 })
 	
 function ValidationCheckBox(){
-	$("form").append(
-		'<input class="0" type="checkbox" disabled>' +
- 		'<input class="1" type="checkbox" disabled>' +
-		'<input class="2" type="checkbox" disabled>' +
-		'<input class="3" type="checkbox" disabled>' +
-		'<input class="4" type="checkbox" disabled>' +
-		'<input class="5" type="checkbox" disabled>' +
-		'<input class="5" type="checkbox" disabled>' +
-		'<input class="5" type="checkbox" disabled>' +
-		'<input class="7" type="checkbox" disabled>'
+	$("#checkboxList").append(
+		'<input class="0" type="checkbox" style="pointer-events: none;">&nbsp;&nbsp;' +
+ 		'<input class="1" type="checkbox" style="pointer-events: none;">&nbsp;&nbsp;' +
+		'<input class="2" type="checkbox" style="pointer-events: none;">&nbsp;&nbsp;' +
+		'<input class="3" type="checkbox" style="pointer-events: none;">&nbsp;&nbsp;' +
+		'<input class="4" type="checkbox" style="display:none;">' +
+		'<input class="5" type="checkbox" style="pointer-events: none;">&nbsp;&nbsp;' +
+		'<input class="5" type="checkbox" style="pointer-events: none;">&nbsp;&nbsp;' +
+		'<input class="6" type="checkbox" style="pointer-events: none;">&nbsp;&nbsp;'
 	);
 	
 	$($("input[type=checkbox]")[4]).prop("checked", true);
@@ -107,7 +115,6 @@ function ValidationCheckBox(){
 	CheckboxIndex.four = indexArr[4];
 	CheckboxIndex.five = indexArr[5];
 	CheckboxIndex.six = indexArr[6];
-	CheckboxIndex.seven = indexArr[7];
 }
 
 var indexArr = [] 
@@ -118,8 +125,7 @@ var CheckboxIndex = {
 	three: 0,
 	four: 0,
 	five: 0,
-	six: 0,
-	seven: 0		
+	six: 0
 }
 
 const variable = {
@@ -153,10 +159,10 @@ var saveStore = $("#saveStore").on("click", function(){
 		
 		return value;  
 	})
-	
-	selectValue = $(this).closest("div[name=storeBold]").find("select").val(function(i, value){
+
+	selectValue = $(this).closest("div[name=storeBold]").find("select option:selected").val(function(i, value){
 		
-		if(value === '' || istrue === false) return;
+		if(value === '') return;
 		return value;
 	})
 	
@@ -350,28 +356,35 @@ var saveStoreOpen = $("button[name=saveTimepicker]").on("click", function(){
 });
 /** 식당 영업시간 함수 종료 */
 
+/** 썸네일 및 배너 사진 등록 함수 시작 */
 var photoisExistCheck = $("button[name=photoCheck]").on("click", function(){
-	debugger;
+
 	variable.borderlist["border-color"] = "red";
 	variable.valid = false;
-	var index = $(this).index();
+	var index = $(this).closest("div").prev("div[name=photoParent]").find("img").length
+	var indexCheck = $(this).closest("div").prev("div[name=photoParent]").find("div").length;	
 	var addcount = 1;
 	var btnclaseName = "btn btn-success mb-4";
 	var btnText = "저장";
-	var checkBIndex = CheckboxIndex.six + 2;
+	var checkBoxCount = CheckboxIndex.six + 1; 
+	
+	if(index != indexCheck || index === 0){
+		return;
+	} 
+	
+	index--;
 
-	if(i > 0){
-		checkBIndex = CheckboxIndex.seven + 2;
-		addcount = 2;
+	if(index === 1){
+		addcount++;
+		checkBoxCount++;
 	}
 	
 	for(var i = index; i < index + addcount; i++){
+		if(files[i]) return;
 		btnclaseName = "btn btn-danger mb-4";
 		btnText = "취소";
 		variable.borderlist["border-color"] = "green";
 		variable.valid = true;
-		
-		if(files[i]) return;
 	}
 	
 	if($(this).text() === "취소"){
@@ -381,13 +394,13 @@ var photoisExistCheck = $("button[name=photoCheck]").on("click", function(){
 		variable.borderlist["border-color"] = "red";
 	}
 	
-	$($("div[name=storeBold]")[checkBIndex]).css(variable.borderlist);
-	$($("input[type=checkbox]")[checkBIndex - 1]).prop("checked", variable.valid);
+	$($("div[name=storeBold]")[checkBoxCount]).css(variable.borderlist);
+	$($("input[type=checkbox]")[checkBoxCount]).prop("checked", variable.valid);
 	$(this).attr("class", btnclaseName);
 	$(this).text(btnText);
 	$(this).closest("div[name=storeBold]").find("input[type=button]").prop("disabled", variable.valid);
 })
-
+/** 썸네일 및 배너 사진 등록 함수 종료 */
 
 /** select2() cutomize */
 var customSelect2 = function(tag){
@@ -408,3 +421,4 @@ var timePicker = function(){
 	$("input[name=timepicker]").timepicki();
 }
 
+var validCheckArray = [false, false, false, false, true, false, false, false];

@@ -85,6 +85,8 @@ public class StoreController extends HttpServlet {
 		}
 
 		if(sPath.equals("/smainIsExist.st")) {
+			
+			
 			dispatcher = req.getRequestDispatcher("Store/smainisExist.jsp");
 			dispatcher.forward(req, res);
 		}
@@ -97,6 +99,18 @@ public class StoreController extends HttpServlet {
 			if(bl) {
 				bl = storeService.firstInsertStore_OwnerUpdate(storeDTO);
 			}
+			
+			if(bl) {
+				storeDTO = storeService.storeSelect(storeDTO);
+			}
+			
+			if(storeDTO.get("STORE_NO").equals("0")) {
+				System.out.println("오류발생!");
+				return;
+			}
+			
+			session.setAttribute("STORE_NO", storeDTO.get("STORE_NO"));
+			session.setAttribute("OWN_NO", storeDTO.get("OWN_NO"));
 			
 			res.setContentType("application/x-json; charset=utf-8");
 			res.getWriter().print(bl);
