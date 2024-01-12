@@ -74,12 +74,13 @@
 		}
 		
     </style>
+<!--     style="display: none;" -->
 </head>
 	<%@ include file="/Template/store_sidebar_open.jsp"%> 	
 		<main style="display: flex;  align-items: center; text-align: center; padding:100px;">
 			<div class="mainContainer" style="width: 100%; background:#f0f0f3; 
 			display: flex; flex-direction: column; justify-content: center; align-items: center;">
-				<form id="STORE_DATA" method="post" enctype="multipart/form-data" style="display: none;">
+				<form id="STORE_DATA" method="post" enctype="multipart/form-data" >
 					<input type="text" name="STORE_NAME">
 					<input type="text" name="STORE_TEL">
 					<input type="text" name="STORE_LOCATION">
@@ -354,7 +355,7 @@
     	<div id="loading" style="display: none; ">
 			<div id="loading_bar">
 				<img src="${ pageContext.request.contextPath }/resources/img/Spin-loading.gif"/>
-				<p style="font-size: x-large; font-weight: bold">로딩 중 입니다 ...</p>
+				<p style="font-size: x-large; font-weight: bold">진행 중 입니다 ...</p>
 			</div>
 		</div>
     	<script src="${ pageContext.request.contextPath }/resources/js/smain.js"></script>

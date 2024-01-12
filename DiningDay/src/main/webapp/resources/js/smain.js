@@ -161,7 +161,7 @@ var saveStore = $("#saveStore").on("click", function(){
 	})
 
 	selectValue = $(this).closest("div[name=storeBold]").find("select option:selected").val(function(i, value){
-		
+
 		if(value === '') return;
 		return value;
 	})
@@ -196,7 +196,7 @@ var saveStore = $("#saveStore").on("click", function(){
 		}
 
 		for(var i = 0; i < selectValue.length; i++){
-			$($("#STORE_DATA").find("input[type=text]")[i + 7]).val($($(selectValue)[i]).val());	
+			$($("#STORE_DATA").find("input[type=text]")[i + 6]).val($($(selectValue)[i]).val());	
 		}
 	}
 	
