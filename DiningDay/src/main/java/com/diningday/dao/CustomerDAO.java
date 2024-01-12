@@ -37,7 +37,6 @@ public class CustomerDAO {
 	public Boolean customerEdit(Map<String, String> customerDTO) {
 		session = sqlSessionFactory.openSession();
 		int customerEdit = session.update("Customer.customerEdit", customerDTO);
-//		Map<String, String> customerEdit = session.selectOne("Customer.customerEdit", customerDTO);
 		session.commit();
 		session.close();
 		return customerEdit > 0 ? true : false;
@@ -78,7 +77,6 @@ public class CustomerDAO {
 	public Map<String, String> reservationModal(String RES_NO) {
 		session = sqlSessionFactory.openSession();
 		Map<String, String> reservationModal = session.selectOne("Customer.reservationModal", RES_NO);
-		System.out.println("reservationModal: " + reservationModal);
 		session.close();
 		
 		return reservationModal;
@@ -92,10 +90,13 @@ public class CustomerDAO {
 		return menuModal;
 	}
 
-	
-	
-
-
+	public Boolean insertEx(Map<String, String> customerCheck) {
+		session = sqlSessionFactory.openSession();
+		int result = session.delete("Customer.insertEx", customerCheck);
+		session.commit();
+		session.close();
+		return result > 0 ? true : false;
+	}
 	
 	
 	

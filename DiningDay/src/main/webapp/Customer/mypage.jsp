@@ -25,6 +25,14 @@
   text-align: center;
 }
 
+#menuForm {
+  text-align: center;
+}
+
+.row{
+  justify-content: center;
+}
+
 .modal {
   display: none;
   position: fixed;
@@ -54,6 +62,7 @@
 
 #res-modal-footer {
   padding-top: 20px;
+  justify-content: unset;
 }
 
 .res-close {
@@ -78,13 +87,6 @@
   color: orange;
 }
 
-#resEdit {
-  justify-content: flex-start;
-}
-
-#resOk {
-  justify-content: flex-end;
-}
 
 /* 계정삭제 모달 */
 #quit-modal-content {
@@ -158,7 +160,7 @@
 	                	  <c:forEach var="reservationInfo" items="${reservationInfo}">
 	                		<tr>
 	                	  	  	<td class="align-middle" scope="row" rowspan="2" width="30px">
-	                	  	  		<b><a id="resBtn_${reservationInfo.RES_NO}" href="#" style="color: gray;" class="RES_NO">${reservationInfo.RES_NO}</a></b></td>
+	                	  	  		<b><a id="resBtn_${reservationInfo.RES_NO}" href="#" style="color: gray;" class=resBtn>${reservationInfo.RES_NO}</a></b></td>
 	                			<td class="align-middle" rowspan="2" width="20px">${reservationInfo.RES_DATE}</td>
 	                			<td class="align-middle" colspan="2">${reservationInfo.STORE_NAME}</td>
 	                			<c:if test="${reservationInfo.REQ_STATE eq '2'}">
@@ -236,21 +238,16 @@
 
 		                <hr style="color: gray; margin-bottom: 20px;">
 		                <h5 class="res_num">결제정보</h5>
-
-		                <div class="row">
-		                    <div class="col-md-6"><label id="label">결제일</label></div>
-		                    <div class="col-md-6"><p id="modal_res_paytime"></p></div>
-		                </div>
-		                <c:forEach var="menuModal" items="${menuModal}">
-		                <div class="row">
-		                    <div class="col-md-2"><label id="label">메뉴명</label></div>
-		                    <div class="col-md-2"><p id="modal_menu_name"></p></div>
-		                    <div class="col-md-2"><label id="label">메뉴수량</label></div>
-		                    <div class="col-md-2"><p id="modal_menu_count"></p></div>
-		                    <div class="col-md-2"><label id="label">금액</label></div>
-		                    <div class="col-md-2"><p id="modal_paid_price"></p></div>
-		                </div>
-		                </c:forEach>		                
+		                <div class="row mt-5 mb-2" id="menuForm">
+		                    <div class="col-md-4"><label id="label">메뉴명</label></div>
+							<div class="col-md-4"><label id="label">메뉴수량</label></div>
+							<div class="col-md-4"><label id="label">금액</label></div>
+						</div>
+						<div class="row" id="menuForm">
+		                    <div class="col-md-4" id="menuName"></div>
+		                    <div class="col-md-4" id="menuCount"></div>
+		                    <div class="col-md-4" id="menuPrice"></div>
+			            </div>  
 		                <hr style="border:2px dashed;">
 		                <div class="row">
 		                    <div class="col-md-6"><label id="label">총 결제금액</label></div>
@@ -259,6 +256,10 @@
 		                <div class="row">
 		                    <div class="col-md-6"><label id="label">결제자명</label></div>
 		                    <div class="col-md-6"><p id="modal_buyer_name"></p></div>
+		                </div>
+            			<div class="row">
+		                    <div class="col-md-6"><label id="label">결제일</label></div>
+		                    <div class="col-md-6"><p id="modal_res_paytime"></p></div>
 		                </div>
 	                	<div class="row">
 		                    <div class="col-md-6"><label id="label">결제카드</label></div>
@@ -270,16 +271,16 @@
 		                </div>
 		            </div>
 		          </div>
-		       </div>
+		        </div>
 		     </div>
 		     <div class="modal-footer" id="res-modal-footer">
-		       <div align="left">
-			       <button type="button" class="btn btn-outline-warning" id="resEdit">수정</button>
-			       <button type="button" class="btn btn-outline-danger" id="resDelete">취소</button>
-		       </div> 
-		       <div align="right">
-      		  	 <button type="button" class="btn btn-secondary right" data-dismiss="modal" id="resOk">확인</button>   
-      		   </div> 
+		     	<div class="col">
+					<div id="modal_req_state" style="float: left;">
+					</div>    
+				    <div style = "float: right;">
+	    		 		<button type="button" class="btn btn-secondary" data-dismiss="modal" id="resOk">확인</button>   
+		     	 	</div>
+		     	</div>
 		     </div>
 
 		  </div>
@@ -305,6 +306,7 @@
 		
 		
 			<!-- 계정삭제 모달창 -->
+<!-- 			<form action="deletePro.cu" method="post" name="deleteForm"> -->
 			<div id="exModal" class="modal">
 			  <div class="modal-content" id="quit-modal-content">
 			     <div class="modal-header" id="quit-modal-header">
@@ -314,7 +316,7 @@
 			     </div>
 			     <div class="modal-body" id="quit-modal-body">
 				     <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
-					  <symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16">
+					  <symbol id="exclamation-triangle-fill" fill="currentColor" viewBox="0 0 16 16".>
 					    <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
 					  </symbol>
 					</svg>
@@ -326,18 +328,18 @@
 				     </div>
 				     <div class="form-outline mt-5 mb-3 text-left">
 					  	<p><label>본인 계정 확인을 위해 이메일을 입력해 주십시오.</label>
-					    	<input type="text" name="CUS_EMAIL" class="form-control" 
+					    	<input type="text" id="cus_EmailCheck" class="form-control" 
 					    		   placeholder="이메일 입력"/></p>
 					 </div>
 				     <div class="form-outline mt-5 mb-3 text-left">
 				        <label>계정을 삭제하려는 이유를 선택해 주십시오.</label>
-						<select name="quit_why" id="quit_why" class="form-select">
-							<option selected>계정 삭제 이유</option>
+						<select name="CUS_REASON" id="CUS_REASON" class="form-select">
+							<option selected hidden disabled>계정 삭제 이유</option>
 							<hr>
-							<option value="다른 계정 이용">다른 계정 이용</option>
-							<option value="서비스 이용 불편">서비스 이용 불편</option>
-							<option value="사용빈도 적음">사용빈도 적음</option>
-							<option value="기타">기타</option>
+							<option value="0">다른 계정 이용</option>
+							<option value="1">서비스 이용 불편</option>
+							<option value="2">사용빈도 적음</option>
+							<option value="3">기타</option>
 						</select>
 					 </div>
 			     </div>
@@ -347,6 +349,8 @@
 			     </div>
 			  </div>
 			</div>
+<!-- 			</form> -->
+			
 			</div>
 		</div>	
 		
@@ -359,73 +363,77 @@ $(function(){
 	// 예약내역 모달
 	var resModal = document.getElementById("resModal");
 
-	$('.RES_NO').on('click', function(){
+	$('.resBtn').on('click', function(){
 	 	$.ajax({
 	 		type: "get",
 	 		url: "resDetail.cu",
-	 		data: { id: this.text}
+	 		data: {RES_NO: this.text},
+	 		dataType: "json"
 	 	})
 	 	.done(function(data){
-	 		debugger;
-	 		$('#modal_res_no').text(data.RES_NO);
-	 		$('#modal_res_date').text(data.RES_DATE);
-	 		$('#modal_cus_name').text(data.CUS_NAME);
-	 		$('#modal_res_people').text(data.RES_PEOPLE); 
-	 		$('#modal_res_req').text(data.RES_REQ);
-	 		$('#modal_res_paytime').text(data.RES_PAYTIME);
-	 		$('#modal_store_name').text(data.STORE_NAME);
-	 		$('#modal_store_location').text(data.STORE_LOCATION);
-	 		$('#modal_seat_name').text(data.SEAT_NAME);
+	 		var resMap = data[data.length-1];
+	 		$('#modal_res_no').text(resMap.RES_NO);
+	 		$('#modal_res_date').text(resMap.RES_DATE);
+	 		$('#modal_cus_name').text(resMap.CUS_NAME);
+	 		$('#modal_cus_tel').text(resMap.CUS_TEL);
+	 		$('#modal_store_name').text(resMap.STORE_NAME);
+	 		$('#modal_store_location').text(resMap.STORE_LOCATION);
+	 		$('#modal_seat_name').text(resMap.SEAT_NAME);
+	 		$('#modal_res_people').text(resMap.RES_PEOPLE); 
+	 		$('#modal_res_req').text(resMap.RES_REQ);
+	 		$('#modal_res_paytime').text(resMap.RES_PAYTIME);
+	 		$('#modal_paid_amount').text(resMap.PAID_AMOUNT);
+	 		$('#modal_buyer_name').text(resMap.BUYER_NAME);
+	 		$('#modal_card_name').text(resMap.CARD_NAME);
+	 		$('#modal_card_number').text(resMap.CARD_NUMBER);
+	 		
+	 		if($.trim(resMap.REQ_STATE) == '0'){
+	 			$("#modal_req_state").append("<button type='button' class='btn btn-outline-warning' id='resEdit'>수정</button> ");
+	 			$("#modal_req_state").append("<button type='button' class='btn btn-outline-danger' id='resDelete'>취소</button>");
+	 			
+	 			$('#resEdit').on('click', function(){
+	 				location.href = "payment_change.pa";
+	 			})
+	 			
+	 			$('#resDelete').on('click', function(){
+	 				var result = confirm("예약을 취소하시겠습니까?");
+	 		        if(result){
+	 		        	alert("예약취소가 되었습니다.");
+	 		    	 	location.reload(true);
+	 		       	} else {
+	 		       		return false;
+	 		       	}
+	 			})
+	 		}
 
-	 		$('#modal_cus_tel').text(data.CUS_TEL);
-		 	$.ajax({
-		 		type: "get",
-		 		url: "menuDetail.cu",
-		 		data: { id: data.RES_NO}
-		 	})
-		 	.done(function(data){
-	 	 		$('#modal_menu_name').text(data.MENU_NAME);
-	 	 		$('#modal_menu_count').text(data.MENU_COUNT);
-	 	 		$('#modal_paid_price').text(data.PAID_PRICE);	
-		 	})
-	 		$('#modal_paid_amount').text(data.PAID_AMOUNT);
-	 		$('#modal_buyer_name').text(data.BUYER_NAME);
-	 		$('#modal_card_name').text(data.CARD_NAME);
-	 		$('#modal_card_number').text(data.CARD_NUMBER);
+	 		for (let menuList of data.slice(0, -1)) {
+	 			$("#menuName").append("<div class='row'><p>" + menuList.MENU_NAME + "</p></div>");
+	 			$("#menuCount").append("<div class='row'><p>" + menuList.MENU_COUNT + "</p></div>");
+	 			$("#menuPrice").append("<div class='row'><p>" + menuList.PAID_PRICE + "</p></div>");
+			}
 	 		
 	 		resModal.style.display = "block";	
 	 		
 	 		$('#modal_store_no').on('click', function(){
-	 			location.href = "store.ma?STORE_NO="+data.STORE_NO;
+	 			location.href = "store.ma?STORE_NO="+resMap.STORE_NO;
 	 		})
 	 	})
 	});
-
+	
 	$('.res-close').on('click', function(){
+		$('#menuName').empty();
+		$('#menuCount').empty();
+		$('#menuPrice').empty();
+		$('#modal_req_state').empty();
 		resModal.style.display = "none";
 	})
-	
-	$('#resEdit').on('click', function(){
-		location.href = "payment_change.pa";
-	})
-	
-	$('#resDelete').on('click', function(){
-		var result = confirm("예약을 취소하시겠습니까?");
-        if(result){
-    	 	$.ajax({
-//             	debugger;
-    	 		type: "get",
-    	 		url: "resDetail.cu",
-    	 		data: { id: this.text}
-    	 	})
-        	alert("예약취소가 되었습니다.");
-    	 	location.reload(true);
-       	} else {
-       		return false;
-       	}
-	})
+
 	
 	$('#resOk').on('click', function(){
+		$('#menuName').empty();
+		$('#menuCount').empty();
+		$('#menuPrice').empty();
+		$('#modal_req_state').empty();
 		resModal.style.display = "none";
 	})
 
@@ -450,14 +458,33 @@ $(function(){
 	
 	// 계정삭제 버튼
 	$('#deleteBtn').on('click', function(){
-		alert('정말로 삭제하시겠습니까?');
-		location.href = "deletePro.cu";
+		var result = confirm('정말로 삭제하시겠습니까?');
+	        if(result){
+	     	 	$.ajax({
+		 	 		type: "post"
+		 	 		, url: "deletePro.cu"
+		 	 		, dataType: "json"
+		 	 		, data: {CUS_REASON: $("#CUS_REASON").val(),
+		 	 			     CUS_EMAIL: $("#cus_EmailCheck").val()}
+	     	 		, success: function(data) {
+		 	 			alert("계정 삭제가 완료되었습니다.");
+		 	 			location.replace('main.ma');
+	     	 		}
+	     	 		, error : function(){
+	     	 			alert("이메일을 다시 작성해 주십시오.");
+	                }
+	 	 		})
+	       	} else {
+	       		alert("삭제가 취소되었습니다.");
+	       		modal.style.display = "none";
+	       	}
 	})
 	
 	
 	window.onclick = function(event) {
 	  if (event.target == modal) {
 	    modal.style.display = "none";
+	    
 	  }
 	}
 });
