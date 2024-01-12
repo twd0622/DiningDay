@@ -87,32 +87,24 @@ public class CustomerController extends HttpServlet {
 		
 		
 		if(sPath.equals("/resDetail.cu")) {
-			String RES_NO = req.getParameter("id");
+			String RES_NO = req.getParameter("RES_NO");
 			res.setContentType("application/x-json; charset=utf-8");
-			res.getWriter().print(TeamUtil.mapToJSON(customerService.reservationModal(RES_NO)));
-//			res.getWriter().print(TeamUtil.mapListToJSONList(customerService.menuModal(RES_NO)));
-		}
-		
-		if(sPath.equals("/menuDetail.cu")) {
-			String RES_NO = req.getParameter("id");
-			res.setContentType("application/x-json; charset=utf-8");
-//			res.getWriter().print(TeamUtil.mapToJSON(customerService.reservationModal(RES_NO)));
-			res.getWriter().print(TeamUtil.mapListToJSONList(customerService.menuModal(RES_NO)));
+			Map<String, String> resMap = customerService.reservationModal(RES_NO);
+			List<Map<String, String>> menuList = customerService.menuModal(RES_NO);
+			menuList.add(resMap);
+			res.getWriter().print(TeamUtil.mapListToJSONList(menuList));
 		}
 		
 		
 		if(sPath.equals("/cus_edit.cu")) {
 			String CUS_NO = (String) session.getAttribute("CUS_NO");
-			// 정보 확인
 			req.setAttribute("customerInfo", customerService.getCustomer(CUS_NO));
-			
 			dispatcher = req.getRequestDispatcher("Customer/cus_edit.jsp");
 			dispatcher.forward(req, res);
 		}	
 		
 		
 		if(sPath.equals("/cus_editPro.cu")) {			
-			// 정보 수정
 			Map<String, String> param = new HashMap<String, String>();
 			param.put("CUS_NO", session.getAttribute("CUS_NO").toString());
 			req.setAttribute("customerEdit", customerService.customerEdit(req, param));
@@ -127,35 +119,36 @@ public class CustomerController extends HttpServlet {
 			res.sendRedirect("main.ma");
 		}
 		
+		
 		if(sPath.equals("/deletePro.cu")) {
+			System.out.println("/deletePro.cu");
+			boolean result = false;
 			Map<String, String> param = new HashMap<String, String>();
 			param.put("CUS_NO", session.getAttribute("CUS_NO").toString());
 			Map<String, String> customerCheck = customerService.customerCheck(req, param);
 			req.setAttribute("customerCheck", customerCheck);
-			System.out.println("customerCheck: " + customerCheck);
 			
 			if(customerCheck != null) {
+				customerCheck.put("CUS_REASON", req.getParameter("CUS_REASON"));
+				result = customerService.insertEx(customerCheck);
 				customerService.deleteCustomer(customerCheck);
 				session.invalidate();
-				res.sendRedirect("main.ma");
-			} else {
-				String msg = "이메일을 다시 확인해 주십시오.";
-				alertAndBack(res, msg);
+			}
+			if(result) {
+				res.getWriter().print(result);
 			}
 		}
+
 		
-		// 01/08_준우 + 찜 목록 이동 기능	
+		// 01/08_준우 + 찜 목록 이동 기능
 		if(sPath.equals("/like_list.cu")) {
 			req.setAttribute("LikeList", customerService.getLikeList((String)session.getAttribute("CUS_NO")));
 			
 			dispatcher = req.getRequestDispatcher("Customer/like_list.jsp");
 			dispatcher.forward(req, res);
 		}
-		
+
 	}
-	
-	
-	
 	
 	
 	public static void alertAndBack(HttpServletResponse res, String msg) {

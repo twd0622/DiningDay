@@ -51,7 +51,6 @@ public class CustomerService {
 	}
 
 
-	// 01/08_준우 + 찜 목록 이동 기능
 	public List<Map<String, String>> getLikeList(String CUS_NO) {
 		return customerDAO.getLikeList(CUS_NO);
 	}
@@ -63,13 +62,19 @@ public class CustomerService {
 	
 	
 	public Map<String, String> reservationModal(String RES_NO) {
-		System.out.println("customerDAO.reservationModal(RES_NO): " + customerDAO.reservationModal(RES_NO));
 		return customerDAO.reservationModal(RES_NO);
 	}
 
 	
 	public List<Map<String, String>> menuModal(String RES_NO) {
 		return customerDAO.menuModal(RES_NO);
+	}
+
+
+
+	public boolean insertEx(Map<String, String> customerCheck) {
+		boolean result = customerDAO.insertEx(customerCheck);
+		return result;
 	}
 
 
