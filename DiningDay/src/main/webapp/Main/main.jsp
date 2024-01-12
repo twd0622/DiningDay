@@ -49,55 +49,142 @@
                 <div class="text-center">
                     <h2 class="section-heading text-uppercase" style="margin-left:20px; text-align: left">전국 추천 맛집</h2>
                 </div>
-                <div style="display: flex; flex-direction: row; justify-content: space-around;">
-                    <div class="col-lg-3 mb-4">
-                        <!-- Portfolio item 4-->
-                        <div class="portfolio-item">
-                            <a class="portfolio-link" href="store.ma?STORE_NO=ST100">
-                                <div class="portfolio-hover">
-                                    <div class="portfolio-hover-content"><span class="material-symbols-outlined" style="font-size: 80px;">search</span></div>
-                                </div>
-                                <img class="img-fluid" src="Main/칸다소바.jpg" alt="칸다소바.jpg" />
-                            </a>
-                            <div class="portfolio-caption">
-                                <div class="portfolio-caption-heading">칸다소바 Test점</div>
-                                <div class="portfolio-caption-subheading text-muted">5.0</div>
-                                <div class="portfolio-caption-subheading text-muted">⭐⭐⭐⭐⭐</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 mb-4">
-                        <!-- Portfolio item 5-->
-                        <div class="portfolio-item">
-                            <a class="portfolio-link" href="store.ma">
-                                <div class="portfolio-hover">
-                                    <div class="portfolio-hover-content"><span class="material-symbols-outlined" style="font-size: 80px;">search</span></div>
-                                </div>
-                                <img class="img-fluid" src="Main/칸다소바.jpg" alt="칸다소바.jpg" />
-                            </a>
-                            <div class="portfolio-caption">
-                                <div class="portfolio-caption-heading">칸다소바</div>
-                                <div class="portfolio-caption-subheading text-muted">5.0</div>
-                                <div class="portfolio-caption-subheading text-muted">⭐⭐⭐⭐⭐</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 mb-4">
-                        <!-- Portfolio item 6-->
-                        <div class="portfolio-item">
-                            <a class="portfolio-link" href="store.ma">
-                                <div class="portfolio-hover">
-                                    <div class="portfolio-hover-content"><span class="material-symbols-outlined" style="font-size: 80px;">search</span></div>
-                                </div>
-                                <img class="img-fluid" src="Main/칸다소바.jpg" alt="칸다소바.jpg"/>
-                            </a>
-                            <div class="portfolio-caption">
-                                <div class="portfolio-caption-heading">칸다소바</div>
-                                <div class="portfolio-caption-subheading text-muted">5.0</div>
-                                <div class="portfolio-caption-subheading text-muted">⭐⭐⭐⭐⭐</div>
-                            </div>
-                        </div>
-                    </div>
+                  <div class="box1">
+	                <button class="leftBtn" ><span class="material-symbols-outlined">arrow_back_ios</span></button>
+	                <div class="recomannedStroeBox">
+		                <div class="recomannedStroe">
+							<!-- 맛집 1 -->
+		                    <div class="col-lg-3 mb-4">
+		                        <div class="portfolio-item">
+		                            <a class="portfolio-link" href="store.ma?STORE_NO=ST100">
+		                                <div class="portfolio-hover">
+		                                    <div class="portfolio-hover-content"><span class="material-symbols-outlined" style="font-size: 80px;">search</span></div>
+		                                </div>
+		                                <img class="img-fluid" src="Main/칸다소바.jpg" alt="칸다소바.jpg" />
+		                            </a>
+		                            <div class="portfolio-caption">
+		                                <div class="portfolio-caption-heading">칸다소바 1</div>
+		                                <div class="portfolio-caption-subheading text-muted">5.0</div>
+		                                <div class="portfolio-caption-subheading text-muted">⭐⭐⭐⭐⭐</div>
+		                            </div>
+		                        </div>
+		                    </div>
+		                    <!-- 맛집 2 -->
+		                    <div class="col-lg-3 mb-4">
+		                        <div class="portfolio-item">
+		                            <a class="portfolio-link" href="store.ma">
+		                                <div class="portfolio-hover">
+		                                    <div class="portfolio-hover-content"><span class="material-symbols-outlined" style="font-size: 80px;">search</span></div>
+		                                </div>
+		                                <img class="img-fluid" src="Main/칸다소바.jpg" alt="칸다소바.jpg" />
+		                            </a>
+		                            <div class="portfolio-caption">
+		                                <div class="portfolio-caption-heading">칸다소바 2</div>
+		                                <div class="portfolio-caption-subheading text-muted">5.0</div>
+		                                <div class="portfolio-caption-subheading text-muted">⭐⭐⭐⭐⭐</div>
+		                            </div>
+		                        </div>
+		                    </div>
+		                    <!-- 맛집 3 -->
+		                    <div class="col-lg-3 mb-4">
+		                        <div class="portfolio-item">
+		                            <a class="portfolio-link" href="store.ma">
+		                                <div class="portfolio-hover">
+		                                    <div class="portfolio-hover-content"><span class="material-symbols-outlined" style="font-size: 80px;">search</span></div>
+		                                </div>
+		                                <img class="img-fluid" src="Main/칸다소바.jpg" alt="칸다소바.jpg"/>
+		                            </a>
+		                            <div class="portfolio-caption">
+		                                <div class="portfolio-caption-heading">칸다소바 3</div>
+		                                <div class="portfolio-caption-subheading text-muted">5.0</div>
+		                                <div class="portfolio-caption-subheading text-muted">⭐⭐⭐⭐⭐</div>
+		                            </div>
+		                        </div>
+		                    </div>
+		                    <!-- 맛집 4 -->
+		                    <div class="col-lg-3 mb-4">
+		                        <div class="portfolio-item">
+		                            <a class="portfolio-link" href="store.ma">
+		                                <div class="portfolio-hover">
+		                                    <div class="portfolio-hover-content"><span class="material-symbols-outlined" style="font-size: 80px;">search</span></div>
+		                                </div>
+		                                <img class="img-fluid" src="Main/칸다소바.jpg" alt="칸다소바.jpg"/>
+		                            </a>
+		                            <div class="portfolio-caption">
+		                                <div class="portfolio-caption-heading">칸다소바 4</div>
+		                                <div class="portfolio-caption-subheading text-muted">5.0</div>
+		                                <div class="portfolio-caption-subheading text-muted">⭐⭐⭐⭐⭐</div>
+		                            </div>
+		                        </div>
+		                    </div>
+		                    <!-- 맛집 5 -->
+		                    <div class="col-lg-3 mb-4">
+		                        <div class="portfolio-item">
+		                            <a class="portfolio-link" href="store.ma">
+		                                <div class="portfolio-hover">
+		                                    <div class="portfolio-hover-content"><span class="material-symbols-outlined" style="font-size: 80px;">search</span></div>
+		                                </div>
+		                                <img class="img-fluid" src="Main/칸다소바.jpg" alt="칸다소바.jpg"/>
+		                            </a>
+		                            <div class="portfolio-caption">
+		                                <div class="portfolio-caption-heading">칸다소바 5</div>
+		                                <div class="portfolio-caption-subheading text-muted">5.0</div>
+		                                <div class="portfolio-caption-subheading text-muted">⭐⭐⭐⭐⭐</div>
+		                            </div>
+		                        </div>
+		                    </div>
+		                    <!-- 맛집 6 -->
+		                    <div class="col-lg-3 mb-4">
+		                        <div class="portfolio-item">
+		                            <a class="portfolio-link" href="store.ma">
+		                                <div class="portfolio-hover">
+		                                    <div class="portfolio-hover-content"><span class="material-symbols-outlined" style="font-size: 80px;">search</span></div>
+		                                </div>
+		                                <img class="img-fluid" src="Main/칸다소바.jpg" alt="칸다소바.jpg"/>
+		                            </a>
+		                            <div class="portfolio-caption">
+		                                <div class="portfolio-caption-heading">칸다소바 6</div>
+		                                <div class="portfolio-caption-subheading text-muted">5.0</div>
+		                                <div class="portfolio-caption-subheading text-muted">⭐⭐⭐⭐⭐</div>
+		                            </div>
+		                        </div>
+		                    </div>
+		                    <!-- 맛집 7 -->
+		                    <div class="col-lg-3 mb-4">
+		                        <div class="portfolio-item">
+		                            <a class="portfolio-link" href="store.ma">
+		                                <div class="portfolio-hover">
+		                                    <div class="portfolio-hover-content"><span class="material-symbols-outlined" style="font-size: 80px;">search</span></div>
+		                                </div>
+		                                <img class="img-fluid" src="Main/칸다소바.jpg" alt="칸다소바.jpg"/>
+		                            </a>
+		                            <div class="portfolio-caption">
+		                                <div class="portfolio-caption-heading">칸다소바 7</div>
+		                                <div class="portfolio-caption-subheading text-muted">5.0</div>
+		                                <div class="portfolio-caption-subheading text-muted">⭐⭐⭐⭐⭐</div>
+		                            </div>
+		                        </div>
+		                    </div>
+		                    <!-- 맛집 8 -->
+		                    <div class="col-lg-3 mb-4">
+		                        <div class="portfolio-item">
+		                            <a class="portfolio-link" href="store.ma">
+		                                <div class="portfolio-hover">
+		                                    <div class="portfolio-hover-content"><span class="material-symbols-outlined" style="font-size: 80px;">search</span></div>
+		                                </div>
+		                                <img class="img-fluid" src="Main/칸다소바.jpg" alt="칸다소바.jpg"/>
+		                            </a>
+		                            <div class="portfolio-caption">
+		                                <div class="portfolio-caption-heading">칸다소바 8</div>
+		                                <div class="portfolio-caption-subheading text-muted">5.0</div>
+		                                <div class="portfolio-caption-subheading text-muted">⭐⭐⭐⭐⭐</div>
+		                            </div>
+		                        </div>
+		                    </div>
+		                </div>
+		                <!-- 추천 맛집 끝 -->
+	                </div>
+	            	<button class="rightBtn"><span class="material-symbols-outlined">arrow_forward_ios</span></button>
                 </div>
             </div>
             <div class="container" style="padding-top: 50px;">

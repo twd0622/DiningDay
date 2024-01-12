@@ -72,7 +72,7 @@
 			<div style="display: flex; flex-direction: column; margin-right: 10px;">
 				<span style="color: #bfbfbf; font-size: 12px;">예약 날짜</span>
 				<input id="dateOption" type="date" class="form-control" style="background: #f5f5f5; border: 0; padding: 20px 40px; width: 210px;"
-			       value="${sessionScope.date}" min="${sessionScope.date}">
+			       value="${sessionScope.date}" min="${sessionScope.today}">
 			</div>
 			<div style="display: flex; flex-direction: column;">
 				<span style="color: #bfbfbf; font-size: 12px;">예약 인원</span>

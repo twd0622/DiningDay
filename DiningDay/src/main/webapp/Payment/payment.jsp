@@ -105,6 +105,11 @@
 						<c:if test="${menuInfo.MENU_HIDE == 1}">
 						<li>
 							<div class="menu menuPlusBtn">
+								<div>
+									<c:if test="${!empty menuInfo.PHOTO_NAME and menuInfo.PHOTO_NAME != '0'}">
+										<img alt="${menuInfo.PHOTO_NAME}" src="upload/${menuInfo.PHOTO_NAME}" class="menu_img">
+									</c:if>
+								</div>
 								<div class="menu_info" name="${menuInfo.MENU_NO}">
 									<div class="menu_name_box">
 										<p class="menu_name">${menuInfo.MENU_NAME}</p>
@@ -120,29 +125,8 @@
 								</div>
 							</div>
 						</li>
-						
 						</c:if>
 						</c:forEach>
-						
-						<!-- 사진있는 버전 -->
-<!-- 						<li> -->
-<!-- 							<div class="menu menuPlusBtn"> -->
-<!-- 								<img alt="츠케멘.jpg" src="Payment/츠케멘.jpg" class="menu_img"> -->
-<%-- 								<div class="menu_info" name="${menuInfo.MENU_NO}"> --%>
-<!-- 									<div class="menu_name_box"> -->
-<%-- 										<p class="menu_name">${menuInfo.MENU_NAME}</p> --%>
-<%-- 										<p class="menu_price"> ${menuInfo.MENU_PRICE} 원</p> --%>
-<!-- 									</div> -->
-<!-- 									<div class="menu_choice"> -->
-<!-- 										<div style="text-align: left;"> -->
-<!-- 											<p style="padding-left: 10px; margin: 0; font-size: 15px"> -->
-<%-- 												${menuInfo.MENU_INFO} --%>
-<!-- 											</p> -->
-<!-- 										</div> -->
-<!-- 									</div> -->
-<!-- 								</div> -->
-<!-- 							</div> -->
-<!-- 						</li> -->
 					</ul>
 				</div>
 				
