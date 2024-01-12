@@ -41,9 +41,13 @@ RequestDispatcher dispatcher = null;
 		if(sPath.equals("/payment.pa")) {
 			Map<String, String> reservationDTO = TeamUtil.requestToMap(req);
 			System.out.println(reservationDTO);
+			System.out.println("storeInfo");
 			req.setAttribute("storeInfo", paymentService.getStoreInfo(reservationDTO));
+			System.out.println("customerInfo");
 			req.setAttribute("customerInfo", paymentService.getCustomerInfo((String)session.getAttribute("CUS_NO")));
+			System.out.println("menuInfoList");
 			req.setAttribute("menuInfoList", paymentService.getMenuInfo(reservationDTO));
+			System.out.println("reservationDTO");
 			req.setAttribute("reservationDTO", reservationDTO);
 			
 			dispatcher = req.getRequestDispatcher("Payment/payment.jsp");

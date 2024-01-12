@@ -19,3 +19,21 @@
 .cus_nickname{
 	margin-top: 10px;
 }
+
+.box1{
+	display: flex;
+	flex-direction: row;
+}
+
+.recomannedStroeBox{
+	
+	overflow: hidden;
+}
+
+.recomannedStroe{
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	
+	transition-duration: 1500ms;
+}

@@ -28,4 +28,16 @@ $(()=>{
 		return true;
 	})
 	
+	$(".leftBtn").on("click",function(){
+		$(".recomannedStroe").css({
+			transform: "translate(0)"
+		})
+	})
+	
+	$(".rightBtn").on("click",function(){
+		$(".recomannedStroe").css({
+			transform: "translate(-1248px)"
+		})
+	})
+	
 })
