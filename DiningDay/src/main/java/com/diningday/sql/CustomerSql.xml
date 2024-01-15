@@ -111,7 +111,6 @@
 				, CUS_TEL 	= #{CUS_TEL}
 				, CUS_EMAIL = #{CUS_EMAIL}
 				, CUS_BIRTH = replace(cast(#{CUS_BIRTH} as char), "-", "")
-				, CUS_GENDER= #{CUS_GENDER}
 				, CUS_REDATE= DATE_FORMAT(SYSDATE(), '%Y%m%d%H%i%s')
 		where	CUS_NO = #{CUS_NO};
 	</update>

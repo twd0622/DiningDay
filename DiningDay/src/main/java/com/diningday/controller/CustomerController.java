@@ -48,17 +48,13 @@ public class CustomerController extends HttpServlet {
 		
 		if(sPath.equals("/loginPro.cu")) {
 			boolean result = false;
-			System.out.println("req: " + req.toString());
 			Map<String, String> searchId = customerService.searchId(req);
 			
-			// req id 값이 db에 있는 회원인지
 			if(searchId == null || searchId.isEmpty()) {
-				// 없으면 자동 회원가입 후 메인
 				System.out.println("첫 회원가입 고객");
 				result = customerService.insertCustomer(req);
 				searchId = customerService.searchId(req);
 			} else {
-				// 있으면 그냥 세션값 넣고 메인
 				System.out.println("이미 가입한 고객");
 				result = true;
 			}
