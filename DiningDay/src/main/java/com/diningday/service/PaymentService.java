@@ -3,6 +3,8 @@ package com.diningday.service;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import com.diningday.dao.PaymentDAO;
 
 public class PaymentService {
@@ -38,5 +40,11 @@ public class PaymentService {
 		return paymentDAO.getResInfo(dto);
 		
 	}
+
+	public void payment_cancel(String MERCHANT_UID) {
+		paymentDAO.payment_cancel(MERCHANT_UID);
+		
+	}
+
 	
 }
