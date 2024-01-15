@@ -6,12 +6,12 @@ $(function(){
 	 	$.ajax({
 	 		type: "get",
 	 		url: "resDetail.cu",
-	 		data: {RES_NO: this.text},
+	 		data: {RES_NO: $(this).attr("id")},
 	 		dataType: "json"
 	 	})
 	 	.done(function(data){
 	 		var resMap = data[data.length-1];
-	 		$('#modal_res_no').text(resMap.RES_NO);
+	 		$('#modal_merchant_uid').append("예약번호: " + resMap.MERCHANT_UID);
 	 		$('#modal_res_date').text(resMap.RES_DATE);
 	 		$('#modal_cus_name').text(resMap.CUS_NAME);
 	 		$('#modal_cus_tel').text(resMap.CUS_TEL);
@@ -37,8 +37,7 @@ $(function(){
 	 			$('#resDelete').on('click', function(){
 	 				var result = confirm("예약을 취소하시겠습니까?");
 	 		        if(result){
-	 		        	alert("예약취소가 되었습니다.");
-	 		    	 	location.reload(true);
+						 location.replace('payment_cancel.pa?MERCHANT_UID=' + resMap.MERCHANT_UID);
 	 		       	} else {
 	 		       		return false;
 	 		       	}

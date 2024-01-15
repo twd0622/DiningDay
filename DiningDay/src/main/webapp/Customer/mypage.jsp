@@ -49,7 +49,7 @@
 						<c:forEach var="reservationInfo" items="${reservationInfo}">
 							<tr>
 	                	  	  	<td scope="row" rowspan="2" width="30px">
-	                	  	  		<b><a id="resBtn_${reservationInfo.RES_NO}" href="#" class=resBtn>${reservationInfo.RES_NO}</a></b></td>
+	                	  	  		<b><a id="${reservationInfo.RES_NO}" href="#" class=resBtn>${reservationInfo.MERCHANT_UID}</a></b></td>
 	                			<td rowspan="2" width="20px">${reservationInfo.RES_DATE}</td>
 	                			<td colspan="2">${reservationInfo.STORE_NAME}</td>
 	                			<c:if test="${reservationInfo.REQ_STATE eq '2'}">
@@ -86,7 +86,7 @@
 			     <button type="button" class="res-close" data-dismiss="modal" aria-label="Close">&times;</button>
 		     </div>
 		     <div class="modal-body" id="res-modal-body">
-			     <h5 id="modal_res_no" class="res_num"></h5>
+			     <h5 id="modal_merchant_uid" class="res_num"></h5>
 				 <div class="col-md-12 mt-5">
 		          <div class="tab-content profile-tab" id="myTabContent">
 		             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
