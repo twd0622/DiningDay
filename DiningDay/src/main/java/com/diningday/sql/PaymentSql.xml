@@ -143,6 +143,7 @@
 	
 	<select id="getResInfo" parameterType="map" resultType="map">
 		SELECT R.RES_NO
+			 , P.MERCHANT_UID
 		     , ST.STORE_NAME
 		     , SE.SEAT_NAME
 		     , str_to_date(R.RES_DATE, '%Y%m%d') RES_DATE
