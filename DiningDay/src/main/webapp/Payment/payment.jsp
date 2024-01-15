@@ -147,7 +147,7 @@
 							<ul>
 								<li id="MEO" class="choice_list defaultMenu">
 									<div style="display: flex; justify-content: space-around;">
-										<span>기본 예약금</span>
+										<span id="기본 예약금" class="cart_menu_name">기본 예약금</span>
 										<span class="price">10,000 원</span>
 									</div>
 								</li>

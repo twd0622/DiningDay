@@ -32,7 +32,7 @@ $(()=>{
 		"click",
 		function(){
 			$(".choice_menu ul").empty();
-			$(".choice_menu ul").append('<li id="MEO" class="choice_list defaultMenu"><div style="display: flex; justify-content: space-around;"><span>기본 예약금</span><span class="price">10,000 원</span></div></li>');
+			$(".choice_menu ul").append('<li id="MEO" class="choice_list defaultMenu"><div style="display: flex; justify-content: space-around;"><span id="기본 예약금" class="cart_menu_name">기본 예약금</span><span class="price">10,000 원</span></div></li>');
 			calcSum();
 		}
 	)
