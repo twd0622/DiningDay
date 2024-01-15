@@ -105,9 +105,9 @@
 		                <div class="row">
 		                    <div class="col-md-6"><label id="label">식당명</label></div>
 		                    <div class="col-md-6">
-		                        <p style="color: gray;">
-		                        <b><a id="modal_store_no" style="color: gray;">
-		                        <label id="modal_store_name" style="text-decoration: underline;"></label></a></b><br>
+		                        <p id="store">
+		                        <b><a id="modal_store_no">
+		                        <label id="modal_store_name"></label></a></b><br>
 		                        (<label id="modal_store_location"></label>)</p>
 		                    </div>
 		                </div>

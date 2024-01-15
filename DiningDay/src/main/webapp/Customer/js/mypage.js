@@ -59,6 +59,7 @@ $(function(){
 	});
 	
 	$('.res-close').on('click', function(){
+		$('#modal_merchant_uid').empty();
 		$('#menuName').empty();
 		$('#menuCount').empty();
 		$('#menuPrice').empty();
@@ -68,6 +69,7 @@ $(function(){
 
 	
 	$('#resOk').on('click', function(){
+		$('#modal_merchant_uid').empty();
 		$('#menuName').empty();
 		$('#menuCount').empty();
 		$('#menuPrice').empty();

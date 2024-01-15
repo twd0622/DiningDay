@@ -43,6 +43,14 @@
 	width: 40px;
 }
 
+#store {
+	color: gray;
+}
+
+#modal_store_name {
+	text-decoration: underline;
+}
+
 #myBtn {
 	color: #111111; 
 	background-color: white; 

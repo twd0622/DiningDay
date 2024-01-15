@@ -60,10 +60,10 @@
 			</div>
 			<ul class="nav nav-pills nav-justified mb-3">
 				<li class="nav-item">
-					<a class="nav-link active" id="edit_success" data-mdb-toggle="pill" onclick="edit()">저장</a>
+					<a class="nav-link active" id="edit_success" onclick="edit()">저장</a>
 				</li>			
 				<li class="nav-item">
-					<a class="nav-link" id="edit_fail" data-mdb-toggle="pill" href="mypage.cu">취소</a>
+					<a class="nav-link" id="edit_fail" href="mypage.cu">취소</a>
 				</li>
 			</ul>
         </div>
