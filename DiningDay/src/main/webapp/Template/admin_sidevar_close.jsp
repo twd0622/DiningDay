@@ -13,6 +13,6 @@
     <!-- IONICONS -->
     <script src="https://unpkg.com/ionicons@5.2.3/dist/ionicons.js"></script>
     <!-- JS -->
-    <script src="${ pageContext.request.contextPath }/resources/jsbootstrap.bundle.min.js"></script>
+    <script src="${ pageContext.request.contextPath }/resources/js/	bootstrap.bundle.min.js"></script>
     </body>
 </html>

@@ -11,11 +11,13 @@
 <link href="resources/css/variable_admin.css" rel="stylesheet">
 <script src="resources/js/variableCode.js"></script>
 <script src="resources/js/jquery.twbsPagination.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
 	$(()=>{
-		paging("tbody tr" ,5);
+		paging("tbody tr" ,5, 1);
 	})
 </script>
+<script src="Admin/js/delBtn.js"></script>
 </head>
 
 <!-- main은 속성 값은 왠만하면 건들지x -->
@@ -80,12 +82,12 @@
 				</thead>
 				<tbody>
 						<c:forEach var="cReport" items="${reviewReport}">
-							<tr style="height: 60px;">
+							<tr class="cRep_no" id="${cReport.CREP_NO}" style="height: 60px;">
 								<td class="title align-middle" onClick="location.href='admin_userReportDetail.ad?CREP_NO=${cReport.CREP_NO}&REV_NO=${cReport.REV_NO}&OWN_NO=${cReport.OWN_NO}'">${cReport.CREP_NO}</td>
 								<td class="hashtag align-middle" onClick="location.href='admin_userReportDetail.ad?CREP_NO=${cReport.CREP_NO}&REV_NO=${cReport.REV_NO}&OWN_NO=${cReport.OWN_NO}'">${cReport.OWN_NO} <br><small>(${cReport.STORE_NAME})</small></td>
 								<td class="created-at col-1 align-middle" onClick="location.href='admin_userReportDetail.ad?CREP_NO=${cReport.CREP_NO}&REV_NO=${cReport.REV_NO}&OWN_NO=${cReport.OWN_NO}'">${cReport.CREP_TITLE}</td>
 								<td class="created-at col-1 align-middle" onClick="location.href='admin_userReportDetail.ad?CREP_NO=${cReport.CREP_NO}&REV_NO=${cReport.REV_NO}&OWN_NO=${cReport.OWN_NO}'">${cReport.DATE}</td>
-								<td class="align-middle"><a href="admin_userReportDelete.ad?CREP_NO=${cReport.CREP_NO}" onclick="return confirm('정말 삭제하시겠습니까?');" class="align-middle btn btn-outline-danger">삭제</a></td>
+								<td class="align-middle"><input type="button" class="delBtn btn btn-outline-danger" value="삭제" ></td>
 							</tr>
 						</c:forEach>
 				</tbody>

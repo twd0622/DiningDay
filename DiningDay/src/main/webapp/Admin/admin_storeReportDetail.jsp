@@ -45,7 +45,7 @@
 						<td>${sRepDetail.DATE}</td>
 					</tr>
 					<c:choose> 
-						<c:when test="${sRepDetail.SREP_FILE eq null}"> null</c:when>
+						<c:when test="${sRepDetail.SREP_FILE eq null}"></c:when>
 						<c:otherwise> 
 							<tr>
 								<th class="title align-middle table-success" style="vertical-align: middle;">첨부파일</th>

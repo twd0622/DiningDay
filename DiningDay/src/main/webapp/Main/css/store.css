@@ -269,3 +269,12 @@ ul.list li{
 	background-color: #9ced92;
 	margin-bottom: 10px;	
 }
+
+#repoertBtn{
+	text-decoration: underline;
+	color: #3872FA;
+}
+
+#repoertBtn:hover{
+	cursor: pointer;
+}

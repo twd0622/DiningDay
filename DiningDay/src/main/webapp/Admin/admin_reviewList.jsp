@@ -13,7 +13,7 @@
 <script src="resources/js/jquery.twbsPagination.min.js"></script>
 <script>
 	$(()=>{
-		paging("tbody tr" ,10);
+		paging("tbody tr" ,10, 1);
 	})
 </script>
 </head>
