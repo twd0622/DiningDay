@@ -83,20 +83,25 @@ RequestDispatcher dispatcher = null;
 		}
 		
 		if(sPath.equals("/payment_cancel.pa")) {
-			// 환불 가능한지 판단
-			
-			
-			// 가능하다면 환불 처리
 			String MERCHANT_UID = req.getParameter("MERCHANT_UID");
-			String token = PaymentCancel.getImportToken();
+			String msg = "당일 취소는 불가 합니다. 식당에 문의해 주세요";
 			
-			int result_delete = PaymentCancel.cancelPay(token, MERCHANT_UID);
-			String msg = "취소 실패 되었습니다.";
-			
-			// 환불 처리 후 DB 변경
-			if(result_delete == 1) {
-				paymentService.payment_cancel(MERCHANT_UID);
-				msg = "취소 완료 되었습니다.";
+			// 환불 가능한지 판단
+			if(paymentService.checkResDate(MERCHANT_UID)) {
+				// 가능하다면 환불 처리
+				String token = PaymentCancel.getImportToken();
+				
+				int result_delete = PaymentCancel.cancelPay(token, MERCHANT_UID);
+				
+				
+				// 환불 처리 후 DB 변경
+				if(result_delete == 1) {
+					paymentService.payment_cancel(MERCHANT_UID);
+					msg = "취소 완료 되었습니다.";
+				} else {
+					msg = "취소 실패 되었습니다.";
+				}
+				
 			}
 			
 			req.setAttribute("msg", msg);

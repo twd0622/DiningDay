@@ -167,6 +167,15 @@
 					      FROM PAYMENT
 					     WHERE MERCHANT_UID = #{MERCHANT_UID});
 	</update>
+	
+	<select id="checkResDate" parameterType="String" resultType="map">
+		select if(date_format(now(), '%Y%m%d') &lt; RES_DATE, '1', '0') RESULT
+		from RESERVATION
+		WHERE RES_NO = (SELECT RES_NO
+					      FROM PAYMENT
+					     WHERE MERCHANT_UID = #{MERCHANT_UID});
+	</select>
+	
 </mapper>
 
 
