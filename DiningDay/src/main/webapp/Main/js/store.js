@@ -298,5 +298,15 @@ $(()=>{
 		return isChecked;
 	})
 	
+	// ---------- 신고 버튼 로그인 확인 ------------------------
+	$("#repoertBtn").on("click", function(){
+		if(cus_no != ''){
+			location.href = "reportWrite.re?STORE_NO="+$(".store_profile").attr("id")+"&STORE_NAME="+$(".tit-point").find("h1").text();
+		} else{
+			alert("로그인 후 가능")
+		}
+		
+		
+	})
 	
 })

@@ -11,11 +11,13 @@
 <link href="resources/css/variable_admin.css" rel="stylesheet">
 <script src="resources/js/variableCode.js"></script>
 <script src="resources/js/jquery.twbsPagination.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
 	$(()=>{
-		paging("tbody tr" ,5);
+		paging("tbody tr" ,5, 1);
 	})
 </script>
+<script src="Admin/js/delBtn.js"></script>
 </head>
 <!-- main은 속성 값은 왠만하면 건들지x -->
 <c:set var="userList" value="${ requestScope.userList }"/>
@@ -83,7 +85,7 @@
 				</thead>
 				<tbody>
 						<c:forEach var="user" items="${userList}">
-							<tr style="height: 60px;">
+							<tr class="cus_no" id="${user.CUS_NO}" style="height: 60px;">
 								<td class="title align-middle">${user.CUS_NO}</td>
 								<td class="hashtag align-middle"><small>${user.CUS_ID}</small> (${user.CUS_NICK})</td>
 								<td class="created-at col-1 align-middle text-start">
@@ -101,7 +103,7 @@
 									</div>
 								</td>
 								<td class="created-at col-1 align-middle">${user.DATE}</td>
-								<td class="align-middle"><a href="admin_userDelete.ad?CUS_NO=${user.CUS_NO}" onclick="return confirm('정말 삭제하시겠습니까?');" class="align-middle btn btn-outline-danger">삭제</a></td>
+								<td class="align-middle"><input type="button" class="delBtn btn btn-outline-danger" value="삭제" ></td>
 							</tr>
 						</c:forEach>
 				</tbody>
