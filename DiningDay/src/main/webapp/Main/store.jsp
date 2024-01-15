@@ -76,7 +76,7 @@
 							<span class="material-symbols-outlined grade_icon" style="color: #F7CE3E;">star</span>
 						</span>
 					</p>
-					<a href="reportWrite.re?STORE_NO=${storeInfo.STORE_NO}&STORE_NAME=${storeInfo.STORE_NAME}"> 신고하기 </a>
+					<a id="repoertBtn"> 신고하기 </a>
 				</div>
 				<div class="profile_btnBox">
 					<div class="profile_btn_sec" style="border-right: 2px solid #f0f0f0;">

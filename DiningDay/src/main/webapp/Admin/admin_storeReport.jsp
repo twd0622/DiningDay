@@ -11,11 +11,14 @@
 <link href="resources/css/variable_admin.css" rel="stylesheet">
 <script src="resources/js/variableCode.js"></script>
 <script src="resources/js/jquery.twbsPagination.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-	$(()=>{
-		paging("tbody tr" ,5);
-	})
+$(()=>{
+	paging("tbody tr" ,5, 1);
+	
+})
 </script>
+<script src="Admin/js/delBtn.js"></script>
 </head>
 <!-- main은 속성 값은 왠만하면 건들지x -->
 <main
@@ -80,12 +83,13 @@
 				</thead>
 				<tbody>
 						<c:forEach var="sReport" items="${storeReport}">
-							<tr>
+							<tr class="sRep_no" id="${sReport.SREP_NO}">
 								<td class="title align-middle" id="td1" onClick="location.href='admin_storeReportDetail.ad?SREP_NO=${sReport.SREP_NO}&CUS_NO=${sReport.CUS_NO}&STORE_NO=${sReport.STORE_NO}'">${sReport.SREP_NO}</td>
 								<td class="hashtag align-middle" id="td1" onClick="location.href='admin_storeReportDetail.ad?SREP_NO=${sReport.SREP_NO}&CUS_NO=${sReport.CUS_NO}&STORE_NO=${sReport.STORE_NO}'">${sReport.STORE_NAME}</td>
 								<td class="user-id align-middle" style="text-align: left;" id="td1" onClick="location.href='admin_storeReportDetail.ad?SREP_NO=${sReport.SREP_NO}&CUS_NO=${sReport.CUS_NO}&STORE_NO=${sReport.STORE_NO}'"> ${sReport.SREP_TITLE}</td>
 								<td class="created-at col-1 align-middle" id="td1" onClick="location.href='admin_storeReportDetail.ad?SREP_NO=${sReport.SREP_NO}&CUS_NO=${sReport.CUS_NO}&STORE_NO=${sReport.STORE_NO}'">${sReport.DATE}</td>
-								<td class="align-middle"><a href="admin_storeReportDelete.ad?SREP_NO=${sReport.SREP_NO}" onclick="return confirm('정말 삭제하시겠습니까?');" class="align-middle btn btn-outline-danger">삭제</a></td>
+<%-- 								<td class="align-middle"><a href="admin_storeReportDelete.ad?SREP_NO=${sReport.SREP_NO}" onclick="return confirm('정말 삭제하시겠습니까?');" class="align-middle btn btn-outline-danger">삭제</a></td> --%>
+								<td class="align-middle"><input type="button" class="delBtn btn btn-outline-danger" value="삭제" ></td>
 							</tr>
 						</c:forEach>
 				</tbody>

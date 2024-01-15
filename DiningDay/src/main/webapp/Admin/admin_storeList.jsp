@@ -31,54 +31,12 @@ img{
 <script src="resources/js/jquery.twbsPagination.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
-
-// var store_no = $(this).parent("td").siblings(".title").text();
-	
 $(()=>{
-	paging("tbody tr" ,5);
-		
-// 		$(".delBtn").on("click", function() {
-			
-// 			if(confirm('정말 삭제하시겠습니까?')){
-// 				location.href = "admin_storeDelete.ad?STORE_NO="+store_no;
-// 			}
-// 		})
-		
-	$(".delBtn").on("click", function() {
-		Swal.fire({	
-			title: "정말 삭제하시겠습니까?",
-			text: "다시 되돌릴 수 없습니다.",
-			icon: "warning",
-			showCancelButton: true,
-			confirmButtonColor: "#d33",
-			cancelButtonColor: "#3085d6",
-			confirmButtonText: "삭제",
-			cancelButtonText: "취소",
-			showCancelButton: true,
-			showConfirmButton: true,
-			})
-			.then((result) => {
-				if (result.isConfirmed) {
-					Swal.fire({
-						title: "삭제됨",
-					    icon: "success",
-					})
-					.then((result) => {
-			    		var store_no = $(this).parent("td").siblings(".title").text();
-				    	location.href = "admin_storeDelete.ad?STORE_NO="+store_no;
-					})
-				}
-			});
-	})	
-	
+	paging("tbody tr" ,5, 1);
 })
 	
-		
-	
-// 	main
-	
 </script>
-
+<script src="Admin/js/delBtn.js"></script>
 </head>
 <!-- main은 속성 값은 왠만하면 건들지x -->
 <main
