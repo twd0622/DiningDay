@@ -166,7 +166,7 @@
 	                			<c:if test="${reservationInfo.REQ_STATE eq '2'}">
 		                			<td style="vertical-align: middle; color: green;" rowspan="2" width="40px"><b>방문완료</b></td>
 		                			<td class="align-middle" rowspan="2" width="20px">
-		                				<button type="button" class="btn btn-outline-warning">작성하기</button></td>
+		                				<button type="button" class="btn btn-outline-warning" onclick="location.href='reviewWrite.re'">작성하기</button></td>
 	                			</c:if>	
 	                			<c:if test="${reservationInfo.REQ_STATE eq '1'}">
 	                			    <td style="vertical-align: middle; color: red;" rowspan="2" width="40px"><b>예약취소</b></td>

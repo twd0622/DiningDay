@@ -2,14 +2,30 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="Report">
+<mapper namespace="Review_Report">
 	
 	
 	<insert id="insertReport" parameterType="map">
 		insert into STORE_REPORT (SREP_NO, CUS_NO, STORE_NO, STORE_NAME, SREP_TITLE, SREP_FILE, SREP_CONTENT, SREP_DATE, SREP_PROCESS)
     	values(ifnull((select cast(max(SREP_NO) as unsigned)+1 as 'MAXNO' from STORE_REPORT as a), 1), #{cus_no}, #{store_no}, #{store_name}, #{srep_subject}, #{srep_file}, #{srep_content}, date_format(now(), '%Y%m%d%H%i%s'), '0');		    
 	</insert>
-		
+	
+	<insert id="insertReview" parameterType="map">
+		insert into REVIEW(REV_NO, CUS_NO, CUS_NICK, STORE_NO, RES_NO, SEAT_NO, REV_CONTENT, REV_DATE, REV_SCORE, REV_GOOD, REV_IMAGE)
+		values(
+		concat("RV", IFNULL((select MAX(cast(replace(REV_NO, "RV", "") AS unsigned))+1 FROM REVIEW A), 1))
+		, #{cus_no}
+		, #{cus_nick}
+		, 'ST100'
+		, 'RS1'
+		, 'SE1'
+		, #{rev_content}
+		, date_format(now(), '%Y%m%d%H%i%s')
+		, #{rev_score}
+		, '0'
+		, #{rev_image}); 
+    			    
+	</insert>	
 		
 	
 </mapper>

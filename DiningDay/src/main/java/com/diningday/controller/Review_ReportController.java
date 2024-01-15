@@ -1,6 +1,7 @@
 package com.diningday.controller;
 
 import java.io.IOException;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,12 +10,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.diningday.service.AdminService;
-import com.diningday.service.ReportService;
+import com.diningday.service.Review_ReportService;
+import com.diningday.util.TeamUtil;
 
-public class ReportController extends HttpServlet {
+public class Review_ReportController extends HttpServlet {
 	RequestDispatcher dispatcher = null;
 	AdminService adminService = null;
-	ReportService reportService = null;
+	Review_ReportService review_ReportService = null;
 
 
 	@Override
@@ -44,12 +46,31 @@ public class ReportController extends HttpServlet {
 		
 		if(sPath.equals("/reportWritePro.re")) {
 			System.out.println("/reportWritePro.re");
-			reportService = new ReportService();
+			review_ReportService = new Review_ReportService();
 			
-			reportService.insertReport(req);
+			review_ReportService.insertReport(req);
 			res.sendRedirect("main.ma");
 		}
 		
+		if(sPath.equals("/reviewWrite.re")) {
+			System.out.println("/reviewWrite.re");
+			req.setAttribute("STORE_NO", req.getParameter("STORE_NO"));
+			req.setAttribute("STORE_NAME", req.getParameter("STORE_NAME"));
+			dispatcher = req.getRequestDispatcher("Review_Report/reviewWrite.jsp");
+			dispatcher.forward(req, res);
+		}
+		
+		if(sPath.equals("/reviewWritePro.re")) {
+			System.out.println("/reviewWritePro.re");
+			String content = req.getParameter("rev_content");
+			System.out.println(content);
+			String score = req.getParameter("rev_score");
+			System.out.println(score);
+			
+			Map<String, String> review_ReportDTO = TeamUtil.fileRequestToMap(req);
+			review_ReportService = new Review_ReportService();
+			review_ReportService.insertReview(review_ReportDTO);
+		}
 		
 		
 	}
