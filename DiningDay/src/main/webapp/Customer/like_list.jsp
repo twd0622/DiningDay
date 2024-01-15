@@ -8,7 +8,7 @@
     
     <c:set var="LikeList" value="${requestScope.LikeList }" />
     
-    <title>${sessionScope.CUS_NICK} 찜 목록</title> 
+    <title>${sessionScope.CUS_NICK}님의 찜 목록</title> 
     
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
     <link href="Customer/css/like_list.css" rel="stylesheet">
@@ -27,14 +27,14 @@
 				<!-- 리뷰 리스트 -->
 				<div class="storeBox">
 					<div class="store_img">
-						<img alt="칸다소바.jpg" src="칸다소바.jpg" style="width: 100%; height: 100%; border-radius: 10px;">					
+						<img alt="${store.PHOTO_NAME}" src="upload/${store.PHOTO_NAME}" style="width: 100%; height: 100%; border-radius: 10px;">					
 					</div>
 					<div class="colBox">
-						<div class="store_name">
-							<p style="margin: 0;">${store.STORE_NAME}</p>
-							<a href="store.ma?STORE_NO=${store.STORE_NO}" style="font-size: 13px; line-height: 175%;">상세보기></a>
-						</div>
-						<div class="store_info">
+						<div>
+							<div class="store_name">
+								<p style="margin: 0;">${store.STORE_NAME}</p>
+								<a href="store.ma?STORE_NO=${store.STORE_NO}" style="font-size: 13px; line-height: 175%;">상세보기></a>
+							</div>
 							<div class="store_category">
 								<span class="store_info_text">${store.STORE_CATEGORY}
 								<c:if test="${!empty store.STORE_DETAIL}">
@@ -42,6 +42,8 @@
 								</c:if>								
 								</span>
 							</div>
+						</div>
+						<div class="store_info">
 							<div class="store_review_score">
 								<span class="store_info_icon material-icons" style="color: #F7CE3E;">grade</span>
 								<span class="store_info_text">${store.STORE_SCORE}점 (30 명)</span>

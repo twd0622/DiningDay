@@ -105,27 +105,32 @@
 				<!-- 영업 시간 -->
 				<div class="busi-hours-today">
 					<p class="tit">영업시간</p>
+				    <div id="BT" class="${storeInfo.STORE_BTS}~${storeInfo.STORE_BTE}" style="display:none;"></div>
 					<ul class="list">
 						<li>
-							<p class="l-txt"><strong>화 ~ 일</strong></p>
+							<p class="l-txt"> </p>
 							<p class="r-txt">영업시간: ${storeInfo.STORE_ST} ~ ${storeInfo.STORE_ET}</p>
 						</li>
-						<li>
-						  <p class="l-txt"> </p>
-						  <p class="r-txt">브레이크타임: ${storeInfo.STORE_BT}</p>
-						</li>
+				        <c:if test="${storeInfo.STORE_BTS != '00:00'}">
+						  <li>
+						    <p class="l-txt"> </p>
+						    <p class="r-txt">브레이크타임: ${storeInfo.STORE_BTS} ~ ${storeInfo.STORE_BTE}</p>
+						  </li>
+				        </c:if>
+              			<c:if test="${storeInfo.STORE_LO != '0'}">
               			<li>
   							<p class="l-txt"> </p>
   							<p class="r-txt">라스트오더: ${storeInfo.STORE_LO}</p>
 						</li>
-					</ul>
-					<hr class="hr">
-					<ul class="list">
+              			</c:if>
+						<c:if test="${storeInfo.STORE_CLOSE != '0'}" >
 						<li>
-							<p class="l-txt"><strong>월</strong></p>
-							<p class="r-txt">정기 휴무</p>
+							<p class="l-txt"> </p>
+							<p class="r-txt"><strong>정기 휴무:</strong> ${storeInfo.STORE_CLOSE}</p>
+							<div id="close" class="${storeInfo.STORE_CLOSE}" style="display:none;"></div>
 						</li>
-					</ul>					
+						</c:if>
+					</ul>
 				</div>
 				<!-- 메뉴 -->
 				<div class="menuBox">
@@ -156,7 +161,11 @@ ${storeInfo.STORE_INFO}
 						<c:forEach var="table" items="${tableList}">
 						<li>
 							<div class="table_" id="${table.SEAT_NO}">
-								<div class="table_img"></div>
+								<c:if test="${!empty menuInfo.PHOTO_NAME and menuInfo.PHOTO_NAME != '0'}">
+								<div class="table_img">
+									<img alt="${menuInfo.PHOTO_NAME}" src="upload/${menuInfo.PHOTO_NAME}" class="menu_img">
+								</div>
+								</c:if>
 								<div class="table_info" >
 									<div class="table_name_box">
 										<p class="table_name">${table.SEAT_NAME}</p>
@@ -171,7 +180,7 @@ ${storeInfo.STORE_INFO}
 											</ul>
 										</div>
 										<div style="width: 20%;">
-											<button class="btn btn-outline-warning modalOpen reservationModalBtn" style="margin-top:80%">예약하기</button>
+												<button class="btn modalOpen reservationModalBtn" style="margin-top:80%">예약하기</button>
 										</div>
 									</div>
 								</div>
@@ -186,7 +195,7 @@ ${storeInfo.STORE_INFO}
 	<div id="modalContainer" class="hidden">
 	  <div id="modalContent">
 	     <h4>예약</h4>
-	     <form action="payment.pa" method="post">
+	     <form class="reservation" action="payment.pa" method="post">
 	     	 <input type="hidden" name="store_no" value="${storeInfo.STORE_NO}">
 		     <div>
 		     	<input type="hidden" name="SEAT_NO" id="seat_no" value="">
@@ -204,7 +213,7 @@ ${storeInfo.STORE_INFO}
 		     	<hr>
 				<h5>시간</h5>
 				<div style="display: flex; flex-direction: row; flex-wrap: wrap; justify-content: flex-start;">
-					<c:forEach var="i" begin="0"  end="${storeInfo.TIEMDIFF}" step="200">
+					<c:forEach var="i" begin="0"  end="${storeInfo.TIEMDIFF}" step="${storeInfo.STORE_RT}">
 						<div class="time able" style="width: 115px; height: 44px; text-align: center; margin-right: 20px; margin-top: 5px;">
 							<input type="radio" class="selectTime" name="time" value="${storeInfo.STORE_RST + i}" style="display: none;">
 							<span class="timeFont">${fn:substring(storeInfo.STORE_RST + i, 0, 2)}:${fn:substring(storeInfo.STORE_RST + i, 2, 4)}</span>						
@@ -214,7 +223,7 @@ ${storeInfo.STORE_INFO}
 				<hr>
 		     </div>
 		     <div>
-			     <input class="btn btn-warning fw-bold text-light" type="submit" value="예약하기">
+			     <input class="btn fw-bold text-light reservationBtn" type="submit" value="예약하기">
 				 <button type="button" class="btn btn-dark fw-bold" id="modalCloseButton">닫기</button>
 		     </div>
 	     </form>

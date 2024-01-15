@@ -29,7 +29,7 @@
 
 				<h3>점주 정보</h3>
 				<br>
-				<table class="table table-hover">
+				<table class="table">
 					<tbody>
 					<c:set var="storeDetail" value="${ requestScope.storeDetail }"/>
 						<tr>
@@ -68,13 +68,13 @@
 	<div class="mainContainer"
 		style="width: 50%;background: white;">
 		<form method="post" action="contentWriteProcess.jsp">
-			<div class="container" style="padding: 30px;">
+			<div class="container" style="padding: 25px;">
+				<br>
 				<hr>
 				<h3>식당 정보</h3>
-				<b
-					style="display: flex; align-items: left; text-align: center; padding-top: 20px; font-size: 20px;">${storeDetail.STORE_NAME}</b> <sup
+				<b style="display: flex; align-items: left; text-align: center; padding-top: 20px; font-size: 20px;">${storeDetail.STORE_NAME}</b> <sup
 					style="display: flex; align-items: left; padding-top: 15px; text-align: center;">${storeDetail.STORE_CATEGORY}</sup>
-				<br>
+				<br> 
 
 				<figure class="mb-4">
 					<img class="img-fluid rounded"
@@ -100,9 +100,9 @@
 			<div style="display: flex; justify-content: flex-end; margin-right: 20px; ">
 				<input type="button" class="btn btn-outline-dark" value="목록" onclick="window.history.back()">
 			</div>
+				<br>
 		</form>
 	</div>
-
 </main>
 <%@ include file="/Template/admin_sidevar_close.jsp"%>
 </html>

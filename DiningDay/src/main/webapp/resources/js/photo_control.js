@@ -9,6 +9,7 @@ var file
 function file_image(){
 	$("input[type=file]").change(e => {
 		var index = $(e.currentTarget).attr('id').split('_')[1];
+		debugger;
 		file = e.target.files;
 				
 		var image = new Image();

@@ -168,8 +168,7 @@ a:active {
 				<thead>
 					<tr class="table-success">
 						<th class="title col-1 align-middle">글번호</th>
-						<th class="hashtag col-1 align-middle">제목</th>
-						<th class="user-id col-2">내용</th>
+						<th class="hashtag col-3 align-middle">제목</th>
 						<th class="created-at col-1">작성일자</th>
 					</tr>
 				</thead>
@@ -178,7 +177,6 @@ a:active {
 						<tr id="datalist" style="height: 60px;" align="center" onclick="location.href='admin_noticeDetail.ad?NOT_NO=${ notice.NOT_NO }'">
 							<td class="title align-middle">${notice.NOT_NO}</td>
 							<td class="hashtag align-middle">${notice.NOT_TITLE}</td>
-							<td class="user-id align-middle">${notice.NOT_CONTENT}</td>
 							<td class="created-at col-1 align-middle" id="dateRegex">${notice.DATE}</td>
 						</tr>
 					</c:forEach>

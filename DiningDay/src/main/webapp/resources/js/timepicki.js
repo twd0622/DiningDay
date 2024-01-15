@@ -20,7 +20,7 @@
 			        if (mini < 10)
 			            mini = "0" + mini;
 
-					return tim + ":" + mini + " " + meri;
+					return tim + ":" + mini + ":" + meri;
 			    } else {
 
 			        // limit hours between 0 and 23 - inculsive.
@@ -347,6 +347,8 @@
 					}else{
 						ele.val(settings.format_output(tim, mini));
 					}
+					
+					ele.attr("class", "form-control is-valid");
 				}
 
 				//Call user on_change callback function if set

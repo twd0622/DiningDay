@@ -16,14 +16,22 @@
 	
 	<select id="getMenuInfo" parameterType="map" resultType="map">
 		 select
-			 MENU_NO
-			 , STORE_NO
-			 , MENU_NAME
-			 , FORMAT(MENU_PRICE, 0) MENU_PRICE
-			 , MENU_HIDE
-			 , MENU_INFO
-		 from MENU
- 		where STORE_NO = #{store_no};
+			  ME.MENU_NO
+			, ME.STORE_NO
+			, ME.MENU_NAME
+			, FORMAT(ME.MENU_PRICE, 0) MENU_PRICE
+			, ME.MENU_HIDE
+			, ME.MENU_INFO
+			, SI.PHOTO_NAME
+		from MENU ME
+		LEFT JOIN (select
+						STORE_NO,
+						PHOTO_TYPE,
+						PHOTO_NAME
+					from STORE_IMAGE
+					where PHOTO_TYPE LIKE 'ME%') SI
+		ON (ME.STORE_NO, ME.MENU_NO) = (SI.STORE_NO, SI.PHOTO_TYPE) 
+		where ME.STORE_NO = #{store_no};
 	</select>
 	
 	<select id="getStoreInfo" parameterType="map" resultType="map">
@@ -95,7 +103,7 @@
 			, #{RES_REQ} 
 			, #{RES_PEOPLE}
 			, DATE_FORMAT(#{RES_DATE}, '%Y%m%d')
-			, DATE_FORMAT(STR_TO_DATE(#{RES_TIME}, '%H:%i'), '%H%i')
+			, concat(SUBSTRING_INDEX(#{RES_TIME}, ':', 1), SUBSTRING_INDEX(#{RES_TIME}, ':', -1))
 			, '0'
 			, date_format(now(), '%Y%m%d%H%i%s')
 			);				
@@ -108,6 +116,7 @@
 				, PAY_NO
 				, MENU_NO
 				, STORE_NO
+				, MENU_NAME
 				, MENU_COUNT
 				, PAID_PRICE
 				)
@@ -118,8 +127,9 @@
 	 				, concat("PA" ,ifnull((select max(cast(replace(PAY_NO, "PA", "") as unsigned)) from PAYMENT a), 1))
 					, #{menuDTO.MENU_NO}
 					, #{menuDTO.STORE_NO}
-					, #{menuDTO.MENU_COUNT}
-					, (SELECT MENU_PRICE FROM MENU WHERE STORE_NO=#{menuDTO.STORE_NO} AND MENU_NO=#{menuDTO.MENU_NO}) * #{menuDTO.MENU_COUNT}
+					, #{menuDTO.MENU_NAME}
+					, IF(#{menuDTO.MENU_COUNT} = '', '1', '2')
+					, ifnull((SELECT MENU_PRICE FROM MENU WHERE STORE_NO=#{menuDTO.STORE_NO} AND MENU_NO=#{menuDTO.MENU_NO}) * #{menuDTO.MENU_COUNT}, '10000')
 				)
 		</foreach>
 	</insert>
@@ -135,8 +145,8 @@
 		SELECT R.RES_NO
 		     , ST.STORE_NAME
 		     , SE.SEAT_NAME
-		     , R.RES_DATE
-		     , P.PAID_AMOUNT
+		     , str_to_date(R.RES_DATE, '%Y%m%d') RES_DATE
+		     , FORMAT(P.PAID_AMOUNT, 0) PAID_AMOUNT
 		FROM RESERVATION R
 		JOIN PAYMENT P
 		  ON R.PAY_NO = P.PAY_NO

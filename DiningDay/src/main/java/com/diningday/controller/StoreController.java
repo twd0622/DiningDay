@@ -2,6 +2,7 @@ package com.diningday.controller;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import com.diningday.service.StoreService;
 import com.diningday.util.TeamUtil;
+import com.google.gson.JsonObject;
 import com.mysql.fabric.xmlrpc.base.Array;
 
 public class StoreController extends HttpServlet {
@@ -32,11 +34,6 @@ public class StoreController extends HttpServlet {
 		String sPath = req.getServletPath();
 		StoreService storeService = new StoreService();
 		HttpSession session = req.getSession();
-		
-		if(sPath.equals("/smain.st")) {
-			dispatcher = req.getRequestDispatcher("Store/smain.jsp");
-			dispatcher.forward(req, res);
-		}
 		
 		if(sPath.equals("/smenu.st")) {
 			System.out.println(session.getAttribute("STORE_NO"));
@@ -78,6 +75,91 @@ public class StoreController extends HttpServlet {
 			
 			res.setContentType("application/x-json; charset=utf-8");
 			res.getWriter().print(storeService.menuSelect(stSession));
+		}
+		
+//		---------------------------------------------------------------------------------------------
+
+		if(sPath.equals("/smainIsNotExist.st")) {
+			dispatcher = req.getRequestDispatcher("Store/smain.jsp");
+			dispatcher.forward(req, res);
+		}
+
+		if(sPath.equals("/smainIsExist.st")) {
+			
+			
+			dispatcher = req.getRequestDispatcher("Store/smainisExist.jsp");
+			dispatcher.forward(req, res);
+		}
+
+		if(sPath.equals("/storeInsert.st")) {
+			
+			Map<String,String> storeDTO = TeamUtil.fileRequestToMap(req);
+			boolean bl = storeService.storeInsert(storeDTO);
+			
+			if(bl) {
+				bl = storeService.firstInsertStore_OwnerUpdate(storeDTO);
+			}
+			
+			if(bl) {
+				storeDTO = storeService.storeSelect(storeDTO);
+			}
+			
+			if(storeDTO.get("STORE_NO").equals("0")) {
+				System.out.println("오류발생!");
+				return;
+			}
+			
+			session.setAttribute("STORE_NO", storeDTO.get("STORE_NO"));
+			session.setAttribute("OWN_NO", storeDTO.get("OWN_NO"));
+			
+			res.setContentType("application/x-json; charset=utf-8");
+			res.getWriter().print(bl);
+		}
+		
+		if(sPath.equals("/smainDelete.st")) {
+			
+		}
+		
+		if(sPath.equals("/smainUpdate.st")) {
+			
+		}
+		
+//		---------------------------------------------------------------------------------------------
+		
+		if(sPath.equals("/info_update.st")) {
+			dispatcher = req.getRequestDispatcher("Store/info_update.jsp");
+			dispatcher.forward(req, res);
+		}
+		
+		if(sPath.equals("/sRes_control.st")) {
+			dispatcher = req.getRequestDispatcher("Store/sRes_control.jsp");
+			dispatcher.forward(req, res);
+		}
+		
+		if(sPath.equals("/sRes.st")) {
+			dispatcher = req.getRequestDispatcher("Store/sRes.jsp");
+			dispatcher.forward(req, res);
+		}
+		
+		if(sPath.equals("/sreview.st")) {
+			dispatcher = req.getRequestDispatcher("Store/sreview.jsp");
+			dispatcher.forward(req, res);
+		}
+		
+		
+		if(sPath.equals("/stable_insert.st")) {
+			dispatcher = req.getRequestDispatcher("Store/stable_insert.jsp");
+			dispatcher.forward(req, res);
+		}
+		
+		if(sPath.equals("/stable.st")) {
+			dispatcher = req.getRequestDispatcher("Store/stable.jsp");
+			dispatcher.forward(req, res);
+		}
+		
+		if(sPath.equals("/sdeclare.st")) {
+			dispatcher = req.getRequestDispatcher("Store/sdeclare.jsp");
+			dispatcher.forward(req, res);
 		}
 		
 		if(sPath.equals("/upload")) {

@@ -17,11 +17,12 @@ $(() => {
 		type: "get",
 		dataType: "json",
 		url: "smenuList.st",
-		async: false											
+		async: false	
 	})										
 	.done(												
 		function(data){
 			targetColor($("#smenu"));
+			
 			/*html title 부트스트랩 코드 시작*/ 
 			const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
 			const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))			
@@ -38,7 +39,7 @@ $(() => {
 			}
 			
 			hideTag("#tbody_2");		//	수정불가 하게 태그들 숨김 및 readonly / DB에 저장된 MENU_HIDE 값으로 select 데이터 지정
-			paging("#tbody_2 tr", 5);	//	페이징 처리 함수 호출
+			paging("#tbody_2 tr", 5, 1);	//	페이징 처리 함수 호출
 			
 			
 			$(".form-switch").on("click", () => {
@@ -46,7 +47,7 @@ $(() => {
 			})
  				
 			$(document).on("click", ".btn", e => {
-				
+				var isTrue = false;
 				var execute = clickFunction(e);
 				var dataList = execute[0];
 				var ajaxDone = execute[1];
@@ -63,20 +64,21 @@ $(() => {
 				  console.log(value);
 				}
 				
+				isTrue = true;
+				if(isTrue){
+					$.ajax(
+						aJaxFunction(dataList)
+					)
+					.done(function(data){
+	//					debugger;
+						ajaxDone.func(data);
+					})
+					.fail(function(fail){
+						alert("실패");
+						var a = fail;
+					})					
+				}
 //				debugger;
-				
-				$.ajax(
-					aJaxFunction(dataList)
-				)
-				.done(function(data){
-//					debugger;
-					alert("성공");
-					ajaxDone.func(data);
-				})
-				.fail(function(fail){
-					alert("실패");
-					var a = fail;
-				})
 			})
 		}
 	)
@@ -208,7 +210,7 @@ function clickFunction(e){
 			ajaxDone.func = (data) => {
 				if(new Boolean(data)){
 					$(indexControl(index)).remove();
-					paging("#tbody_2 tr", 5);	
+					paging("#tbody_2 tr", 5);
 				}
 			};	
 			break;
@@ -220,7 +222,6 @@ function clickFunction(e){
 			if(cnt === 0) {
 				break;
 			}
-			
 	        
 			var deleteAll = new Array();
 			
@@ -257,7 +258,7 @@ function clickFunction(e){
 			var thisCheckBox = $(tr).find(".form-check-input");
 			$(thisCheckBox).prop("checked", true);
 
-			var fileInput = $(tr).find($("input[type=file]"))
+			var fileInput = $(tr).find($("input[name=hiddenfile]"))
 			$(fileInput).show();
 			format(tr, false);							//	해당 <tr> readonly 해제
 			break;	
@@ -341,7 +342,7 @@ function htmlTag(menu){
 				'<td><input type="text" class="border border-dark form-control" name="MENU_NAME" value="' + menu.MENU_NAME + '"></td>' +
 				'<td><input type="hidden" name="MENU_NO" value="' + menu.MENU_NO + '">' +
 					'<span>' + menu.PHOTO_NAME + '</span>' +
-					'<input type="file" class="border border-dark form-control" id="inputFile_2" name="PHOTO_NAME" aria-describedby="fileButton_1">' +
+					'<input type="file" class="border border-dark form-control" id="inputFile_2" name="hiddenfile" aria-describedby="fileButton_1">' +
 				'</td>' +
 				'<td><textarea style="resize: none;" cols="50" rows="3" name="MENU_INFO">' + menu.MENU_INFO + '</textarea></td>' +
 				'<td><input type="text" class="form-control border border-dark" name="MENU_PRICE" value="' + menu.MENU_PRICE + '"></td>' +

@@ -56,4 +56,9 @@ public class MainService {
 		return mainDAO.getResTime(storeDTO);
 	}
 
+	public List<Map<String, String>> getMainInfo(HttpServletRequest req) {
+		return mainDAO.getMainInfo(TeamUtil.requestToMap(req));
+		
+	}
+
 }

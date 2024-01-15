@@ -1,74 +1,36 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ include file="/Template/admin_sidebar_open.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8">
 <title>고객목록 | 다이닝데이</title>
-<style type="text/css">
-#userTable {
-	max-height: 650px;
-	padding: 1rem;
-	overflow-y: auto;
-	direction: ltr;
-	scrollbar-color: #d4aa70 #e4e4e4;
-	scrollbar-width: thin;
-}
-</style>
+<c:set var="userList" value="${ requestScope.userList }"/>
+<link href="resources/css/variable_admin.css" rel="stylesheet">
+<script src="resources/js/variableCode.js"></script>
+<script src="resources/js/jquery.twbsPagination.min.js"></script>
+<script>
+	$(()=>{
+		paging("tbody tr" ,5);
+	})
+</script>
 </head>
-<%@ include file="/Template/admin_sidebar_open.jsp"%>
 <!-- main은 속성 값은 왠만하면 건들지x -->
+<c:set var="userList" value="${ requestScope.userList }"/>
 <main
 	style="display: flex; align-items: center; text-align: center; padding: 20px 50px 20px 50px;">
 
 	<!-- 예시div style속성 값 조절해서 사용! -->
 	<div class="mainContainer"
 		style="width: 100%; background: white;">
-		<h4 style="text-align: left; padding: 20px 0 0 20px;">&lt; 고객 목록 &gt;</h4>
+		<h4 style="text-align: left; padding: 20px 0 0 20px;" onclick="location.href='admin_userList.ad'">&lt; 고객 목록 &gt;</h4>
 		<hr>
-		<div class="row" style="padding: 1% 7% 1% 7%;" id="userTable">
-			<table class="table table-hover" id="article-table">
-				<thead>
-					<tr class="table-success">
-						<th class="title col-1 align-middle"><a>고객번호</a></th>
-						<th class="hashtag col-1 align-middle"><a>고객ID(닉네임)</a></th>
-						<th class="user-id col-3 align-middle"><a>가입정보</a></th>
-						<th class="user-id col-1 align-middle"><a>가입날짜</a></th>
-						<th class="created-at col-1 align-middle"> </th>
-					</tr>
-				</thead>
-				<tbody>
-					<c:set var="userList" value="${ requestScope.userList }"/>
-						<c:forEach var="user" items="${userList}">
-							<tr style="height: 60px;">
-								<td class="title align-middle">${user.CUS_NO}</td>
-								<td class="hashtag align-middle"><small>${user.CUS_ID}</small> (${user.CUS_NICK})</td>
-								<td class="created-at col-1 align-middle text-start">
-									<div style="display: flex; flex-direction: row; justify-content: space-between; padding: 0 60px;">
-										<span><b>　고객명 　: </b></span><span>${user.CUS_NAME} (${user.CUS_GENDER})</span>
-									</div>
-									<div style="display: flex; flex-direction: row; justify-content: space-between; padding: 0 60px;">
-										<span><b>생년월일 　: </b></span><span>${user.CUS_BIRTH}</span>
-									</div>
-									<div style="display: flex; flex-direction: row; justify-content: space-between; padding: 0 60px;">
-										<span><b>전화번호 　: </b></span><span>${user.CUS_TEL}</span>
-									</div>
-									<div style="display: flex; flex-direction: row; justify-content: space-between; padding: 0 60px;">
-										<span><b>　이메일 　: </b></span><span>${user.CUS_EMAIL}</span>
-									</div>
-								</td>
-								<td class="created-at col-1 align-middle">${user.DATE}</td>
-								<td class="align-middle"><a href="admin_userDelete.ad?CUS_NO=${user.CUS_NO}" class="btn btn-outline-danger">삭제</a></td>
-							</tr>
-						</c:forEach>
-				</tbody>
-			</table>
-		</div>
-		<div class="row" style="padding: 2% 20% 2% 20%;">
+		<div class="row" style="padding: 10px 20% 10px 20%;">
 			<div class="card card-margin search-form">
 				<div class="card-body p-0">
-					<form id="search-form">
+					<form id="search-form" action="admin_userList.ad" method="get">
 						<div class="row">
 							<div class="col-12">
 								<div class="row no-gutters">
@@ -76,6 +38,10 @@
 										<label for="search-type" hidden>검색 유형</label> <select
 											class="form-control" id="search-type" name="searchType">
 											<option>고객명</option>
+											<option>고객ID</option>
+											<option>닉네임</option>
+											<option>가입정보</option>
+											<option>고객번호</option>
 										</select>
 									</div>
 									<div class="col-lg-8 col-md-6 col-sm-12 p-0">
@@ -104,23 +70,50 @@
 				</div>
 			</div>
 		</div>
-		<hr>
-
-		<div class="row">
-			<nav id="pagination" aria-label="Page navigation">
-				<ul class="panel panel-success pagination justify-content-center">
-					<li class="page-item"><a class="page-link" href="#"
-						style="color: green;">이전</a></li>
-					<li class="page-item"><a class="page-link" href="#"
-						style="color: green;">1</a></li>
-					<li class="page-item"><a class="page-link" href="#"
-						style="color: green;">다음</a></li>
-				</ul>
-			</nav>
+		<div class="row" style="padding: 1% 7% 1% 7%;" id="userTable">
+			<table class="table table-hover" id="article-table">
+				<thead>
+					<tr class="table-success">
+						<th class="title col-1 align-middle"><a>고객번호</a></th>
+						<th class="hashtag col-1 align-middle"><a>고객ID(닉네임)</a></th>
+						<th class="user-id col-3 align-middle"><a>가입정보</a></th>
+						<th class="user-id col-1 align-middle"><a>가입날짜</a></th>
+						<th class="created-at col-1 align-middle"> </th>
+					</tr>
+				</thead>
+				<tbody>
+						<c:forEach var="user" items="${userList}">
+							<tr style="height: 60px;">
+								<td class="title align-middle">${user.CUS_NO}</td>
+								<td class="hashtag align-middle"><small>${user.CUS_ID}</small> (${user.CUS_NICK})</td>
+								<td class="created-at col-1 align-middle text-start">
+									<div style="display: flex; flex-direction: row; justify-content: space-between; padding: 0 60px;">
+										<span><b>　고객명 　: </b></span><span>${user.CUS_NAME} (${user.CUS_GENDER})</span>
+									</div>
+									<div style="display: flex; flex-direction: row; justify-content: space-between; padding: 0 60px;">
+										<span><b>생년월일 　: </b></span><span>${user.CUS_BIRTH}</span>
+									</div>
+									<div style="display: flex; flex-direction: row; justify-content: space-between; padding: 0 60px;">
+										<span><b>전화번호 　: </b></span><span>${user.CUS_TEL}</span>
+									</div>
+									<div style="display: flex; flex-direction: row; justify-content: space-between; padding: 0 60px;">
+										<span><b>　이메일 　: </b></span><span>${user.CUS_EMAIL}</span>
+									</div>
+								</td>
+								<td class="created-at col-1 align-middle">${user.DATE}</td>
+								<td class="align-middle"><a href="admin_userDelete.ad?CUS_NO=${user.CUS_NO}" onclick="return confirm('정말 삭제하시겠습니까?');" class="align-middle btn btn-outline-danger">삭제</a></td>
+							</tr>
+						</c:forEach>
+				</tbody>
+			</table>
 		</div>
-		<br>
+		<div class="demo">
+	    <nav class="pagination-outer"  aria-label="Page navigation">
+	        <ul class="pagination" id="pagination"></ul>
+	    </nav>
+		</div>
+		<hr>
 	</div>
-
 </main>
 <%@ include file="/Template/admin_sidevar_close.jsp"%>
 </html>

@@ -41,9 +41,13 @@ RequestDispatcher dispatcher = null;
 		if(sPath.equals("/payment.pa")) {
 			Map<String, String> reservationDTO = TeamUtil.requestToMap(req);
 			System.out.println(reservationDTO);
+			System.out.println("storeInfo");
 			req.setAttribute("storeInfo", paymentService.getStoreInfo(reservationDTO));
+			System.out.println("customerInfo");
 			req.setAttribute("customerInfo", paymentService.getCustomerInfo((String)session.getAttribute("CUS_NO")));
+			System.out.println("menuInfoList");
 			req.setAttribute("menuInfoList", paymentService.getMenuInfo(reservationDTO));
+			System.out.println("reservationDTO");
 			req.setAttribute("reservationDTO", reservationDTO);
 			
 			dispatcher = req.getRequestDispatcher("Payment/payment.jsp");
@@ -56,6 +60,7 @@ RequestDispatcher dispatcher = null;
 			paymentService.paymentInsert(paymentDTO);
 			
 			String[] menu_noList = req.getParameter("MENU_NO").split(",");
+			String[] menu_nameList = req.getParameter("MENU_NAME").split(",");
 			String[] menu_countList = req.getParameter("MENU_COUNT").split(",");
 			
 			List<Map<String,String>> menuDTOList = new ArrayList<Map<String, String>>();
@@ -63,6 +68,7 @@ RequestDispatcher dispatcher = null;
 				Map<String,String> menuDTO = new HashMap<String, String>();
 				
 				menuDTO.put("STORE_NO", req.getParameter("STORE_NO"));
+				menuDTO.put("MENU_NAME", menu_nameList[i]);
 				menuDTO.put("MENU_NO", menu_noList[i]);
 				menuDTO.put("MENU_COUNT", menu_countList[i]);
 				
@@ -77,6 +83,12 @@ RequestDispatcher dispatcher = null;
 		if(sPath.equals("/payment_success.pa")) {
 			req.setAttribute("resInfo", paymentService.getResInfo(TeamUtil.requestToMap(req)));
 			dispatcher = req.getRequestDispatcher("Payment/payment_success.jsp");
+			dispatcher.forward(req, res);
+		}
+		
+		if(sPath.equals("/payment_cancel.pa")) {
+			
+			dispatcher = req.getRequestDispatcher("Payment/payment_cancel.jsp");
 			dispatcher.forward(req, res);
 		}
 	}

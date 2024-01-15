@@ -44,15 +44,22 @@ public class MainController extends HttpServlet {
 		System.out.println(sPath);
 		
 		if(sPath.equals("/main.ma")) {
+			String today = LocalDate.now().format(DateTimeFormatter.ofPattern("YYYY-MM-dd"));
 			if(session.getAttribute("date") == null) {
-				session.setAttribute("date", LocalDate.now().format(DateTimeFormatter.ofPattern("YYYY-MM-dd")));
+				session.setAttribute("date", today);
 			}
 			if(session.getAttribute("people") == null) {
 				session.setAttribute("people", "2");
 			}
-			
+			session.setAttribute("today", today);
 			dispatcher = req.getRequestDispatcher("Main/main.jsp");
 			dispatcher.forward(req, res);
+		}
+		
+		if(sPath.equals("/getMainInfo.ma")) {
+			
+			res.setContentType("application/x-json; charset=utf-8");
+			res.getWriter().print(TeamUtil.mapListToJSONList(mainService.getMainInfo(req)));
 		}
 		
 		if(sPath.equals("/searchResult.ma")) {

@@ -48,3 +48,6 @@
 .portfolio-item:hover{
 	cursor: Pointer;
 }
+#portfolio .portfolio-item .portfolio-caption{
+	padding: 1.5rem;
+}

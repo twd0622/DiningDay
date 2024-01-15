@@ -30,8 +30,9 @@
  * 
  */
 
-function paging(pgEvent, pageSize){
-	var totalCount = $(pgEvent).last().index() + 1;
+function paging(pgEvent, pageSize, oneOrZero){
+
+	var totalCount = $(pgEvent).length + oneOrZero;
 	if(totalCount === 0){
 		totalCount++;
 	} 
@@ -72,6 +73,7 @@ function paging(pgEvent, pageSize){
         }
     })
 }
+
 
 /**
  * 로딩창 띄우기
