@@ -78,4 +78,12 @@ public class PaymentDAO {
 		
 	}
 
+	public void payment_cancel(String MERCHANT_UID) {
+		session = sqlSessionFactory.openSession();
+		session.update("Payment.payment_cancel", MERCHANT_UID);
+		session.commit();
+		session.close();
+		
+	}
+
 }
