@@ -19,22 +19,25 @@ $(()=>{
 					    icon: "success",
 					    showConfirmButton: false,
 					    timer: 800
+					    
 					})
 					.then((result) => {
-						debugger;
-						if($(this).parent("td").siblings(".title").text().substring(0,2) == "NO") {
-							var notice_no = $(this).parent("td").siblings(".title").text();
+						if($(this).parent("div").parent("div").siblings(".container").children().children().children(".tr1").children("#sRep_no").text().substring(0,2) == "SR"){
+							var sRep_no = $(this).parent("div").parent("div").siblings(".container").children().children().children(".tr1").children("#sRep_no").text();
+							location.href = "admin_storeReportDelete.ad?SREP_NO="+sRep_no;
+						} else if($(this).parent().parent().siblings(".row2").children("#article-table1").children().children(".tr1").children().siblings("td").text().substring(0,2) == "RR") {
+							var cRep_no = $(this).parent().parent().siblings(".row2").children("#article-table1").children().children(".tr1").children().siblings("td").text();
+							location.href = "admin_userReportDelete.ad?CREP_NO="+cRep_no;
+						} else if($(this).parent().parent().siblings(".row2").children("#article-table1").children().children(".tr1").children().siblings("td").text().substring(0,2) == "NO") {
+							var notice_no = $(this).parent().parent().siblings(".row2").children("#article-table1").children().children(".tr1").children().siblings("td").text();
 			    			location.href = "admin_noticeDelete.ad?NOT_NO="+notice_no;
-						} else if($(this).parent("td").siblings(".title").text().substring(0,2) == "ST") {
-							var store_no = $(this).parent("td").siblings(".title").text();
+						} else if($(this).parent().siblings("#div2").children().siblings(".store_no").text().substring(0,2) == "ST") {
+							var store_no = $(this).parent().siblings("#div2").children().siblings(".store_no").text();
 			    			location.href = "admin_storeDelete.ad?STORE_NO="+store_no;
-						} else if($(this).parent("td").siblings(".title").text().substring(0,2) == "SR") {
-							var sRep_no = $(this).parent("td").siblings(".title").text();
-			    			location.href = "admin_storeReportDelete.ad?SREP_NO="+sRep_no;
-						} else if($(this).parent("td").siblings(".title").text().substring(0,2) == "RR") {
-							var cRep_no = $(this).parent("td").siblings(".title").text();
-			    			location.href = "admin_userReportDelete.ad?CREP_NO="+cRep_no;
-						} else if($(this).parent("td").siblings(".title").text().substring(0,2) == "CU") {
+						}
+						
+						
+						if($(this).parent("td").siblings(".title").text().substring(0,2) == "CU") {
 							var cus_no = $(this).parent("td").siblings(".title").text();
 							location.href = "admin_userDelete.ad?CUS_NO="+cus_no;
 						}

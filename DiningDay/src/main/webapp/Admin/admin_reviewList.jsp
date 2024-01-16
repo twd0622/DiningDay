@@ -28,7 +28,7 @@
 		<h4 style="text-align: left; padding: 20px 0 0 20px;" onclick="location.href='admin_reviewList.ad'">&lt; 전체 리뷰관리 &gt;</h4>
 		<hr>
 		<div class="row" style="padding: 0 7% 0 7%;">
-			<table class="table" id="article-table">
+			<table class="table table-hover" id="article-table">
 				<thead>
 					<tr class="table-success">
 						<th class="title col-1 align-middle">리뷰번호</th>
@@ -56,26 +56,14 @@
 			</table>
 		</div>
 		<hr>
-		<div class="row">
-			<nav id="pagination" aria-label="Page navigation">
-				<ul class="panel panel-success pagination justify-content-center">
-					<li class="page-item"><a class="page-link" href="#" style="color: green;">이전</a></li>
-					<li class="page-item"><a class="page-link" href="#" style="color: green;">1</a></li>
-					<li class="page-item"><a class="page-link" href="#" style="color: green;">다음</a></li>
-				</ul>
-			</nav>
-		</div>
+		<div class="demo">
+	    <nav class="pagination-outer"  aria-label="Page navigation">
+	        <ul class="pagination" id="pagination"></ul>
+	    </nav>
+		</div> 
 		<br>
 	</div>
-<script type="text/javascript">
-    $(document).ready(function(){
-    	
-    	$("#deleteForm").submit(function() {
-			return confirm("게시글을 삭제하시겠습니까?");
-		});//deleteForm
-		
-    });//ready	
-</script>
+
 
 </main>
 <%@ include file="/Template/admin_sidevar_close.jsp"%>

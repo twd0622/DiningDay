@@ -96,22 +96,21 @@ $(()=>{
 						<th class="title col-1 align-middle"><a>식당번호</a></th>
 						<th class="hashtag col-2 align-middle"><a>식당명</a></th>
 						<th class="user-id col-3 align-middle"><a>식당 정보</a></th>
-						<th class="created-at col-2"> </th>
 					</tr>
 				</thead>
 				<tbody>
 					<c:forEach var="store" items="${storeList}">
-						<tr class="store_no" id="${store.STORE_NO}" style="height: 60px;">
-							<td class="title align-middle" onClick="location.href='admin_storeDetail.ad?STORE_NO=${store.STORE_NO}'">${store.STORE_NO}</td>
-							<td class="align-middle" onClick="location.href='admin_storeDetail.ad?STORE_NO=${store.STORE_NO}'">${store.STORE_NAME}</td>
-							<td class="created-at col-1 align-middle text-start" onClick="location.href='admin_storeDetail.ad?STORE_NO=${store.STORE_NO}'">															
+						<tr class="store_no" id="${store.STORE_NO}" style="height: 60px;" onClick="location.href='admin_storeDetail.ad?STORE_NO=${store.STORE_NO}'">
+						<td class="title align-middle">${store.STORE_NO}</td>
+							<td class="align-middle">${store.STORE_NAME}</td>
+							<td class="created-at col-1 align-middle text-start">															
 								<b>구분</b> : ${store.STORE_CATEGORY} <br>
 								<b>전화</b> : ${store.STORE_TEL} <br>
 								<b>위치</b> : ${store.STORE_LOCATION}
 							</td>
 <%-- 							<td class="align-middle"><a href="admin_storeDelete.ad?STORE_NO=${store.STORE_NO}" onclick="return confirm('정말 삭제하시겠습니까?');" class="align-middle btn btn-outline-danger">삭제</a></td> --%>
 <!-- 							<td class="align-middle"><div><button id="confirmAlert" class="align-middle btn btn-outline-danger">삭제</button></div></td> -->
-							<td class="align-middle"><input type="button" class="delBtn btn btn-outline-danger" value="삭제" ></td>
+							
 <%-- 								<td class="align-middle"><input class="btn btn-outline-danger" id="confirmAlert" type="button" value="삭제" onclick="del('${store.STORE_NO}');"></td> --%>
 <!-- 								<td><a href="javascript:check();" class="btn btn-outline-danger">삭제</a></td> -->
 					</tr>
