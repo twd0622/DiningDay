@@ -57,7 +57,6 @@ public class MainController extends HttpServlet {
 		}
 		
 		if(sPath.equals("/getMainInfo.ma")) {
-			
 			res.setContentType("application/x-json; charset=utf-8");
 			res.getWriter().print(TeamUtil.mapListToJSONList(mainService.getMainInfo(req)));
 		}

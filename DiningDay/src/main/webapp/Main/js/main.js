@@ -28,6 +28,7 @@ $(()=>{
 		return true;
 	})
 	
+	debugger;
 	// 추천 식당
 	$.ajax({
 		type: "get",
