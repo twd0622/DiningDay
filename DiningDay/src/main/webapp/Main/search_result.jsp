@@ -15,8 +15,6 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
     <link href="Main/css/search_result.css" rel="stylesheet">
     
-    <script src="Main/js/location_select_modal.js"></script>
-    <script src="Main/js/main.js"></script>
     <script src="Main/js/search_result.js"></script>
     <link href="Main/css/location_select_modal.css" rel="stylesheet">
     <title>DINING DAY</title>    
@@ -49,7 +47,7 @@
                 <div class="text-center">
                     <h3 class="section-heading text-uppercase" style="margin-left:20px; text-align: left">"${requestScope.searchInput}" 검색결과 ${requestScope.searchCount}개</h3>
                 </div>
-                <div style="display: flex; flex-direction: column; justify-content: space-around;">
+                <div id="resultBox" style="display: flex; flex-direction: column; justify-content: space-around;">
 					<!-- 검색 결과 -->	
 	               	<c:forEach var="list" items="${searchList}">
 	                   <div name="${list.STORE_NO}" class="mb-4 store_result_btn" style="margin: 20px 20px; padding:20px 40px; border-bottom: 2px solid #e6e6eb;">
@@ -57,12 +55,13 @@
 	                              <img src="upload/${list.PHOTO_NAME}" alt="${list.PHOTO_NAME}" style="width: 385px; height: 250px; overflow-clip-margin:border-box;"/>
 	                           <div class="portfolio-caption" style="">
 	                               <div class="portfolio-caption-heading">${list.STORE_NAME}</div>
-	                               <div class="portfolio-caption-subheading text-muted" style="margin-bottom: 20px;">${list.STORE_CATEGORY} 
+	                               <div class="portfolio-caption-subheading text-muted" style="margin-bottom: 35px;">${list.STORE_CATEGORY} 
 	                               <c:if test="${!empty list.STORE_DETAIL}">
 									| ${list.STORE_DETAIL}
 								</c:if>
 								</div>
-	                               <div class="portfolio-caption-subheading text-muted" style="display: flex;"><span class="material-icons" style="color: #F7CE3E;">grade</span> ${list.STORE_SCORE}점 (87명)</div>
+								   <div class="portfolio-caption-subheading text-muted" style="font-weight: 500;">${list.STORE_LOCATION}</div> 
+	                               <div class="portfolio-caption-subheading text-muted" style="display: flex;"><span class="material-icons" style="color: #F7CE3E;">grade</span> ${list.STORE_SCORE}점 (${list.STORE_REVIEW_COUNT}명)</div>
 	                               <div class="portfolio-caption-subheading text-muted" style="display: flex;"><span class="material-icons" style="color: #E21818;">favorite</span> ${list.LIKE_COUNT} </div>
 	                           </div>
 	                       </div>

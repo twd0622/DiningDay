@@ -5,23 +5,33 @@
 <mapper namespace="Main">
 	
 	<select id="getMainInfo" parameterType="map" resultType="map">
-		select 
-			 ST.STORE_NO
-			, STORE_NAME
-			, SUBSTRING_INDEX(STORE_LOCATION, ' ', 2) STORE_LOCATION
-			, STORE_CATEGORY
-			, STORE_DETAIL
-			, ifnull(LIKE_COUNT, '0') LIKE_COUNT
-			, '5.0' STORE_SCORE
-			, '10명' STORE_REVIEW_COUNT
-			, SI.PHOTO_NAME 
-		from STORE ST
-		LEFT JOIN (select STORE_NO, count(STORE_NO) LIKE_COUNT from LIKE_LIST group by STORE_NO) LL
-		ON ST.STORE_NO = LL.STORE_NO
-		LEFT JOIN STORE_IMAGE SI
-		ON ST.STORE_NO = SI.STORE_NO
-		WHERE SI.PHOTO_TYPE = 'SU1'
-		ORDER BY STORE_SCORE DESC, LIKE_COUNT DESC limit 8;
+		select
+			    ST.STORE_NO
+		 	  , ST.STORE_NAME
+			  , ST.STORE_CATEGORY
+			  , ST.STORE_DETAIL
+			  , SUBSTRING_INDEX(STORE_LOCATION, ' ', 3) STORE_LOCATION
+			  , '5.0' STORE_SCORE
+			  , '10' STORE_REVIEW_COUNT
+			  , cast((select count(LIKE_NO) LIKE_COUNT from LIKE_LIST where STORE_NO = ST.STORE_NO) as char(30)) LIKE_COUNT
+			  , SI.PHOTO_NAME
+		   from STORE ST
+		   LEFT JOIN (select STORE_NO
+						   , group_concat(case PHOTO_TYPE when 'SU1' then PHOTO_NAME end) PHOTO_NAME
+					    from STORE_IMAGE
+					   where PHOTO_TYPE='SU1'
+					   group by STORE_NO) SI 
+			 ON ST.STORE_NO = SI.STORE_NO
+	      where 1 = 1
+		  <if test="searchInput != '' and searchInput != null">
+		    and (STORE_NAME like concat('%',#{searchInput},'%')
+		     or STORE_CATEGORY like concat('%',#{searchInput},'%')
+			 or STORE_DETAIL like concat('%',#{searchInput},'%'))
+		  </if> 
+	      <if test="LOC_NAME != '' and LOC_NAME != null">
+            and STORE_LOCATION LIKE concat('%', #{LOC_NAME} ,'%')
+	      </if>
+		  ORDER BY STORE_SCORE DESC, LIKE_COUNT DESC;
 	</select>
 	
 	<select id="searchList" parameterType="map" resultType="map">
@@ -30,7 +40,9 @@
 		 	  , ST.STORE_NAME
 			  , ST.STORE_CATEGORY
 			  , ST.STORE_DETAIL
-			  , ST.STORE_SCORE
+			  , SUBSTRING_INDEX(STORE_LOCATION, ' ', 3) STORE_LOCATION
+			  , '5.0' STORE_SCORE
+			  , '10' STORE_REVIEW_COUNT
 			  , (select count(LIKE_NO) LIKE_COUNT from LIKE_LIST where STORE_NO = ST.STORE_NO) LIKE_COUNT
 			  , SI.PHOTO_NAME
 		   from STORE ST
@@ -40,9 +52,14 @@
 					   where PHOTO_TYPE='SU1'
 					   group by STORE_NO) SI 
 			 ON ST.STORE_NO = SI.STORE_NO
+		  <if test="searchInput != '' and searchInput != null">
 		  where STORE_NAME like concat('%',#{searchInput},'%')
 		     or STORE_CATEGORY like concat('%',#{searchInput},'%')
 			 or STORE_DETAIL like concat('%',#{searchInput},'%')
+		    <if test="LOC_NAME != '' and LOC_NAME != null">
+            and STORE_LOCATION LIKE concat('%', #{LOC_NAME} ,'%')
+		    </if>
+		  </if>   	  
 		  ORDER BY STORE_SCORE DESC, LIKE_COUNT DESC;
 	</select>
 	
