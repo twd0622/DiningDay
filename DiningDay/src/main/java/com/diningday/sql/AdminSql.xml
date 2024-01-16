@@ -3,9 +3,7 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="Admin">
-	
-	
-	
+
 	<insert id="noticeInsert" parameterType="map">
 		insert into NOTICE
 			( NOT_NO
@@ -51,7 +49,14 @@
 			 , NOT_CONTENT
 			 , date_format(ifnull(NOT_REDATE, NOT_DATE), '%Y-%m-%d') as "DATE"
 		from NOTICE
-		order by NOT_NO desc;
+		where 1 = 1
+		<if test="searchType == '제목'">
+		and NOT_TITLE like concat("%",#{searchValue},"%")
+		</if>
+		<if test="searchType == '글번호'">
+		and NOT_NO like concat("%",#{searchValue},"%")
+		</if>
+		order by cast(trim(leading 'NO' from NOT_NO) as unsigned) desc;
 	</select>
 	
 	<select id="selectNoticeDetail" parameterType="map" resultType="map">
@@ -60,10 +65,11 @@
 			 , date_format(ifnull(NOT_REDATE, NOT_DATE)
 			 , '%Y-%m-%d') as "DATE"
 		from   NOTICE
-		where  NOT_NO = #{NOT_NO};
+		where  1 = 1
+		and	   NOT_NO = #{NOT_NO};
 	</select>
 	
-	<select id="selectStoreList" resultType="map">
+	<select id="selectStoreList" parameterType="map" resultType="map">
 		select STORE_NO
 			 , STORE_NAME
 			 , STORE_CATEGORY
@@ -71,7 +77,23 @@
 			 , STORE_LOCATION
 		     , OWN_NO
 		from   STORE
-		order by STORE_NO desc;
+		where 1 = 1
+		<if test="searchType == '식당번호'">
+		and STORE_NO like concat("%",#{searchValue},"%")
+		</if>
+		<if test="searchType == '식당명'">
+		and STORE_NAME like concat("%",#{searchValue},"%")
+		</if>
+		<if test="searchType == '식당 정보'">
+		and (
+			STORE_TEL like concat("%",#{searchValue},"%")
+			or
+			STORE_CATEGORY like concat("%",#{searchValue},"%")
+			or
+			STORE_LOCATION like concat("%",#{searchValue},"%")
+		)
+		</if>
+		order by cast(trim(leading 'ST' from STORE_NO) as unsigned) desc;
 	</select>
 	
 	<delete id="storeDelete" parameterType="map">
@@ -95,7 +117,8 @@
 			 , S.STORE_PLUS
 		from   OWNER O join STORE S
 		on 	   O.OWN_NO = S.OWN_NO
-		where  S.STORE_NO = #{STORE_NO};
+		where  1 = 1
+		and	   S.STORE_NO = #{STORE_NO};
 	</select>
 	
 	<select id="selectUserList" resultType="map">
@@ -103,24 +126,45 @@
 			 , CUS_ID
 			 , CUS_NICK
 			 , CUS_NAME
-			 , case
-			 	when CUS_GENDER = 'F'
-			 	then '여'
-			 	when CUS_GENDER = 'M'
-			 	then '남'
-			 	else CUS_GENDER
-			   end as CUS_GENDER
-			 , concat(substr(CUS_BIRTH,1,4), '.', substr(CUS_BIRTH,5,2), '.', substr(CUS_BIRTH,7,8)) as CUS_BIRTH
-			 , concat(substr(CUS_TEL,1,3), '-' ,substr(CUS_TEL,4,4), '-' ,substr(CUS_TEL,8,4)) as CUS_TEL
+			 , ifnull((case
+			 			when CUS_GENDER = 'F' then '여'
+			 			when CUS_GENDER = 'M' then '남'
+			 		    else CUS_GENDER end), '미등록') as CUS_GENDER
+			 , ifnull(concat(substr(CUS_BIRTH,1,4), '.', substr(CUS_BIRTH,5,2), '.', substr(CUS_BIRTH,7,8)), '(미등록)') as CUS_BIRTH
+			 , ifnull(concat(substr(CUS_TEL,1,3), '-' ,substr(CUS_TEL,4,4), '-' ,substr(CUS_TEL,8,4)), '(미등록)') as CUS_TEL
 			 , CUS_EMAIL
 			 , date_format(ifnull(CUS_REDATE, CUS_DATE), '%Y-%m-%d') as "DATE"
 		from CUSTOMER
-		order by CUS_NO desc;	
+		where 1=1
+		<if test="searchType == '고객명'">
+		and CUS_NAME like concat("%",#{searchValue},"%")
+		</if>
+		<if test="searchType == '고객ID'">
+		and CUS_ID like concat("%",#{searchValue},"%")
+		</if>
+		<if test="searchType == '닉네임'">
+		and CUS_NICK like concat("%",#{searchValue},"%")
+		</if>
+		<if test="searchType == '가입정보'">
+		and (
+			CUS_GENDER like concat("%",#{searchValue},"%")
+			or
+			CUS_BIRTH like concat("%",#{searchValue},"%")
+			or
+			CUS_TEL like concat("%",#{searchValue},"%")
+			or
+			CUS_EMAIL like concat("%",#{searchValue},"%")
+		)
+		</if>
+		<if test="searchType == '고객번호'">
+		and CUS_NO like concat("%",#{searchValue},"%")
+		</if>
+		order by cast(trim(leading 'CU' from CUS_NO) as unsigned) desc;	
 	</select>
 	
 	<delete id="userDelete" parameterType="map">
-		delete 	from	CUSTOMER
-				where	CUS_NO = #{CUS_NO};
+		delete from	CUSTOMER
+		 where CUS_NO = #{CUS_NO};
 	</delete>
 	
 	<select id="selectStoreReport" resultType="map">
@@ -133,7 +177,17 @@
 			 , date_format(SREP_DATE, '%Y-%m-%d') as "DATE"
 			 , SREP_PROCESS
 		from STORE_REPORT
-		order by SREP_NO desc;	
+		where 1 = 1
+		<if test="searchType == '신고 제목'">
+		and SREP_TITLE like concat("%",#{searchValue},"%")
+		</if>
+		<if test="searchType == '식당명'">
+		and STORE_NAME like concat("%",#{searchValue},"%")
+		</if>
+		<if test="searchType == '신고번호'">
+		and SREP_NO like concat("%",#{searchValue},"%")
+		</if>
+		order by cast(trim(leading 'SR' from SREP_NO) as unsigned) desc;	
 	</select>
 	
 	<delete id="sRepReport" parameterType="map">
@@ -150,13 +204,15 @@
 		     , SR.SREP_TITLE
 		     , SR.SREP_FILE
 		     , SR.SREP_CONTENT
-		     , date_format(SR.SREP_DATE, '%Y-%m-%d') as "DATE"
+		     , date_format(SR.SREP_DATE, '%Y년 %m월 %d일 %H시 %i분') as "DATE"
 		     , SR.SREP_PROCESS
-		from STORE_REPORT SR join CUSTOMER C
+		from STORE_REPORT SR 
+		join CUSTOMER C
 		on SR.CUS_NO = C.CUS_NO
 		join STORE S
 		on SR.STORE_NO = S.STORE_NO
-		where SR.CUS_NO = #{CUS_NO}
+		where 1 = 1
+		and	 SR.CUS_NO = #{CUS_NO}
 		and  SR.STORE_NO = #{STORE_NO}
 		and  SR.SREP_NO = #{SREP_NO};
 	</select>
@@ -171,7 +227,17 @@
 			 , date_format(CREP_DATE, '%Y-%m-%d') as "DATE"
 			 , CREP_PROCESS
 		from REVIEW_REPORT
-		order by CREP_NO desc;	
+		where 1 = 1
+		<if test="searchType == '신고 제목'">
+		and CREP_TITLE like concat("%",#{searchValue},"%")
+		</if>
+		<if test="searchType == '신고번호'">
+		and CREP_NO like concat("%",#{searchValue},"%")
+		</if>
+		<if test="searchType == '점주번호'">
+		and OWN_NO like concat("%",#{searchValue},"%")
+		</if>
+		order by cast(trim(leading 'RR' from CREP_NO) as unsigned) desc;
 	</select>
 	
 	<delete id="cRepDelete" parameterType="map">
@@ -180,6 +246,42 @@
 	</delete>
 	
 	<select id="selectCRepDetail" parameterType="map" resultType="map">
+		select  CR.CREP_NO
+			,	R.REV_NO
+		    ,	CR.OWN_NO
+		    ,	CR.CREP_TITLE
+		    ,	CR.STORE_NAME
+		    ,	CR.CREP_CONTENT
+		    ,	date_format(CREP_DATE, '%Y-%m-%d') as "CRDATE"
+		    ,	CR.CREP_PROCESS
+		    ,	R.REV_CONTENT
+		    ,	R.REV_SCORE
+		    ,	date_format(R.REV_DATE, '%Y-%m-%d') as "RDATE"
+		from 	REVIEW_REPORT CR join REVIEW R
+		on 		CR.REV_NO = R.REV_NO
+		where 	1 = 1
+		and		CR.CREP_NO = #{CREP_NO}
+		and		CR.REV_NO = #{REV_NO}
+		and		CR.OWN_NO = #{OWN_NO};
+	</select>
+	
+	<select id="reviewList" parameterType="map" resultType="map">
+		select  R.REV_NO
+			,	C.CUS_NO
+			, 	C.CUS_NICK
+			,	S.STORE_NAME
+			, 	R.REV_CONTENT
+			, 	date_format(R.REV_DATE, '%Y-%m-%d') as "REV_DATE"
+		from 	REVIEW R 
+		join	CUSTOMER C
+		on 		R.CUS_NO = C.CUS_NO
+		join	STORE S
+		on		R.STORE_NO = S.STORE_NO
+		where 	1 = 1
+		order by cast(trim(leading 'RV' from REV_NO) as unsigned) desc;
+	</select>
+	
+	<select id="reviewDetail" parameterType="map" resultType="map">
 		select  CR.CREP_NO
 			,	R.REV_NO
 		    ,	S.OWN_NO
@@ -195,12 +297,33 @@
 		on 		CR.REV_NO = R.REV_NO
 		join 	STORE S
 		on 		CR.OWN_NO = S.OWN_NO
-		where 	CR.CREP_NO = #{CREP_NO}
+		where 	1 = 1
+		and		CR.CREP_NO = #{CREP_NO}
 		and		CR.REV_NO = #{REV_NO}
 		and		CR.OWN_NO = #{OWN_NO};
 	</select>
 	
-	<select id="reviewList" parameterType="map" resultType="map">
-
+	<select id="reviewComment" parameterType="map" resultType="map">
+		select  R.REV_NO
+			,	S.STORE_NAME
+			,	C.COM_CONTENT
+			,	C.COM_DATE
+		from 	COMMENT C
+		join	REVIEW R
+		on 		C.REV_NO = R.REV_NO
+		join	STORE S
+		on		R.STORE_NO = S.STORE_NO
+		join 	CUSTOMER CU
+		on		R.CUS_NO = CU.CUS_NO
+		join 	RESERVATION RE
+		on		R.RES_NO = RE.RES_NO
+		join 	SEAT SE
+		on		R.SEAT_NO = SE.SEAT_NO
+		where 	1 = 1;
+		and		C.REV_NO = #{REV_NO}
+		and		R.CUS_NO = #{CUS_NO}
+		and		R.STORE_NO = #{STORE_NO}
+		and 	R.RES_NO = #{RES_NO}
+		and		R.SEAT_NO = #{SEAT_NO}
 	</select>
 </mapper>

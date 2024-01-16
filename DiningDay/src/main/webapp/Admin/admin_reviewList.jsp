@@ -1,13 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ include file="/Template/admin_sidebar_open.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8">
 <title>리뷰관리 | 다이닝데이</title>
+<c:set var="reviewList" value="${ requestScope.reviewList }"/>
+<link href="resources/css/variable_admin.css" rel="stylesheet">
+<script src="resources/js/variableCode.js"></script>
+<script src="resources/js/jquery.twbsPagination.min.js"></script>
+<script>
+	$(()=>{
+		paging("tbody tr" ,10, 1);
+	})
+</script>
 </head>
-<%@ include file="/Template/admin_sidebar_open.jsp"%>
+
 <!-- main은 속성 값은 왠만하면 건들지x -->
 <main
 	style="display: flex; align-items: center; text-align: center; padding: 20px 50px 50px 50px;">
@@ -15,47 +25,33 @@
 	<!-- 예시div style속성 값 조절해서 사용! -->
 	<div class="mainContainer"
 		style="width: 100%; background: white;">
-		<h4 style="text-align: left; padding: 20px 0 0 20px;">&lt; 전체 리뷰관리 &gt;</h4>
+		<h4 style="text-align: left; padding: 20px 0 0 20px;" onclick="location.href='admin_reviewList.ad'">&lt; 전체 리뷰관리 &gt;</h4>
 		<hr>
 		<div class="row" style="padding: 0 7% 0 7%;">
 			<table class="table" id="article-table">
 				<thead>
 					<tr class="table-success">
-						<th class="title col-1 align-middle"><a>No</a></th>
-						<th class="hashtag col-1 align-middle"><a>고객명</a></th>
-						<th class="user-id col-3" colspan="2"><a>리뷰내용</a></th>
-						<th class="created-at col-1"><a>작성일자</a></th>
-						<th class="created-at col-1"><a></a></th>
+						<th class="title col-1 align-middle">리뷰번호</th>
+						<th class="hashtag col-1 align-middle">작성자</th>
+						<th class="hashtag col-1 align-middle">방문 식당명</th>
+						<th class="user-id col-3 align-middle">리뷰내용</th>
+						<th class="created-at col-1 align-middle">작성일자</th>
+						<th class="created-at col-1 align-middle"></th>
 
 					</tr>
 
 				</thead>
 				<tbody>
+				<c:forEach var="reviewList" items="${reviewList}">
 					<tr>
-						<td class="title align-middle"><a>3</a></td>
-						<td class="hashtag align-middle">고객3</td>
-						<td><img src="Admin/img/gogi.jpg" width="200px" height="200px"></td>
-						<td class="user-id align-middle" style="text-align: left;">고기 JMTGR</td>
-						<td class="created-at col-1 align-middle"><a><time>2022-01-03</time></a></td>
+						<td class="title align-middle" onclick="location.href='admin_reviewDetail.ad'">${reviewList.REV_NO}</td>
+						<td class="hashtag align-middle" onclick="location.href='admin_reviewDetail.ad'">${reviewList.CUS_NICK}</td>
+						<td class="hashtag align-middle" onclick="location.href='admin_reviewDetail.ad'">${reviewList.STORE_NAME}</td>
+						<td class="user-id align-middle" style="overflow:hidden; white-space:nowrap; text-overflow:ellipsis; table-layout: fixed;" onclick="location.href='admin_reviewDetail.ad'">${reviewList.REV_CONTENT}</td>
+						<td class="created-at col-1 align-middle" onclick="location.href='admin_reviewDetail.ad'">${reviewList.REV_DATE}</td>
 						<td class="align-middle"><a href="contentWrite.jsp" class="btn btn-outline-danger">삭제</a></td>
 					</tr>
-					<tr>
-						<td class="title align-middle"><a>2</a></td>
-						<td class="hashtag align-middle">고객2</td>
-						<td><img src="Admin/img/rice.jpg" width="200px" height="200px">
-						<td class="user-id align-middle" style="text-align: left;">존맛탱</td>
-						<td class="created-at col-1 align-middle"><a><time>2022-01-01</time></a></td>
-						<td class="align-middle"><a href="contentWrite.jsp" class="btn btn-outline-danger">삭제</a></td>
-					</tr>
-					<tr>
-						<td class="title align-middle"><a>1</a></td>
-						<td class="hashtag align-middle">고객1</td>
-						<td class="col-1"><img src="Admin/img/dduck.jpg" width="200px"
-							height="200px"></td>
-						<td class="user-id align-middle" style="text-align: left;">맛있어요</td>
-						<td class="created-at col-1 align-middle"><a><time>2022-01-03</time></a></td>
-						<td class="align-middle"><a href="contentWrite.jsp" class="btn btn-outline-danger">삭제</a></td>
-					</tr>
+				</c:forEach>
 				</tbody>
 			</table>
 		</div>
@@ -69,6 +65,7 @@
 				</ul>
 			</nav>
 		</div>
+		<br>
 	</div>
 <script type="text/javascript">
     $(document).ready(function(){

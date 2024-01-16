@@ -114,6 +114,16 @@ public class MainDAO {
 		return resTime;
 	}
 	
+	public List<Map<String, String>> getMainInfo(Map<String, String> requestToMap) {
+		session = sqlSessionFactory.openSession();
+		
+		List<Map<String, String>> mainInfo = session.selectList("Main.getMainInfo", requestToMap);
+		
+		session.close();
+		
+		return mainInfo;
+	}
+	
 	
 
 }

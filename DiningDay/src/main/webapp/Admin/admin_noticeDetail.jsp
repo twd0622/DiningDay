@@ -21,7 +21,7 @@
 		<h4 style="text-align: left; padding: 20px 0 0 20px;">&lt; 공지사항 상세조회 &gt;</h4>
 		<hr>
 		<div class="row" style="padding: 0 10% 0 10%;">
-			<table class="table table-hover" id="article-table">
+			<table class="table" id="article-table">
 				<tbody>
 					<c:set var="noticeDetail" value="${ requestScope.noticeDetail }"/>
 					<c:set var="admin" value="${ requestScope.admin }"/>
@@ -53,7 +53,9 @@
 						<tr style="height: 150px;">
 							<th class="title align-middle table-success col-3"><a>글	내용</a></th>
 							<td class="user-id align-middle text-center"
-								style="text-align: left;">${noticeDetail.NOT_CONTENT}</td>
+								style="text-align: left;"><pre><textarea type="text" class="form-control"
+									placeholder="글 내용을 작성하세요" name="NOT_CONTENT" maxlength="100"
+									style="height: 600px; background-color: white;" readonly="readonly">${noticeDetail.NOT_CONTENT}</textarea></pre></td>
 						</tr>
 				</tbody>
 			</table>
@@ -65,6 +67,7 @@
 				<input type="button" class="btn btn-outline-dark" value="목록" onclick="window.history.back()">
 			</div>
 		</div>
+		<br>
 	</div>
 </main>
 

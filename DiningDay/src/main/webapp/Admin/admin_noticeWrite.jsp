@@ -8,11 +8,45 @@
 <head>
 <meta charset="utf-8">
 <title>공지작성 | 다이닝데이</title>
+
+<script src="resources/js/jquery.twbsPagination.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 
 <%@ include file="/Template/admin_sidebar_open.jsp"%>
 <!-- main은 속성 값은 왠만하면 건들지x -->
-
+<script type="text/javascript">
+$(()=>{
+	$(".writeBtn").on("click", function() {
+		Swal.fire({	
+			title: "등록하시겠습니까?",
+			icon: "warning",
+			showCancelButton: true,
+			confirmButtonColor: "#64E56D",
+			cancelButtonColor: "#63ACDE",
+			confirmButtonText: "등록",
+			cancelButtonText: "취소",
+			showCancelButton: true,
+			showConfirmButton: true
+			})
+			.then((result) => {
+				if (result.isConfirmed) {
+					Swal.fire({
+						title: "등록 완료!",
+					    icon: "success",
+					    showConfirmButton: false,
+					    timer: 800
+					})
+					.then((result) => {
+						debugger;
+						
+				    	
+					})
+				}
+			});
+	})
+})
+</script>
 <main style="display: flex; align-items: center; text-align: center; padding: 20px 50px 50px 50px;">
 	<!-- 예시div style속성 값 조절해서 사용! -->
 	<div class="mainContainer"
@@ -28,9 +62,14 @@
 							<td><input type="text" class="form-control"
 								placeholder="${admin.ADM_NAME }" name="admin_id" maxlength="40" readonly="readonly"></td>
 						</tr>
+<!-- 						<tr> -->
+<!-- 							<td><input type="text" class="form-control" -->
+<!-- 								placeholder="제목명" name="NOT_TITLE" maxlength="40"></td> -->
+<!-- 						</tr> -->
 						<tr>
-							<td><input type="text" class="form-control"
-								placeholder="제목명" name="NOT_TITLE" maxlength="40"></td>
+							<td><textarea type="text" class="form-control"
+									placeholder="제목명" name="NOT_TITLE" maxlength="100"
+									style="height: 20px;"></textarea></td>
 						</tr>
 <!-- 						<tr> -->
 <!-- 							<td><input type="file" class="form-control" -->
@@ -38,15 +77,16 @@
 <!-- 						</tr> -->
 						<tr>
 							<td><textarea type="text" class="form-control"
-									placeholder="글 내용을 작성하세요" name="NOT_CONTENT" maxlength="1024"
+									placeholder="글 내용을 작성하세요" name="NOT_CONTENT" maxlength="1000"
 									style="height: 400px;"></textarea></td>
 						</tr>
 					</tbody>
 				</table>
 				<hr>
-				<input type="submit" class="btn btn-outline-success" value="등록">
+				<input type="button" class="writeBtn btn btn-outline-success" value="등록">
 				<input type="button" class="btn btn-outline-dark" value="취소" onclick="window.history.back()">
 			</div>
+			<br>
 		</form>
 	</div>
 </main>

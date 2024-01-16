@@ -74,7 +74,7 @@
 			, #{card_number}
 			, #{name}
 			, #{paid_amount}
-			, date_format(from_unixtime(#{PAID_AT}), '%Y%m%d%H%i%s')
+			, date_format(from_unixtime(#{paid_at}), '%Y%m%d%H%i%s')
 			);
 			
 		INSERT INTO RESERVATION
@@ -116,6 +116,7 @@
 				, PAY_NO
 				, MENU_NO
 				, STORE_NO
+				, MENU_NAME
 				, MENU_COUNT
 				, PAID_PRICE
 				)
@@ -126,8 +127,9 @@
 	 				, concat("PA" ,ifnull((select max(cast(replace(PAY_NO, "PA", "") as unsigned)) from PAYMENT a), 1))
 					, #{menuDTO.MENU_NO}
 					, #{menuDTO.STORE_NO}
-					, #{menuDTO.MENU_COUNT}
-					, (SELECT MENU_PRICE FROM MENU WHERE STORE_NO=#{menuDTO.STORE_NO} AND MENU_NO=#{menuDTO.MENU_NO}) * #{menuDTO.MENU_COUNT}
+					, #{menuDTO.MENU_NAME}
+					, IF(#{menuDTO.MENU_COUNT} = '', '1', '2')
+					, ifnull((SELECT MENU_PRICE FROM MENU WHERE STORE_NO=#{menuDTO.STORE_NO} AND MENU_NO=#{menuDTO.MENU_NO}) * #{menuDTO.MENU_COUNT}, '10000')
 				)
 		</foreach>
 	</insert>
@@ -141,10 +143,11 @@
 	
 	<select id="getResInfo" parameterType="map" resultType="map">
 		SELECT R.RES_NO
+			 , P.MERCHANT_UID
 		     , ST.STORE_NAME
 		     , SE.SEAT_NAME
 		     , str_to_date(R.RES_DATE, '%Y%m%d') RES_DATE
-		     , P.PAID_AMOUNT
+		     , FORMAT(P.PAID_AMOUNT, 0) PAID_AMOUNT
 		FROM RESERVATION R
 		JOIN PAYMENT P
 		  ON R.PAY_NO = P.PAY_NO
@@ -155,6 +158,22 @@
 		WHERE R.RES_NO = #{RES_NO};
 			   
 	
+	</select>
+	
+	<update id="payment_cancel" parameterType="String">
+		UPDATE RESERVATION
+		SET REQ_STATE = '1' , RES_CANCELTIME = DATE_FORMAT(now(), '%Y%m%d%H%i%s')
+		WHERE RES_NO = (SELECT RES_NO
+					      FROM PAYMENT
+					     WHERE MERCHANT_UID = #{MERCHANT_UID});
+	</update>
+	
+	<select id="checkResDate" parameterType="String" resultType="map">
+		select if(date_format(now(), '%Y%m%d') &lt; RES_DATE, '1', '0') RESULT
+		from RESERVATION
+		WHERE RES_NO = (SELECT RES_NO
+					      FROM PAYMENT
+					     WHERE MERCHANT_UID = #{MERCHANT_UID});
 	</select>
 	
 </mapper>

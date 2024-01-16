@@ -21,7 +21,10 @@ $(()=>{
 	var disableReservationBtn = function(){
 		// 휴무날로 판단하기
 		var weekday = new Date($("#dateOption").val()).getDay();
-		var weekend = $("#close").attr("class").split(",");
+		var weekend = [];
+		if($("#close").length != 0){
+			weekend = $("#close").attr("class").split(",");	
+		}
 		var resModalBtn = $(".reservationModalBtn");
 		for(holiday of weekend){
 			var result = checkWeekday(weekday)
@@ -295,5 +298,15 @@ $(()=>{
 		return isChecked;
 	})
 	
+	// ---------- 신고 버튼 로그인 확인 ------------------------
+	$("#repoertBtn").on("click", function(){
+		if(cus_no != ''){
+			location.href = "reportWrite.re?STORE_NO="+$(".store_profile").attr("id")+"&STORE_NAME="+$(".tit-point").find("h1").text();
+		} else{
+			alert("로그인 후 가능")
+		}
+		
+		
+	})
 	
 })

@@ -12,113 +12,7 @@
 <head>
 <meta charset="UTF-8">
 <title>고객 마이페이지</title>
-<style>
-#body {
-  margin-top: 5%;
-}
-
-#label {
-  font-weight: bold;
-}
-
-.table {
-  text-align: center;
-}
-
-.modal {
-  display: none;
-  position: fixed;
-  z-index: 1;
-  padding-top: 100px;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgb(0,0,0);
-  background-color: rgba(0,0,0,0.4);
-}
-
-/* 예약내역 모달 */
-#res-modal-content {
-  background-color: #fefefe;
-  margin: auto;
-  padding: 0px 20px 30px 20px;
-  border: 1px solid #888;
-  width: 30%;
-}
-
-#res-modal-body {
-  padding: 20px 10px 20px 0px;
-}
-
-#res-modal-footer {
-  padding-top: 20px;
-}
-
-.res-close {
-  color: orange;
-  float: right;
-  font-size: 50px;
-  font-weight: bold;
-  border-color: #ffffff;
-  background-color: #ffffff;
-  border-style: none;
-}
-
-.res-close:hover,
-.res-close:focus {
-  color: gray;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-.res_num {
-  border-left: 10px solid #FFF2A6;
-  color: orange;
-}
-
-#resEdit {
-  justify-content: flex-start;
-}
-
-#resOk {
-  justify-content: flex-end;
-}
-
-/* 계정삭제 모달 */
-#quit-modal-content {
-  background-color: #fefefe;
-  margin: auto;
-  padding: 10px 20px 30px 20px;
-  border: 1px solid #888;
-  width: 30%;
-}
-
-#quit-modal-body {
-  padding: 20px 10px 20px 0px;
-}
-
-#quit-modal-footer {
-  padding-top: 20px;
-  align-content: right;
-}
-
-#close {
-  color: red;
-  float: right;
-  font-size: 50px;
-  font-weight: bold;
-  border-color: red;
-}
-
-#close:hover,
-#close:focus {
-  color: #000;
-  text-decoration: none;
-  cursor: pointer;
-}
-</style>
+<link href="Customer/css/mypage.css" rel="stylesheet">
 <%@ include file="/Template/header.jsp"%> 
 </head>
 <c:set var="reservationInfo" value="${requestScope.reservationInfo}"/>
@@ -126,58 +20,56 @@
 <c:set var="menuModal" value="${requestScope.menuModal}"/>
 <body id="body">
 <div class="container rounded bg-white mt-5 mb-5">
-    <div class="row">
+	<div class="row">
     
-        <div class="col-md-9 border-right">
-            <div class="p-3 py-5">
-          	  	<div class="d-flex justify-content-between align-items-center mb-3">
-          	      <h2><b>고객 마이페이지</b></h2>
-                </div>
-                <div class="row mt-3">
-                	<h4>예약내역</h4>
+		<div class="col-md-9 border-right">
+			<div class="p-3 py-5">
+				<div class="d-flex justify-content-between align-items-center mb-3">
+					<h2><b>고객 마이페이지</b></h2>
+				</div>
+				<div class="row mt-3">
+					<h4>예약내역</h4>
                 	<table class="table" id="table">
                 	<thead class="table-warning">
-                		<tr>
-                			<th scope="col" >예약번호</th>
+						<tr>
+							<th scope="col" >예약번호</th>
                 			<th scope="col" >예약일</th>
                 			<th scope="col" colspan="2">예약내용</th>
                 			<th scope="col" >예약상황</th>
                 			<th scope="col" >리뷰</th>
                 		</tr>
                 	</thead>
-                	<tbody>		
-		
+					<tbody>		
                 	  <c:if test="${empty reservationInfo}">
-                	    <tr>
-                	  		<td class="align-middle"colspan="6">
-                	  			존재하는 예약내역이 없습니다.
-                	  		</td>
-                	  	</tr>
+						<tr>
+							<td colspan="6">존재하는 예약내역이 없습니다.</td>
+						</tr>
                 	  </c:if>
                 	  <c:if test="${!empty reservationInfo}">
-	                	  <c:forEach var="reservationInfo" items="${reservationInfo}">
-	                		<tr>
-	                	  	  	<td class="align-middle" scope="row" rowspan="2" width="30px">
-	                	  	  		<b><a id="resBtn_${reservationInfo.RES_NO}" href="#" style="color: gray;" class="RES_NO">${reservationInfo.RES_NO}</a></b></td>
-	                			<td class="align-middle" rowspan="2" width="20px">${reservationInfo.RES_DATE}</td>
-	                			<td class="align-middle" colspan="2">${reservationInfo.STORE_NAME}</td>
+						<c:forEach var="reservationInfo" items="${reservationInfo}">
+							<tr>
+	                	  	  	<td scope="row" rowspan="2" width="30px">
+	                	  	  		<b><a id="${reservationInfo.RES_NO}" href="#" class=resBtn>${reservationInfo.MERCHANT_UID}</a></b></td>
+	                			<td rowspan="2" width="20px">${reservationInfo.RES_DATE}</td>
+	                			<td colspan="2">${reservationInfo.STORE_NAME}</td>
 	                			<c:if test="${reservationInfo.REQ_STATE eq '2'}">
 		                			<td style="vertical-align: middle; color: green;" rowspan="2" width="40px"><b>방문완료</b></td>
 		                			<td class="align-middle" rowspan="2" width="20px">
-		                				<button type="button" class="btn btn-outline-warning">작성하기</button></td>
+		                				<button type="button" class="btn btn-outline-warning" onclick="location.href='reviewWrite.re?STORE_NAME=${reservationInfo.STORE_NAME}&RES_NO=${reservationInfo.RES_NO}'">작성하기</button>
+		                				</td>
 	                			</c:if>	
 	                			<c:if test="${reservationInfo.REQ_STATE eq '1'}">
-	                			    <td style="vertical-align: middle; color: red;" rowspan="2" width="40px"><b>예약취소</b></td>
-		                			<td class="align-middle" rowspan="2" width="20px"></td>
+	                			    <td id="REQ_STATE_1" rowspan="2"><b>예약취소</b></td>
+		                			<td rowspan="2" width="20px"></td>
 	                			</c:if>	
 	     			            <c:if test="${reservationInfo.REQ_STATE eq '0'}">
-	                				<td style="vertical-align: middle; color: orange;" rowspan="2" width="40px"><b>예약완료</b></td>
-		                			<td class="align-middle" rowspan="2" width="20px"></td>
+	                				<td id="REQ_STATE_0" rowspan="2"><b>예약완료</b></td>
+		                			<td rowspan="2" width="20px"></td>
 	                			</c:if>	
 	                		</tr>
 	                		<tr>
-	                			<td class="align-middle" width="50px" >${reservationInfo.SEAT_NAME}</td>
-	                			<td class="align-middle" width="15px">${reservationInfo.RES_PEOPLE}명</td>
+	                			<td width="50px">${reservationInfo.SEAT_NAME}</td>
+	                			<td width="15px">${reservationInfo.RES_PEOPLE}명</td>
 	                		</tr>
 	                	  </c:forEach>
                 	  </c:if>
@@ -187,7 +79,6 @@
                 </div>
 			</div>
 		
-		
         <!-- 예약내역 모달창 -->
 		<div id="resModal" class="modal">
 		  <div class="modal-content" id="res-modal-content">
@@ -196,7 +87,7 @@
 			     <button type="button" class="res-close" data-dismiss="modal" aria-label="Close">&times;</button>
 		     </div>
 		     <div class="modal-body" id="res-modal-body">
-			     <h5 id="modal_res_no" class="res_num"></h5>
+			     <h5 id="modal_merchant_uid" class="res_num"></h5>
 				 <div class="col-md-12 mt-5">
 		          <div class="tab-content profile-tab" id="myTabContent">
 		             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
@@ -234,24 +125,19 @@
 		                    <div class="col-md-6"><p id="modal_res_req"></p></div>
 		                </div>
 
-		                <hr style="color: gray; margin-bottom: 20px;">
+		                <hr id="res_hr">
 		                <h5 class="res_num">결제정보</h5>
-
-		                <div class="row">
-		                    <div class="col-md-6"><label id="label">결제일</label></div>
-		                    <div class="col-md-6"><p id="modal_res_paytime"></p></div>
-		                </div>
-		                <c:forEach var="menuModal" items="${menuModal}">
-		                <div class="row">
-		                    <div class="col-md-2"><label id="label">메뉴명</label></div>
-		                    <div class="col-md-2"><p id="modal_menu_name"></p></div>
-		                    <div class="col-md-2"><label id="label">메뉴수량</label></div>
-		                    <div class="col-md-2"><p id="modal_menu_count"></p></div>
-		                    <div class="col-md-2"><label id="label">금액</label></div>
-		                    <div class="col-md-2"><p id="modal_paid_price"></p></div>
-		                </div>
-		                </c:forEach>		                
-		                <hr style="border:2px dashed;">
+		                <div class="row mt-5 mb-2" id="menuForm">
+		                    <div class="col-md-4"><label id="label">메뉴명</label></div>
+							<div class="col-md-4"><label id="label">메뉴수량</label></div>
+							<div class="col-md-4"><label id="label">금액</label></div>
+						</div>
+						<div class="row" id="menuForm">
+		                    <div class="col-md-4" id="menuName"></div>
+		                    <div class="col-md-4" id="menuCount"></div>
+		                    <div class="col-md-4" id="menuPrice"></div>
+			            </div>  
+		                <hr id="menu_hr">
 		                <div class="row">
 		                    <div class="col-md-6"><label id="label">총 결제금액</label></div>
 		                    <div class="col-md-6"><p id="modal_paid_amount"></p></div>
@@ -259,6 +145,10 @@
 		                <div class="row">
 		                    <div class="col-md-6"><label id="label">결제자명</label></div>
 		                    <div class="col-md-6"><p id="modal_buyer_name"></p></div>
+		                </div>
+            			<div class="row">
+		                    <div class="col-md-6"><label id="label">결제일</label></div>
+		                    <div class="col-md-6"><p id="modal_res_paytime"></p></div>
 		                </div>
 	                	<div class="row">
 		                    <div class="col-md-6"><label id="label">결제카드</label></div>
@@ -270,16 +160,16 @@
 		                </div>
 		            </div>
 		          </div>
-		       </div>
+		        </div>
 		     </div>
 		     <div class="modal-footer" id="res-modal-footer">
-		       <div align="left">
-			       <button type="button" class="btn btn-outline-warning" id="resEdit">수정</button>
-			       <button type="button" class="btn btn-outline-danger" id="resDelete">취소</button>
-		       </div> 
-		       <div align="right">
-      		  	 <button type="button" class="btn btn-secondary right" data-dismiss="modal" id="resOk">확인</button>   
-      		   </div> 
+		     	<div class="col">
+					<div id="modal_req_state">
+					</div>    
+				    <div id="resOk_div">
+	    		 		<button type="button" class="btn btn-secondary" data-dismiss="modal" id="resOk">확인</button>   
+		     	 	</div>
+		     	</div>
 		     </div>
 
 		  </div>
@@ -293,16 +183,13 @@
            	 <img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
             	<span class="font-weight-bold">${sessionScope.CUS_NICK}</span>
 			<button type="submit" class="btn btn-primary btn-block mt-5" onclick="location.href='cus_edit.cu'"
-  		  		    style="color: #111111; background-color: white; border-color: #111111;">고객 정보 수정하기</button>
+  		  		    id="myBtn">고객 정보 수정하기</button>
 			<button type="submit" class="btn btn-primary btn-block" onclick="#"
-  		  		    style="color: #111111; background-color: white; border-color: #111111;">나의 리뷰 보기</button>
+  		  		    id="myBtn">나의 리뷰 보기</button>
 			<button type="submit" class="btn btn-primary btn-block mb-4" onclick="location.href='like_list.cu'"
-  		  		    style="color: #111111; background-color: white; border-color: #111111;">찜한 식당 보기</button>  	  
-          	  
-          	  
+  		  		    id="myBtn">찜한 식당 보기</button>  	  
 			<a id="exBtn" data-mdb-toggle="pill" href="#" role="tab"
-			   aria-controls="register" aria-selected="true" style="color: gray;"> > 계정 삭제</a>
-		
+			   aria-controls="register" aria-selected="true"> > 계정 삭제</a>
 		
 			<!-- 계정삭제 모달창 -->
 			<div id="exModal" class="modal">
@@ -326,18 +213,17 @@
 				     </div>
 				     <div class="form-outline mt-5 mb-3 text-left">
 					  	<p><label>본인 계정 확인을 위해 이메일을 입력해 주십시오.</label>
-					    	<input type="text" name="CUS_EMAIL" class="form-control" 
+					    	<input type="text" id="cus_EmailCheck" class="form-control" 
 					    		   placeholder="이메일 입력"/></p>
 					 </div>
 				     <div class="form-outline mt-5 mb-3 text-left">
 				        <label>계정을 삭제하려는 이유를 선택해 주십시오.</label>
-						<select name="quit_why" id="quit_why" class="form-select">
-							<option selected>계정 삭제 이유</option>
-							<hr>
-							<option value="다른 계정 이용">다른 계정 이용</option>
-							<option value="서비스 이용 불편">서비스 이용 불편</option>
-							<option value="사용빈도 적음">사용빈도 적음</option>
-							<option value="기타">기타</option>
+						<select name="CUS_REASON" id="CUS_REASON" class="form-select">
+							<option selected hidden disabled>계정 삭제 이유</option>
+							<option value="0">다른 계정 이용</option>
+							<option value="1">서비스 이용 불편</option>
+							<option value="2">사용빈도 적음</option>
+							<option value="3">기타</option>
 						</select>
 					 </div>
 			     </div>
@@ -347,6 +233,7 @@
 			     </div>
 			  </div>
 			</div>
+			
 			</div>
 		</div>	
 		
@@ -354,112 +241,5 @@
 </div>
 </body>
 <%@ include file="/Template/footer.jsp"%> 
-<script>
-$(function(){
-	// 예약내역 모달
-	var resModal = document.getElementById("resModal");
-
-	$('.RES_NO').on('click', function(){
-	 	$.ajax({
-	 		type: "get",
-	 		url: "resDetail.cu",
-	 		data: { id: this.text}
-	 	})
-	 	.done(function(data){
-	 		debugger;
-	 		$('#modal_res_no').text(data.RES_NO);
-	 		$('#modal_res_date').text(data.RES_DATE);
-	 		$('#modal_cus_name').text(data.CUS_NAME);
-	 		$('#modal_res_people').text(data.RES_PEOPLE); 
-	 		$('#modal_res_req').text(data.RES_REQ);
-	 		$('#modal_res_paytime').text(data.RES_PAYTIME);
-	 		$('#modal_store_name').text(data.STORE_NAME);
-	 		$('#modal_store_location').text(data.STORE_LOCATION);
-	 		$('#modal_seat_name').text(data.SEAT_NAME);
-
-	 		$('#modal_cus_tel').text(data.CUS_TEL);
-		 	$.ajax({
-		 		type: "get",
-		 		url: "menuDetail.cu",
-		 		data: { id: data.RES_NO}
-		 	})
-		 	.done(function(data){
-	 	 		$('#modal_menu_name').text(data.MENU_NAME);
-	 	 		$('#modal_menu_count').text(data.MENU_COUNT);
-	 	 		$('#modal_paid_price').text(data.PAID_PRICE);	
-		 	})
-	 		$('#modal_paid_amount').text(data.PAID_AMOUNT);
-	 		$('#modal_buyer_name').text(data.BUYER_NAME);
-	 		$('#modal_card_name').text(data.CARD_NAME);
-	 		$('#modal_card_number').text(data.CARD_NUMBER);
-	 		
-	 		resModal.style.display = "block";	
-	 		
-	 		$('#modal_store_no').on('click', function(){
-	 			location.href = "store.ma?STORE_NO="+data.STORE_NO;
-	 		})
-	 	})
-	});
-
-	$('.res-close').on('click', function(){
-		resModal.style.display = "none";
-	})
-	
-	$('#resEdit').on('click', function(){
-		location.href = "payment_change.pa";
-	})
-	
-	$('#resDelete').on('click', function(){
-		var result = confirm("예약을 취소하시겠습니까?");
-        if(result){
-    	 	$.ajax({
-//             	debugger;
-    	 		type: "get",
-    	 		url: "resDetail.cu",
-    	 		data: { id: this.text}
-    	 	})
-        	alert("예약취소가 되었습니다.");
-    	 	location.reload(true);
-       	} else {
-       		return false;
-       	}
-	})
-	
-	$('#resOk').on('click', function(){
-		resModal.style.display = "none";
-	})
-
-	
-	// 계정삭제 모달
-	var modal = document.getElementById("exModal");
-	var btn = document.getElementById("exBtn");
-	var span = document.getElementsByClassName("close")[0];
-	var cancelBtn = document.getElementById("cancelBtn");
-	
-	$('#exBtn').on('click', function(){
-		modal.style.display = "block";	
-	})
-	
-	$('#close').on('click', function(){
-		modal.style.display = "none";
-	})
-	
-	$('#cancelBtn').on('click', function(){
-		modal.style.display = "none";
-	})
-	
-	// 계정삭제 버튼
-	$('#deleteBtn').on('click', function(){
-		alert('정말로 삭제하시겠습니까?');
-		location.href = "deletePro.cu";
-	})
-	
-	
-	window.onclick = function(event) {
-	  if (event.target == modal) {
-	    modal.style.display = "none";
-	  }
-	}
-});
-</script>
+<script src="Customer/js/mypage.js"></script>
 </html>

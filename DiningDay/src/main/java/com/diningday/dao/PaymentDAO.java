@@ -78,4 +78,21 @@ public class PaymentDAO {
 		
 	}
 
+	public void payment_cancel(String MERCHANT_UID) {
+		session = sqlSessionFactory.openSession();
+		session.update("Payment.payment_cancel", MERCHANT_UID);
+		session.commit();
+		session.close();
+		
+	}
+
+	public boolean checkResDate(String MERCHANT_UID) {
+		session = sqlSessionFactory.openSession();
+		Map<String, String> result = session.selectOne("Payment.checkResDate", MERCHANT_UID);
+		
+		session.close();
+		
+		return result.get("result") == "1" ? true : false;
+	}
+
 }

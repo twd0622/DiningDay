@@ -26,13 +26,12 @@
 		<mapper resource="com/diningday/sql/UserSql.xml" />
 		<mapper resource="com/diningday/sql/CustomerSql.xml" />
 		<mapper resource="com/diningday/sql/OwnerSql.xml" />
-		<mapper resource="com/diningday/sql/ExCustomerSql.xml" />
 		<mapper resource="com/diningday/sql/LocationSql.xml" />
 		<mapper resource="com/diningday/sql/StoreSql.xml" />
 		<mapper resource="com/diningday/sql/MainSql.xml" />
 		<mapper resource="com/diningday/sql/PaymentSql.xml" />
 		<mapper resource="com/diningday/sql/AdminSql.xml" />
-		<mapper resource="com/diningday/sql/ReportSql.xml" />
+		<mapper resource="com/diningday/sql/Review_ReportSql.xml" />
 	</mappers>
 
 </configuration>

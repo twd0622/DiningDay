@@ -21,18 +21,22 @@ $(()=>{
 		var priceResult = parseInt($(".price_result").text().replace(/,/g , ''));
 		
 		requestPay(storeName, priceResult);
+		
 	})
 })
 
 var IMP = window.IMP;
 IMP.init('imp13773025');
 
-var today = new Date();   
+var today = new Date();
+var year = today.getFullYear();
+var month = today.getMonth() + 1;
+var date = today.getDate();
 var hours = today.getHours(); // 시
 var minutes = today.getMinutes();  // 분
 var seconds = today.getSeconds();  // 초
 var milliseconds = today.getMilliseconds();
-var makeMerchantUid = hours +  minutes + seconds + milliseconds;
+var makeMerchantUid = year + month + date + hours +  minutes + seconds + milliseconds;
 
 
 function requestPay(storeName, priceResult) {
@@ -62,6 +66,12 @@ function requestPay(storeName, priceResult) {
 			$(".choice_list").attr("id", function(i, id){
 				MENU_NO_list.push(id);
 			})
+			
+			var MENU_NAME_list = [];
+			$(".cart_menu_name").attr("id", function(i, id){
+				MENU_NAME_list.push(id);
+			})
+			
 			var MENU_COUNT_list = [];
 			$(".menuCount").text(function(i, text){
 				MENU_COUNT_list.push(text);
@@ -69,7 +79,9 @@ function requestPay(storeName, priceResult) {
 			
 			
 			rsp.MENU_NO = MENU_NO_list.join();
+			rsp.MENU_NAME = MENU_NAME_list.join();
 			rsp.MENU_COUNT = MENU_COUNT_list.join();
+			
 			
             $.ajax({
 				type: "post",
@@ -81,7 +93,7 @@ function requestPay(storeName, priceResult) {
 			})
 
         } else {
-           alert("결제를 취소하였습니다.")
+			alert(rsp.error_msg);
         }
     });
 }

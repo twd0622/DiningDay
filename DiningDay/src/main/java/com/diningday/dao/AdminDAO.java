@@ -37,8 +37,8 @@ public class AdminDAO {
 	
 	public boolean noticeUpdate(Map<String, String> adminDTO) {
 		session = sqlSessionFactory.openSession();
-		
 		int updateNotice = session.update("Admin.noticeUpdate", adminDTO); // namespace.id
+		System.out.println("updateNotice: " + updateNotice);
 		
 		session.commit();
 		session.close();
@@ -69,6 +69,15 @@ public class AdminDAO {
 		return noticeList;
 	}
 	
+	public List<Map<String, String>> getNoticeList(Map<String, String> requestToMap) {
+		session = sqlSessionFactory.openSession();
+		List<Map<String, String>> noticeList = session.selectList("Admin.selectNoticeList", requestToMap); // namespace.id
+		
+		session.close();
+		
+		return noticeList;
+	}
+	
 	public Map<String, String> getNoticeDetail(Map<String, String> adminDTO) {
 		session = sqlSessionFactory.openSession();
 		Map<String, String> noticeDetail = session.selectOne("Admin.selectNoticeDetail", adminDTO); // namespace.id
@@ -81,6 +90,15 @@ public class AdminDAO {
 	public List<Map<String, String>> getStoreList() {
 		session = sqlSessionFactory.openSession();
 		List<Map<String, String>> storeList = session.selectList("Admin.selectStoreList"); // namespace.id
+		
+		session.close();
+		
+		return storeList;
+	}
+	
+	public List<Map<String, String>> getStoreList(Map<String, String> requestToMap) {
+		session = sqlSessionFactory.openSession();
+		List<Map<String, String>> storeList = session.selectList("Admin.selectStoreList", requestToMap); // namespace.id
 		
 		session.close();
 		
@@ -116,6 +134,15 @@ public class AdminDAO {
 		return userList;
 	}
 	
+	public List<Map<String, String>> getUserList(Map<String, String> requestToMap) {
+		session = sqlSessionFactory.openSession();
+		List<Map<String, String>> userList = session.selectList("Admin.selectUserList", requestToMap); // namespace.id
+		
+		session.close();
+		
+		return userList;
+	}
+	
 	public int userDelete(Map<String, String> adminDTO) {
 		session = sqlSessionFactory.openSession();
 		
@@ -130,6 +157,17 @@ public class AdminDAO {
 	public List<Map<String, String>> getStoreReport() {
 		session = sqlSessionFactory.openSession();
 		List<Map<String, String>> storeReport = session.selectList("Admin.selectStoreReport"); // namespace.id
+		
+		session.close();
+		
+		return storeReport;
+	}
+	
+	public List<Map<String, String>> getStoreReport(Map<String, String> requestToMap) {
+		session = sqlSessionFactory.openSession();
+		List<Map<String, String>> storeReport = session.selectList("Admin.selectStoreReport", requestToMap); // namespace.id
+		
+		session.close();
 		
 		return storeReport;
 	}
@@ -158,6 +196,17 @@ public class AdminDAO {
 		session = sqlSessionFactory.openSession();
 		List<Map<String, String>> reviewReport = session.selectList("Admin.selectReviewReport"); // namespace.id
 		
+		session.close();
+		
+		return reviewReport;
+	}
+	
+	public List<Map<String, String>> getReviewReport(Map<String, String> requestToMap) {
+		session = sqlSessionFactory.openSession();
+		List<Map<String, String>> reviewReport = session.selectList("Admin.selectReviewReport", requestToMap); // namespace.id
+		
+		session.close();
+		
 		return reviewReport;
 	}
 	
@@ -180,4 +229,25 @@ public class AdminDAO {
 		
 		return cRepDetail;
 	}
+	
+	public List<Map<String, String>> reviewList() {
+		session = sqlSessionFactory.openSession();
+		
+		List<Map<String, String>> reviewList = session.selectList("Admin.reviewList"); // namespace.id
+		
+		session.close();
+		
+		return reviewList;
+	}
+	
+	public List<Map<String, String>> reviewComment() {
+		session = sqlSessionFactory.openSession();
+		
+		List<Map<String, String>> reviewComment = session.selectList("Admin.reviewComment"); // namespace.id
+		
+		session.close();
+		
+		return reviewComment;
+	}
+	
 }

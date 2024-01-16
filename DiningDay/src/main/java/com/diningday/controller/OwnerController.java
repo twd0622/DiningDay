@@ -207,6 +207,8 @@ public class OwnerController extends HttpServlet {
 			Map<String, String> ownerCheck = ownerService.ownerCheck(req);
 			if(ownerCheck != null) {
 				System.out.println("로그인 성공");
+				// 세션 유효시간 7200=2시간, (로그아웃 이후 무제한 연장 => 0 or -1)
+				session.setMaxInactiveInterval(7200);
 				session.setAttribute("STORE_NO", ownerCheck.get("STORE_NO"));
 				session.setAttribute("OWN_NO", ownerCheck.get("OWN_NO"));
 

@@ -76,7 +76,7 @@
 							<span class="material-symbols-outlined grade_icon" style="color: #F7CE3E;">star</span>
 						</span>
 					</p>
-					<a href="reportWrite.re?STORE_NO=${storeInfo.STORE_NO}&STORE_NAME=${storeInfo.STORE_NAME}"> 신고하기 </a>
+					<a id="repoertBtn"> 신고하기 </a>
 				</div>
 				<div class="profile_btnBox">
 					<div class="profile_btn_sec" style="border-right: 2px solid #f0f0f0;">
@@ -105,29 +105,31 @@
 				<!-- 영업 시간 -->
 				<div class="busi-hours-today">
 					<p class="tit">영업시간</p>
+				    <div id="BT" class="${storeInfo.STORE_BTS}~${storeInfo.STORE_BTE}" style="display:none;"></div>
 					<ul class="list">
 						<li>
 							<p class="l-txt"> </p>
 							<p class="r-txt">영업시간: ${storeInfo.STORE_ST} ~ ${storeInfo.STORE_ET}</p>
 						</li>
-						<c:if test="${storeInfo.STORE_BTS != '0'}">
-						<li>
-						  <p class="l-txt"> </p>
-						  <p class="r-txt">브레이크타임: ${storeInfo.STORE_BTS} ~ ${storeInfo.STORE_BTE}</p>
-						  <div id="BT" class="${storeInfo.STORE_BTS}~${storeInfo.STORE_BTE}" style="display:none;"></div>
-						</li>
-						</c:if>
+				        <c:if test="${storeInfo.STORE_BTS != '00:00'}">
+						  <li>
+						    <p class="l-txt"> </p>
+						    <p class="r-txt">브레이크타임: ${storeInfo.STORE_BTS} ~ ${storeInfo.STORE_BTE}</p>
+						  </li>
+				        </c:if>
+              			<c:if test="${storeInfo.STORE_LO != '0'}">
               			<li>
   							<p class="l-txt"> </p>
   							<p class="r-txt">라스트오더: ${storeInfo.STORE_LO}</p>
 						</li>
+              			</c:if>
+						<c:if test="${storeInfo.STORE_CLOSE != '0'}" >
 						<li>
-							<c:if test="${storeInfo.STORE_CLOSE != '0'}" >
 							<p class="l-txt"> </p>
 							<p class="r-txt"><strong>정기 휴무:</strong> ${storeInfo.STORE_CLOSE}</p>
 							<div id="close" class="${storeInfo.STORE_CLOSE}" style="display:none;"></div>
-							</c:if>
 						</li>
+						</c:if>
 					</ul>
 				</div>
 				<!-- 메뉴 -->

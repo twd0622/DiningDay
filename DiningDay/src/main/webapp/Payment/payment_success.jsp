@@ -27,7 +27,7 @@
 				<div class="infoBox">
 					<div class="infoBoxStyle1">
 						<span class="infoTit">예약 번호</span>
-						<span class="infocnt">${resInfo.RES_NO}</span>
+						<span class="infocnt">${resInfo.MERCHANT_UID}</span>
 					</div>
 					<div class="infoBoxStyle1">
 						<span class="infoTit">예약 날짜</span>
@@ -39,7 +39,7 @@
 					</div>
 					<div class="infoBoxStyle1">
 						<span class="infoTit">결제 금액</span>
-						<span class="infocnt">${resInfo.PAID_AMOUNT}</span>
+						<span class="infocnt">${resInfo.PAID_AMOUNT} 원</span>
 					</div>
 				</div>
 				
