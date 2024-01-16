@@ -15,38 +15,7 @@
 
 <%@ include file="/Template/admin_sidebar_open.jsp"%>
 <!-- main은 속성 값은 왠만하면 건들지x -->
-<script type="text/javascript">
-$(()=>{
-	$(".writeBtn").on("click", function() {
-		Swal.fire({	
-			title: "등록하시겠습니까?",
-			icon: "warning",
-			showCancelButton: true,
-			confirmButtonColor: "#64E56D",
-			cancelButtonColor: "#63ACDE",
-			confirmButtonText: "등록",
-			cancelButtonText: "취소",
-			showCancelButton: true,
-			showConfirmButton: true
-			})
-			.then((result) => {
-				if (result.isConfirmed) {
-					Swal.fire({
-						title: "등록 완료!",
-					    icon: "success",
-					    showConfirmButton: false,
-					    timer: 800
-					})
-					.then((result) => {
-						debugger;
-						
-				    	
-					})
-				}
-			});
-	})
-})
-</script>
+
 <main style="display: flex; align-items: center; text-align: center; padding: 20px 50px 50px 50px;">
 	<!-- 예시div style속성 값 조절해서 사용! -->
 	<div class="mainContainer"
@@ -83,7 +52,7 @@ $(()=>{
 					</tbody>
 				</table>
 				<hr>
-				<input type="button" class="writeBtn btn btn-outline-success" value="등록">
+				<input type="submit" class="writeBtn btn btn-outline-success" value="등록">
 				<input type="button" class="btn btn-outline-dark" value="취소" onclick="window.history.back()">
 			</div>
 			<br>
