@@ -6,15 +6,16 @@
 	
 	<insert id="insert" parameterType="map">
 		insert into CUSTOMER
-			( CUS_NO    ,
-			  CUS_ID    ,
-			  CUS_NAME  ,
-			  CUS_BIRTH ,
-			  CUS_TEL   ,
-			  CUS_EMAIL ,
-			  CUS_GENDER,
-			  CUS_NICK  ,
-			  CUS_DATE)  
+			( CUS_NO    
+			  , CUS_ID    
+			  , CUS_NAME  
+			  , CUS_BIRTH 
+			  , CUS_TEL  
+			  , CUS_EMAIL 
+			  , CUS_GENDER
+			  , CUS_NICK  
+			  , CUS_DATE
+			  , CUS_IMAGE)  
 		values
 			(CONCAT('CU', ( select *             
 				from (select ifnull(max(cast(trim(leading 'CU' from CUS_NO) as unsigned)), 0) + 1
@@ -28,14 +29,16 @@
 			, CONCAT('CU', ( select *             
 				from (select ifnull(max(cast(trim(leading 'CU' from CUS_NO) as unsigned)), 0) + 1
 					  from CUSTOMER ) A ))
-			, DATE_FORMAT(SYSDATE(), '%Y%m%d%H%i%s'));
+			, DATE_FORMAT(SYSDATE(), '%Y%m%d%H%i%s')
+			, 'profile.png');
 	</insert>
 	
 	<select id="searchId" parameterType="map" resultType="map">
-		select CUS_NO, 
-			   CUS_ID, 
-			   CUS_EMAIL, 
-			   CUS_NICK
+		select CUS_NO
+			   , CUS_ID 
+			   , CUS_EMAIL 
+			   , CUS_NICK
+			   , CUS_IMAGE
 		from CUSTOMER
 		where CUS_ID = #{CUS_ID};
 	</select>
@@ -96,14 +99,15 @@
 	</select>
 	
 	<select id="getCustomer" parameterType="String" resultType="map">
-		select CUS_NO    ,
-			  CUS_ID    ,
-			  CUS_NAME  ,
-			  CAST(CUS_BIRTH AS date) CUS_BIRTH,
-			  CUS_TEL   ,
-			  CUS_EMAIL ,
-			  CUS_GENDER,
-			  CUS_NICK
+		select CUS_NO    
+			  , CUS_ID    
+			  , CUS_NAME  
+			  , CAST(CUS_BIRTH AS date) CUS_BIRTH
+			  , CUS_TEL   
+			  , CUS_EMAIL 
+			  , CUS_GENDER
+			  , CUS_NICK
+			  , CUS_IMAGE
 		from CUSTOMER
 		where CUS_NO = #{CUS_NO};
 	</select>
@@ -116,19 +120,13 @@
 				, CUS_EMAIL = #{CUS_EMAIL}
 				, CUS_BIRTH = replace(cast(#{CUS_BIRTH} as char), "-", "")
 				, CUS_REDATE= DATE_FORMAT(SYSDATE(), '%Y%m%d%H%i%s')
+				, CUS_IMAGE = #{CUS_IMAGE}
 		where	CUS_NO = #{CUS_NO};
 	</update>
 	
 	<select id="customerCheck" parameterType="map" resultType="map">
-		select CUS_NO    ,
-			   CUS_ID    ,
-			   CUS_NAME  ,
-			   CUS_BIRTH ,
-			   CUS_TEL   ,
-			   CUS_EMAIL ,
-			   CUS_GENDER,
-			   CUS_NICK  ,
-			   CUS_DATE
+		select CUS_NO    
+			   , CUS_EMAIL
 		from CUSTOMER
 		where CUS_EMAIL=#{CUS_EMAIL}
 		and CUS_NO=#{CUS_NO};

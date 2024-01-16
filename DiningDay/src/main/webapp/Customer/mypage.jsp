@@ -179,7 +179,7 @@
         <div class="col-md-3">
             <div class="d-flex flex-column align-items-center text-center p-3 py-5 mt-5">
             <h4>고객 정보</h4>
-           	 <img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
+           	 <img class="rounded-circle mt-5" width="150px" src="Customer/profile/${sessionScope.CUS_IMAGE}">
             	<span class="font-weight-bold">${sessionScope.CUS_NICK}</span>
 			<button type="submit" class="btn btn-primary btn-block mt-5" onclick="location.href='cus_edit.cu'"
   		  		    id="myBtn">고객 정보 수정하기</button>

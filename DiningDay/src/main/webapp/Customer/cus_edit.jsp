@@ -29,13 +29,12 @@
 </style>
 <c:set var="customerInfo" value="${requestScope.customerInfo}"/>
 <body id="body">
-<form action="cus_editPro.cu" method="post" name="cus_edit">
+<form action="cus_editPro.cu" method="post" name="cus_edit" enctype="multipart/form-data">
 <div class="container rounded bg-white mt-5 mb-5">
 	<div class="row">
 		<div class="col-md-3 border-right">
 			<div class="d-flex flex-column align-items-center text-center p-3 py-5">
-				<img value="${customerInfo.CUS_IMAGE}" class="rounded-circle mt-5" width="150px" 
-	           	 	 src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
+				<img class="rounded-circle mt-5" width="150px" src="Customer/profile/${customerInfo.CUS_IMAGE}">
 				<span class="font-weight-bold">${customerInfo.CUS_NICK}</span>
 				<span class="text-black-50">${customerInfo.CUS_EMAIL}</span>
             </div>
@@ -69,16 +68,18 @@
         </div>
         <div class="col-md-4">
 			<div class="p-3 py-5">
-				<div class="d-flex justify-content-between align-items-center experience mt-4">
-					<span><b>프로필이미지 설정</b></span>
-					<span class="border px-3 p-1 add-experience">
-					<i class="fa fa-plus"></i>&nbsp;사진 선택</span>
+				<div class="d-flex justify-content-between align-items-center experience">
+					<h4 class="text-right mb-4">프로필 이미지 설정</h4>
 				</div><br>
 				<div class="container-fluid align-items-center">
-					<div class="card">변경 후 이미지<br>
-						<div class="align-items-center text-center">
-							<img class="rounded-circle mt-5" align="middle" width="200px" height="200px"
-								  name="CUS_IMAGE" src="profile/j7.jpg">
+					<div class="card align-items-center">
+					<button type="button" id="inputBtn" class="btn btn-secondary border px-3 p-1 add-experience" onclick="editImage()" >
+						<i class="fa fa-plus"></i>&nbsp;사진 선택</button>
+<!-- 						<p class="mt-4">변경 후 이미지</p> -->
+						<input type="file" name="CUS_IMAGE" id="CUS_IMAGE" style="visibility: hidden;" onchange="setThumbnail(event);" />
+						<div class="align-items-center text-center" id="image_container">
+							<img class="rounded-circle mb-3" width="200px" height="200px"
+								  name="CUS_IMAGE" id="newImage" src="Customer/profile/${customerInfo.CUS_IMAGE}">
 						</div><br>
 					</div>
 				</div>
@@ -91,6 +92,19 @@
 <script type="text/javascript">
 function edit() {
 	document.cus_edit.submit();
+}
+
+function editImage() {
+	let CUS_IMAGE = document.getElementById("CUS_IMAGE");
+	CUS_IMAGE.click();
+}
+
+function setThumbnail(event){
+	var reader = new FileReader();
+	reader.onload = function(event){
+		document.getElementById("newImage").src = event.target.result;
+	};
+	reader.readAsDataURL(event.target.files[0]);
 }
 </script>
 <%@ include file="/Template/footer.jsp"%> 

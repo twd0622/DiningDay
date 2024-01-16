@@ -27,7 +27,6 @@ $(function(){
 	 		$('#modal_card_number').text(resMap.CARD_NUMBER);
 	 		
 	 		if($.trim(resMap.REQ_STATE) == '0'){
-	 			$("#modal_req_state").append("<button type='button' class='btn btn-outline-warning' id='resEdit'>수정</button> ");
 	 			$("#modal_req_state").append("<button type='button' class='btn btn-outline-danger' id='resDelete'>취소</button>");
 	 			
 	 			$('#resEdit').on('click', function(){
