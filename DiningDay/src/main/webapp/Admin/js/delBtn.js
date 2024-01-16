@@ -22,6 +22,7 @@ $(()=>{
 					    
 					})
 					.then((result) => {
+						debugger;
 						if($(this).parent("div").parent("div").siblings(".container").children().children().children(".tr1").children("#sRep_no").text().substring(0,2) == "SR"){
 							var sRep_no = $(this).parent("div").parent("div").siblings(".container").children().children().children(".tr1").children("#sRep_no").text();
 							location.href = "admin_storeReportDelete.ad?SREP_NO="+sRep_no;
@@ -34,6 +35,9 @@ $(()=>{
 						} else if($(this).parent().siblings("#div2").children().siblings(".store_no").text().substring(0,2) == "ST") {
 							var store_no = $(this).parent().siblings("#div2").children().siblings(".store_no").text();
 			    			location.href = "admin_storeDelete.ad?STORE_NO="+store_no;
+						} else if($(this).parent().parent().siblings(".row2").children("#article-table1").children().children(".tr1").children("td").text().substring(0,2) == "RV") {
+							var review_no = $(this).parent().parent().siblings(".row2").children("#article-table1").children().children(".tr1").children("td").text();
+							location.href = "admin_reviewDelete.ad?REV_NO="+review_no;
 						}
 						
 						

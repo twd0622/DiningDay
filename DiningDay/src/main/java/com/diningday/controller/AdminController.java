@@ -216,10 +216,21 @@ public class AdminController extends HttpServlet {
 		}
 //		----------------------------------------------------------------------------------------------------
 		if(sPath.equals("/admin_reviewDetail.ad")) {
-			List<Map<String, String>> reviewComment = adminService.reviewComment();
+			Map<String, String> reviewDetail = adminService.reviewDetail(req);
+			req.setAttribute("reviewDetail", reviewDetail);
+			Map<String, String> reviewComment = adminService.reviewComment(req);
 			req.setAttribute("reviewComment", reviewComment);
 			dispatcher = req.getRequestDispatcher("Admin/admin_reviewDetail.jsp");
 			dispatcher.forward(req, res);
+		}
+//		----------------------------------------------------------------------------------------------------
+		if(sPath.equals("/admin_reviewDelete.ad")) {
+			String result = Integer.toString(adminService.reviewDelete(req));
+			
+			List<Map<String, String>> reviewList = adminService.reviewList();
+			req.setAttribute("reviewList", reviewList);
+			
+			res.sendRedirect("admin_reviewList.ad");
 		}
 //		----------------------------------------------------------------------------------------------------
 		if(sPath.equals("/companyIntro.ad")) {

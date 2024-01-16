@@ -44,7 +44,7 @@
 	</select>
 	
 	<select id="selectNoticeList" parameterType="map" resultType="map">
-		select NOT_NO
+		select TRIM(BOTH "NO" FROM NOT_NO) as "NOT_NO"
 			 , NOT_TITLE
 			 , NOT_CONTENT
 			 , date_format(ifnull(NOT_REDATE, NOT_DATE), '%Y-%m-%d') as "DATE"
@@ -60,8 +60,9 @@
 	</select>
 	
 	<select id="selectNoticeDetail" parameterType="map" resultType="map">
-		select NOT_NO
-			 , NOT_TITLE, NOT_CONTENT
+		select concat('NO', NOT_NO) as "NOT_NO"
+			 , NOT_TITLE
+			 , NOT_CONTENT
 			 , date_format(ifnull(NOT_REDATE, NOT_DATE)
 			 , '%Y-%m-%d') as "DATE"
 		from   NOTICE
@@ -289,48 +290,41 @@
 	</select>
 	
 	<select id="reviewDetail" parameterType="map" resultType="map">
-		select  CR.CREP_NO
-			,	R.REV_NO
-		    ,	S.OWN_NO
-		    ,	CR.CREP_TITLE
-		    ,	S.STORE_NAME
-		    ,	CR.CREP_CONTENT
-		    ,	date_format(CREP_DATE, '%Y-%m-%d') as "CRDATE"
-		    ,	CR.CREP_PROCESS
-		    ,	R.REV_CONTENT
+		 select  R.REV_NO
+			,	R.REV_CONTENT
+		    ,	date_format(R.REV_DATE, '%Y-%m-%d') as "REV_DATE"
 		    ,	R.REV_SCORE
-		    ,	date_format(R.REV_DATE, '%Y-%m-%d') as "RDATE"
-		from 	REVIEW_REPORT CR join REVIEW R
-		on 		CR.REV_NO = R.REV_NO
+		    ,	R.REV_IMAGE
+		    ,	R.CUS_NO
+		    ,	R.CUS_NICK
+		    ,	S.STORE_NO
+		from 	REVIEW R
 		join 	STORE S
-		on 		CR.OWN_NO = S.OWN_NO
+		on 		R.STORE_NO = S.STORE_NO
 		where 	1 = 1
-		and		CR.CREP_NO = #{CREP_NO}
-		and		CR.REV_NO = #{REV_NO}
-		and		CR.OWN_NO = #{OWN_NO};
+		and		R.REV_NO = #{REV_NO};
 	</select>
 	
 	<select id="reviewComment" parameterType="map" resultType="map">
 		select  R.REV_NO
-			,	S.STORE_NAME
-			,	C.COM_CONTENT
-			,	C.COM_DATE
-		from 	COMMENT C
-		join	REVIEW R
-		on 		C.REV_NO = R.REV_NO
-		join	STORE S
-		on		R.STORE_NO = S.STORE_NO
-		join 	CUSTOMER CU
-		on		R.CUS_NO = CU.CUS_NO
-		join 	RESERVATION RE
-		on		R.RES_NO = RE.RES_NO
-		join 	SEAT SE
-		on		R.SEAT_NO = SE.SEAT_NO
-		where 	1 = 1;
-		and		C.REV_NO = #{REV_NO}
-		and		R.CUS_NO = #{CUS_NO}
-		and		R.STORE_NO = #{STORE_NO}
-		and 	R.RES_NO = #{RES_NO}
-		and		R.SEAT_NO = #{SEAT_NO}
+		    ,	R.STORE_NO
+		    ,	S.STORE_NAME
+		    ,	C.COM_NO
+            ,	C.COM_CONTENT
+		    ,	date_format(C.COM_DATE, '%Y-%m-%d') as "COM_DATE"
+		from 	REVIEW R
+		join 	STORE S
+		on 		R.STORE_NO = S.STORE_NO
+        join 	COMMENT C
+        on		R.REV_NO = C.REV_NO
+		where 	1 = 1
+		and		R.REV_NO = #{REV_NO};
 	</select>
+	
+	<delete id="reviewDelete" parameterType="map">
+		delete 	from	REVIEW
+				where	REV_NO = #{REV_NO};
+	</delete>
+	
+
 </mapper>

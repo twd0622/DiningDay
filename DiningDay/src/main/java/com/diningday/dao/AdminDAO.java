@@ -240,14 +240,35 @@ public class AdminDAO {
 		return reviewList;
 	}
 	
-	public List<Map<String, String>> reviewComment() {
+	
+	public Map<String, String> reviewDetail(Map<String, String> adminDTO) {
 		session = sqlSessionFactory.openSession();
+		Map<String, String> reviewDetail = session.selectOne("Admin.reviewDetail", adminDTO); // namespace.id
 		
-		List<Map<String, String>> reviewComment = session.selectList("Admin.reviewComment"); // namespace.id
+		session.close();
+		
+		return reviewDetail;
+	}
+	
+	public Map<String, String> reviewComment(Map<String, String> adminDTO) {
+		session = sqlSessionFactory.openSession();
+		Map<String, String> reviewComment = session.selectOne("Admin.reviewComment", adminDTO); // namespace.id
 		
 		session.close();
 		
 		return reviewComment;
+	}
+	
+	
+	public int reviewDelete(Map<String, String> adminDTO) {
+		session = sqlSessionFactory.openSession();
+		
+		int reviewDelete = session.delete("Admin.reviewDelete", adminDTO); // namespace.id
+		
+		session.commit();
+		session.close();
+		
+		return reviewDelete;
 	}
 	
 }

@@ -8,9 +8,11 @@
 <meta charset="utf-8">
 <title>리뷰관리 | 다이닝데이</title>
 <c:set var="reviewList" value="${ requestScope.reviewList }"/>
+<c:set var="reviewDetail" value="${ requestScope.reviewDetail }"/>
 <link href="resources/css/variable_admin.css" rel="stylesheet">
 <script src="resources/js/variableCode.js"></script>
 <script src="resources/js/jquery.twbsPagination.min.js"></script>
+<script src="Admin/js/delBtn.js"></script>
 <script>
 	$(()=>{
 		paging("tbody tr" ,10, 1);
@@ -28,7 +30,7 @@
 		<h4 style="text-align: left; padding: 20px 0 0 20px;" onclick="location.href='admin_reviewList.ad'">&lt; 전체 리뷰관리 &gt;</h4>
 		<hr>
 		<div class="row" style="padding: 0 7% 0 7%;">
-			<table class="table table-hover" id="article-table">
+			<table class="table table-hover" id="article-table1">
 				<thead>
 					<tr class="table-success">
 						<th class="title col-1 align-middle">리뷰번호</th>
@@ -36,20 +38,18 @@
 						<th class="hashtag col-1 align-middle">방문 식당명</th>
 						<th class="user-id col-3 align-middle">리뷰내용</th>
 						<th class="created-at col-1 align-middle">작성일자</th>
-						<th class="created-at col-1 align-middle"></th>
 
 					</tr>
 
 				</thead>
 				<tbody>
 				<c:forEach var="reviewList" items="${reviewList}">
-					<tr>
-						<td class="title align-middle" onclick="location.href='admin_reviewDetail.ad'">${reviewList.REV_NO}</td>
-						<td class="hashtag align-middle" onclick="location.href='admin_reviewDetail.ad'">${reviewList.CUS_NICK}</td>
-						<td class="hashtag align-middle" onclick="location.href='admin_reviewDetail.ad'">${reviewList.STORE_NAME}</td>
-						<td class="user-id align-middle" style="overflow:hidden; white-space:nowrap; text-overflow:ellipsis; table-layout: fixed;" onclick="location.href='admin_reviewDetail.ad'">${reviewList.REV_CONTENT}</td>
-						<td class="created-at col-1 align-middle" onclick="location.href='admin_reviewDetail.ad'">${reviewList.REV_DATE}</td>
-						<td class="align-middle"><a href="contentWrite.jsp" class="btn btn-outline-danger">삭제</a></td>
+					<tr onclick="location.href='admin_reviewDetail.ad?REV_NO=${reviewList.REV_NO}'">
+						<td class="title align-middle" >${reviewList.REV_NO}</td>
+						<td class="hashtag align-middle">${reviewList.CUS_NICK}</td>
+						<td class="hashtag align-middle">${reviewList.STORE_NAME}</td>
+						<td class="user-id align-middle" style="overflow:hidden; white-space:nowrap; text-overflow:ellipsis; table-layout: fixed;">${reviewList.REV_CONTENT}</td>
+						<td class="created-at col-1 align-middle">${reviewList.REV_DATE}</td>
 					</tr>
 				</c:forEach>
 				</tbody>

@@ -143,10 +143,20 @@ public class AdminService {
 		return reviewList;
 	}
 	
-	public List<Map<String, String>> reviewComment() {
-		List<Map<String, String>> reviewComment = adminDAO.reviewComment();
+	public Map<String, String> reviewDetail(HttpServletRequest req) {
 		
-		return reviewComment;
+		return adminDAO.reviewDetail(TeamUtil.requestToMap(req));
+	}
+	
+	public Map<String, String> reviewComment(HttpServletRequest req) {
+		
+		return adminDAO.reviewComment(TeamUtil.requestToMap(req));
+	}
+	
+	public int reviewDelete(HttpServletRequest req) {
+		int reviewDelete = adminDAO.reviewDelete(TeamUtil.requestToMap(req));
+		
+		return reviewDelete;
 	}
 	
 }

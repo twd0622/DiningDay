@@ -7,8 +7,6 @@
 <head>
 <meta charset="utf-8">
 <title>리뷰상세 | 다이닝데이</title>
-<c:set var="reviewComment" value="${ requestScope.reviewComment }"/>
-<c:set var="reviewList" value="${ requestScope.reviewList }"/>
 <style type="text/css">
 .star {
   position: relative;
@@ -31,14 +29,25 @@
   color: red;
   overflow: hidden;
   pointer-events: none;
+
+}
+
+.table th {
+	width: 350px;
 }
 </style>
+<link href="resources/css/variable_admin.css" rel="stylesheet">
+<link href="resources/css/variable_admin.css" rel="stylesheet">
+<script src="resources/js/variableCode.js"></script>
+<script src="resources/js/jquery.twbsPagination.min.js"></script>
+<script src="Admin/js/delBtn.js"></script>
 </head>
 <script type="text/javascript"> 
    const drawStar = (target) => {
      document.querySelector(`.star span`).style.width = `${target.value * 10}%`;
    }
 </script> 
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     	<!-- main은 속성 값은 왠만하면 건들지x -->
 <main style="display: flex; align-items: center; text-align: center; padding: 20px 50px 50px 50px;">
 
@@ -47,40 +56,45 @@
 		style="width: 100%; background: white;">
 		<h4 style="text-align: left; padding: 20px 0 0 20px;">&lt; 리뷰 상세내용 &gt;</h4>
 		<hr>
-		<div class="row" style="padding: 0 13% 0 13%;">
+		<div class="row2" style="padding: 0 13% 0 13%;">
 		<hr>
 		<p style="text-align: center;"><b>리뷰 상세내용</b></p>
 		<hr>
-			<table class="table table-hover" id="article-table">
+			<table class="table table-hover" id="article-table1">
 				<tbody>
-				<c:set var="cRepDetail" value="${ requestScope.cRepDetail }"/>
-					<tr>
+				<c:set var="reviewDetail" value="${ requestScope.reviewDetail }"/>
+					<tr class="tr1">
 						<th class="title align-middle table-warning"><a>리뷰 번호</a></th>
 						<td class="user-id align-middle text-center"
-							style="text-align: left;">${cRepDetail.REV_NO}</td>
+							style="text-align: left;">${reviewDetail.REV_NO}</td>
+					</tr>
+					<tr>
+						<th class="title align-middle table-warning"><a>닉네임</a></th>
+						<td class="user-id align-middle text-center"
+							style="text-align: left;">${reviewDetail.CUS_NICK}</td>
 					</tr>
 					<tr>
 						<th class="title align-middle table-warning"><a>별점 리뷰</a></th>
 						<td class="user-id align-middle text-center" style="text-align: left;">
 						
 							<span class="star">
-								<c:if test="${cRepDetail.REV_SCORE == '5'}">
+								<c:if test="${reviewDetail.REV_SCORE == '5'}">
   								★★★★★
   								<span>★★★★★</span>
   								</c:if>
-  								<c:if test="${cRepDetail.REV_SCORE == '4'}">
+  								<c:if test="${reviewDetail.REV_SCORE == '4'}">
   								★★★★★
   								<span>★★★★</span>
   								</c:if>
-  								<c:if test="${cRepDetail.REV_SCORE == '3'}">
+  								<c:if test="${reviewDetail.REV_SCORE == '3'}">
   								★★★★★
   								<span>★★★</span>
   								</c:if>
-  								<c:if test="${cRepDetail.REV_SCORE == '2'}">
+  								<c:if test="${reviewDetail.REV_SCORE == '2'}">
   								★★★★★
   								<span>★★</span>
   								</c:if>
-  								<c:if test="${cRepDetail.REV_SCORE == '1'}">
+  								<c:if test="${reviewDetail.REV_SCORE == '1'}">
   								★★★★★
   								<span>★</span>
   								</c:if>
@@ -90,12 +104,18 @@
 					<tr>
 						<th class="title align-middle table-warning"><a>작성일자</a></th>
 						<td class="user-id align-middle text-center"
-							style="text-align: left;">${cRepDetail.RDATE}</td>
+							style="text-align: left;">${reviewDetail.REV_DATE}</td>
+					</tr>
+					<tr>
+						<th class="title align-middle table-warning"><a>파일첨부</a></th>
+						<td class="user-id align-middle text-center"
+							style="text-align: left;"><img class="img-fluid rounded"
+						src="upload/${reviewDetail.REV_IMAGE}" alt="${reviewDetail.REV_IMAGE}" style="width: 700px; height: 400px;"></td>
 					</tr>
 					<tr style="height: 150px;">
 						<th class="title align-middle table-warning col-3"><a>리뷰 내용</a></th>
 						<td class="user-id align-middle text-center"
-							style="text-align: left;">${cRepDetail.REV_CONTENT}</td>
+							style="text-align: left;">${reviewDetail.REV_CONTENT}</td>
 					</tr>
 				</tbody>
 			</table>
@@ -103,32 +123,24 @@
 			<p style="text-align: center;"><b>식당 답글내용</b></p>
 			<hr>
 			<table class="table table-hover" id="article-table">
+			<c:set var="reviewComment" value="${ requestScope.reviewComment }"/>
 				<tbody>
 					<tr>
-						<th class="title align-middle table-success"><a>작성자</a></th>
+						<th class="title align-middle table-success"><a>식당명</a></th>
 						<td class="user-id align-middle text-center"
-							style="text-align: left;">${reviewList.CUS_NICK}</td>
-					</tr>
-					<tr>
-						<th class="title align-middle table-success"><a></a></th>
-						<td class="user-id align-middle text-center"
-							style="text-align: left;">${reviewList.REV_SCORE}</td>
+							style="text-align: left;">${reviewComment.STORE_NAME}</td>
 					</tr>
 					<tr>
 						<th class="title align-middle table-success"><a>작성일자</a></th>
 						<td class="user-id align-middle text-center"
-							style="text-align: left;">${reviewList.REV_DATE}</td>
+							style="text-align: left;">${reviewComment.COM_DATE}</td>
 					</tr>
 					<tr>
-						<th class="title align-middle table-success"><a>파일첨부</a></th>
+						<th class="title align-middle table-success"><a>답글 내용</a></th>
 						<td class="user-id align-middle text-center"
-							style="text-align: left;">${reviewList.REV_IMAGE}</td>
+							style="text-align: left;">${reviewComment.COM_CONTENT}</td>
 					</tr>
-					<tr style="height: 150px;">
-						<th class="title align-middle table-success col-3"><a>리뷰 내용</a></th>
-						<td class="user-id align-middle text-center"
-							style="text-align: left;">${reviewList.REV_CONTENT}</td>
-					</tr>
+					
 				</tbody>
 			</table>
 		</div>
@@ -136,6 +148,7 @@
 		<div class="row" style="padding: 0px 20px;">
 			<div class="d-grid gap-2 d-md-flex justify-content-md-center">
 					<input type="button" class="btn btn-outline-dark" value="목록" onclick="window.history.back()">
+					<input type="button" class="delBtn btn btn-outline-danger" value="삭제" >
 			</div>
 		</div>
 		<br>
