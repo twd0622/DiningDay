@@ -59,6 +59,14 @@ public class StoreService {
 		return storeDAO.storeSelect(storeDTO);
 	}
 	
+	public Map<String, String> ownerSelect(Map<String, String> storeDTO) {
+		return storeDAO.ownerSelect(storeDTO);
+	}
+	
+	public Map<String, String> ownerSelect(HttpServletRequest req) {
+		return storeDAO.ownerSelect(TeamUtil.requestToMap(req));
+	}
+	
 	public boolean storeInsert(Map<String, String> storeDTO) {
 		return storeDAO.storeInsert(storeDTO);
 	}

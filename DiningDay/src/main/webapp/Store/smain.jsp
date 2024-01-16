@@ -64,8 +64,7 @@
 		  text-decoration: none;
 		  cursor: pointer;
 		}
-		
-		.prev, .next {
+		.page-item {
 			padding:0px;
 		}
 		input[type=checkbox]{
@@ -83,7 +82,7 @@
 				<form id="STORE_DATA" method="post" enctype="multipart/form-data" >
 					<input type="text" name="STORE_NAME">
 					<input type="text" name="STORE_TEL">
-					<input type="text" name="STORE_LOCATION">
+					<input type="text" name="STORE_LOCATION">					
 					<input type="text" name="STORE_DETAIL">
 					<input type="text" name="STORE_INFO">
 					<input type="text" name="STORE_PLUS">
@@ -130,7 +129,11 @@
 								<label for="storeLocation">식당 위치</label>
 							</div>
 							<div style="width: 350px; text-align: left;">	
-								<textarea id="storeLocation" style="resize: none;" cols="30" rows=""></textarea>
+								<div class="input-group mb-3">
+								  	<textarea id="member_addr" type="text" class="form-control" placeholder="도로명 주소" aria-label="도로명" 
+								  	aria-describedby="button-addon2" readonly style="resize: none;" cols="20" rows="3"></textarea>
+								  	<button class="btn btn-outline-secondary" type="button" id="member_post">주소 검색</button>
+								</div>
 							</div>	
 						</div>
 						<div class="mt-3" style="width:500px; display: flex; justify-content: center">
@@ -358,6 +361,7 @@
 				<p style="font-size: x-large; font-weight: bold">진행 중 입니다 ...</p>
 			</div>
 		</div>
+		<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     	<script src="${ pageContext.request.contextPath }/resources/js/smain.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 		<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />

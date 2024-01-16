@@ -36,7 +36,7 @@ Author: senthil
 	width: 28%;
 	border: 1px solid white;
 	margin: auto;
-	background: url(/DiningDay/resources/img/arrow.png) no-repeat;
+	background: url(../img/arrow.png) no-repeat;
 	border-radius: 5px;
 }
 
@@ -60,7 +60,7 @@ Author: senthil
 .timepicker_wrap {
 	padding: 15px;
 	border-radius: 5px;
-	z-index: 998;
+	z-index: 1001;
 	display: none;
 	box-shadow: 2px 2px 5px 0 rgba(50,50,50,0.35);
 	background: salmon;
@@ -79,7 +79,7 @@ Author: senthil
 	position: absolute;
 	top: -10px;
 	left: 20px;
-	background: url(/DiningDay/resources/img/arrow.png) no-repeat;
+	background: url(../img/arrow.png) no-repeat;
 	width: 18px;
 	height: 10px;
 	z-index: 999;
