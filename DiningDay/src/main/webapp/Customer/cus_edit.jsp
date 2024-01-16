@@ -12,21 +12,7 @@
 <title>고객 정보 수정</title>
 </head>
 <%@ include file="/Template/header.jsp"%> 
-<style>
-#body {
-  margin-top: 5%;
-}
-
- #edit_success {
- 	color: #111111;
- 	background-color: #FFF2A6;
- }
- 
- #edit_fail {
-	color: #111111; 
-	background-color: #d6d6d6;
- }
-</style>
+<link href="Customer/css/mypage.css" rel="stylesheet">
 <c:set var="customerInfo" value="${requestScope.customerInfo}"/>
 <body id="body">
 <form action="cus_editPro.cu" method="post" name="cus_edit" enctype="multipart/form-data">
@@ -34,7 +20,7 @@
 	<div class="row">
 		<div class="col-md-3 border-right">
 			<div class="d-flex flex-column align-items-center text-center p-3 py-5">
-				<img class="rounded-circle mt-5" width="150px" src="Customer/profile/${customerInfo.CUS_IMAGE}">
+				<img class="rounded-circle mt-5 mb-3" id="profileImage" src="Customer/profile/${customerInfo.CUS_IMAGE}">
 				<span class="font-weight-bold">${customerInfo.CUS_NICK}</span>
 				<span class="text-black-50">${customerInfo.CUS_EMAIL}</span>
             </div>
@@ -75,11 +61,9 @@
 					<div class="card align-items-center">
 					<button type="button" id="inputBtn" class="btn btn-secondary border px-3 p-1 add-experience" onclick="editImage()" >
 						<i class="fa fa-plus"></i>&nbsp;사진 선택</button>
-<!-- 						<p class="mt-4">변경 후 이미지</p> -->
-						<input type="file" name="CUS_IMAGE" id="CUS_IMAGE" style="visibility: hidden;" onchange="setThumbnail(event);" />
+						<input type="file" name="CUS_IMAGE" id="CUS_IMAGE" onchange="setThumbnail(event);" hidden=""/>
 						<div class="align-items-center text-center" id="image_container">
-							<img class="rounded-circle mb-3" width="200px" height="200px"
-								  name="CUS_IMAGE" id="newImage" src="Customer/profile/${customerInfo.CUS_IMAGE}">
+							<img class="rounded-circle mb-3"name="CUS_IMAGE" id="newImage" src="Customer/profile/${customerInfo.CUS_IMAGE}">
 						</div><br>
 					</div>
 				</div>

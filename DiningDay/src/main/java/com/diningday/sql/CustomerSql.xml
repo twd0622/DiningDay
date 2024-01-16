@@ -120,7 +120,7 @@
 				, CUS_EMAIL = #{CUS_EMAIL}
 				, CUS_BIRTH = replace(cast(#{CUS_BIRTH} as char), "-", "")
 				, CUS_REDATE= DATE_FORMAT(SYSDATE(), '%Y%m%d%H%i%s')
-				, CUS_IMAGE = #{CUS_IMAGE}
+				, CUS_IMAGE = IF(#{CUS_IMAGE} is not null, #{CUS_IMAGE}, CUS_IMAGE)
 		where	CUS_NO = #{CUS_NO};
 	</update>
 	
