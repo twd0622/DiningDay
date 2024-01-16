@@ -74,7 +74,7 @@
 			, #{card_number}
 			, #{name}
 			, #{paid_amount}
-			, date_format(from_unixtime(#{PAID_AT}), '%Y%m%d%H%i%s')
+			, date_format(from_unixtime(#{paid_at}), '%Y%m%d%H%i%s')
 			);
 			
 		INSERT INTO RESERVATION
@@ -143,6 +143,7 @@
 	
 	<select id="getResInfo" parameterType="map" resultType="map">
 		SELECT R.RES_NO
+			 , P.MERCHANT_UID
 		     , ST.STORE_NAME
 		     , SE.SEAT_NAME
 		     , str_to_date(R.RES_DATE, '%Y%m%d') RES_DATE
@@ -157,6 +158,22 @@
 		WHERE R.RES_NO = #{RES_NO};
 			   
 	
+	</select>
+	
+	<update id="payment_cancel" parameterType="String">
+		UPDATE RESERVATION
+		SET REQ_STATE = '1' , RES_CANCELTIME = DATE_FORMAT(now(), '%Y%m%d%H%i%s')
+		WHERE RES_NO = (SELECT RES_NO
+					      FROM PAYMENT
+					     WHERE MERCHANT_UID = #{MERCHANT_UID});
+	</update>
+	
+	<select id="checkResDate" parameterType="String" resultType="map">
+		select if(date_format(now(), '%Y%m%d') &lt; RES_DATE, '1', '0') RESULT
+		from RESERVATION
+		WHERE RES_NO = (SELECT RES_NO
+					      FROM PAYMENT
+					     WHERE MERCHANT_UID = #{MERCHANT_UID});
 	</select>
 	
 </mapper>

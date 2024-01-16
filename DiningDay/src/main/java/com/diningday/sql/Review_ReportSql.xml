@@ -16,9 +16,9 @@
 		concat("RV", IFNULL((select MAX(cast(replace(REV_NO, "RV", "") AS unsigned))+1 FROM REVIEW A), 1))
 		, #{cus_no}
 		, #{cus_nick}
-		, 'ST100'
-		, 'RS1'
-		, 'SE1'
+		, (select STORE_NO from RESERVATION where RES_NO = #{res_no})
+		, #{res_no}
+		, (select SEAT_NO from RESERVATION where RES_NO = #{res_no})
 		, #{rev_content}
 		, date_format(now(), '%Y%m%d%H%i%s')
 		, #{rev_score}

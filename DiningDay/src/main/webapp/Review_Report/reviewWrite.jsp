@@ -35,15 +35,15 @@
 							<tr>	
 								<td>
 									<input type="hidden" name="cus_no" value="${sessionScope.CUS_NO}">
+									<input type="hidden" name="res_no" value="${requestScope.RES_NO }">
 									<input type="text" class="form-control"
 										placeholder="작성자" name="cus_nick" value="${sessionScope.CUS_NICK }" readonly="readonly">
 								</td>
 							</tr>
 							<tr>
 								<td>
-									<input type="hidden" name="store_no" value="${requestScope.STORE_NO}">
 									<input type="text" class="form-control"
-									placeholder="방문 식당명" name="store_name" maxlength="40">
+									value="${requestScope.store_name }" name="store_name" maxlength="40" readonly="readonly" >
 								</td>
 							</tr>
 							<tr>

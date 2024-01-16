@@ -204,7 +204,7 @@
 		     , SR.SREP_TITLE
 		     , SR.SREP_FILE
 		     , SR.SREP_CONTENT
-		     , date_format(SR.SREP_DATE, '%Y-%m-%d') as "DATE"
+		     , date_format(SR.SREP_DATE, '%Y년 %m월 %d일 %H시 %i분') as "DATE"
 		     , SR.SREP_PROCESS
 		from STORE_REPORT SR 
 		join CUSTOMER C
