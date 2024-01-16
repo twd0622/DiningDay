@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
     <link href="Payment/css/payment_success.css" rel="stylesheet" >
 </head>
-
+	<c:set var="resInfo" value="${requestScope.resInfo}" />
 	<!-- main은 속성 값은 왠만하면 건들지x -->
 	<main style="background:white; display: flex; justify-content: center; align-items: center; text-align: center; margin-top: 100px; padding:100px 0 50px 0; ">
 		
@@ -27,24 +27,24 @@
 				<div class="infoBox">
 					<div class="infoBoxStyle1">
 						<span class="infoTit">예약 번호</span>
-						<span class="infocnt">예약 번호</span>
+						<span class="infocnt">${resInfo.MERCHANT_UID}</span>
 					</div>
 					<div class="infoBoxStyle1">
 						<span class="infoTit">예약 날짜</span>
-						<span class="infocnt">예약 날짜</span>
+						<span class="infocnt">${resInfo.RES_DATE}</span>
 					</div>
 					<div class="infoBoxStyle1">
 						<span class="infoTit">예약 내용</span>
-						<span class="infocnt">식당 (좌석 이름)</span>
+						<span class="infocnt">${resInfo.STORE_NAME} (${resInfo.SEAT_NAME})</span>
 					</div>
 					<div class="infoBoxStyle1">
 						<span class="infoTit">결제 금액</span>
-						<span class="infocnt">결제 금액</span>
+						<span class="infocnt">${resInfo.PAID_AMOUNT} 원</span>
 					</div>
 				</div>
 				
 				<div class="btnBox">
-					<button class="btn goMypage">예약 확인</button>
+					<button class="btn goMypage" onclick="location.href ='mypage.cu'">예약 확인</button>
 					<button class="btn goMain" style="margin-left: 20px;" onclick="location.href ='main.ma'">메인 페이지로</button>
 				</div>
 			</div>

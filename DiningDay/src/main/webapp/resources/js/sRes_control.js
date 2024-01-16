@@ -2,7 +2,7 @@
  * 
  */
 document.write('<script type="text/javascript"' + 
-			    	'src="/' + window.location.pathname.split("/")[1] + '/muchang/resour/js/dateResult.js">' +
+			    	'src="/' + window.location.pathname.split("/")[1] + '/resources/js/dateResult.js">' +
 			    '</script>');
 			    
 /**

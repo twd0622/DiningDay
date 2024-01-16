@@ -1,6 +1,7 @@
 <!-- 12/26/14:10_강현아 + 로고(->메인페이지) & userDropdown(->계정정정보 및 수정페이지) 연결
 					  + 로그인 시, 로그아웃 / 로그아웃 시, 로그인페이지 연결 -->
 <!--  01/02/09:30_강현아 + userDropdown c:if문 위치 변경 -->
+<!--  01/08/14:00_준우 + userDropdown 글자 변경  -->
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -71,7 +72,7 @@
 			<div style="display: flex; flex-direction: column; margin-right: 10px;">
 				<span style="color: #bfbfbf; font-size: 12px;">예약 날짜</span>
 				<input id="dateOption" type="date" class="form-control" style="background: #f5f5f5; border: 0; padding: 20px 40px; width: 210px;"
-			       value="${sessionScope.date}" min="${sessionScope.date}">
+			       value="${sessionScope.date}" min="${sessionScope.today}">
 			</div>
 			<div style="display: flex; flex-direction: column;">
 				<span style="color: #bfbfbf; font-size: 12px;">예약 인원</span>
@@ -150,15 +151,15 @@
 					<c:if test="${!empty sessionScope.CUS_NO}">
 						<a class="dropdown-item" href="mypage.cu">
 						    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-						    내 정보보기
+						    마이페이지 (예약 내역)
 						</a>
 						<a class="dropdown-item" href="cus_edit.cu">
 						    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-						    정보 수정하기
+						    정보 수정
 						</a>
-						<a class="dropdown-item" href="#">
+						<a class="dropdown-item" href="like_list.cu">
 						    <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-						    찜 목록 보기
+						    찜 목록
 						</a>
 						<div class="dropdown-divider"></div>
 						<a class="dropdown-item" href="logout.cu">

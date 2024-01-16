@@ -44,20 +44,38 @@ public class MainController extends HttpServlet {
 		System.out.println(sPath);
 		
 		if(sPath.equals("/main.ma")) {
+			String today = LocalDate.now().format(DateTimeFormatter.ofPattern("YYYY-MM-dd"));
 			if(session.getAttribute("date") == null) {
-				session.setAttribute("date", LocalDate.now().format(DateTimeFormatter.ofPattern("YYYY-MM-dd")));
+				session.setAttribute("date", today);
 			}
 			if(session.getAttribute("people") == null) {
 				session.setAttribute("people", "2");
 			}
-			
+			session.setAttribute("today", today);
 			dispatcher = req.getRequestDispatcher("Main/main.jsp");
 			dispatcher.forward(req, res);
 		}
 		
+		if(sPath.equals("/getMainInfo.ma")) {
+			String LOC_NAME = req.getParameter("LOC_NAME");
+			if(LOC_NAME != null && !req.getParameter("LOC_NAME").equals("")) {
+				session.setAttribute("LOC_NAME", LOC_NAME);
+			}
+			
+			Map<String, String> map = new HashMap<String, String>();
+			map.put("LOC_NAME", (String)session.getAttribute("LOC_NAME"));
+			
+			res.setContentType("application/x-json; charset=utf-8");
+			res.getWriter().print(TeamUtil.mapListToJSONList(mainService.getMainInfo(TeamUtil.requestToMap(req, map))));
+		}
+		
 		if(sPath.equals("/searchResult.ma")) {
-			req.setAttribute("searchCount", mainService.searchCount(req));
-			req.setAttribute("searchList", mainService.searchResult(req));
+			Map<String, String> map = new HashMap<String, String>();
+			System.out.println("session : " + (String)session.getAttribute("LOC_NAME"));
+			map.put("LOC_NAME", (String)session.getAttribute("LOC_NAME"));
+			
+			req.setAttribute("searchCount", mainService.searchCount(TeamUtil.requestToMap(req, map)));
+			req.setAttribute("searchList", mainService.searchResult(TeamUtil.requestToMap(req, map)));
 			req.setAttribute("searchInput", req.getParameter("searchInput"));
 			
 			dispatcher = req.getRequestDispatcher("Main/search_result.jsp");
@@ -67,7 +85,6 @@ public class MainController extends HttpServlet {
 		if(sPath.equals("/store.ma")) {
 //			Map<String, String> param = new HashMap<String, String>();
 //			param.put("PEOPLE", session.getAttribute("people").toString());
-			
 			
 			req.setAttribute("storeInfo", mainService.getStore(req));
 			req.setAttribute("menuList", mainService.getMenuList(req));
@@ -94,14 +111,13 @@ public class MainController extends HttpServlet {
 			session.setAttribute("people", req.getParameter("people"));
 		}
 		
-		if(sPath.equals("/getSession.ma")) {
-			Map<String, String> sessionDTO = new HashMap<String, String>();
-
-			sessionDTO.put("date", (String)session.getAttribute("date"));			
-			sessionDTO.put("people", (String) session.getAttribute("people"));
+		if(sPath.equals("/getResModal.ma")) {
+			
+			Map<String, String> map = new HashMap<String, String>();
+			map.put("DATE", (String)session.getAttribute("date"));
 			
 			res.setContentType("application/x-json; charset=utf-8");
-			res.getWriter().print(TeamUtil.mapToJSON(sessionDTO));
+			res.getWriter().print(TeamUtil.mapListToJSONList(mainService.getResTime(TeamUtil.requestToMap(req, map))));
 			
 		}
 		
@@ -125,7 +141,9 @@ public class MainController extends HttpServlet {
 			res.getWriter().print(result);
 		}
 		
-		
+		if(sPath.equals("/locationSessionDel.ma")) {
+			session.removeAttribute("LOC_NAME");
+		}
 		
 		
 	}

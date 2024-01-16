@@ -1,0 +1,44 @@
+@charset "UTF-8";
+
+#google-login-button iframe{
+	height: 100px !important;
+	transform: scale(1.5);
+	transform-origin: top;
+	border-style: none;
+	width: 100%; 
+	display: none; 
+	position: unset; 
+	border: none;
+}  
+
+.nsm7Bb-HzV7m-LgbsSe {
+	border: none;
+}
+
+#modalSignin {
+	width: 500px;
+}
+
+#form {
+	text-align: center;
+}
+
+#image {
+	width:30px;
+	height:30px;
+}
+
+#span {
+/*	position: relative !important;*/
+/*	z-index: 1;*/
+	font-size: 19px;
+}
+
+#gsi_747200_151092 {
+	display: none; 
+	position: unset; 
+	height: 0px; 
+	width: 0px; 
+	border: 0px; 
+	margin: 0px;
+}

@@ -94,7 +94,7 @@ keyframes blink {
 </head>
 	<%@ include file="/Template/store_sidebar_open.jsp"%> 	
 		<main style="display: flex;  align-items: center; text-align: center; padding:24px;">
-			<div class="mainContainer" style="border: 1px solid black; width: 100%; background:white; ">
+			<div class="mainContainer" style="width: 100%; background:#f0f0f3; ">
 				<div class="p-5" style="text-align: left;">
 					<input type="hidden" name="STORE_NO" value="${ sessionScope.STORE_NO }">
 					<h1 class="mb-3 mt-5">메뉴 관리</h1>
@@ -162,7 +162,7 @@ keyframes blink {
 									</div>
 								</li>
 			    				<li>
-			    					<input type="file" class="form-control border border-dark" id="inputFile_1" name="PHOTO_NAME" aria-describedby="fileButton_1">
+			    					<input type="file" class="form-control border border-dark" id="inputFile_1" name="hiddenfile" aria-describedby="fileButton_1">
 									<input type="hidden" name="PHOTO_TYPE">
 			    				</li>
 			    				<li>

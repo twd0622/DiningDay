@@ -15,8 +15,6 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
     <link href="Main/css/search_result.css" rel="stylesheet">
     
-    <script src="Main/js/location_select_modal.js"></script>
-    <script src="Main/js/main.js"></script>
     <script src="Main/js/search_result.js"></script>
     <link href="Main/css/location_select_modal.css" rel="stylesheet">
     <title>DINING DAY</title>    
@@ -30,7 +28,7 @@
 						<button class="btn btn-danger" type="button" id="locationBtn">
 						<i class="bi bi-geo-alt-fill"></i>
 						</button>
-                    	<input id="searchInput" name="searchInput" type="text" class="form-control bg-light border-0 small" placeholder="식당이름을 검색하세요!"
+                    	<input id="searchInput" name="searchInput" type="text" class="form-control bg-light border-0 small" value="${requestScope.searchInput}"
                          aria-label="Search" aria-describedby="basic-addon2" style="height: 100%">
                      	<div class="input-group-append">
                        		<button class="btn btn-warning" type="button" id="searchBtn">
@@ -49,21 +47,26 @@
                 <div class="text-center">
                     <h3 class="section-heading text-uppercase" style="margin-left:20px; text-align: left">"${requestScope.searchInput}" 검색결과 ${requestScope.searchCount}개</h3>
                 </div>
-                <div style="display: flex; flex-direction: column; justify-content: space-around;">
+                <div id="resultBox" style="display: flex; flex-direction: column; justify-content: space-around;">
 					<!-- 검색 결과 -->	
-                	<c:forEach var="list" items="${searchList}">
-	                    <div name="${list.STORE_NO}" class="mb-4 store_result_btn" style="margin: 20px 20px; padding:20px 40px; border-bottom: 2px solid #e6e6eb;">
-	                        <div class="portfolio-item  store_result">
-	                                <img class="img-fluid" src="Main/칸다소바.jpg" alt="칸다소바.jpg" style="width: 550px; height: 250px;"/>
-	                            <div class="portfolio-caption" style="">
-	                                <div class="portfolio-caption-heading">${list.STORE_NAME}</div>
-	                                <div class="portfolio-caption-subheading text-muted" style="margin-bottom: 20px;">${list.STORE_CATEGORY} | ${list.STORE_DETAIL}</div>
-	                                <div class="portfolio-caption-subheading text-muted">⭐ ${list.STORE_SCORE}점 (87명)</div>
-	                                <div class="portfolio-caption-subheading text-muted" style="display: flex;"><span class="material-icons" style="color: #E21818;">favorite</span> ${list.LIKE_COUNT} </div>
-	                            </div>
-	                        </div>
-	                    </div>
-                	</c:forEach>
+	               	<c:forEach var="list" items="${searchList}">
+	                   <div name="${list.STORE_NO}" class="mb-4 store_result_btn" style="margin: 20px 20px; padding:20px 40px; border-bottom: 2px solid #e6e6eb;">
+	                       <div class="portfolio-item  store_result">
+	                              <img src="upload/${list.PHOTO_NAME}" alt="${list.PHOTO_NAME}" style="width: 385px; height: 250px; overflow-clip-margin:border-box;"/>
+	                           <div class="portfolio-caption" style="">
+	                               <div class="portfolio-caption-heading">${list.STORE_NAME}</div>
+	                               <div class="portfolio-caption-subheading text-muted" style="margin-bottom: 35px;">${list.STORE_CATEGORY} 
+	                               <c:if test="${!empty list.STORE_DETAIL}">
+									| ${list.STORE_DETAIL}
+								</c:if>
+								</div>
+								   <div class="portfolio-caption-subheading text-muted" style="font-weight: 500;">${list.STORE_LOCATION}</div> 
+	                               <div class="portfolio-caption-subheading text-muted" style="display: flex;"><span class="material-icons" style="color: #F7CE3E;">grade</span> ${list.STORE_SCORE}점 (${list.STORE_REVIEW_COUNT}명)</div>
+	                               <div class="portfolio-caption-subheading text-muted" style="display: flex;"><span class="material-icons" style="color: #E21818;">favorite</span> ${list.LIKE_COUNT} </div>
+	                           </div>
+	                       </div>
+	                   </div>
+	               	</c:forEach>
                 </div>
             </div>
         </section>
@@ -117,7 +120,7 @@
 					</div>
 					
 					<div class="Location__Popup__User__Confirm">
-						<button class="Location__Popup__Cancle"><span>취소</span></button>
+						<button class="Location__Popup__Cancle"><span>초기화</span></button>
 						<button class="Location__Popup__Submit"><span>선택 완료</span></button>
 					</div>
 					

@@ -1,5 +1,6 @@
 package com.diningday.dao;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -11,7 +12,7 @@ public class CustomerDAO {
 	private SqlSessionFactory sqlSessionFactory = SqlMapClient.getSqlSessionFactory();
 	SqlSession session;
 	
-	public Boolean insertCustomer(Map<String, String> customerDTO) {
+	public boolean insertCustomer(Map<String, String> customerDTO) {
 		session = sqlSessionFactory.openSession();
 		int insertCustomer = session.insert("Customer.insert", customerDTO); // namespace.id
 		session.commit();
@@ -33,10 +34,9 @@ public class CustomerDAO {
 		return customerInfo;
 	}
 
-	public Boolean customerEdit(Map<String, String> customerDTO) {
+	public boolean customerEdit(Map<String, String> customerDTO) {
 		session = sqlSessionFactory.openSession();
 		int customerEdit = session.update("Customer.customerEdit", customerDTO);
-//		Map<String, String> customerEdit = session.selectOne("Customer.customerEdit", customerDTO);
 		session.commit();
 		session.close();
 		return customerEdit > 0 ? true : false;
@@ -56,11 +56,47 @@ public class CustomerDAO {
 		session.commit();
 		session.close();
 	}
-
 	
+	// 01/08_준우 + 찜 목록 이동 기능
+	public List<Map<String, String>> getLikeList(String CUS_NO) {
+		session = sqlSessionFactory.openSession();
+		List<Map<String, String>> LikeList = session.selectList("Customer.getLikeList", CUS_NO);
+		session.close();
+		
+		return LikeList;
+	}
+
+	public List<Map<String, String>> getReservation(String CUS_NO) {
+		session = sqlSessionFactory.openSession();
+		List<Map<String, String>> reservationInfo = session.selectList("Customer.getReservation", CUS_NO);
+		session.close();
+		
+		return reservationInfo;
+	}
 	
+	public Map<String, String> reservationModal(String RES_NO) {
+		session = sqlSessionFactory.openSession();
+		Map<String, String> reservationModal = session.selectOne("Customer.reservationModal", RES_NO);
+		session.close();
+		
+		return reservationModal;
+	}
+	
+	public List<Map<String, String>> menuModal(String RES_NO) {
+		session = sqlSessionFactory.openSession();
+		List<Map<String, String>> menuModal = session.selectList("Customer.menuModal", RES_NO);
+		session.close();
+		
+		return menuModal;
+	}
 
-
+	public boolean insertEx(Map<String, String> customerCheck) {
+		session = sqlSessionFactory.openSession();
+		int result = session.delete("Customer.insertEx", customerCheck);
+		session.commit();
+		session.close();
+		return result > 0 ? true : false;
+	}
 	
 	
 	

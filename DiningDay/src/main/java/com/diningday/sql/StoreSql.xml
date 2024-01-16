@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="Menu">
+<mapper namespace="Store">
 	
 	<insert id="menuInsert" parameterType="map">
 		insert		
@@ -43,8 +43,8 @@
 	<select id="menuList" parameterType="map" resultType="map">
 		select m.MENU_NAME, s.PHOTO_NAME, m.MENU_INFO, m.MENU_PRICE, m.MENU_HIDE, m.MENU_NO 
 		  from MENU m 
-		  join STORE_IMAGE s
-		    on m.MENU_NO = s.PHOTO_TYPE
+		  left join STORE_IMAGE s
+		    on (m.MENU_NO, m.STORE_NO) = (s.PHOTO_TYPE, s.STORE_NO)
 		 where 1 = 1
 		   and m.STORE_NO = #{STORE_NO}   
 		 order by CAST(REPLACE(m.MENU_NO, "ME", "") AS UNSIGNED) desc
@@ -101,7 +101,148 @@
 		</foreach>   
 		   ;   
  	</delete>
+ 	<!--  메뉴 sql 끝 -->
+	
+	<!--  식당 메인 시작 -->
+ 	<select id="ownerSelect" parameterType="map" resultType="map">
+ 		SELECT STORE_NO, OWN_NO
+ 		  FROM OWNER
+ 		 WHERE 1 = 1
+ 		   and OWN_NO = #{OWN_NO}
+ 		     ;
+ 	</select>
  	
+ 	<insert id="storeInsert" parameterType="map">
+ 		insert 
+			into STORE
+				( 
+		          STORE_NO
+				, OWN_NO
+				, STORE_NAME
+				, STORE_TEL
+				, STORE_LOCATION
+				, STORE_CATEGORY
+				, STORE_DETAIL
+				, STORE_INFO
+				, STORE_PLUS
+				, STORE_ST
+				, STORE_ET
+				, STORE_RT
+				, STORE_BTS
+				, STORE_BTE
+				, STORE_LO
+				, STORE_RST
+				, STORE_RET
+				, STORE_CLOSE
+				)
+			VALUES
+				(
+		          concat('ST', replace(#{STORE_NO}, '0', "") + CAST(replace(#{OWN_NO}, 'OW', "") AS UNSIGNED))
+		        , #{OWN_NO}
+		        , #{STORE_NAME}
+		        , #{STORE_TEL}
+		        , #{STORE_LOCATION}
+		        , #{STORE_CATEGORY}
+		        , #{STORE_DETAIL}
+		        , #{STORE_INFO}
+		        , #{STORE_PLUS}
+		        , date_format(STR_TO_DATE(#{STORE_ST}, '%h:%i:%p'), '%H%i')
+		        , date_format(STR_TO_DATE(#{STORE_ET}, '%h:%i:%p'), '%H%i')
+		        , #{STORE_RT}
+		        , if(#{STORE_BTS} = '0', '0', date_format(STR_TO_DATE(#{STORE_BTS}, '%h:%i:%p'), '%H%i'))
+		        , if(#{STORE_BTE} = '0', '0', date_format(STR_TO_DATE(#{STORE_BTE}, '%h:%i:%p'), '%H%i'))
+		        , #{STORE_LO}
+		        , date_format(STR_TO_DATE(#{STORE_RST}, '%h:%i:%p'), '%H%i')
+		        , date_format(STR_TO_DATE(#{STORE_RET}, '%h:%i:%p'), '%H%i')
+		        , #{STORE_CLOSE}
+		        )
+		        ;
+		        
+		insert
+			into STORE_IMAGE
+				(
+				  STORE_NO
+		        , PHOTO_NO
+		        , PHOTO_NAME
+		        , PHOTO_TYPE
+				)
+		    values
+				(
+		          concat('ST', replace(#{STORE_NO}, '0', "") + CAST(replace(#{OWN_NO}, 'OW', "") AS UNSIGNED))
+		        , 'PH1'
+		        , #{SU1_PHOTO_NAME}
+		        , 'SU1'
+				)
+		        ,
+		        (
+		          concat('ST', replace(#{STORE_NO}, '0', "") + CAST(replace(#{OWN_NO}, 'OW', "") AS UNSIGNED))
+		        , 'PH2'
+		        , #{BA1_PHOTO_NAME}
+		        , 'BA1'
+				)
+		        ,
+		        (
+				  concat('ST', replace(#{STORE_NO}, '0', "") + CAST(replace(#{OWN_NO}, 'OW', "") AS UNSIGNED))
+		        , 'PH3'
+		        , #{BA2_PHOTO_NAME}
+		        , 'BA2'
+				)
+				;
+ 	</insert>
+ 	<update id="firstInsertStore_OwnerUpdate" parameterType="map">
+ 		update OWNER
+ 		   set STORE_NO = (select STORE_NO
+ 		                     from STORE
+ 		                    where OWN_NO = #{OWN_NO})
+ 		 where OWN_NO = #{OWN_NO}
+ 		       ;              
+ 	</update>
+ 	
+ 	<select id="storeSelect" parameterType="map" resultType="map">
+		   select 
+				s.STORE_NO
+			  , s.OWN_NO
+		      , s.STORE_NAME
+		      , s.STORE_TEL
+		      , s.STORE_LOCATION
+		      , s.STORE_CATEGORY
+		      , s.STORE_DETAIL
+		      , s.STORE_INFO
+		      , s.STORE_PLUS
+		      , date_format(str_to_date(STORE_ST, '%H%i') , '%h:%i:%p') as "STORE_ST"
+		      , date_format(str_to_date(STORE_ET, '%H%i') , '%h:%i:%p') as "STORE_ET"
+		      , s.STORE_RT
+		      , date_format(str_to_date(STORE_BTS, '%H%i') , '%h:%i:%p') as "STORE_BTS"
+		      , date_format(str_to_date(STORE_BTE, '%H%i') , '%h:%i:%p') as "STORE_BTE"
+		      , s.STORE_LO
+		      , date_format(str_to_date(STORE_RST, '%H%i') , '%h:%i:%p') as "STORE_RST"
+		      , date_format(str_to_date(STORE_RET, '%H%i') , '%h:%i:%p') as "STORE_RET"
+		      , s.STORE_CLOSE
+		      , si.BA1
+		      , si.BA2
+		      , si.SU1
+		      , ifnull(re.REV_SCORE, 0) as "REV_SCORE"
+		  from STORE s
+		  left join (select 
+					STORE_NO
+				  , max(case when PHOTO_TYPE = 'BA1' then PHOTO_NAME end) as "BA1"
+				  , max(case when PHOTO_TYPE = 'BA2' then PHOTO_NAME end) as "BA2"
+				  , max(case when PHOTO_TYPE = 'SU1' then PHOTO_NAME end) as "SU1"
+				  from STORE_IMAGE
+				 group by STORE_NO) si
+			on s.STORE_NO = si.STORE_NO
+		  left join (select 
+					STORE_NO
+				  , avg(REV_SCORE) as "REV_SCORE"
+				  from REVIEW
+		         group by STORE_NO) re
+			on s.STORE_NO = re.STORE_NO
+		 where s.STORE_NO = #{STORE_NO}
+			   ;	
+ 	</select>
 </mapper>
+
+
+
 
 

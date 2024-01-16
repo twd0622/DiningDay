@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<%@ include file="/Template/admin_sidebar_open.jsp"%> 	
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,13 +31,17 @@
   pointer-events: none;
 }
 </style>
+<script src="resources/js/jquery.twbsPagination.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="Admin/js/delBtn.js"></script>
+<script src="Admin/js/storeReport.js"></script>
 </head>
 <script type="text/javascript"> 
    const drawStar = (target) => {
      document.querySelector(`.star span`).style.width = `${target.value * 10}%`;
    }
 </script> 
-	<%@ include file="/Template/admin_sidebar_open.jsp"%> 	
+
     	<!-- main은 속성 값은 왠만하면 건들지x -->
 <main style="display: flex; align-items: center; text-align: center; padding: 20px 50px 50px 50px;">
 
@@ -46,13 +50,17 @@
 		style="width: 100%; background: white;">
 		<h4 style="text-align: left; padding: 20px 0 0 20px;">&lt; 고객 신고 상세내용 &gt;</h4>
 		<hr>
-		<div class="row" style="padding: 0 13% 0 13%;">
+		<div class="row2" style="padding: 0 13% 0 13%;">
 		<hr>
 		<p style="text-align: center;"><b>신고 상세내용</b></p>
 		<hr>
-			<table class="table table-hover" id="article-table">
+			<table class="table table-hover" id="article-table1">
 				<tbody>
 				<c:set var="cRepDetail" value="${ requestScope.cRepDetail }"/>
+					<tr class="tr1">
+						<th class="title align-middle table-success"><a>신고번호</a></th>
+						<td class="user-id align-middle text-center" style="text-align: left;">${cRepDetail.CREP_NO}</td>
+					</tr>
 					<tr>
 						<th class="title align-middle table-success"><a>글 제목</a></th>
 						<td class="user-id align-middle text-center"
@@ -78,10 +86,10 @@
 			<hr>
 			<p style="text-align: center;"><b>원본 리뷰내용</b></p>
 			<hr>
-			<table class="table table-hover" id="article-table">
+			<table class="table table-hover" id="article-table2">
 				<tbody>
 				<c:set var="cRepDetail" value="${ requestScope.cRepDetail }"/>
-					<tr>
+					<tr class="tr1">
 						<th class="title align-middle table-warning"><a>리뷰 번호</a></th>
 						<td class="user-id align-middle text-center"
 							style="text-align: left;">${cRepDetail.REV_NO}</td>
@@ -131,8 +139,10 @@
 		<div class="row" style="padding: 0px 20px;">
 			<div class="d-grid gap-2 d-md-flex justify-content-md-center">
 					<input type="button" class="btn btn-outline-dark" value="목록" onclick="window.history.back()">
+					<input type="button" class="delBtn btn btn-outline-danger" value="삭제" >
 			</div>
 		</div>
+		<br>
 	</div>
 </main>
 	<%@ include file="/Template/admin_sidevar_close.jsp"%> 	

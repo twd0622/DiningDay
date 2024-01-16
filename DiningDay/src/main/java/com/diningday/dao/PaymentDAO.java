@@ -46,11 +46,53 @@ public class PaymentDAO {
 
 	public void paymentInsert(Map<String, String> paymentDTO) {
 		session = sqlSessionFactory.openSession();
-		session.selectOne("Payment.paymentInsert", paymentDTO);
+		session.insert("Payment.paymentInsert", paymentDTO);
 		
 		session.commit();
 		session.close();
 		
+	}
+
+	public void reservationMenuInsert(List<Map<String, String>> menuDTOList) {
+		session = sqlSessionFactory.openSession();
+		session.insert("Payment.reservationMenuInsert", menuDTOList);
+		
+		session.commit();
+		session.close();
+	}
+	
+	public Map<String, String> getRES_NO(Map<String, String> paymentDTO) {
+		session = sqlSessionFactory.openSession();
+		Map<String, String> RES_NO = session.selectOne("Payment.getRES_NO", paymentDTO);
+		session.close();
+		
+		return RES_NO;
+	}
+
+	public Map<String, String> getResInfo(Map<String, String> dto) {
+		session = sqlSessionFactory.openSession();
+		Map<String, String> resInfo = session.selectOne("Payment.getResInfo", dto);
+		session.close();
+		
+		return resInfo;
+		
+	}
+
+	public void payment_cancel(String MERCHANT_UID) {
+		session = sqlSessionFactory.openSession();
+		session.update("Payment.payment_cancel", MERCHANT_UID);
+		session.commit();
+		session.close();
+		
+	}
+
+	public boolean checkResDate(String MERCHANT_UID) {
+		session = sqlSessionFactory.openSession();
+		Map<String, String> result = session.selectOne("Payment.checkResDate", MERCHANT_UID);
+		
+		session.close();
+		
+		return result.get("result") == "1" ? true : false;
 	}
 
 }

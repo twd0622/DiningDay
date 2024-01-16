@@ -27,7 +27,7 @@
 }
 
 .portfolio-caption{
-	width: 100%;
+/*	width: 100%;*/
 	
 	display: flex;
 	flex-direction: column;
@@ -43,4 +43,11 @@
 }
 #portfolio .portfolio-item .portfolio-caption .portfolio-caption-heading{
 	font-size: 35px;
+}
+
+.portfolio-item:hover{
+	cursor: Pointer;
+}
+#portfolio .portfolio-item .portfolio-caption{
+	padding: 1.5rem;
 }

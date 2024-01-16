@@ -176,6 +176,8 @@ ul{
 }
     </style>
 </head>
+<input name="OWN_NO" type="hidden" value="${ sessionScope.OWN_NO}">
+<input name="STORE_NO" type="hidden" value="${ sessionScope.STORE_NO}">
 <body class="d-flex flex-column min-vh-100" style="padding: 0 0 0 240px; background:#f0f0f3;">
     <div class="l-navbar expander" id="navbar">
         <nav class="nav">
@@ -187,6 +189,20 @@ ul{
 					</div>
                 </div>
                 <div class="nav__list">
+					<ul>
+						<li> 
+                    		<a href="#" class="nav__link">
+		                        <ion-icon name="construct-outline"></ion-icon>
+		                        <span class="nav_name">정보</span>
+		                    </a>       
+                    	</li>
+						<li><a class="nav__link"  id="smain" href="${ pageContext.request.contextPath }/smainIsNotExist.st" style="width: 130px;">
+			            	<small>● 식당 등록</small></a>
+			            </li>
+					</ul>                
+                </div>
+                
+                <div class="nav__list">
                     <ul>
                     	<li> 
                     		<a href="#" class="nav__link">
@@ -194,7 +210,7 @@ ul{
 		                        <span class="nav_name">정보</span>
 		                    </a>       
                     	</li>
-	                    <li><a class="nav__link"  id="smain" href="${ pageContext.request.contextPath }/smain.st" style="width: 130px;">
+	                    <li><a class="nav__link"  id="smainIsExist" href="${ pageContext.request.contextPath }/smainIsExist.st" style="width: 130px;">
 	                    	<small>● 상세 정보</small></a>
 	                    </li>
 	                    <li class="mt-2 mb-5"><a class="nav__link"  id="smenu" href="${ pageContext.request.contextPath }/smenu.st" style="width: 130px;">
@@ -267,4 +283,18 @@ ul{
             </div>
         </nav>
     </div>
+    <script type="text/javascript">
+		$(() => {
+			var chekcStoreNum = $("input[name=STORE_NO]").val();
+			if(chekcStoreNum == '0'){
+				$(".nav__list").hide();
+				$($(".nav__list")[0]).show();
+				return;
+			} 
+			debugger;
+			$(".nav__list").show();
+			$($(".nav__list")[0]).hide();
+			
+		})
+	</script>
 </html> 

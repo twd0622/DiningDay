@@ -6,15 +6,16 @@
 	
 	<insert id="insert" parameterType="map">
 		insert into CUSTOMER
-			( CUS_NO    ,
-			  CUS_ID    ,
-			  CUS_NAME  ,
-			  CUS_BIRTH ,
-			  CUS_TEL   ,
-			  CUS_EMAIL ,
-			  CUS_GENDER,
-			  CUS_NICK  ,
-			  CUS_DATE)  
+			( CUS_NO    
+			  , CUS_ID    
+			  , CUS_NAME  
+			  , CUS_BIRTH 
+			  , CUS_TEL  
+			  , CUS_EMAIL 
+			  , CUS_GENDER
+			  , CUS_NICK  
+			  , CUS_DATE
+			  , CUS_IMAGE)  
 		values
 			(CONCAT('CU', ( select *             
 				from (select ifnull(max(cast(trim(leading 'CU' from CUS_NO) as unsigned)), 0) + 1
@@ -28,28 +29,85 @@
 			, CONCAT('CU', ( select *             
 				from (select ifnull(max(cast(trim(leading 'CU' from CUS_NO) as unsigned)), 0) + 1
 					  from CUSTOMER ) A ))
-			, DATE_FORMAT(SYSDATE(), '%Y%m%d%H%i%s'));
+			, DATE_FORMAT(SYSDATE(), '%Y%m%d%H%i%s')
+			, 'profile.png');
 	</insert>
 	
-	
 	<select id="searchId" parameterType="map" resultType="map">
-		select CUS_NO, 
-			   CUS_ID, 
-			   CUS_EMAIL, 
-			   CUS_NICK
+		select CUS_NO
+			   , CUS_ID 
+			   , CUS_EMAIL 
+			   , CUS_NICK
+			   , CUS_IMAGE
 		from CUSTOMER
 		where CUS_ID = #{CUS_ID};
 	</select>
+		
+	<select id="getReservation" parameterType="String" resultType="map">
+		SELECT P.MERCHANT_UID
+  			 , CONCAT(DATE_FORMAT(CAST(R.RES_DATE AS date), '%Y년 %m월 %d일 '), DATE_FORMAT(CAST(R.RES_TIME AS time), '%i:%s')) "RES_DATE"
+			 , R.RES_PEOPLE
+			 , R.REQ_STATE
+			 , ST.STORE_NAME
+			 , SE.SEAT_NAME
+			 , R.RES_NO
+		FROM RESERVATION R JOIN STORE ST
+			 ON R.STORE_NO = ST.STORE_NO
+		 	 JOIN SEAT SE
+			 ON (R.SEAT_NO, R.STORE_NO) = (SE.SEAT_NO, SE.STORE_NO)
+			 JOIN PAYMENT P
+             ON R.RES_NO = P.RES_NO
+		WHERE R.CUS_NO = #{CUS_NO}
+		ORDER BY RES_DATE DESC;
+	</select>
+	
+	<select id="reservationModal" parameterType="String" resultType="map">
+		SELECT 
+			   P.MERCHANT_UID
+		     , CONCAT(DATE_FORMAT(CAST(R.RES_DATE AS date), '%Y년 %m월 %d일 '), DATE_FORMAT(CAST(R.RES_TIME AS time), '%i:%s')) "RES_DATE"
+			 , R.CUS_NAME
+			 , CONCAT(LEFT(R.CUS_TEL, 3),'-',SUBSTR(R.CUS_TEL,4,4),'-',RIGHT(R.CUS_TEL, 4)) "CUS_TEL"
+			 , R.RES_REQ
+			 , R.REQ_STATE
+			 , DATE_FORMAT(CAST(R.RES_PAYTIME AS time), '%Y년 %m월 %d일 %H:%i:%s') "RES_PAYTIME"
+			 , R.STORE_NO
+			 , CONCAT(R.RES_PEOPLE, '명') "RES_PEOPLE"
+			 , ST.STORE_NAME
+		     , ST.STORE_LOCATION
+			 , SE.SEAT_NAME
+			 , CONCAT(format(P.PAID_AMOUNT, 0), '원') "PAID_AMOUNT"
+			 , P.BUYER_NAME
+			 , P.CARD_NAME
+			 , P.CARD_NUMBER
+		FROM RESERVATION R JOIN STORE ST
+			 ON R.STORE_NO = ST.STORE_NO
+		 	 JOIN SEAT SE
+			 ON (R.SEAT_NO, R.STORE_NO) = (SE.SEAT_NO, SE.STORE_NO)
+			 JOIN PAYMENT P
+			 ON R.RES_NO = P.RES_NO
+		WHERE R.RES_NO = #{RES_NO};
+	</select>
+	
+	<select id="menuModal" parameterType="String" resultType="map">	
+		SELECT 
+			   RM.MENU_NAME
+			  , CONCAT(RM.MENU_COUNT, '개') "MENU_COUNT"
+			  , CONCAT(format(RM.PAID_PRICE, 0), '원') "PAID_PRICE"
+		FROM  RESERVATION R JOIN RESERVATION_MENU RM
+		ON    R.RES_NO = RM.RES_NO
+		WHERE R.RES_NO = #{RES_NO};
+	</select>
 	
 	<select id="getCustomer" parameterType="String" resultType="map">
-		select CUS_NO    ,
-			  CUS_ID    ,
-			  CUS_NAME  ,
-			  CAST(CUS_BIRTH AS date) CUS_BIRTH,
-			  CUS_TEL   ,
-			  CUS_EMAIL ,
-			  CUS_GENDER,
-			  CUS_NICK
+		select CUS_NO    
+			  , CUS_ID    
+			  , CUS_NAME  
+			  , CAST(CUS_BIRTH AS date) CUS_BIRTH
+			  , CUS_TEL   
+			  , CUS_EMAIL 
+			  , CUS_GENDER
+			  , CUS_NICK
+			  , CUS_IMAGE
 		from CUSTOMER
 		where CUS_NO = #{CUS_NO};
 	</select>
@@ -61,22 +119,14 @@
 				, CUS_TEL 	= #{CUS_TEL}
 				, CUS_EMAIL = #{CUS_EMAIL}
 				, CUS_BIRTH = replace(cast(#{CUS_BIRTH} as char), "-", "")
-				, CUS_GENDER= #{CUS_GENDER}
 				, CUS_REDATE= DATE_FORMAT(SYSDATE(), '%Y%m%d%H%i%s')
+				, CUS_IMAGE = #{CUS_IMAGE}
 		where	CUS_NO = #{CUS_NO};
 	</update>
 	
-	
 	<select id="customerCheck" parameterType="map" resultType="map">
-		select CUS_NO    ,
-			   CUS_ID    ,
-			   CUS_NAME  ,
-			   CUS_BIRTH ,
-			   CUS_TEL   ,
-			   CUS_EMAIL ,
-			   CUS_GENDER,
-			   CUS_NICK  ,
-			   CUS_DATE
+		select CUS_NO    
+			   , CUS_EMAIL
 		from CUSTOMER
 		where CUS_EMAIL=#{CUS_EMAIL}
 		and CUS_NO=#{CUS_NO};
@@ -87,5 +137,48 @@
 		from CUSTOMER 
 		where CUS_NO=#{CUS_NO};
 	</delete>
+	
+	<insert id="insertEx" parameterType="map">
+		insert into EX_CUSTOMER
+			( CUS_NO    
+			, CUS_ID    
+			, CUS_NAME
+			, CUS_BIRTH
+			, CUS_TEL
+			, CUS_EMAIL
+			, CUS_GENDER
+			, CUS_REASON
+			, CUS_DATE
+			, CUS_EXDATE)  
+		values
+			( #{CUS_NO}
+			, #{CUS_ID}
+			, #{CUS_NAME}
+			, #{CUS_BIRTH}
+			, #{CUS_TEL}
+			, #{CUS_EMAIL}
+			, #{CUS_GENDER}
+			, #{CUS_REASON}
+			, #{CUS_DATE}
+			, DATE_FORMAT(SYSDATE(), '%Y%m%d%H%i%s'));
+	</insert>
+	
+	<!-- 01/08_준우 + 찜 목록 이동 기능 -->
+	<select id="getLikeList" parameterType="String" resultType="map">
+		SELECT S.STORE_NO
+		     , S.STORE_NAME
+		     , S.STORE_CATEGORY
+		     , S.STORE_DETAIL
+		     , S.STORE_SCORE
+		     , (SELECT COUNT(*) FROM LIKE_LIST A WHERE STORE_NO = S.STORE_NO) LIKE_COUNT
+		     , PHOTO_NAME 
+		  FROM STORE S
+		  LEFT JOIN LIKE_LIST L
+		    ON L.STORE_NO = S.STORE_NO
+		  LEFT JOIN STORE_IMAGE SI
+		    ON S.STORE_NO = SI.STORE_NO
+		where L.CUS_NO = #{CUS_NO}
+		  AND PHOTO_TYPE = 'SU1';
+	</select>
 	
 </mapper>

@@ -1,5 +1,4 @@
 package com.diningday.controller;
-
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Date;
@@ -7,7 +6,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Random;
-
 import javax.mail.Address;
 import javax.mail.Authenticator;
 import javax.mail.Message;
@@ -23,12 +21,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import org.eclipse.jdt.internal.compiler.ast.Receiver;
-
 import com.diningday.service.OwnerService;
 import com.diningday.util.TeamUtil;
-
 public class OwnerController extends HttpServlet {
 	RequestDispatcher dispatcher = null;
 	
@@ -36,7 +31,6 @@ public class OwnerController extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		doProcess(req, res);
 	}
-
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		doProcess(req, res);
@@ -52,6 +46,12 @@ public class OwnerController extends HttpServlet {
 		if(sPath.equals("/owner_join.ow")) {
 			dispatcher = req.getRequestDispatcher("Owner/owner_join.jsp");
 			dispatcher.forward(req, res);
+		}
+		
+		if(sPath.equals("/idCheck.ow")) {
+			String OWN_ID = req.getParameter("OWN_ID");
+			boolean result = ownerService.idCheck(OWN_ID);
+			res.getWriter().print(result);
 		}
 		
 		if(sPath.equals("/owner_joinPro.ow")) {
@@ -70,85 +70,61 @@ public class OwnerController extends HttpServlet {
 		}
 		
 //		-------------------------------------------------------------
-
+		
 		if(sPath.equals("/search_id.ow")) {
 			dispatcher = req.getRequestDispatcher("Owner/search_id.jsp");
 			dispatcher.forward(req, res);
 		}
 		
-		if(sPath.equals("/searchPro.ow")) {
+		if(sPath.equals("/search_idPro.ow")) {
 			Map<String, String> authCheck = ownerService.authCheck(req);
-			
-			System.out.println("joinCheck: " + authCheck);
-			// receiver -> 사업장번호 joinCheck 해서 db에 없으면 모달창 띄워서 실패 알림
+			session.setAttribute("authCheck", authCheck);
 			if(authCheck == null) {
-				String msg = "미등록된 사업자번호입니다.";
+				String msg = "사업자번호 혹은 이메일을 다시 확인해 주십시오.";
 				alertAndBack(res, msg);
 			} else {
-				// 난수를 활용하여 특정 범위의 값을 발생시키기 - SMS 인증번호 (숫자) 생성
-				Random random = new Random();
-				int randomNum = random.nextInt(1000000);
-				String AuthNumber = String.format("%06d", randomNum);
-				System.out.println(AuthNumber);
-				
+				String receiver = req.getParameter("OWN_EMAIL"); 
+				String subject = "다이닝데이 - 점주 계정 아이디 찾기 인증번호 발송";
+				String url= "search_id.ow";
+				String AuthNumber = sendCodemail(res, receiver, subject, url);
 				session.setAttribute("AuthNumber", AuthNumber);
-				
-				// 인증번호 메일 발송
-				String sender = "gus3241@naver.com";
-				String receiver = req.getParameter("OWN_EMAIL");
-				String title = "다이닝데이 - 점주 계정 찾기 인증번호 발송";
-				String content = "인증번호는 [" + AuthNumber + "] 입니다.";
-				
-				try {
-					Properties properties = System.getProperties();
-					
-					properties.put("mail.smtp.starttls.enable", "true");
-					properties.put("mail.smtp.ssl.protocols", "TLSv1.2");
-					properties.put("mail.smtp.host", "smtp.gmail.com");
-					properties.put("mail.smtp.auth", "true");
-					properties.put("mail.smtp.port", "587");
-					
-					Authenticator authenticator = new GoogleSMTPAuthenticator();
-					Session mailSession = Session.getDefaultInstance(properties, authenticator);
-					Message mailMessage = new MimeMessage(mailSession);
-					Address sender_address = new InternetAddress(sender, "다이닝데이");
-					Address receiver_address = new InternetAddress(receiver);
-					
-					mailMessage.setHeader("content-type", "text/html; charset=UTF-8");
-					mailMessage.setFrom(sender_address);
-					mailMessage.addRecipient(RecipientType.TO, receiver_address);
-					mailMessage.setSubject(title);
-					mailMessage.setContent(content, "text/html; charset=UTF-8");
-					mailMessage.setSentDate(new Date());
-					
-					Transport.send(mailMessage);
-					
-//					// 인증메일 일치하는지 확인하기
-//					String idCode = (String)req.getParameter("idCode");
-//					req.setAttribute("idCode", idCode);
-//					
-//					if(AuthNumber.equals(idCode)) {
-//					}
-					
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}	
-			res.sendRedirect("search_id.ow");
+				}	
+			}
+		
+		if(sPath.equals("/search_pw.ow")) {
+			dispatcher = req.getRequestDispatcher("Owner/search_pw.jsp");
+			dispatcher.forward(req, res);
+		}	
+		
+		if(sPath.equals("/search_pwPro.ow")) {
+			Map<String, String> authPwCheck = ownerService.authPwCheck(req);
+			session.setAttribute("authPwCheck", authPwCheck);
+			if(authPwCheck == null) {
+				String msg = "사업자번호 혹은 아이디, 이메일을 다시 확인해 주십시오.";
+				alertAndBack(res, msg);
+			} else {
+				String receiver = req.getParameter("OWN_EMAIL"); 
+				String subject = "다이닝데이 - 점주 계정 비밀번호 찾기 인증번호 발송";
+				String url= "search_pw.ow";
+				String AuthNumber = sendCodemail(res, receiver, subject, url);
+				session.setAttribute("AuthNumber", AuthNumber);
+			}
+			session.setAttribute("OWN_ID", authPwCheck.get("OWN_ID"));
 		}
+		
+		if(sPath.equals("/new_pw.ow")) {
+			String OWN_ID = (String)session.getAttribute("OWN_ID");
 			
-			if(sPath.equals("/search_pw.ow")) {
-				dispatcher = req.getRequestDispatcher("Owner/search_pw.jsp");
-				dispatcher.forward(req, res);
-			}	
+			Map<String, String> param = new HashMap<String, String>();
+			param.put("OWN_ID", OWN_ID);
+			req.setAttribute("newPw", ownerService.newPw(req, param));
 			
-			if(sPath.equals("/new_pw.ow")) {
-				dispatcher = req.getRequestDispatcher("Owner/new_pw.jsp");
-				dispatcher.forward(req, res);
-			}	
+			session.removeAttribute("AuthNumber");
+			session.removeAttribute("authPwCheck");
+			session.removeAttribute("OWN_ID");
 			
-			
-
+			res.sendRedirect("owner_login.ow");
+		}	
 
 //		-------------------------------------------------------------
 		
@@ -158,45 +134,35 @@ public class OwnerController extends HttpServlet {
 		}		
 		
 		if(sPath.equals("/owner_loginPro.ow")) {
-			System.out.println("req:" + req.toString());
 			Map<String, String> ownerCheck = ownerService.ownerCheck(req);
 			if(ownerCheck != null) {
 				System.out.println("로그인 성공");
+				// 세션 유효시간 7200=2시간, (로그아웃 이후 무제한 연장 => 0 or -1)
+				session.setMaxInactiveInterval(7200);
 				session.setAttribute("STORE_NO", ownerCheck.get("STORE_NO"));
-				session.setAttribute("id", ownerCheck.get("OWN_ID"));
+				session.setAttribute("OWN_NO", ownerCheck.get("OWN_NO"));
 
-				String adminId = (String)session.getAttribute("id");
+				String adminId = (String)session.getAttribute("OWN_NO");
+				String checkExistStore = (String)session.getAttribute("STORE_NO");
+				String domainText = "";
 				
 				// 관리자로 로그인할 경우 관리자페이지로 이동
-				if(adminId.equals("admin")) {
-					res.sendRedirect("admin_main.ad");
+				if(adminId.equals("OW0")) {
+					domainText = "admin_main.ad";
+				} else if(checkExistStore.equals("0")) {
+					domainText = "smainIsNotExist.st";
 				} else {
-					res.sendRedirect("smain.ow");
+					domainText = "smainIsExist.st";
 				}
 				
+				res.sendRedirect(domainText);
 			} else {
 				String msg = "아이디 혹은 비밀번호가 틀렸습니다.";
 				alertAndBack(res, msg);
 			}
 		}
-
-//		-------------------------------------------------------------
-		
-		if(sPath.equals("/smain.ow")) {
-			System.out.println("주소비교 /smain.ow 일치");
-			dispatcher = req.getRequestDispatcher("Store/smain.jsp");
-			dispatcher.forward(req, res);
-		}
-		
-		
-		
-		
-		
-		
-
-		
-
 	}
+	
 	
 	// 모달창으로 메세지 알림 및 이전 페이지 이동
 	public static void alertAndBack(HttpServletResponse res, String msg) {
@@ -209,6 +175,65 @@ public class OwnerController extends HttpServlet {
 	    } catch(Exception e) {
 	        e.printStackTrace();
 	    }
+	}
+	
+	
+	// 모달창으로 메세지 알림 및 원하는 페이지 이동
+	public static void alertAndGo(HttpServletResponse res, String msg, String url) {
+	    try {
+	    	res.setContentType("text/html; charset=utf-8");
+	        PrintWriter w = res.getWriter();
+	        w.write("<script>alert('"+msg+"');location.href='"+url+"';</script>");
+	        w.flush();
+	        w.close();
+	    } catch(Exception e) {
+	        e.printStackTrace();
+	    }
+	}
+	
+	// 인증메일
+	public static String sendCodemail(HttpServletResponse res, String OWN_EMAIL, String subject, String url) {
+		Random random = new Random();
+		int randomNum = random.nextInt(1000000);
+		String AuthNumber = String.format("%06d", randomNum);
+		
+		// 인증번호 메일 발송
+		String sender = "gus3241@naver.com";
+		String receiver = OWN_EMAIL;
+		String title = subject;
+		String content = "인증번호는 [" + AuthNumber + "] 입니다.";
+		
+		try {
+			Properties properties = System.getProperties();
+			
+			properties.put("mail.smtp.starttls.enable", "true");
+			properties.put("mail.smtp.ssl.protocols", "TLSv1.2");
+			properties.put("mail.smtp.host", "smtp.gmail.com");
+			properties.put("mail.smtp.auth", "true");
+			properties.put("mail.smtp.port", "587");
+			
+			Authenticator authenticator = new GoogleSMTPAuthenticator();
+			Session mailSession = Session.getDefaultInstance(properties, authenticator);
+			Message mailMessage = new MimeMessage(mailSession);
+			Address sender_address = new InternetAddress(sender, "다이닝데이");
+			Address receiver_address = new InternetAddress(receiver);
+			
+			mailMessage.setHeader("content-type", "text/html; charset=UTF-8");
+			mailMessage.setFrom(sender_address);
+			mailMessage.addRecipient(RecipientType.TO, receiver_address);
+			mailMessage.setSubject(title);
+			mailMessage.setContent(content, "text/html; charset=UTF-8");
+			mailMessage.setSentDate(new Date());
+			
+			Transport.send(mailMessage);
+			
+			String msg = "인증번호가 발송되었습니다.";
+			alertAndGo(res, msg, url);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		
+		return AuthNumber;
 	}
 	
 }

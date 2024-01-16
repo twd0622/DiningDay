@@ -1,17 +1,21 @@
 package com.diningday.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.mail.Session;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.diningday.service.AdminService;
 import com.diningday.service.UserService;
+import com.diningday.util.TeamUtil;
 
 public class AdminController extends HttpServlet {
 	RequestDispatcher dispatcher = null;
@@ -29,6 +33,7 @@ public class AdminController extends HttpServlet {
 
 	protected void doProcess(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		String sPath = req.getServletPath();
+		HttpSession session = req.getSession();
 
 		AdminService adminService = new AdminService();
 		
@@ -50,6 +55,8 @@ public class AdminController extends HttpServlet {
 		}
 //		----------------------------------------------------------------------------------------------------
 		if(sPath.equals("/admin_noticeWrite.ad")) {
+			Map<String, String> admin = adminService.admin();
+			req.setAttribute("admin", admin);
 			dispatcher = req.getRequestDispatcher("Admin/admin_noticeWrite.jsp");
 			dispatcher.forward(req, res);
 		}
@@ -75,7 +82,7 @@ public class AdminController extends HttpServlet {
 		}
 //		----------------------------------------------------------------------------------------------------
 		if(sPath.equals("/admin_noticeList.ad")) {
-			List<Map<String, String>> noticeList = adminService.getNoticeList();
+			List<Map<String, String>> noticeList = adminService.getNoticeList(req);
 			req.setAttribute("noticeList", noticeList);
 			dispatcher = req.getRequestDispatcher("Admin/admin_noticeList.jsp");
 			dispatcher.forward(req, res);
@@ -85,34 +92,36 @@ public class AdminController extends HttpServlet {
 		if(sPath.equals("/admin_noticeDetail.ad")) {
 			System.out.println(req.getParameter("NOT_NO"));
 			Map<String, String> noticeDetail = adminService.getNoticeDetail(req);
+			Map<String, String> admin = adminService.admin();
+			req.setAttribute("admin", admin);
 			req.setAttribute("noticeDetail", noticeDetail);
 			dispatcher = req.getRequestDispatcher("Admin/admin_noticeDetail.jsp");
 			dispatcher.forward(req, res);
 		}
 //		----------------------------------------------------------------------------------------------------	
 		if(sPath.equals("/admin_noticeUpdate.ad")) {
-			String NOT_NO = req.getParameter("NOT_NO");
-			req.setAttribute("NOT_NO", NOT_NO);
-			
 			Map<String, String> noticeDetail = adminService.getNoticeDetail(req);
 			req.setAttribute("noticeDetail", noticeDetail);
-			
+			String NOT_NO = req.getParameter("NOT_NO");
+//			req.setAttribute("NOT_NO", NOT_NO);
+			session.setAttribute("NOT_NO", NOT_NO);
 			dispatcher = req.getRequestDispatcher("Admin/admin_noticeUpdate.jsp");
 			dispatcher.forward(req, res);
 		}
 //		----------------------------------------------------------------------------------------------------
 		if(sPath.equals("/admin_noticeUpdatePro.ad")) {
-			boolean result = adminService.noticeUpdate(req);
+			req.setCharacterEncoding("UTF-8");
+			String NOT_NO = session.getAttribute("NOT_NO").toString();
+			Map<String, String> param = new HashMap<String, String>();
+			param.put("NOT_NO", NOT_NO);
+			req.setAttribute("noticeUpdate", adminService.noticeUpdate(req, param));
 			
-			System.out.println(result);
-			if(result) {
-				res.sendRedirect("admin_noticeList.ad");
-				return;
-			}
+			
+			res.sendRedirect("admin_noticeList.ad");
 		}
 //		----------------------------------------------------------------------------------------------------		
 		if(sPath.equals("/admin_storeList.ad")) {
-			List<Map<String, String>> storeList = adminService.getStoreList();
+			List<Map<String, String>> storeList = adminService.getStoreList(req);
 			req.setAttribute("storeList", storeList);
 			dispatcher = req.getRequestDispatcher("Admin/admin_storeList.jsp");
 			dispatcher.forward(req, res);
@@ -136,7 +145,7 @@ public class AdminController extends HttpServlet {
 		}
 //		----------------------------------------------------------------------------------------------------	
 		if(sPath.equals("/admin_userList.ad")) {
-			List<Map<String, String>> userList = adminService.getUserList();
+			List<Map<String, String>> userList = adminService.getUserList(req);
 			req.setAttribute("userList", userList);
 			dispatcher = req.getRequestDispatcher("Admin/admin_userList.jsp");
 			dispatcher.forward(req, res);
@@ -152,7 +161,7 @@ public class AdminController extends HttpServlet {
 		}
 //		----------------------------------------------------------------------------------------------------
 		if(sPath.equals("/admin_storeReport.ad")) {
-			List<Map<String, String>> storeReport = adminService.getStoreReport();
+			List<Map<String, String>> storeReport = adminService.getStoreReport(req);
 			req.setAttribute("storeReport", storeReport);
 			dispatcher = req.getRequestDispatcher("Admin/admin_storeReport.jsp");
 			dispatcher.forward(req, res);
@@ -176,7 +185,7 @@ public class AdminController extends HttpServlet {
 		}
 //		----------------------------------------------------------------------------------------------------
 		if(sPath.equals("/admin_userReport.ad")) {
-			List<Map<String, String>> reviewReport = adminService.getReviewReport();
+			List<Map<String, String>> reviewReport = adminService.getReviewReport(req);
 			req.setAttribute("reviewReport", reviewReport);
 			dispatcher = req.getRequestDispatcher("Admin/admin_userReport.jsp");
 			dispatcher.forward(req, res);
@@ -200,7 +209,16 @@ public class AdminController extends HttpServlet {
 		}
 //		----------------------------------------------------------------------------------------------------
 		if(sPath.equals("/admin_reviewList.ad")) {
+			List<Map<String, String>> reviewList = adminService.reviewList();
+			req.setAttribute("reviewList", reviewList);
 			dispatcher = req.getRequestDispatcher("Admin/admin_reviewList.jsp");
+			dispatcher.forward(req, res);
+		}
+//		----------------------------------------------------------------------------------------------------
+		if(sPath.equals("/admin_reviewDetail.ad")) {
+			List<Map<String, String>> reviewComment = adminService.reviewComment();
+			req.setAttribute("reviewComment", reviewComment);
+			dispatcher = req.getRequestDispatcher("Admin/admin_reviewDetail.jsp");
 			dispatcher.forward(req, res);
 		}
 //		----------------------------------------------------------------------------------------------------
@@ -210,9 +228,8 @@ public class AdminController extends HttpServlet {
 		}
 //		----------------------------------------------------------------------------------------------------
 		if(sPath.equals("/notice.ad")) {
-			List<Map<String, String>> noticeList = adminService.getNoticeList();
+			List<Map<String, String>> noticeList = adminService.getNoticeList(req);
 			req.setAttribute("noticeList", noticeList);
-			
 			dispatcher = req.getRequestDispatcher("Main/notice.jsp");
 			dispatcher.forward(req, res);
 		}
@@ -223,6 +240,11 @@ public class AdminController extends HttpServlet {
 			req.setAttribute("noticeDetail", noticeDetail);
 			dispatcher = req.getRequestDispatcher("Main/noticeDetail.jsp");
 			dispatcher.forward(req, res);
+		}
+//		----------------------------------------------------------------------------------------------------		
+		if(sPath.equals("/logout.ad")) {
+			session.invalidate();
+			res.sendRedirect("main.ma");
 		}
 		
 	} // doProcess()

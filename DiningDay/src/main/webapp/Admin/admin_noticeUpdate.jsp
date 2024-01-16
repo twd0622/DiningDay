@@ -28,12 +28,12 @@
 						<tr style="height: 60px;">
 							<th class="title align-middle table-success">글번호</th>
 							<td class="user-id align-middle text-center"
-								style="text-align: left;"><input class="form-control" style="text-align: center; color: gray;" value="${noticeDetail.NOT_NO}" readonly="readonly"></td>
+								style="text-align: left;"><input class="form-control"  style="text-align: center; color: gray;" value="${noticeDetail.NOT_NO}" readonly="readonly"></td>
 						</tr>
 						<tr style="height: 60px;">
 							<th class="title align-middle table-success">제목</th>
 							<td class="user-id align-middle text-center"
-								style="text-align: left;"><input class="form-control" style="text-align: center;" value="${noticeDetail.NOT_TITLE}"></td>
+								style="text-align: left;"><input class="form-control" name="NOT_TITLE" style="text-align: center;" value="&lt;수정&gt; ${noticeDetail.NOT_TITLE}"></td>
 						</tr>
 						<tr style="height: 60px;">
 							<th class="title align-middle table-success">작성자</th>
@@ -48,7 +48,9 @@
 						<tr style="height: 150px;">
 							<th class="title align-middle table-success col-3"><a>글	내용</a></th>
 							<td class="user-id align-middle text-center"
-								style="text-align: left;"><input class="form-control" style="text-align: center;" value="${noticeDetail.NOT_CONTENT}"></td>
+								style="text-align: left;"><pre><textarea type="text" class="form-control"
+									placeholder="글 내용을 작성하세요" name="NOT_CONTENT" maxlength="1024"
+									style="height: 600px;">${noticeDetail.NOT_CONTENT}</textarea></pre></td>
 						</tr>
 				</tbody>
 			</table>
@@ -61,6 +63,7 @@
 			</div>
 		</div>
 		</form>
+		<br>
 	</div>
 </main>
 

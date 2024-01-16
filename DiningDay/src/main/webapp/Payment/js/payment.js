@@ -4,6 +4,7 @@ $(()=>{
 			alert("예약자 정보를 확정해 주세요!");
 			return;
 		}
+		
 		if(!$("#tableCheck").prop("checked")){
 			alert("좌석 정보를 확정해 주세요!");
 			return;
@@ -20,18 +21,22 @@ $(()=>{
 		var priceResult = parseInt($(".price_result").text().replace(/,/g , ''));
 		
 		requestPay(storeName, priceResult);
+		
 	})
 })
 
 var IMP = window.IMP;
 IMP.init('imp13773025');
 
-var today = new Date();   
+var today = new Date();
+var year = today.getFullYear();
+var month = today.getMonth() + 1;
+var date = today.getDate();
 var hours = today.getHours(); // 시
 var minutes = today.getMinutes();  // 분
 var seconds = today.getSeconds();  // 초
 var milliseconds = today.getMilliseconds();
-var makeMerchantUid = hours +  minutes + seconds + milliseconds;
+var makeMerchantUid = year + month + date + hours +  minutes + seconds + milliseconds;
 
 
 function requestPay(storeName, priceResult) {
@@ -50,6 +55,8 @@ function requestPay(storeName, priceResult) {
 			rsp.STORE_NO = store_no;
 			rsp.SEAT_NO = seat_no;
 			
+			rsp.CUS_NAME = $("#res_name").text();
+			rsp.CUS_TEL = $("#res_tel").text();
 			rsp.RES_REQ = $("#cus_plus").val();
 			rsp.RES_PEOPLE = $("#table_people").text();
 			rsp.RES_DATE = $("#table_date").text();
@@ -59,6 +66,12 @@ function requestPay(storeName, priceResult) {
 			$(".choice_list").attr("id", function(i, id){
 				MENU_NO_list.push(id);
 			})
+			
+			var MENU_NAME_list = [];
+			$(".cart_menu_name").attr("id", function(i, id){
+				MENU_NAME_list.push(id);
+			})
+			
 			var MENU_COUNT_list = [];
 			$(".menuCount").text(function(i, text){
 				MENU_COUNT_list.push(text);
@@ -66,22 +79,21 @@ function requestPay(storeName, priceResult) {
 			
 			
 			rsp.MENU_NO = MENU_NO_list.join();
+			rsp.MENU_NAME = MENU_NAME_list.join();
 			rsp.MENU_COUNT = MENU_COUNT_list.join();
 			
 			
-			console.log(rsp);
-			debugger;
             $.ajax({
 				type: "post",
 				url:"paymentInsert.pa",
 				data: rsp,
 			})
-			.done(function(){
-				location.href = "payment_success.pa";								
+			.done(function(data){
+				location.href = "payment_success.pa?RES_NO="+data.RES_NO;								
 			})
 
         } else {
-           alert("결제를 취소하였습니다.")
+			alert(rsp.error_msg);
         }
     });
 }

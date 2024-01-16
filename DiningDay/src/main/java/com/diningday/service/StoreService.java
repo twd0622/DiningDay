@@ -50,4 +50,28 @@ public class StoreService {
 	public boolean menuDelete(HttpServletRequest req) {
 		return storeDAO.deleteMenu(TeamUtil.fileRequestToArrayMap(req));
 	}
+	
+	public JsonObject storeSelect(HttpServletRequest req) {
+		return TeamUtil.mapToJSON(storeDAO.storeSelect(TeamUtil.fileRequestToMap(req)));
+	}
+	
+	public Map<String, String> storeSelect(Map<String, String> storeDTO) {
+		return storeDAO.storeSelect(storeDTO);
+	}
+	
+	public Map<String, String> ownerSelect(Map<String, String> storeDTO) {
+		return storeDAO.ownerSelect(storeDTO);
+	}
+	
+	public Map<String, String> ownerSelect(HttpServletRequest req) {
+		return storeDAO.ownerSelect(TeamUtil.requestToMap(req));
+	}
+	
+	public boolean storeInsert(Map<String, String> storeDTO) {
+		return storeDAO.storeInsert(storeDTO);
+	}
+	
+	public boolean firstInsertStore_OwnerUpdate(Map<String, String> storeDTO) {
+		return storeDAO.firstInsertStore_OwnerUpdate(storeDTO);
+	}
 }

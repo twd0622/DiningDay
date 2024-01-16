@@ -1,5 +1,6 @@
 package com.diningday.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -18,7 +19,7 @@ public class StoreDAO {
 	public Boolean insertMenu(Map<String, String> dto) {
 		session = sqlSessionFactory.openSession();
 		
-		int insertMenu = session.insert("Menu.menuInsert", dto); 
+		int insertMenu = session.insert("Store.menuInsert", dto); 
 		
 		session.commit();
 		session.close();
@@ -29,7 +30,7 @@ public class StoreDAO {
 	public Boolean deleteMenu(Map<String, String[]> dto) {
 		session = sqlSessionFactory.openSession();
 		
-		int deleteMenu = session.delete("Menu.menuDelete", dto); 
+		int deleteMenu = session.delete("Store.menuDelete", dto); 
 		
 		session.commit();
 		session.close();
@@ -40,7 +41,7 @@ public class StoreDAO {
 	public List<Map<String, String>> menuList(Map<String, String> dto) {
 		session = sqlSessionFactory.openSession();
 		
-		List<Map<String, String>> menuList = session.selectList("Menu.menuList", dto); 
+		List<Map<String, String>> menuList = session.selectList("Store.menuList", dto); 
 		
 		session.close();
 		
@@ -50,7 +51,7 @@ public class StoreDAO {
 	public boolean menuUpdate(Map<String, String> dto) {
 		session = sqlSessionFactory.openSession();
 		
-		int updateMenu = session.update("Menu.menuUpdate", dto); 
+		int updateMenu = session.update("Store.menuUpdate", dto); 
 		
 		session.commit();
 		session.close();
@@ -61,7 +62,7 @@ public class StoreDAO {
 	public Map<String, String> menuSelect(Map<String, String> dto) {
 		session = sqlSessionFactory.openSession();
 		
-		Map<String, String> select = session.selectOne("Menu.menuSelect", dto); 
+		Map<String, String> select = session.selectOne("Store.menuSelect", dto); 
 
 		session.close();
 		
@@ -71,10 +72,53 @@ public class StoreDAO {
 	public Map<String, String> menuMax(Map<String, String> dto) {
 		session = sqlSessionFactory.openSession();
 		
-		Map<String, String> select = session.selectOne("Menu.menuMax", dto); 
+		Map<String, String> select = session.selectOne("Store.menuMax", dto); 
 		
 		session.close();
 		
 		return select;
 	}
+	
+	public Map<String, String> ownerSelect(Map<String, String> dto) {
+		session = sqlSessionFactory.openSession();
+		
+		Map<String, String> select = session.selectOne("Store.ownerSelect", dto); 
+		
+		session.close();
+		
+		return select;
+	}
+	
+	public Map<String, String> storeSelect(Map<String, String> dto) {
+		session = sqlSessionFactory.openSession();
+		
+		Map<String, String> select = session.selectOne("Store.storeSelect", dto); 
+		
+		session.close();
+		
+		return select;
+	}
+	
+	public Boolean storeInsert(Map<String, String> dto) {
+		session = sqlSessionFactory.openSession();
+		
+		int insertMenu = session.insert("Store.storeInsert", dto); 
+		
+		session.commit();
+		session.close();
+		
+		return insertMenu > 0 ? true : false;
+	}
+	
+	public Boolean firstInsertStore_OwnerUpdate(Map<String, String> dto) {
+		session = sqlSessionFactory.openSession();
+		
+		int insertMenu = session.update("Store.firstInsertStore_OwnerUpdate", dto); 
+		
+		session.commit();
+		session.close();
+		
+		return insertMenu > 0 ? true : false;
+	}
+	
 }

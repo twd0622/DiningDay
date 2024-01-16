@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>    
 <!DOCTYPE html>
 <%@ include file="/Template/header.jsp"%> 
 <html>
@@ -77,7 +78,7 @@
 					</div>
 					<div class="table_infoBox">
 						<label for="table_time">시간</label>
-						<span id="table_time" style="text-align: left">${reservationDTO.time}</span>
+						<span id="table_time" style="text-align: left">${fn:substring(reservationDTO.time, 0, 2)}:${fn:substring(reservationDTO.time, 2, 4)}</span>
 					</div>
 					<div class="checkBtnBox">
 						<button class="btn fw-bold text-light decideTableBtn" style="background: #9CED92;">확정</button>
@@ -104,6 +105,11 @@
 						<c:if test="${menuInfo.MENU_HIDE == 1}">
 						<li>
 							<div class="menu menuPlusBtn">
+								<div>
+									<c:if test="${!empty menuInfo.PHOTO_NAME and menuInfo.PHOTO_NAME != '0'}">
+										<img alt="${menuInfo.PHOTO_NAME}" src="upload/${menuInfo.PHOTO_NAME}" class="menu_img">
+									</c:if>
+								</div>
 								<div class="menu_info" name="${menuInfo.MENU_NO}">
 									<div class="menu_name_box">
 										<p class="menu_name">${menuInfo.MENU_NAME}</p>
@@ -119,29 +125,8 @@
 								</div>
 							</div>
 						</li>
-						
 						</c:if>
 						</c:forEach>
-						
-						<!-- 사진있는 버전 -->
-<!-- 						<li> -->
-<!-- 							<div class="menu menuPlusBtn"> -->
-<!-- 								<img alt="츠케멘.jpg" src="Payment/츠케멘.jpg" class="menu_img"> -->
-<%-- 								<div class="menu_info" name="${menuInfo.MENU_NO}"> --%>
-<!-- 									<div class="menu_name_box"> -->
-<%-- 										<p class="menu_name">${menuInfo.MENU_NAME}</p> --%>
-<%-- 										<p class="menu_price"> ${menuInfo.MENU_PRICE} 원</p> --%>
-<!-- 									</div> -->
-<!-- 									<div class="menu_choice"> -->
-<!-- 										<div style="text-align: left;"> -->
-<!-- 											<p style="padding-left: 10px; margin: 0; font-size: 15px"> -->
-<%-- 												${menuInfo.MENU_INFO} --%>
-<!-- 											</p> -->
-<!-- 										</div> -->
-<!-- 									</div> -->
-<!-- 								</div> -->
-<!-- 							</div> -->
-<!-- 						</li> -->
 					</ul>
 				</div>
 				
@@ -162,7 +147,7 @@
 							<ul>
 								<li id="MEO" class="choice_list defaultMenu">
 									<div style="display: flex; justify-content: space-around;">
-										<span>기본 예약금</span>
+										<span id="기본 예약금" class="cart_menu_name">기본 예약금</span>
 										<span class="price">10,000 원</span>
 									</div>
 								</li>

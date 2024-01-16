@@ -12,12 +12,12 @@ import com.google.gson.JsonObject;
 public class MainService {
 	MainDAO mainDAO = new MainDAO();
 	
-	public List<Map<String, String>> searchResult(HttpServletRequest req) {
-		return mainDAO.searchResult(TeamUtil.requestToMap(req));
+	public List<Map<String, String>> searchResult(Map<String, String> searchDTO) {
+		return mainDAO.searchResult(searchDTO);
 	}
 
-	public int searchCount(HttpServletRequest req) {
-		return mainDAO.searchCount(TeamUtil.requestToMap(req));
+	public int searchCount(Map<String, String> searchDTO) {
+		return mainDAO.searchCount(searchDTO);
 	}
 
 	public Map<String, String> getStore(HttpServletRequest req) {
@@ -50,6 +50,16 @@ public class MainService {
 
 	public int deleteLike(HttpServletRequest req) {
 		return mainDAO.deleteLike(TeamUtil.requestToMap(req));
+	}
+
+	public List<Map<String, String>> getResTime(Map<String, String> storeDTO) {
+		return mainDAO.getResTime(storeDTO);
+	}
+
+	public List<Map<String, String>> getMainInfo(Map<String, String> storeDTO) {
+		System.out.println(storeDTO);
+		return mainDAO.getMainInfo(storeDTO);
+		
 	}
 
 }

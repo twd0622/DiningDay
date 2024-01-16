@@ -5,7 +5,7 @@
 <head>
 <meta charset="utf-8">
 <link href="../resources/css/styles2.css" rel="stylesheet" />
-<title>아이티윌 2강 1조</title>
+<title>회사소개 | 다이닝데이</title>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
 </head>
 
@@ -22,7 +22,7 @@
 				<span class="material-symbols-outlined" style="color:#9CED92; font-size:60px; -webkit-text-stroke: 0.5px #FFF2A6;">lunch_dining</span>
 				<span id="logo"style="color:#9CED92; -webkit-text-stroke:0.5px #FFF2A6; font-size: 60px; letter-spacing:-2px; font-weight: bold;" >Dining Day</span>
 			</div>
-			<div class="col-lg-5">
+			<div class="col-lg-5">	
 				<h1 class="font-weight-light"><b>다이닝 데이</b></h1> <br>
 				<p> "특별한 날에 맛있는 음식을 즐기세요!"<br> 
 					It Enjoy delicious food on your special day! <br>
@@ -51,7 +51,7 @@
                         <div class="card-body">
                             <h2 class="card-title">고객 안심 예약제 운영</h2>
                             <hr>
-                            <p class="card-text">식당 사정으로 예약이 취소되더라도 걱정하지 <br> 마세요. 안심 예약제가 적용된 숙소라면 안심 <br> 예약 전담팀에서 더 나은 식당을 <br> 직접 찾아 안내해 드려요. </p>
+                            <p class="card-text">식당 사정으로 예약이 취소되더라도 걱정하지 <br> 마세요. 안심 예약제가 적용된 식당이라면 안심 <br> 예약 전담팀에서 더 나은 식당을 <br> 직접 찾아 안내해 드려요. </p>
                         </div>
                     </div>
                 </div>

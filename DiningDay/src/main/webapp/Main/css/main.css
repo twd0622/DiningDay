@@ -19,3 +19,55 @@
 .cus_nickname{
 	margin-top: 10px;
 }
+
+.box1{
+	display: flex;
+	flex-direction: row;
+}
+
+.recomannedStoreBox{
+	width: 1248px;
+	overflow: hidden;
+}
+
+.recomannedStore{
+	display: flex;
+	flex-direction: row;
+	justify-content: flex-start;
+	
+	transition-duration: 500ms;
+    height: 275px;
+    border-bottom: 1px #d8d8d8 solid;
+}
+
+.storeInfo{
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	
+	text-align: left !important;
+	
+	color:#d8d8d8;
+}
+
+.storeInfo_top{
+	padding-bottom: 10px;
+	border-bottom: #b7aeb1 1px solid;
+}
+
+.icon{
+	font-size: 13px;
+}
+
+.storeInfo_bottom{
+	margin-top: 8px;
+	
+	font-size: 13px;
+}
+
+.img-fluid {
+  max-width: 100%;
+  height: 215px;
+  width: 287px;	
+}
+

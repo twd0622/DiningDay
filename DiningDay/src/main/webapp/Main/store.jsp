@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,11 +37,11 @@
 				<div class="bannerBox">
 					<div class="banner">
 						<div class="banner_img_box">
-							<img alt="칸다소바.jpg" src="Main/칸다소바.jpg" class="banner_img">
+							<img alt="${storeInfo.BA1}" src="upload/${storeInfo.BA1}" class="banner_img">
 						</div>
 						
 						<div class="banner_img_box">
-							<img alt="음식1.jpg" src="Main/음식1.jpg" class="banner_img">
+							<img alt="${storeInfo.BA2}" src="upload/${storeInfo.BA2}" class="banner_img">
 						</div>
 						
 					</div>
@@ -62,18 +63,27 @@
 					<p style="margin: 0;">
 						<strong style="font-size:18px; vertical-align:middle; padding-right:8px;">${storeInfo.STORE_SCORE}점</strong>
 						<span style="font-size: 13px; color: #66666e; margin-right: 5px;">
-							87명의 평가 !추가 사항
+							${storeInfo.STORE_REVIEW_COUNT}명의 평가
 							<strong style="font-weight: 600; color: #222228;">
 								${storeInfo.STORE_SCORE}점
 							</strong>
 						</span>
-						<span class="material-symbols-outlined grade_icon">grade</span>
-						<span class="material-symbols-outlined grade_icon">grade</span>
-						<span class="material-symbols-outlined grade_icon">grade</span>
-						<span class="material-symbols-outlined grade_icon">grade</span>
-						<span class="material-symbols-outlined grade_icon">grade</span>
+						<span class="gradeGroup">
+						<c:forEach begin="1" end="${fn:split(storeInfo.STORE_SCORE, '.')[0]}">
+							<span class="material-icons grade_icon" style="color: #F7CE3E;">grade</span>
+						</c:forEach>
+						<c:if test="${fn:split(storeInfo.STORE_SCORE, '.')[1] >= 5}">
+							<span class="material-icons grade_icon" style="color: #F7CE3E;">star_half</span>
+						</c:if>
+						
+						<c:if test="${5 - storeInfo.STORE_SCORE > 0.5}">
+						<c:forEach begin="1" end="${fn:split(5 - storeInfo.STORE_SCORE, '.')[0]}">
+							<span class="material-symbols-outlined grade_icon" style="color: #F7CE3E;">grade</span>
+						</c:forEach>
+						</c:if>
+						</span>
 					</p>
-					<a href="reportWrite.re?STORE_NO=${storeInfo.STORE_NO}&STORE_NAME=${storeInfo.STORE_NAME}"> 신고하기 </a>
+					<a id="repoertBtn"> 신고하기 </a>
 				</div>
 				<div class="profile_btnBox">
 					<div class="profile_btn_sec" style="border-right: 2px solid #f0f0f0;">
@@ -82,7 +92,7 @@
 						</a>
 					</div>
 					<div class="profile_btn_sec" style="border-right: 2px solid #f0f0f0;">
-						<a href="https://www.google.co.kr/maps/search/${storeInfo.STORE_LOCATION}"  target='_blank' class="profile_btn">
+						<a href="https://map.naver.com/p/search/${storeInfo.STORE_NAME}"  target='_blank' class="profile_btn">
 							<span class="material-symbols-outlined profile_btn_icon" class="profile_btn_icon">map</span>
 							<span class="profile_btn_text">위 치</span>
 						</a>
@@ -102,27 +112,32 @@
 				<!-- 영업 시간 -->
 				<div class="busi-hours-today">
 					<p class="tit">영업시간</p>
+				    <div id="BT" class="${storeInfo.STORE_BTS}~${storeInfo.STORE_BTE}" style="display:none;"></div>
 					<ul class="list">
 						<li>
-							<p class="l-txt"><strong>화 ~ 일</strong></p>
+							<p class="l-txt"> </p>
 							<p class="r-txt">영업시간: ${storeInfo.STORE_ST} ~ ${storeInfo.STORE_ET}</p>
 						</li>
-						<li>
-						  <p class="l-txt"> </p>
-						  <p class="r-txt">브레이크타임: ${storeInfo.STORE_BT}</p>
-						</li>
+				        <c:if test="${storeInfo.STORE_BTS != '00:00'}">
+						  <li>
+						    <p class="l-txt"> </p>
+						    <p class="r-txt">브레이크타임: ${storeInfo.STORE_BTS} ~ ${storeInfo.STORE_BTE}</p>
+						  </li>
+				        </c:if>
+              			<c:if test="${storeInfo.STORE_LO != '0'}">
               			<li>
   							<p class="l-txt"> </p>
   							<p class="r-txt">라스트오더: ${storeInfo.STORE_LO}</p>
 						</li>
-					</ul>
-					<hr class="hr">
-					<ul class="list">
+              			</c:if>
+						<c:if test="${storeInfo.STORE_CLOSE != '0'}" >
 						<li>
-							<p class="l-txt"><strong>월</strong></p>
-							<p class="r-txt">정기 휴무</p>
+							<p class="l-txt"> </p>
+							<p class="r-txt"><strong>정기 휴무:</strong> ${storeInfo.STORE_CLOSE}</p>
+							<div id="close" class="${storeInfo.STORE_CLOSE}" style="display:none;"></div>
 						</li>
-					</ul>					
+						</c:if>
+					</ul>
 				</div>
 				<!-- 메뉴 -->
 				<div class="menuBox">
@@ -153,7 +168,11 @@ ${storeInfo.STORE_INFO}
 						<c:forEach var="table" items="${tableList}">
 						<li>
 							<div class="table_" id="${table.SEAT_NO}">
-								<div class="table_img"></div>
+								<c:if test="${!empty menuInfo.PHOTO_NAME and menuInfo.PHOTO_NAME != '0'}">
+								<div class="table_img">
+									<img alt="${menuInfo.PHOTO_NAME}" src="upload/${menuInfo.PHOTO_NAME}" class="menu_img">
+								</div>
+								</c:if>
 								<div class="table_info" >
 									<div class="table_name_box">
 										<p class="table_name">${table.SEAT_NAME}</p>
@@ -163,41 +182,17 @@ ${storeInfo.STORE_INFO}
 											<ul>
 												<li name="minPeople" class="${table.SEAT_MIN}">최소인원: ${table.SEAT_MIN}명</li>
 												<li name="maxPeople" class="${table.SEAT_MAX}">최대인원: ${table.SEAT_MAX}명</li>
-												<li>이용 시간: ${table.SEAT_USETIME}시간</li>
 												<li>${table.SEAT_CONTENT}</li>
 											</ul>
 										</div>
 										<div style="width: 20%;">
-											<button class="btn btn-outline-warning modalOpen reservationModalBtn" style="margin-top:80%">예약하기</button>
+												<button class="btn modalOpen reservationModalBtn" style="margin-top:80%">예약하기</button>
 										</div>
 									</div>
 								</div>
 							</div>
 						</li>
 						</c:forEach>
-						<!-- 사진없는 버전 -->
-						<li>
-							<div class="table_">
-								<div class="table_info" >
-									<div class="table_name_box">
-										<p class="table_name">A2</p>
-									</div>
-									<div class="table_res">
-										<div style="width: 80%; height: 100%; line-height: 100%;">
-											<ul>
-												<li>최소인원: 2명</li>
-												<li>최대인원: 4명</li>
-												<li>이용 시간: 2시간</li>
-												<li>뷰: 오션뷰</li>
-											</ul>
-										</div>
-										<div style="width: 20%;">
-											<button class="btn btn-outline-warning modalOpen" style="margin-top:60%">예약하기</button>
-										</div>
-									</div>
-								</div>
-							</div>
-						</li>
 					</ul>
 				</div>	
 			</div>
@@ -206,7 +201,7 @@ ${storeInfo.STORE_INFO}
 	<div id="modalContainer" class="hidden">
 	  <div id="modalContent">
 	     <h4>예약</h4>
-	     <form action="payment.pa" method="post">
+	     <form class="reservation" action="payment.pa" method="post">
 	     	 <input type="hidden" name="store_no" value="${storeInfo.STORE_NO}">
 		     <div>
 		     	<input type="hidden" name="SEAT_NO" id="seat_no" value="">
@@ -223,20 +218,18 @@ ${storeInfo.STORE_INFO}
 		     	<div class="form-control" id="res_date"></div>
 		     	<hr>
 				<h5>시간</h5>
-				<div style="display: flex; flex-direction: row; flex-wrap: wrap; justify-content: center;">
-					<c:forEach var="i" begin="${storeInfo.STORE_RST}" end="${storeInfo.STORE_RET}" step="100">
-						<fmt:parseDate var="timeFmt" pattern="HHmm" value="${i}"/>
-						<fmt:formatDate var="timeFmtStr" pattern="HH:mm" value="${timeFmt}"/>
-						<div class="time" style="border:2px solid black; width: 90px; height: 40px; font-size: 25px; font-weight: 300; text-align: center; margin-right: 20px; margin-top: 5px;">
-							${timeFmtStr}						
-							<input type="radio" class="selectTime" name="time" value="${timeFmtStr}" style="display: none;">
+				<div style="display: flex; flex-direction: row; flex-wrap: wrap; justify-content: flex-start;">
+					<c:forEach var="i" begin="0"  end="${storeInfo.TIEMDIFF}" step="${storeInfo.STORE_RT}">
+						<div class="time able" style="width: 115px; height: 44px; text-align: center; margin-right: 20px; margin-top: 5px;">
+							<input type="radio" class="selectTime" name="time" value="${storeInfo.STORE_RST + i}" style="display: none;">
+							<span class="timeFont">${fn:substring(storeInfo.STORE_RST + i, 0, 2)}:${fn:substring(storeInfo.STORE_RST + i, 2, 4)}</span>						
 						</div>
 					</c:forEach>
 				</div>
 				<hr>
 		     </div>
 		     <div>
-			     <input class="btn btn-warning fw-bold text-light" type="submit" value="예약하기">
+			     <input class="btn fw-bold text-light reservationBtn" type="submit" value="예약하기">
 				 <button type="button" class="btn btn-dark fw-bold" id="modalCloseButton">닫기</button>
 		     </div>
 	     </form>

@@ -16,14 +16,22 @@
 	
 	<select id="getMenuInfo" parameterType="map" resultType="map">
 		 select
-			 MENU_NO
-			 , STORE_NO
-			 , MENU_NAME
-			 , FORMAT(MENU_PRICE, 0) MENU_PRICE
-			 , MENU_HIDE
-			 , MENU_INFO
-		 from MENU
- 		where STORE_NO = #{store_no};
+			  ME.MENU_NO
+			, ME.STORE_NO
+			, ME.MENU_NAME
+			, FORMAT(ME.MENU_PRICE, 0) MENU_PRICE
+			, ME.MENU_HIDE
+			, ME.MENU_INFO
+			, SI.PHOTO_NAME
+		from MENU ME
+		LEFT JOIN (select
+						STORE_NO,
+						PHOTO_TYPE,
+						PHOTO_NAME
+					from STORE_IMAGE
+					where PHOTO_TYPE LIKE 'ME%') SI
+		ON (ME.STORE_NO, ME.MENU_NO) = (SI.STORE_NO, SI.PHOTO_TYPE) 
+		where ME.STORE_NO = #{store_no};
 	</select>
 	
 	<select id="getStoreInfo" parameterType="map" resultType="map">
@@ -54,8 +62,8 @@
 			, PAID_AT
 			)
 		VALUES
-			( concat("PA" ,ifnull((select cast(max(replace(PAY_NO, "PA", "")) as unsigned)+1 from PAYMENT a), 1))
-			, concat("RS" ,ifnull((select cast(max(replace(RES_NO, "RS", "")) as unsigned)+1 from RESERVATION a), 1))
+			( concat("PA", IFNULL((select MAX(cast(replace(PAY_NO, "PA", "") AS unsigned))+1 FROM PAYMENT A), 1))
+			, concat("RS", IFNULL((select MAX(cast(replace(RES_NO, "RS", "") AS unsigned))+1 FROM RESERVATION R), 1))
 			, #{CUS_NO}
 			, #{merchant_uid}
 			, #{apply_num}
@@ -66,7 +74,7 @@
 			, #{card_number}
 			, #{name}
 			, #{paid_amount}
-			, #{paid_at}
+			, date_format(from_unixtime(#{paid_at}), '%Y%m%d%H%i%s')
 			);
 			
 		INSERT INTO RESERVATION
@@ -85,22 +93,88 @@
 			, RES_PAYTIME
 			)
 		VALUES
-			( concat("RS" ,(select cast(max(replace(RES_NO, "RS", "")) as unsigned)+1 from RESERVATION a))
+			( concat("RS" ,ifnull((select max(cast(replace(RES_NO, "RS", "") as unsigned))+1 from RESERVATION a), 1))
 			, #{CUS_NO}
 			, #{STORE_NO}
-			, concat("PA" ,(select cast(max(replace(PAY_NO, "PA", "")) as unsigned)+1 from PAYMENT a))
+			, concat("PA" ,ifnull((select max(cast(replace(PAY_NO, "PA", "") as unsigned)) from PAYMENT a), 1))
 			, #{SEAT_NO}
-			, ( SELECT CUS_NAME FROM CUSTOMER WHERE CUS_NO = #{CUS_NO})
-			, ( SELECT CUS_TEL FROM CUSTOMER WHERE CUS_NO = #{CUS_NO})
-			, #{RES_DATE}
+			, #{CUS_NAME}
+			, #{CUS_TEL}
+			, #{RES_REQ} 
 			, #{RES_PEOPLE}
-			, #{RES_REQ}
-			, #{RES_TIME}
+			, DATE_FORMAT(#{RES_DATE}, '%Y%m%d')
+			, concat(SUBSTRING_INDEX(#{RES_TIME}, ':', 1), SUBSTRING_INDEX(#{RES_TIME}, ':', -1))
 			, '0'
 			, date_format(now(), '%Y%m%d%H%i%s')
 			);				
 		
 	</insert>
+	
+	<insert id="reservationMenuInsert" parameterType="java.util.List">
+			INSERT INTO RESERVATION_MENU
+				( RES_NO
+				, PAY_NO
+				, MENU_NO
+				, STORE_NO
+				, MENU_NAME
+				, MENU_COUNT
+				, PAID_PRICE
+				)
+			VALUES
+		<foreach collection="list" item="menuDTO" separator=",">
+				(
+					  concat("RS" ,ifnull((select max(cast(replace(RES_NO, "RS", "") as unsigned)) from RESERVATION r), 1))
+	 				, concat("PA" ,ifnull((select max(cast(replace(PAY_NO, "PA", "") as unsigned)) from PAYMENT a), 1))
+					, #{menuDTO.MENU_NO}
+					, #{menuDTO.STORE_NO}
+					, #{menuDTO.MENU_NAME}
+					, IF(#{menuDTO.MENU_COUNT} = '', '1', '2')
+					, ifnull((SELECT MENU_PRICE FROM MENU WHERE STORE_NO=#{menuDTO.STORE_NO} AND MENU_NO=#{menuDTO.MENU_NO}) * #{menuDTO.MENU_COUNT}, '10000')
+				)
+		</foreach>
+	</insert>
+	
+	<select id="getRES_NO" parameterType="map" resultType="map">
+		SELECT RES_NO
+		  FROM RESERVATION
+		 WHERE CUS_NO = #{CUS_NO} 
+		   AND RES_PAYTIME = (select MAX(RES_PAYTIME) FROM RESERVATION A WHERE CUS_NO = #{CUS_NO});
+	</select>
+	
+	<select id="getResInfo" parameterType="map" resultType="map">
+		SELECT R.RES_NO
+			 , P.MERCHANT_UID
+		     , ST.STORE_NAME
+		     , SE.SEAT_NAME
+		     , str_to_date(R.RES_DATE, '%Y%m%d') RES_DATE
+		     , FORMAT(P.PAID_AMOUNT, 0) PAID_AMOUNT
+		FROM RESERVATION R
+		JOIN PAYMENT P
+		  ON R.PAY_NO = P.PAY_NO
+		JOIN STORE ST
+		  ON R.STORE_NO = ST.STORE_NO
+		JOIN SEAT SE
+		  ON (SE.SEAT_NO, SE.STORE_NO) = (R.SEAT_NO, ST.STORE_NO)
+		WHERE R.RES_NO = #{RES_NO};
+			   
+	
+	</select>
+	
+	<update id="payment_cancel" parameterType="String">
+		UPDATE RESERVATION
+		SET REQ_STATE = '1' , RES_CANCELTIME = DATE_FORMAT(now(), '%Y%m%d%H%i%s')
+		WHERE RES_NO = (SELECT RES_NO
+					      FROM PAYMENT
+					     WHERE MERCHANT_UID = #{MERCHANT_UID});
+	</update>
+	
+	<select id="checkResDate" parameterType="String" resultType="map">
+		select if(date_format(now(), '%Y%m%d') &lt; RES_DATE, '1', '0') RESULT
+		from RESERVATION
+		WHERE RES_NO = (SELECT RES_NO
+					      FROM PAYMENT
+					     WHERE MERCHANT_UID = #{MERCHANT_UID});
+	</select>
 	
 </mapper>
 

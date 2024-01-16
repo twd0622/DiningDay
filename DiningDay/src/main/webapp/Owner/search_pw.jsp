@@ -1,6 +1,7 @@
 <!-- 12/15/18:10_강현아 + 비밀번호 찾기 개설 -->
 <!-- 12/20/18:10_강현아 + 인증번호 관련 alert 추가 -->
 <!-- 12/26/14:10_강현아 + 페이지 연결 -->
+<!-- 01/08/20:20_강현아 + 인증메일 연동 + 비밀번호 변경 모달창 + 비밀번호 유효성 검사 -->
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -9,85 +10,82 @@
 <head>
 <meta charset="UTF-8">
 <title>점주용 계정 비밀번호 찾기</title>
-<script type="text/javascript">
-//     function checkForm() {
-//         var authenCode = $('#authenCode').val();
-//         var newPw = $('#newPw').val();
-//         var checkPw = $('#checkPw').val();
-
-//         if(authenCode == null || authenCode === "" || newPw == null || 
-//         		newPw === "" || checkPw == null || checkPw === "") {
-//             alert('모든 입력란을 작성하세요.');
-//             return false;
-//         }
-
-//         if(newPw !== checkPw) {
-//             alert('비밀번호가 일치하지 않습니다.!');
-//             return false;
-//         }
-
-//         $('form[name="changePwForm"]').submit();
-        
-//         location.href='new_pw.ow';
-//     }
-    
-	function checkField(){
-		let inputs = document.searchPw;
-		
-		// 인증번호 null&불일치 => 모달창으로 '인증번호가 틀렸습니다. 다시 입력해 주십시오.' 안내하고 페이지 이동 X
-		if(!inputs.pwcode.value){
-			alert("인증번호를 입력하세요.");
-			return false;	
-		} else {
-
-		}
-	}    
-	function move(){
-		location.href = 'new_pw.ow';
-	}
-</script>
+<link href="Owner/css/search.css" rel="stylesheet">
 </head>
 <%@ include file="/Template/header.jsp"%> 
-<main style="display: flex; justify-content: center; align-items: center; text-align: center; margin-top: 68.5px; padding:100px 0 250px 0; background:white;">
-<div class="position-static d-block bg-body p-4 py-md-5" tabindex="-1" role="dialog" id="modalSignin" style="width:500px;" >
-	<div class="modal-dialog" role="document">
+<main style="display: flex; justify-content: center; align-items: center; margin-top: 68.5px; padding:100px 0 250px 0; background:white;">
+<div class="position-static d-block bg-body p-4 py-md-5" id="modalSignin">
+	<div class="modal-dialog">
 		<div class="modal-content rounded-4 shadow">
 			<div class="modal-header p-5 pb-4 border-bottom-0">
 				<h1 class="fw-bold mb-0 fs-2">비밀번호 찾기</h1>
 			</div>
 			<div class="modal-body p-5 pt-0">
-				<form style="text-align: center;"  method="post" name="searchPw"
-					  enctype="multipart/form-data" onsubmit="return checkField();">
-				  <div class="form-outline mb-4">
-				  	<div style="text-align: left;"> <label>사업자번호</label> </div>
-				    	<input type="text" name="OWN_CRN" class="form-control" />
-				  </div>
-				<div class="form-outline mb-4">
-				  	<div style="text-align: left;"> <label>아이디</label> </div>
-				    	<input type="text" name="OWN_ID" class="form-control" />
-				  </div>				  
-				  <div class="form-outline mb-4">
-				  	<div style="text-align: left;"> <label>이메일</label> </div>
-				    	<input type="email" name="OWN_EMAIL" class="form-control" />
-				  </div>
-				  
-				  <button type="button" class="btn btn-primary btn-block mb-4" onclick="sendSearchId()" 
-				  		  style="color: #111111; background-color: #FFF2A6; border-color: #ffffff;">인증번호 받기</button>
-				  
-				  <!-- 인증번호 받기 선택하면 인증번호 칸 뜨도록 설정 -->
-				  <div class="form-outline mb-4">
-				  	<div style="text-align: left;"> <label>인증번호</label> </div>
-				    	<input type="text" name="pwcode" class="form-control" />
-				  </div>
-				  
-				  <button type="submit" class="btn btn-primary btn-block mb-4" 
-				  		  style="color: #111111; background-color: #FFF2A6; border-color: #ffffff;"
-				  		  onclick="move()"> 다음</button>
+				<form action="search_pwPro.ow" method="post" name="searchForm">
+					<c:set var="searchInfo" value="${requestScope.authPwCheck}"/> 
+					<div class="form-outline mb-4">
+						<div><label>사업자번호</label></div>
+				    	<input type="text" name="OWN_CRN" class="form-control" value="${authPwCheck.OWN_CRN}">
+		  		  	</div>
+		  		  	<div class="form-outline mb-4">
+		  				<div><label>아이디</label></div>
+		    			<input type="text" name="OWN_ID" class="form-control" value="${authPwCheck.OWN_ID}">
+		  		  	</div>	  	
+				  	<div class="form-outline mb-4">
+				  		<div><label>이메일</label></div>
+				    	<input type="email" name="OWN_EMAIL" class="form-control" value="${authPwCheck.OWN_EMAIL}">
+				  	</div>
+				 	<button type="submit" class="btn btn-primary btn-block mb-4" id="sendBtn">인증번호 받기</button>
+				  	<div class="form-outline mb-4">
+				  		<div><label>인증번호</label></div>
+				    	<input type="text" name="authCode" class="form-control">
+				  	</div>
+			 	 	<button type="button" class="btn btn-primary btn-block mb-4" id="authBtn">다음</button>
 				</form>
+				
+				<!-- 비밀번호 변경 모달창 -->
+				<form action="new_pw.ow" method="post">
+					<div id="authModal" class="modal">
+						<div class="modal-content" id="auth-modal-content">
+							<div class="modal-header" id="auth-modal-header">
+						     	<h2 class="modal-title" id="auth-modal-body">비밀번호 찾기 - 비밀번호 변경</h2>
+						     	<button type="button" class="auth-close" data-dismiss="modal" aria-label="Close">&times;</button>
+					     	</div>
+							<div class="modal-body" id="auth-modal-body">
+								<h5>아이디: ${authPwCheck.OWN_ID}님의 비밀번호 변경</h5>&nbsp;
+							    <div class="form-outline mb-4">
+									<div><label>새 비밀번호</label></div>
+							    	<input type="password" name="OWN_PW" id="pw" onchange="check_pw()"
+							  		       class="form-control" placeholder="영문 대소문자, 숫자, 기타문자 포함 6~14자">
+						        </div>
+								<div class="form-outline mb-4">
+								    <div> <label>새 비밀번호 확인</label> </div>
+								    <input type="password" name="OWN_PWCHECK" id="pw2" onchange="check_pw()"
+								    	   class="form-control" placeholder="비밀번호 확인">&nbsp;
+								    <span id="check"></span>
+								</div>
+							</div>
+						    <div class="modal-footer" id="auth-modal-footer">
+								<button type="submit" class="btn btn-outline-warning" id="authOk">변경</button>   
+								<button type="button" class="btn btn-secondary" id="cancelBtn">취소</button>       
+						    </div>
+						</div>
+					</div>
+				</form>
+				
 			</div>
 		</div>
 	</div>
 </div>
+<script>
+	var AuthNumber = '<%=(String)session.getAttribute("AuthNumber")%>';
+</script>
+<script src="Owner/js/search.js"></script>
+<script src="Owner/js/validation.js"></script>
+<%
+	//session.removeAttribute("AuthNumber");
+	//session.removeAttribute("authCheck");
+%>
 </main>
 <%@ include file="/Template/footer.jsp"%> 
 </html>

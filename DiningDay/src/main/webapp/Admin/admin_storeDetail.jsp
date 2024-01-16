@@ -3,6 +3,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ include file="/Template/admin_sidebar_open.jsp"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,8 +16,13 @@
   overflow: auto;
 }
 </style>
+<link href="resources/css/variable_admin.css" rel="stylesheet">
+<script src="resources/js/variableCode.js"></script>
+<script src="resources/js/jquery.twbsPagination.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="Admin/js/delBtn.js"></script>
 </head>
-<%@ include file="/Template/admin_sidebar_open.jsp"%>
+
 <!-- main은 속성 값은 웬만하면 건들지x -->
 <main
 	style="display: flex; align-items: left; text-align: center; padding: 20px 50px 50px 50px;">
@@ -29,7 +35,7 @@
 
 				<h3>점주 정보</h3>
 				<br>
-				<table class="table table-hover">
+				<table class="table">
 					<tbody>
 					<c:set var="storeDetail" value="${ requestScope.storeDetail }"/>
 						<tr>
@@ -48,16 +54,20 @@
 							<th>사업자 번호</th>
 							<td>${storeDetail.OWN_CRN}</td>
 						</tr>
+<!-- 						<tr> -->
+<!-- 							<th>식당번호</th> -->
+<%-- 							<td>${storeDetail.STORE_NO}</td>					 --%>
+<!-- 						</tr> -->
 						<tr>
-							<th>사업장명</th>
+							<th>식당명</th>
 							<td>${storeDetail.STORE_NAME}</td>
 						</tr>
 						<tr>
-							<th>사업장 위치</th>
+							<th>식당위치</th>
 							<td>${storeDetail.STORE_LOCATION}</td>
 						</tr>
 						<tr>
-							<th>사업장 구분</th>
+							<th>식당구분</th>
 							<td>${storeDetail.STORE_CATEGORY}</td>
 						</tr>
 					</tbody>
@@ -68,17 +78,18 @@
 	<div class="mainContainer"
 		style="width: 50%;background: white;">
 		<form method="post" action="contentWriteProcess.jsp">
-			<div class="container" style="padding: 30px;">
+			<div class="container" id="div2" style="padding: 25px;">
+				<br>
 				<hr>
 				<h3>식당 정보</h3>
-				<b
-					style="display: flex; align-items: left; text-align: center; padding-top: 20px; font-size: 20px;">${storeDetail.STORE_NAME}</b> <sup
+				<p class="store_no" hidden="">${storeDetail.STORE_NO}</p>
+				<b style="display: flex; align-items: left; text-align: center; padding-top: 20px; font-size: 20px;">${storeDetail.STORE_NAME}</b> <sup
 					style="display: flex; align-items: left; padding-top: 15px; text-align: center;">${storeDetail.STORE_CATEGORY}</sup>
-				<br>
+				<br> 
 
 				<figure class="mb-4">
 					<img class="img-fluid rounded"
-						src="https://dummyimage.com/900x400/ced4da/6c757d.jpg" alt="...">
+						src="upload/${storeDetail.PHOTO_NAME }" alt="${storeDetail.PHOTO_NO}" style="width: 700px; height: 400px;">
 				</figure>
 
 				<table class="table table-striped">
@@ -99,10 +110,11 @@
 			</div>
 			<div style="display: flex; justify-content: flex-end; margin-right: 20px; ">
 				<input type="button" class="btn btn-outline-dark" value="목록" onclick="window.history.back()">
+				<input type="button" class="delBtn btn btn-outline-danger" value="삭제" >
 			</div>
+				<br>
 		</form>
 	</div>
-
 </main>
 <%@ include file="/Template/admin_sidevar_close.jsp"%>
 </html>

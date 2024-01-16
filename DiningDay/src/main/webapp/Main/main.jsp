@@ -12,10 +12,10 @@
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="${ pageContext.request.contextPath }/resources/css/main.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
     <link href="Main/css/main.css" rel="stylesheet">
     <link href="Main/css/location_select_modal.css" rel="stylesheet">
 	
-    <script src="Main/js/location_select_modal.js"></script>
     <script src="Main/js/main.js"></script>
     <title>DINING DAY</title>    
 </head>
@@ -47,57 +47,24 @@
 		<section class="page-section main_section" id="portfolio" style="background:white;">
             <div class="container" style="border-bottom: 1.5px solid #f0f0f3; padding-top: 50px;">
                 <div class="text-center">
-                    <h2 class="section-heading text-uppercase" style="margin-left:20px; text-align: left">전국 추천 맛집</h2>
+                    <h2 class="section-heading text-uppercase" style="margin-left:20px; text-align: left">
+                    <c:if test="${!empty sessionScope.LOC_NAME}">
+                    "<span id="locationName">${sessionScope.LOC_NAME}</span>" 	
+                    </c:if>
+                    <c:if test="${empty sessionScope.LOC_NAME}">
+                    "<span id="locationName">전국</span>"	
+                    </c:if>
+                     
+                    추천 맛집</h2>
                 </div>
-                <div style="display: flex; flex-direction: row; justify-content: space-around;">
-                    <div class="col-lg-3 mb-4">
-                        <!-- Portfolio item 4-->
-                        <div class="portfolio-item">
-                            <a class="portfolio-link" href="store.ma?STORE_NO=ST100">
-                                <div class="portfolio-hover">
-                                    <div class="portfolio-hover-content"><span class="material-symbols-outlined" style="font-size: 80px;">search</span></div>
-                                </div>
-                                <img class="img-fluid" src="Main/칸다소바.jpg" alt="칸다소바.jpg" />
-                            </a>
-                            <div class="portfolio-caption">
-                                <div class="portfolio-caption-heading">칸다소바 Test점</div>
-                                <div class="portfolio-caption-subheading text-muted">5.0</div>
-                                <div class="portfolio-caption-subheading text-muted">⭐⭐⭐⭐⭐</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 mb-4">
-                        <!-- Portfolio item 5-->
-                        <div class="portfolio-item">
-                            <a class="portfolio-link" href="store.ma">
-                                <div class="portfolio-hover">
-                                    <div class="portfolio-hover-content"><span class="material-symbols-outlined" style="font-size: 80px;">search</span></div>
-                                </div>
-                                <img class="img-fluid" src="Main/칸다소바.jpg" alt="칸다소바.jpg" />
-                            </a>
-                            <div class="portfolio-caption">
-                                <div class="portfolio-caption-heading">칸다소바</div>
-                                <div class="portfolio-caption-subheading text-muted">5.0</div>
-                                <div class="portfolio-caption-subheading text-muted">⭐⭐⭐⭐⭐</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 mb-4">
-                        <!-- Portfolio item 6-->
-                        <div class="portfolio-item">
-                            <a class="portfolio-link" href="store.ma">
-                                <div class="portfolio-hover">
-                                    <div class="portfolio-hover-content"><span class="material-symbols-outlined" style="font-size: 80px;">search</span></div>
-                                </div>
-                                <img class="img-fluid" src="Main/칸다소바.jpg" alt="칸다소바.jpg"/>
-                            </a>
-                            <div class="portfolio-caption">
-                                <div class="portfolio-caption-heading">칸다소바</div>
-                                <div class="portfolio-caption-subheading text-muted">5.0</div>
-                                <div class="portfolio-caption-subheading text-muted">⭐⭐⭐⭐⭐</div>
-                            </div>
-                        </div>
-                    </div>
+                  <div class="box1">
+	                <button class="leftBtn" ><span class="material-symbols-outlined">arrow_back_ios</span></button>
+	                <div class="recomannedStoreBox">
+		                <div class="recomannedStore">
+		                <!-- 추천 맛집 -->
+		                </div>
+	                </div>
+	            	<button class="rightBtn"><span class="material-symbols-outlined">arrow_forward_ios</span></button>
                 </div>
             </div>
             <div class="container" style="padding-top: 50px;">
@@ -174,7 +141,7 @@
 					</div>
 					
 					<div class="Location__Popup__User__Confirm">
-						<button class="Location__Popup__Cancle"><span>취소</span></button>
+						<button class="Location__Popup__Cancle"><span>초기화</span></button>
 						<button class="Location__Popup__Submit"><span>선택 완료</span></button>
 					</div>
 					
