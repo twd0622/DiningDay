@@ -21,7 +21,7 @@
 				<h1 class="fw-bold mb-0 fs-2">비밀번호 찾기</h1>
 			</div>
 			<div class="modal-body p-5 pt-0">
-				<form action="search_pwPro.ow" method="post" name="searchPw">
+				<form action="search_pwPro.ow" method="post" name="searchForm">
 					<c:set var="searchInfo" value="${requestScope.authPwCheck}"/> 
 					<div class="form-outline mb-4">
 						<div><label>사업자번호</label></div>
@@ -38,7 +38,7 @@
 				 	<button type="submit" class="btn btn-primary btn-block mb-4" id="sendBtn">인증번호 받기</button>
 				  	<div class="form-outline mb-4">
 				  		<div><label>인증번호</label></div>
-				    	<input type="text" name="pwCode" class="form-control">
+				    	<input type="text" name="authCode" class="form-control">
 				  	</div>
 			 	 	<button type="button" class="btn btn-primary btn-block mb-4" id="authBtn">다음</button>
 				</form>
@@ -56,7 +56,7 @@
 							    <div class="form-outline mb-4">
 									<div><label>새 비밀번호</label></div>
 							    	<input type="password" name="OWN_PW" id="pw" onchange="check_pw()"
-							  		       class="form-control" placeholder="영문 대소문자, 숫자, 기타문자 포함 8~14자">
+							  		       class="form-control" placeholder="영문 대소문자, 숫자, 기타문자 포함 6~14자">
 						        </div>
 								<div class="form-outline mb-4">
 								    <div> <label>새 비밀번호 확인</label> </div>
@@ -78,60 +78,14 @@
 	</div>
 </div>
 <script>
-// 비밀번호 찾기 모달
-var authModal = document.getElementById("authModal");
-var authBtn = document.getElementById("authBtn");
-var authSpan = document.getElementsByClassName("auth-close")[0];
-var authOk = document.getElementById("authOk");
-var cancelBtn = document.getElementById("cancelBtn");
-var AuthNumber = '<%=(String)session.getAttribute("AuthNumber")%>';
-
-let inputs = document.searchPw;
-
-authBtn.onclick = function() {
-	if(!inputs.pwCode.value) {
-		alert("인증번호를 입력하세요.");
-		authmodal.style.display = "none";
-	} else if(AuthNumber != inputs.pwCode.value){
-		alert("입력한 인증번호가 틀렸습니다. 다시 확인해 주십시오.");
-		authmodal.style.display = "none";
-	} else {
-		authModal.style.display = "block";
-	}
-}
-
-authSpan.onclick = function() {
-	authModal.style.display = "none";
-}
-authOk.onclick = function() {
-	authModal.style.display = "none";
-}
-cancelBtn.onclick = function() {
-	authModal.style.display = "none";
-}
-
-// 비밀번호 유효성 검사
-function check_pw(){
-    var pw = document.getElementById('pw').value;
-    var pw2 = document.getElementById('pw2').value;
-    var check = document.getElementById('check');
-    var pwRegex = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*?_]).{8,14}$/;
-
-
-	if (pwRegex.test(pw)) {
-		if (pw === pw2) {
-			check.innerHTML = '비밀번호가 일치합니다.';
-			check.style.color = 'green';
-		}else{
-			check.innerHTML = '비밀번호가 일치하지 않습니다.';
-			check.style.color = 'red';
-		}
-	}else{
-		check.innerHTML = '비밀번호는 (영문, 숫자, 특수 문자 포함) 8~14자여야 합니다.';
-		check.style.color = 'red';
-	}
-}
+	var AuthNumber = '<%=(String)session.getAttribute("AuthNumber")%>';
 </script>
+<script src="Owner/js/search.js"></script>
+<script src="Owner/js/validation.js"></script>
+<%
+	//session.removeAttribute("AuthNumber");
+	//session.removeAttribute("authCheck");
+%>
 </main>
 <%@ include file="/Template/footer.jsp"%> 
 </html>
