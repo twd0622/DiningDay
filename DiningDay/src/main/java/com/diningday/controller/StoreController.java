@@ -146,11 +146,29 @@ public class StoreController extends HttpServlet {
 			dispatcher.forward(req, res);
 		}
 		
+		// ----------------- 01/17 준우 작성 건들 ㄴㄴ -------------------------------------------------
 		if(sPath.equals("/sreview.st")) {
 			dispatcher = req.getRequestDispatcher("Store/sreview.jsp");
 			dispatcher.forward(req, res);
 		}
 		
+		if(sPath.equals("/getReviewList.st")) {
+			Map<String, String> map = new HashMap<String, String>();
+			map.put("STORE_NO", (String)session.getAttribute("STORE_NO"));
+			
+			res.setContentType("application/x-json; charset=utf-8");
+			res.getWriter().print(TeamUtil.mapListToJSONList(storeService.getReviewList(TeamUtil.requestToMap(req, map))));
+		}
+		
+		if(sPath.equals("/answerInsert.st")) {
+			Map<String, String> map = new HashMap<String, String>();
+			map.put("STORE_NO", (String)session.getAttribute("STORE_NO"));
+			
+			res.setContentType("application/x-json; charset=utf-8");
+			res.getWriter().print(TeamUtil.mapToJSON(storeService.answerInsert(TeamUtil.requestToMap(req, map))));
+		}
+		
+		// -------------------여기 까지 s_review-------------------------------------------------------
 		
 		if(sPath.equals("/stable_insert.st")) {
 			dispatcher = req.getRequestDispatcher("Store/stable_insert.jsp");

@@ -1,6 +1,7 @@
 package com.diningday.service;
 
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -74,4 +75,16 @@ public class StoreService {
 	public boolean firstInsertStore_OwnerUpdate(Map<String, String> storeDTO) {
 		return storeDAO.firstInsertStore_OwnerUpdate(storeDTO);
 	}
+	
+	// ----------------- 01/17 준우 작성 건들 ㄴㄴ -------------------------------------------------
+	public List<Map<String, String>> getReviewList(Map<String, String> reviewDTO) {
+		return storeDAO.getReviewList(reviewDTO);
+		
+	}
+
+	public Map<String, String> answerInsert(Map<String, String> answerDTO) {
+		return storeDAO.answerInsert(answerDTO);
+	}
+	
+	// -------------------여기 까지 s_review-------------------------------------------------------
 }

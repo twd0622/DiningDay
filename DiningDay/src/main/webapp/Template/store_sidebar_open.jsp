@@ -291,7 +291,6 @@ ul{
 				$($(".nav__list")[0]).show();
 				return;
 			} 
-			debugger;
 			$(".nav__list").show();
 			$($(".nav__list")[0]).hide();
 			

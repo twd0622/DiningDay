@@ -121,4 +121,30 @@ public class StoreDAO {
 		return insertMenu > 0 ? true : false;
 	}
 	
+	// ----------------- 01/17 준우 작성 건들 ㄴㄴ -------------------------------------------------
+	public List<Map<String, String>> getReviewList(Map<String, String> reviewDTO) {
+		session = sqlSessionFactory.openSession();
+		System.out.println(reviewDTO);
+		List<Map<String, String>> reviewLists = session.selectList("Store.getReviewList", reviewDTO);
+		System.out.println(reviewLists);
+		
+		session.close();
+		
+		return reviewLists;
+	}
+	// -------------------여기 까지 s_review-------------------------------------------------------
+
+	public Map<String, String> answerInsert(Map<String, String> answerDTO) {
+		session = sqlSessionFactory.openSession();
+		
+		int insertMenu = session.insert("Store.answerInsert", answerDTO); 
+		session.commit();
+		
+		Map<String, String> answer = session.selectOne("Store.getAnswer", answerDTO);
+		
+		session.close();
+		
+		return answer;
+		
+	}
 }
