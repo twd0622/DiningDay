@@ -80,6 +80,11 @@ public class Review_ReportController extends HttpServlet {
 			res.sendRedirect("mypage.cu");
 		}
 		
+		if(sPath.equals("/store_review.re")) {
+			
+			dispatcher = req.getRequestDispatcher("Review_Report/store_review.jsp");
+			dispatcher.forward(req, res);
+		}
 		
 	}
 }
