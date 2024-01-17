@@ -75,7 +75,9 @@
 						<c:if test="${fn:split(storeInfo.STORE_SCORE, '.')[1] >= 5}">
 							<span class="material-icons grade_icon" style="color: #F7CE3E;">star_half</span>
 						</c:if>
-						
+						<c:if test="${fn:split(storeInfo.STORE_SCORE, '.')[1] < 5}">
+							<span class="material-symbols-outlined grade_icon" style="color: #F7CE3E;">grade</span>
+						</c:if>
 						<c:if test="${5 - storeInfo.STORE_SCORE > 0.5}">
 						<c:forEach begin="1" end="${fn:split(5 - storeInfo.STORE_SCORE, '.')[0]}">
 							<span class="material-symbols-outlined grade_icon" style="color: #F7CE3E;">grade</span>
@@ -98,7 +100,7 @@
 						</a>
 					</div>
 					<div class="profile_btn_sec">
-						<a href="#" onclick="" class="profile_btn">
+						<a href="#" id="reviewBtn" class="profile_btn">
 							<span class="material-symbols-outlined profile_btn_icon" class="profile_btn_icon">edit</span>
 							<span class="profile_btn_text">리 뷰</span>
 						</a>

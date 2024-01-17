@@ -180,8 +180,9 @@
         <div class="col-md-3">
             <div class="d-flex flex-column align-items-center text-center p-3 py-5 mt-5">
             <h4>고객 정보</h4>
-           	 <img class="rounded-circle mt-5" width="150px" src="Customer/profile/${sessionScope.CUS_IMAGE}">
-            	<span class="font-weight-bold">${sessionScope.CUS_NICK}</span>
+            <c:set var="customerInfo" value="${requestScope.customerInfo}"/>
+           	 <img class="rounded-circle mt-5 mb-3" id="profileImage" src="Customer/profile/${customerInfo.CUS_IMAGE}">
+            	<span class="font-weight-bold">${customerInfo.CUS_NICK}</span>
 			<button type="submit" class="btn btn-primary btn-block mt-5" onclick="location.href='cus_edit.cu'"
   		  		    id="myBtn">고객 정보 수정하기</button>
 			<button type="submit" class="btn btn-primary btn-block" onclick="#"
