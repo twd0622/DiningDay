@@ -102,7 +102,7 @@ a, article, button, div, footer, h1, h2, h3, h4, h5, header, hr, img, input, li,
     background-color: rgb(255, 255, 255);
     border-width: 2px 1px 1px;
     border-style: solid;
-    border-color: rgb(0, 82, 116) rgb(234, 234, 234) rgb(234, 234, 234);
+    border-color: #6AEB8A rgb(234, 234, 234) rgb(234, 234, 234);
     border-image: initial;
 }
 
@@ -163,7 +163,7 @@ a, article, button, div, footer, h1, h2, h3, h4, h5, header, hr, img, input, li,
 }
 .now{
 	font-weight: 500;
-    background-color: rgb(12, 75, 117) !important;
+    background-color: #6AEB8A !important;
     color: rgb(255, 255, 255) !important;
 }
 .District__Item__Button{
@@ -202,7 +202,7 @@ a, article, button, div, footer, h1, h2, h3, h4, h5, header, hr, img, input, li,
     height: 42px;
     transition: all 0.3s ease-in-out 0s;
     border-radius: 6px;
-    border: 1px solid rgb(25, 183, 194);
+    border: 1px solid #9ced92;
 }
 
 .Location__Popup__User__Confirm .Location__Popup__Cancle{
@@ -210,5 +210,5 @@ a, article, button, div, footer, h1, h2, h3, h4, h5, header, hr, img, input, li,
 }
 
 .Location__Popup__Submit:hover {
-    background-color: rgb(25, 183, 194);
+    background-color: #9ced92;
 }    

@@ -21,6 +21,7 @@ $(()=>{
 		var priceResult = parseInt($(".price_result").text().replace(/,/g , ''));
 		
 		requestPay(storeName, priceResult);
+		
 	})
 })
 
@@ -28,7 +29,7 @@ var IMP = window.IMP;
 IMP.init('imp13773025');
 
 var today = new Date();
-var year = today.getsetFullYear();
+var year = today.getFullYear();
 var month = today.getMonth() + 1;
 var date = today.getDate();
 var hours = today.getHours(); // 시
@@ -92,7 +93,7 @@ function requestPay(storeName, priceResult) {
 			})
 
         } else {
-           alert("결제를 취소하였습니다.")
+			alert(rsp.error_msg);
         }
     });
 }

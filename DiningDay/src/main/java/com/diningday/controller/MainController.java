@@ -57,14 +57,25 @@ public class MainController extends HttpServlet {
 		}
 		
 		if(sPath.equals("/getMainInfo.ma")) {
+			String LOC_NAME = req.getParameter("LOC_NAME");
+			if(LOC_NAME != null && !req.getParameter("LOC_NAME").equals("")) {
+				session.setAttribute("LOC_NAME", LOC_NAME);
+			}
+			
+			Map<String, String> map = new HashMap<String, String>();
+			map.put("LOC_NAME", (String)session.getAttribute("LOC_NAME"));
 			
 			res.setContentType("application/x-json; charset=utf-8");
-			res.getWriter().print(TeamUtil.mapListToJSONList(mainService.getMainInfo(req)));
+			res.getWriter().print(TeamUtil.mapListToJSONList(mainService.getMainInfo(TeamUtil.requestToMap(req, map))));
 		}
 		
 		if(sPath.equals("/searchResult.ma")) {
-			req.setAttribute("searchCount", mainService.searchCount(req));
-			req.setAttribute("searchList", mainService.searchResult(req));
+			Map<String, String> map = new HashMap<String, String>();
+			System.out.println("session : " + (String)session.getAttribute("LOC_NAME"));
+			map.put("LOC_NAME", (String)session.getAttribute("LOC_NAME"));
+			
+			req.setAttribute("searchCount", mainService.searchCount(TeamUtil.requestToMap(req, map)));
+			req.setAttribute("searchList", mainService.searchResult(TeamUtil.requestToMap(req, map)));
 			req.setAttribute("searchInput", req.getParameter("searchInput"));
 			
 			dispatcher = req.getRequestDispatcher("Main/search_result.jsp");
@@ -130,7 +141,9 @@ public class MainController extends HttpServlet {
 			res.getWriter().print(result);
 		}
 		
-		
+		if(sPath.equals("/locationSessionDel.ma")) {
+			session.removeAttribute("LOC_NAME");
+		}
 		
 		
 	}

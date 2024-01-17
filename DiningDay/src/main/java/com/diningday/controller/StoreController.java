@@ -85,6 +85,10 @@ public class StoreController extends HttpServlet {
 		}
 
 		if(sPath.equals("/smainIsExist.st")) {
+			Map<String, String> storeDTO = new HashMap<String, String>();
+			storeDTO.put("STORE_NO", (String)session.getAttribute("STORE_NO"));
+			System.out.println(storeDTO);
+			req.setAttribute("STORE_LIST", storeService.storeSelect(storeDTO));
 			
 			
 			dispatcher = req.getRequestDispatcher("Store/smainisExist.jsp");
@@ -101,7 +105,7 @@ public class StoreController extends HttpServlet {
 			}
 			
 			if(bl) {
-				storeDTO = storeService.storeSelect(storeDTO);
+				storeDTO = storeService.ownerSelect(storeDTO);
 			}
 			
 			if(storeDTO.get("STORE_NO").equals("0")) {
@@ -109,6 +113,7 @@ public class StoreController extends HttpServlet {
 				return;
 			}
 			
+			System.out.println(storeDTO);
 			session.setAttribute("STORE_NO", storeDTO.get("STORE_NO"));
 			session.setAttribute("OWN_NO", storeDTO.get("OWN_NO"));
 			

@@ -63,17 +63,24 @@
 					<p style="margin: 0;">
 						<strong style="font-size:18px; vertical-align:middle; padding-right:8px;">${storeInfo.STORE_SCORE}점</strong>
 						<span style="font-size: 13px; color: #66666e; margin-right: 5px;">
-							87명의 평가 !추가 사항
+							${storeInfo.STORE_REVIEW_COUNT}명의 평가
 							<strong style="font-weight: 600; color: #222228;">
 								${storeInfo.STORE_SCORE}점
 							</strong>
 						</span>
 						<span class="gradeGroup">
+						<c:forEach begin="1" end="${fn:split(storeInfo.STORE_SCORE, '.')[0]}">
 							<span class="material-icons grade_icon" style="color: #F7CE3E;">grade</span>
-							<span class="material-icons grade_icon" style="color: #F7CE3E;">grade</span>
-							<span class="material-icons grade_icon" style="color: #F7CE3E;">grade</span>
+						</c:forEach>
+						<c:if test="${fn:split(storeInfo.STORE_SCORE, '.')[1] >= 5}">
 							<span class="material-icons grade_icon" style="color: #F7CE3E;">star_half</span>
-							<span class="material-symbols-outlined grade_icon" style="color: #F7CE3E;">star</span>
+						</c:if>
+						
+						<c:if test="${5 - storeInfo.STORE_SCORE > 0.5}">
+						<c:forEach begin="1" end="${fn:split(5 - storeInfo.STORE_SCORE, '.')[0]}">
+							<span class="material-symbols-outlined grade_icon" style="color: #F7CE3E;">grade</span>
+						</c:forEach>
+						</c:if>
 						</span>
 					</p>
 					<a id="repoertBtn"> 신고하기 </a>
@@ -105,29 +112,31 @@
 				<!-- 영업 시간 -->
 				<div class="busi-hours-today">
 					<p class="tit">영업시간</p>
+				    <div id="BT" class="${storeInfo.STORE_BTS}~${storeInfo.STORE_BTE}" style="display:none;"></div>
 					<ul class="list">
 						<li>
 							<p class="l-txt"> </p>
 							<p class="r-txt">영업시간: ${storeInfo.STORE_ST} ~ ${storeInfo.STORE_ET}</p>
 						</li>
-						<c:if test="${storeInfo.STORE_BTS != '0'}">
-						<li>
-						  <p class="l-txt"> </p>
-						  <p class="r-txt">브레이크타임: ${storeInfo.STORE_BTS} ~ ${storeInfo.STORE_BTE}</p>
-						  <div id="BT" class="${storeInfo.STORE_BTS}~${storeInfo.STORE_BTE}" style="display:none;"></div>
-						</li>
-						</c:if>
+				        <c:if test="${storeInfo.STORE_BTS != '00:00'}">
+						  <li>
+						    <p class="l-txt"> </p>
+						    <p class="r-txt">브레이크타임: ${storeInfo.STORE_BTS} ~ ${storeInfo.STORE_BTE}</p>
+						  </li>
+				        </c:if>
+              			<c:if test="${storeInfo.STORE_LO != '0'}">
               			<li>
   							<p class="l-txt"> </p>
   							<p class="r-txt">라스트오더: ${storeInfo.STORE_LO}</p>
 						</li>
+              			</c:if>
+						<c:if test="${storeInfo.STORE_CLOSE != '0'}" >
 						<li>
-							<c:if test="${storeInfo.STORE_CLOSE != '0'}" >
 							<p class="l-txt"> </p>
 							<p class="r-txt"><strong>정기 휴무:</strong> ${storeInfo.STORE_CLOSE}</p>
 							<div id="close" class="${storeInfo.STORE_CLOSE}" style="display:none;"></div>
-							</c:if>
 						</li>
+						</c:if>
 					</ul>
 				</div>
 				<!-- 메뉴 -->
@@ -173,7 +182,6 @@ ${storeInfo.STORE_INFO}
 											<ul>
 												<li name="minPeople" class="${table.SEAT_MIN}">최소인원: ${table.SEAT_MIN}명</li>
 												<li name="maxPeople" class="${table.SEAT_MAX}">최대인원: ${table.SEAT_MAX}명</li>
-												<li>이용 시간: ${table.SEAT_USETIME}시간</li>
 												<li>${table.SEAT_CONTENT}</li>
 											</ul>
 										</div>

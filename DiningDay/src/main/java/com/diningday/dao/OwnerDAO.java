@@ -18,14 +18,21 @@ public class OwnerDAO {
 	private SqlSessionFactory sqlSessionFactory = SqlMapClient.getSqlSessionFactory();
 	SqlSession session;
 
+	public boolean idCheck(String OWN_ID) {
+		session = sqlSessionFactory.openSession();
+		Map<String, String> idCheck = session.selectOne("Owner.idCheck", OWN_ID);
+		session.close();
+		return idCheck != null ? true : false;
+	}
+	
 	public Map<String, String> joinCheck(Map<String, String> ownerDTO) {
 		session = sqlSessionFactory.openSession();
 		Map<String, String> joinCheck =  session.selectOne("Owner.joinCheck", ownerDTO);
-		session.commit();
+		session.close();
 		return joinCheck;
 	}
 	
-	public Boolean insertOwner(Map<String, String> ownerDTO) {
+	public boolean insertOwner(Map<String, String> ownerDTO) {
 		session = sqlSessionFactory.openSession();
 		int insertOwner = session.insert("Owner.insert", ownerDTO); // namespace.id
 		session.commit();
@@ -36,28 +43,25 @@ public class OwnerDAO {
 	public Map<String, String> ownerCheck(Map<String, String> ownerDTO) {
 		session = sqlSessionFactory.openSession();
 		Map<String, String> ownerCheck =  session.selectOne("Owner.ownerCheck", ownerDTO);
-		
-		session.commit();
 		session.close();
-
 		return ownerCheck;
 	}
 
 	public Map<String, String> authCheck(Map<String, String> ownerDTO) {
 		session = sqlSessionFactory.openSession();
 		Map<String, String> authCheck =  session.selectOne("Owner.authCheck", ownerDTO);
-		session.commit();
+		session.close();
 		return authCheck;
 	}
 
 	public Map<String, String> authPwCheck(Map<String, String> ownerDTO) {
 		session = sqlSessionFactory.openSession();
 		Map<String, String> authPwCheck =  session.selectOne("Owner.authPwCheck", ownerDTO);
-		session.commit();
+		session.close();
 		return authPwCheck;
 	}
 	
-	public Boolean newPw(Map<String, String> ownerDTO) {
+	public boolean newPw(Map<String, String> ownerDTO) {
 		session = sqlSessionFactory.openSession();
 		int customerEdit = session.update("Owner.newPw", ownerDTO);
 		session.commit();

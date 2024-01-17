@@ -50,7 +50,7 @@
 			disable_keyboard_mobile: false,
 			reset: false,
 			on_change: null,
-      			input_writable: false
+      		input_writable: false
 		};
 
 		var settings = $.extend({}, defaults, options);

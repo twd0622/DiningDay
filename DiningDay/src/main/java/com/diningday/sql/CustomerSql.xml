@@ -6,15 +6,16 @@
 	
 	<insert id="insert" parameterType="map">
 		insert into CUSTOMER
-			( CUS_NO    ,
-			  CUS_ID    ,
-			  CUS_NAME  ,
-			  CUS_BIRTH ,
-			  CUS_TEL   ,
-			  CUS_EMAIL ,
-			  CUS_GENDER,
-			  CUS_NICK  ,
-			  CUS_DATE)  
+			( CUS_NO    
+			  , CUS_ID    
+			  , CUS_NAME  
+			  , CUS_BIRTH 
+			  , CUS_TEL  
+			  , CUS_EMAIL 
+			  , CUS_GENDER
+			  , CUS_NICK  
+			  , CUS_DATE
+			  , CUS_IMAGE)  
 		values
 			(CONCAT('CU', ( select *             
 				from (select ifnull(max(cast(trim(leading 'CU' from CUS_NO) as unsigned)), 0) + 1
@@ -28,36 +29,42 @@
 			, CONCAT('CU', ( select *             
 				from (select ifnull(max(cast(trim(leading 'CU' from CUS_NO) as unsigned)), 0) + 1
 					  from CUSTOMER ) A ))
-			, DATE_FORMAT(SYSDATE(), '%Y%m%d%H%i%s'));
+			, DATE_FORMAT(SYSDATE(), '%Y%m%d%H%i%s')
+			, 'profile.png');
 	</insert>
 	
 	<select id="searchId" parameterType="map" resultType="map">
-		select CUS_NO, 
-			   CUS_ID, 
-			   CUS_EMAIL, 
-			   CUS_NICK
+		select CUS_NO
+			   , CUS_ID 
+			   , CUS_EMAIL 
+			   , CUS_NICK
+			   , CUS_IMAGE
 		from CUSTOMER
 		where CUS_ID = #{CUS_ID};
 	</select>
 		
 	<select id="getReservation" parameterType="String" resultType="map">
-		SELECT R.RES_NO
-  			 , CONCAT(DATE_FORMAT(CAST(R.RES_DATE AS date), '%Y년 %m월 %d일 '), DATE_FORMAT(CAST(R.RES_TIME AS time), '%H:%i')) "RES_DATE"
+		SELECT P.MERCHANT_UID
+  			 , CONCAT(DATE_FORMAT(CAST(R.RES_DATE AS date), '%Y년 %m월 %d일 '), DATE_FORMAT(CAST(R.RES_TIME AS time), '%i:%s')) "RES_DATE"
 			 , R.RES_PEOPLE
 			 , R.REQ_STATE
 			 , ST.STORE_NAME
 			 , SE.SEAT_NAME
+			 , R.RES_NO
 		FROM RESERVATION R JOIN STORE ST
 			 ON R.STORE_NO = ST.STORE_NO
 		 	 JOIN SEAT SE
 			 ON (R.SEAT_NO, R.STORE_NO) = (SE.SEAT_NO, SE.STORE_NO)
-		WHERE R.CUS_NO = #{CUS_NO};
+			 JOIN PAYMENT P
+             ON R.RES_NO = P.RES_NO
+		WHERE R.CUS_NO = #{CUS_NO}
+		ORDER BY RES_DATE DESC;
 	</select>
 	
 	<select id="reservationModal" parameterType="String" resultType="map">
 		SELECT 
-		       CONCAT('예약번호 : ', R.RES_NO) "RES_NO"
-		     , CONCAT(DATE_FORMAT(CAST(R.RES_DATE AS date), '%Y년 %m월 %d일 '), DATE_FORMAT(CAST(R.RES_TIME AS time), '%H:%i')) "RES_DATE"
+			   P.MERCHANT_UID
+		     , CONCAT(DATE_FORMAT(CAST(R.RES_DATE AS date), '%Y년 %m월 %d일 '), DATE_FORMAT(CAST(R.RES_TIME AS time), '%i:%s')) "RES_DATE"
 			 , R.CUS_NAME
 			 , CONCAT(LEFT(R.CUS_TEL, 3),'-',SUBSTR(R.CUS_TEL,4,4),'-',RIGHT(R.CUS_TEL, 4)) "CUS_TEL"
 			 , R.RES_REQ
@@ -92,14 +99,15 @@
 	</select>
 	
 	<select id="getCustomer" parameterType="String" resultType="map">
-		select CUS_NO    ,
-			  CUS_ID    ,
-			  CUS_NAME  ,
-			  CAST(CUS_BIRTH AS date) CUS_BIRTH,
-			  CUS_TEL   ,
-			  CUS_EMAIL ,
-			  CUS_GENDER,
-			  CUS_NICK
+		select CUS_NO    
+			  , CUS_ID    
+			  , CUS_NAME  
+			  , CAST(CUS_BIRTH AS date) CUS_BIRTH
+			  , CUS_TEL   
+			  , CUS_EMAIL 
+			  , CUS_GENDER
+			  , CUS_NICK
+			  , CUS_IMAGE
 		from CUSTOMER
 		where CUS_NO = #{CUS_NO};
 	</select>
@@ -111,21 +119,14 @@
 				, CUS_TEL 	= #{CUS_TEL}
 				, CUS_EMAIL = #{CUS_EMAIL}
 				, CUS_BIRTH = replace(cast(#{CUS_BIRTH} as char), "-", "")
-				, CUS_GENDER= #{CUS_GENDER}
 				, CUS_REDATE= DATE_FORMAT(SYSDATE(), '%Y%m%d%H%i%s')
+				, CUS_IMAGE = #{CUS_IMAGE}
 		where	CUS_NO = #{CUS_NO};
 	</update>
 	
 	<select id="customerCheck" parameterType="map" resultType="map">
-		select CUS_NO    ,
-			   CUS_ID    ,
-			   CUS_NAME  ,
-			   CUS_BIRTH ,
-			   CUS_TEL   ,
-			   CUS_EMAIL ,
-			   CUS_GENDER,
-			   CUS_NICK  ,
-			   CUS_DATE
+		select CUS_NO    
+			   , CUS_EMAIL
 		from CUSTOMER
 		where CUS_EMAIL=#{CUS_EMAIL}
 		and CUS_NO=#{CUS_NO};

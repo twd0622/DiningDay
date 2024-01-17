@@ -37,6 +37,8 @@ $(() => {
 	saveStore;				//	식당 정보 저장 (text)
 	saveStoreOpen;			//	영업시간, 휴무시간 컨트롤
 	thumbnail_banner();		//	썸네일, 배너 사진 컨트롤
+	search_address;			//	주소 검색
+	
 	
 	$("input[type=button]").on("click", function(){
 		var index = ($(this).attr("id")).split("_")[1];
@@ -47,7 +49,6 @@ $(() => {
 		$($("div[name=storeBold]")[i]).css(variable.borderlist);
 	}
 	
-//	$("#totalInsert").prop("disabled", true);
 	paging("main .storePaging", 1, 0);
 	
 	$("#totalInsert").on("click", function(){
@@ -159,9 +160,11 @@ var saveStore = $("#saveStore").on("click", function(){
 		
 		return value;  
 	})
-
+	
+//	inputValue = addressValue;
+	
 	selectValue = $(this).closest("div[name=storeBold]").find("select option:selected").val(function(i, value){
-		
+
 		if(value === '') return;
 		return value;
 	})
@@ -188,15 +191,18 @@ var saveStore = $("#saveStore").on("click", function(){
 	                   .prop("readonly", variable.valid);
 	$(currentTargetTag).find("select")
 					   .prop("disabled", variable.valid);
+	$("#member_post").prop("disabled", variable.valid);
 	
 	if(variable.valid){
+		
+//		$("#STORE_DATA").find("input[name=STORE_LOCATION]").val(inputValue);
 		
 		for(var i = 0; i < textareaValue.length; i++){
 			$($("#STORE_DATA").find("input[type=text]")[i]).val($($(textareaValue)[i]).val());	
 		}
 
 		for(var i = 0; i < selectValue.length; i++){
-			$($("#STORE_DATA").find("input[type=text]")[i + 7]).val($($(selectValue)[i]).val());	
+			$($("#STORE_DATA").find("input[type=text]")[i + 6]).val($($(selectValue)[i]).val());	
 		}
 	}
 	
@@ -422,3 +428,34 @@ var timePicker = function(){
 }
 
 var validCheckArray = [false, false, false, false, true, false, false, false];
+
+var addressValue = $("#member_addr").val();
+
+var search_address = $("#member_post").on("click", function (){
+
+		new daum.Postcode({
+	        oncomplete: function(data) {
+	        	
+	        	console.log(data);
+	        	
+	            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+	            // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
+	            // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+	            var roadAddr = data.roadAddress; // 도로명 주소 변수
+ 	            var jibunAddr = data.jibunAddress; // 지번 주소 변수
+	            // 우편번호와 주소 정보를 해당 필드에 넣는다. 
+	            if(roadAddr != ''){
+					roadAddr = data.jibunAddress;
+					$("#member_addr").val(roadAddr);
+				}
+	            
+	            if(jibunAddr !== ''){
+	                addressValue = jibunAddr;
+	                $("#member_addr").val(addressValue);
+	            } 
+// 	            else if(jibunAddr !== ''){
+// 	                document.getElementById("member_addr").value = jibunAddr;
+// 	            }
+	        }
+	    }).open();
+	})

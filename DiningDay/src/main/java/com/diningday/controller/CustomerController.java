@@ -19,6 +19,8 @@ import javax.servlet.http.HttpSession;
 import com.diningday.service.CustomerService;
 import com.diningday.util.TeamUtil;
 import com.google.gson.JsonArray;
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 public class CustomerController extends HttpServlet {
 	RequestDispatcher dispatcher = null;
@@ -48,23 +50,20 @@ public class CustomerController extends HttpServlet {
 		
 		if(sPath.equals("/loginPro.cu")) {
 			boolean result = false;
-			System.out.println("req: " + req.toString());
 			Map<String, String> searchId = customerService.searchId(req);
 			
-			// req id 값이 db에 있는 회원인지
 			if(searchId == null || searchId.isEmpty()) {
-				// 없으면 자동 회원가입 후 메인
 				System.out.println("첫 회원가입 고객");
 				result = customerService.insertCustomer(req);
 				searchId = customerService.searchId(req);
 			} else {
-				// 있으면 그냥 세션값 넣고 메인
 				System.out.println("이미 가입한 고객");
 				result = true;
 			}
 			if(result) {
 				session.setAttribute("CUS_NO", searchId.get("CUS_NO"));
 				session.setAttribute("CUS_NICK", searchId.get("CUS_NICK"));
+				session.setAttribute("CUS_IMAGE", searchId.get("CUS_IMAGE"));
 				session.setAttribute("date", LocalDate.now().format(DateTimeFormatter.ofPattern("YYYY-MM-dd")));
 				session.setAttribute("people", "2");
 				res.sendRedirect("main.ma");
@@ -104,11 +103,12 @@ public class CustomerController extends HttpServlet {
 		}	
 		
 		
-		if(sPath.equals("/cus_editPro.cu")) {			
+		if(sPath.equals("/cus_editPro.cu")) {	
 			Map<String, String> param = new HashMap<String, String>();
 			param.put("CUS_NO", session.getAttribute("CUS_NO").toString());
 			req.setAttribute("customerEdit", customerService.customerEdit(req, param));
 			session.setAttribute("CUS_NICK", req.getParameter("CUS_NICK"));
+			session.setAttribute("CUS_IMAGE", req.getParameter("CUS_IMAGE"));
 			res.sendRedirect("mypage.cu");
 		}
 		

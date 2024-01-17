@@ -12,7 +12,7 @@ public class CustomerDAO {
 	private SqlSessionFactory sqlSessionFactory = SqlMapClient.getSqlSessionFactory();
 	SqlSession session;
 	
-	public Boolean insertCustomer(Map<String, String> customerDTO) {
+	public boolean insertCustomer(Map<String, String> customerDTO) {
 		session = sqlSessionFactory.openSession();
 		int insertCustomer = session.insert("Customer.insert", customerDTO); // namespace.id
 		session.commit();
@@ -34,7 +34,7 @@ public class CustomerDAO {
 		return customerInfo;
 	}
 
-	public Boolean customerEdit(Map<String, String> customerDTO) {
+	public boolean customerEdit(Map<String, String> customerDTO) {
 		session = sqlSessionFactory.openSession();
 		int customerEdit = session.update("Customer.customerEdit", customerDTO);
 		session.commit();
@@ -90,7 +90,7 @@ public class CustomerDAO {
 		return menuModal;
 	}
 
-	public Boolean insertEx(Map<String, String> customerCheck) {
+	public boolean insertEx(Map<String, String> customerCheck) {
 		session = sqlSessionFactory.openSession();
 		int result = session.delete("Customer.insertEx", customerCheck);
 		session.commit();
