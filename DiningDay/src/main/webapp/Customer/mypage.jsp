@@ -55,7 +55,10 @@
 	                			<c:if test="${reservationInfo.REQ_STATE eq '2'}">
 		                			<td style="vertical-align: middle; color: green;" rowspan="2" width="40px"><b>방문완료</b></td>
 		                			<td class="align-middle" rowspan="2" width="20px">
-		                				<button type="button" class="btn btn-outline-warning" onclick="location.href='reviewWrite.re?STORE_NAME=${reservationInfo.STORE_NAME}&RES_NO=${reservationInfo.RES_NO}'">작성하기</button>
+		                				<c:if test="${empty reservationInfo.REV_NO}">
+		                					<button onclick="location.href='reviewWrite.re?STORE_NAME=${reservationInfo.STORE_NAME}&RES_NO=${reservationInfo.RES_NO}'"
+		                							type="button" class="btn btn-outline-warning">작성하기</button>
+		                				</c:if>
 		                				</td>
 	                			</c:if>	
 	                			<c:if test="${reservationInfo.REQ_STATE eq '1'}">
@@ -181,7 +184,7 @@
             <div class="d-flex flex-column align-items-center text-center p-3 py-5 mt-5">
             <h4>고객 정보</h4>
             <c:set var="customerInfo" value="${requestScope.customerInfo}"/>
-           	 <img class="rounded-circle mt-5 mb-3" id="profileImage" src="Customer/profile/${customerInfo.CUS_IMAGE}">
+           	 <img class="rounded-circle mt-5 mb-3" id="profileImage" src="upload/${customerInfo.CUS_IMAGE}">
             	<span class="font-weight-bold">${customerInfo.CUS_NICK}</span>
 			<button type="submit" class="btn btn-primary btn-block mt-5" onclick="location.href='cus_edit.cu'"
   		  		    id="myBtn">고객 정보 수정하기</button>

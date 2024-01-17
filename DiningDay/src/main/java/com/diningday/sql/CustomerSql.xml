@@ -51,12 +51,15 @@
 			 , ST.STORE_NAME
 			 , SE.SEAT_NAME
 			 , R.RES_NO
+			 , V.REV_NO
 		FROM RESERVATION R JOIN STORE ST
 			 ON R.STORE_NO = ST.STORE_NO
 		 	 JOIN SEAT SE
 			 ON (R.SEAT_NO, R.STORE_NO) = (SE.SEAT_NO, SE.STORE_NO)
 			 JOIN PAYMENT P
              ON R.RES_NO = P.RES_NO
+             LEFT JOIN REVIEW V
+			 ON R.RES_NO = V.RES_NO
 		WHERE R.CUS_NO = #{CUS_NO}
 		ORDER BY RES_DATE DESC;
 	</select>
@@ -97,20 +100,6 @@
 		ON    R.RES_NO = RM.RES_NO
 		WHERE R.RES_NO = #{RES_NO};
 	</select>
-	
-	
-	
-		<select id="리뷰!!!!!!!!!!!!!!!!!!!!!!!!!!" parameterType="String" resultType="map">	
-		SELECT 
-			   RM.MENU_NAME
-			  , CONCAT(RM.MENU_COUNT, '개') "MENU_COUNT"
-			  , CONCAT(format(RM.PAID_PRICE, 0), '원') "PAID_PRICE"
-		FROM  RESERVATION R JOIN RESERVATION_MENU RM
-		ON    R.RES_NO = RM.RES_NO
-		WHERE R.RES_NO = #{RES_NO};
-	</select>
-	
-	
 	
 	<select id="getCustomer" parameterType="String" resultType="map">
 		select CUS_NO    

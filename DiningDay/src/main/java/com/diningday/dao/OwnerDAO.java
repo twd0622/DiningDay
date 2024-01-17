@@ -68,10 +68,5 @@ public class OwnerDAO {
 		session.close();
 		return customerEdit > 0 ? true : false;
 	}
-	
-	
-	
-	
-	
-	
+
 }

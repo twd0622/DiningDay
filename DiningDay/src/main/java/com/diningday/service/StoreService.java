@@ -87,4 +87,18 @@ public class StoreService {
 	}
 	
 	// -------------------여기 까지 s_review-------------------------------------------------------
+
+	
+	//	01/17_강현아 + 점주 정보 저장 및 수정
+
+	public Map<String, String> getOwner(String OWN_NO) {
+		return storeDAO.getOwner(OWN_NO);
+	}
+
+	public boolean ownerEdit(HttpServletRequest req, Map<String, String> param) {
+		Map<String, String> ownerDTO = TeamUtil.requestToMap(req, param);
+		return storeDAO.ownerEdit(ownerDTO);
+	}
+	
+	
 }
