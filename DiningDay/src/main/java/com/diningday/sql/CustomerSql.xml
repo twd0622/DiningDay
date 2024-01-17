@@ -98,6 +98,20 @@
 		WHERE R.RES_NO = #{RES_NO};
 	</select>
 	
+	
+	
+		<select id="리뷰!!!!!!!!!!!!!!!!!!!!!!!!!!" parameterType="String" resultType="map">	
+		SELECT 
+			   RM.MENU_NAME
+			  , CONCAT(RM.MENU_COUNT, '개') "MENU_COUNT"
+			  , CONCAT(format(RM.PAID_PRICE, 0), '원') "PAID_PRICE"
+		FROM  RESERVATION R JOIN RESERVATION_MENU RM
+		ON    R.RES_NO = RM.RES_NO
+		WHERE R.RES_NO = #{RES_NO};
+	</select>
+	
+	
+	
 	<select id="getCustomer" parameterType="String" resultType="map">
 		select CUS_NO    
 			  , CUS_ID    
