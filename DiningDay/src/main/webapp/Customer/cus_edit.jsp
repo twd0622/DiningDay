@@ -20,7 +20,7 @@
 	<div class="row">
 		<div class="col-md-3 border-right">
 			<div class="d-flex flex-column align-items-center text-center p-3 py-5">
-				<img class="rounded-circle mt-5 mb-3" id="profileImage" src="Customer/profile/${customerInfo.CUS_IMAGE}">
+				<img class="rounded-circle mt-5 mb-3" id="profileImage" src="upload/${customerInfo.CUS_IMAGE}">
 				<span class="font-weight-bold">${customerInfo.CUS_NICK}</span>
 				<span class="text-black-50">${customerInfo.CUS_EMAIL}</span>
             </div>
@@ -63,7 +63,7 @@
 						<i class="fa fa-plus"></i>&nbsp;사진 선택</button>
 						<input type="file" name="CUS_IMAGE" id="CUS_IMAGE" onchange="setThumbnail(event);" hidden=""/>
 						<div class="align-items-center text-center" id="image_container">
-							<img class="rounded-circle mb-3"name="CUS_IMAGE" id="newImage" src="Customer/profile/${customerInfo.CUS_IMAGE}">
+							<img class="rounded-circle mb-3"name="CUS_IMAGE" id="newImage" src="upload/${customerInfo.CUS_IMAGE}">
 						</div><br>
 					</div>
 				</div>

@@ -121,4 +121,23 @@ public class StoreDAO {
 		return insertMenu > 0 ? true : false;
 	}
 	
+// 01/17_강현아 + 점주 정보 저장 및 수정
+
+	public Map<String, String> getOwner(String OWN_NO) {
+		session = sqlSessionFactory.openSession();
+		Map<String, String> getOwner = session.selectOne("Store.getOwner", OWN_NO);
+		session.close();
+		return getOwner;
+	}
+
+	public boolean ownerEdit(Map<String, String> ownerDTO) {
+		session = sqlSessionFactory.openSession();
+		int ownerEdit = session.update("Store.ownerEdit", ownerDTO);
+		System.out.println("ownerEdit: " + ownerEdit);
+		session.commit();
+		session.close();
+		return ownerEdit > 0 ? true : false;
+	}
+	
+	
 }

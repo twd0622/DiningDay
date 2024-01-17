@@ -131,11 +131,6 @@ public class StoreController extends HttpServlet {
 		
 //		---------------------------------------------------------------------------------------------
 		
-		if(sPath.equals("/info_update.st")) {
-			dispatcher = req.getRequestDispatcher("Store/info_update.jsp");
-			dispatcher.forward(req, res);
-		}
-		
 		if(sPath.equals("/sRes_control.st")) {
 			dispatcher = req.getRequestDispatcher("Store/sRes_control.jsp");
 			dispatcher.forward(req, res);
@@ -169,5 +164,33 @@ public class StoreController extends HttpServlet {
 		
 		if(sPath.equals("/upload")) {
 		}
+		
+
+//		01/17_강현아 + 점주 정보 저장 및 수정 + 로그아웃
+		
+		if(sPath.equals("/info_update.st")) {
+			String OWN_NO = (String) session.getAttribute("OWN_NO");
+			req.setAttribute("getOwner", storeService.getOwner(OWN_NO));
+			dispatcher = req.getRequestDispatcher("Store/info_update.jsp");
+			dispatcher.forward(req, res);
+		}	
+		
+		
+		if(sPath.equals("/info_updatePro.st")) {	
+			boolean result = false;
+			Map<String, String> param = new HashMap<String, String>();
+			param.put("OWN_NO", session.getAttribute("OWN_NO").toString());
+			result = storeService.ownerEdit(req, param);
+			req.setAttribute("ownerEdit", result);
+			if(result) {
+				res.getWriter().print(result);
+			}
+		}
+		
+		if(sPath.equals("/logout.st")) {
+			session.invalidate();
+			res.sendRedirect("main.ma");
+		}
+		
 	}
 }

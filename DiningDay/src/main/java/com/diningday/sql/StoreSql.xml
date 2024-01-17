@@ -240,6 +240,29 @@
 		 where s.STORE_NO = #{STORE_NO}
 			   ;	
  	</select>
+ 	
+<!-- 01/17_강현아 + 점주 정보 저장 및 수정 -->
+	<select id="getOwner" parameterType="String" resultType="map">
+		select OWN_NO    
+			  , OWN_ID   
+			  , OWN_PW 
+			  , OWN_NAME 
+			  , OWN_TEL   
+			  , OWN_EMAIL 
+			  , OWN_CRN 
+		from OWNER
+		where OWN_NO = #{OWN_NO};
+	</select>	
+	
+	<update id="ownerEdit" parameterType="String">
+		update 	OWNER
+		set		OWN_NAME	= #{OWN_NAME}
+				, OWN_TEL 	= #{OWN_TEL}
+				, OWN_EMAIL = #{OWN_EMAIL}
+				, OWN_REDATE= DATE_FORMAT(SYSDATE(), '%Y%m%d%H%i%s')
+		where	OWN_NO = #{OWN_NO};
+	</update>	
+	 	
 </mapper>
 
 

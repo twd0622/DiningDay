@@ -101,6 +101,5 @@
  		set OWN_PW = #{OWN_PW}
  		where OWN_ID = #{OWN_ID}; 
 	</update>
-	
-	
+
 </mapper>
