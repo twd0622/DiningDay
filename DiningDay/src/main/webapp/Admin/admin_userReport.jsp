@@ -77,17 +77,15 @@
 						<th class="hashtag col-1 align-middle"><a>점주번호</a></th>
 						<th class="user-id col-3"><a>신고 제목</a></th>
 						<th class="hashtag col-1 align-middle"><a>신고일자</a></th>
-						<th class="created-at col-1"> </th>
 					</tr>
 				</thead>
 				<tbody>
 						<c:forEach var="cReport" items="${reviewReport}">
-							<tr class="cRep_no" id="${cReport.CREP_NO}" style="height: 60px;">
-								<td class="title align-middle" onClick="location.href='admin_userReportDetail.ad?CREP_NO=${cReport.CREP_NO}&REV_NO=${cReport.REV_NO}&OWN_NO=${cReport.OWN_NO}'">${cReport.CREP_NO}</td>
-								<td class="hashtag align-middle" onClick="location.href='admin_userReportDetail.ad?CREP_NO=${cReport.CREP_NO}&REV_NO=${cReport.REV_NO}&OWN_NO=${cReport.OWN_NO}'">${cReport.OWN_NO} <br><small>(${cReport.STORE_NAME})</small></td>
-								<td class="created-at col-1 align-middle" onClick="location.href='admin_userReportDetail.ad?CREP_NO=${cReport.CREP_NO}&REV_NO=${cReport.REV_NO}&OWN_NO=${cReport.OWN_NO}'">${cReport.CREP_TITLE}</td>
-								<td class="created-at col-1 align-middle" onClick="location.href='admin_userReportDetail.ad?CREP_NO=${cReport.CREP_NO}&REV_NO=${cReport.REV_NO}&OWN_NO=${cReport.OWN_NO}'">${cReport.DATE}</td>
-								<td class="align-middle"><input type="button" class="delBtn btn btn-outline-danger" value="삭제" ></td>
+							<tr class="cRep_no" id="${cReport.CREP_NO}" style="height: 60px;" onClick="location.href='admin_userReportDetail.ad?CREP_NO=${cReport.CREP_NO}&REV_NO=${cReport.REV_NO}&OWN_NO=${cReport.OWN_NO}'">
+								<td class="title align-middle">${cReport.CREP_NO}</td>
+								<td class="hashtag align-middle">${cReport.OWN_NO} <br><small>(${cReport.STORE_NAME})</small></td>
+								<td class="created-at col-1 align-middle">${cReport.CREP_TITLE}</td>
+								<td class="created-at col-1 align-middle">${cReport.DATE}</td>
 							</tr>
 						</c:forEach>
 				</tbody>

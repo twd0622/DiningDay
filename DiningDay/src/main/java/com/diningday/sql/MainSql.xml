@@ -5,33 +5,15 @@
 <mapper namespace="Main">
 	
 	<select id="getMainInfo" parameterType="map" resultType="map">
-		select 
-			 ST.STORE_NO
-			, STORE_NAME
-			, SUBSTRING_INDEX(STORE_LOCATION, ' ', 2) STORE_LOCATION
-			, STORE_CATEGORY
-			, STORE_DETAIL
-			, ifnull(LIKE_COUNT, '0') LIKE_COUNT
-			, '5.0' STORE_SCORE
-			, '10명' STORE_REVIEW_COUNT
-			, SI.PHOTO_NAME 
-		from STORE ST
-		LEFT JOIN (select STORE_NO, count(STORE_NO) LIKE_COUNT from LIKE_LIST group by STORE_NO) LL
-		ON ST.STORE_NO = LL.STORE_NO
-		LEFT JOIN STORE_IMAGE SI
-		ON ST.STORE_NO = SI.STORE_NO
-		WHERE SI.PHOTO_TYPE = 'SU1'
-		ORDER BY STORE_SCORE DESC, LIKE_COUNT DESC limit 8;
-	</select>
-	
-	<select id="searchList" parameterType="map" resultType="map">
-		 select
+		select
 			    ST.STORE_NO
 		 	  , ST.STORE_NAME
 			  , ST.STORE_CATEGORY
 			  , ST.STORE_DETAIL
-			  , ST.STORE_SCORE
-			  , (select count(LIKE_NO) LIKE_COUNT from LIKE_LIST where STORE_NO = ST.STORE_NO) LIKE_COUNT
+			  , SUBSTRING_INDEX(STORE_LOCATION, ' ', 3) STORE_LOCATION
+			  , R.STORE_SCORE
+  			  , R.STORE_REVIEW_COUNT
+			  , cast((select count(LIKE_NO) LIKE_COUNT from LIKE_LIST where STORE_NO = ST.STORE_NO) as char(30)) LIKE_COUNT
 			  , SI.PHOTO_NAME
 		   from STORE ST
 		   LEFT JOIN (select STORE_NO
@@ -40,9 +22,24 @@
 					   where PHOTO_TYPE='SU1'
 					   group by STORE_NO) SI 
 			 ON ST.STORE_NO = SI.STORE_NO
-		  where STORE_NAME like concat('%',#{searchInput},'%')
+		   LEFT JOIN (select S.STORE_NO
+						   , ifnull(cast(COUNT(R.RES_NO) as char(10)), '0') STORE_REVIEW_COUNT
+				           , ifnull(cast(format(AVG(R.REV_SCORE), 1) as char(10)), '0.0') STORE_SCORE
+						from STORE S
+						left join REVIEW R
+						  ON S.STORE_NO = R.STORE_NO
+					   WHERE S.STORE_NO = S.STORE_NO
+					   GROUP BY S.STORE_NO) R
+		     ON ST.STORE_NO = R.STORE_NO			 
+	      where 1 = 1
+		  <if test="searchInput != '' and searchInput != null">
+		    and (STORE_NAME like concat('%',#{searchInput},'%')
 		     or STORE_CATEGORY like concat('%',#{searchInput},'%')
-			 or STORE_DETAIL like concat('%',#{searchInput},'%')
+			 or STORE_DETAIL like concat('%',#{searchInput},'%'))
+		  </if> 
+	      <if test="LOC_NAME != '' and LOC_NAME != null">
+            and STORE_LOCATION LIKE concat('%', #{LOC_NAME} ,'%')
+	      </if>
 		  ORDER BY STORE_SCORE DESC, LIKE_COUNT DESC;
 	</select>
 	
@@ -74,7 +71,8 @@
 			, ST.STORE_RST	
 			, date_format(timediff(STR_TO_DATE(STORE_RET, '%H%i') , STR_TO_DATE(STORE_RST, "%H%i")), '%H%i') TIEMDIFF	
 			, ST.STORE_CLOSE
-			, ST.STORE_SCORE
+			, R.STORE_SCORE
+			, R.STORE_REVIEW_COUNT
 			, (select count(LIKE_NO) LIKE_COUNT from LIKE_LIST where STORE_NO = ST.STORE_NO) LIKE_COUNT
 			, SI.BA1
 	 	  	, SI.BA2
@@ -84,8 +82,17 @@
 						, MAX(CASE WHEN PHOTO_TYPE = 'BA2' THEN PHOTO_NAME END) AS BA2
 					FROM STORE_IMAGE
 					GROUP BY STORE_NO ) SI
-		   ON ST.STORE_NO = SI.STORE_NO        
-		where ST.STORE_NO = #{STORE_NO};
+		   ON ST.STORE_NO = SI.STORE_NO
+	     LEFT JOIN (select S.STORE_NO
+					     , ifnull(cast(COUNT(R.RES_NO) as char(10)), '0') STORE_REVIEW_COUNT
+					     , ifnull(cast(format(AVG(R.REV_SCORE), 1) as char(10)), '0.0') STORE_SCORE
+					  from STORE S
+				 	  left join REVIEW R
+					    ON S.STORE_NO = R.STORE_NO
+				     WHERE S.STORE_NO = S.STORE_NO
+				     GROUP BY S.STORE_NO) R
+		  ON ST.STORE_NO = R.STORE_NO     
+	   where ST.STORE_NO = #{STORE_NO};
 	</select>
 	
 	<select id="getMenuList" parameterType="map" resultType="map">
@@ -112,7 +119,6 @@
 				  SE.SEAT_NO
 				, SE.STORE_NO
 				, SE.SEAT_NAME
-				, SE.SEAT_USETIME
 				, SE.SEAT_MIN
 				, SE.SEAT_MAX
 				, SE.SEAT_CONTENT
@@ -135,7 +141,6 @@
 			   SEAT_NO
 			 , STORE_NO
 			 , SEAT_NAME
-			 , SEAT_USETIME
 			 , SEAT_MIN
 			 , SEAT_MAX
 			 , SEAT_CONTENT

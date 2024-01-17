@@ -31,7 +31,7 @@
 		<mapper resource="com/diningday/sql/MainSql.xml" />
 		<mapper resource="com/diningday/sql/PaymentSql.xml" />
 		<mapper resource="com/diningday/sql/AdminSql.xml" />
-		<mapper resource="com/diningday/sql/ReportSql.xml" />
+		<mapper resource="com/diningday/sql/Review_ReportSql.xml" />
 	</mappers>
 
 </configuration>

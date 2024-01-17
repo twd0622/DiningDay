@@ -94,13 +94,13 @@
 	
 	<!-- 12/28 ReportController 생성 -->
 	<servlet-mapping>
-		<servlet-name>ReportController</servlet-name>
+		<servlet-name>Review_ReportController</servlet-name>
 		<url-pattern>*.re</url-pattern>
 	</servlet-mapping>
 
 	<servlet>
-		<servlet-name>ReportController</servlet-name>
-		<servlet-class>com.diningday.controller.ReportController</servlet-class>
+		<servlet-name>Review_ReportController</servlet-name>
+		<servlet-class>com.diningday.controller.Review_ReportController</servlet-class>
 	</servlet>
 	
 </web-app>  

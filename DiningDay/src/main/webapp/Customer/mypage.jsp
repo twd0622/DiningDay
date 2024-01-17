@@ -53,9 +53,10 @@
 	                			<td rowspan="2" width="20px">${reservationInfo.RES_DATE}</td>
 	                			<td colspan="2">${reservationInfo.STORE_NAME}</td>
 	                			<c:if test="${reservationInfo.REQ_STATE eq '2'}">
-		                			<td id="REQ_STATE_2" rowspan="2"><b>방문완료</b></td>
-		                			<td rowspan="2" width="20px">
-		                				<button type="button" class="btn btn-outline-warning">작성하기</button></td>
+		                			<td style="vertical-align: middle; color: green;" rowspan="2" width="40px"><b>방문완료</b></td>
+		                			<td class="align-middle" rowspan="2" width="20px">
+		                				<button type="button" class="btn btn-outline-warning" onclick="location.href='reviewWrite.re?STORE_NAME=${reservationInfo.STORE_NAME}&RES_NO=${reservationInfo.RES_NO}'">작성하기</button>
+		                				</td>
 	                			</c:if>	
 	                			<c:if test="${reservationInfo.REQ_STATE eq '1'}">
 	                			    <td id="REQ_STATE_1" rowspan="2"><b>예약취소</b></td>

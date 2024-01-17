@@ -79,6 +79,16 @@ public class StoreDAO {
 		return select;
 	}
 	
+	public Map<String, String> ownerSelect(Map<String, String> dto) {
+		session = sqlSessionFactory.openSession();
+		
+		Map<String, String> select = session.selectOne("Store.ownerSelect", dto); 
+		
+		session.close();
+		
+		return select;
+	}
+	
 	public Map<String, String> storeSelect(Map<String, String> dto) {
 		session = sqlSessionFactory.openSession();
 		

@@ -127,7 +127,6 @@ public class TeamUtil {
 				// 파일
 				while(fileList.hasMoreElements()) {
 					String reqName = fileList.nextElement();
-					System.out.println("@@@@@@@@@@@@@@@@@@@@");
 					System.out.println(multi.getFilesystemName(reqName));
 					dto.put(reqName, multi.getFilesystemName(reqName).split(","));
 				}
@@ -166,7 +165,6 @@ public class TeamUtil {
 		
 		for(Map<String, String> map : MapList) {
 			JsonObject jsonObject = new JsonObject();
-			
 			map.forEach((key, value) ->{
 				jsonObject.addProperty(key, value);
 			});

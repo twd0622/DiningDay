@@ -104,7 +104,7 @@
  	<!--  메뉴 sql 끝 -->
 	
 	<!--  식당 메인 시작 -->
- 	<select id="storeSelect" parameterType="map" resultType="map">
+ 	<select id="ownerSelect" parameterType="map" resultType="map">
  		SELECT STORE_NO, OWN_NO
  		  FROM OWNER
  		 WHERE 1 = 1
@@ -197,6 +197,49 @@
  		 where OWN_NO = #{OWN_NO}
  		       ;              
  	</update>
+ 	
+ 	<select id="storeSelect" parameterType="map" resultType="map">
+		   select 
+				s.STORE_NO
+			  , s.OWN_NO
+		      , s.STORE_NAME
+		      , s.STORE_TEL
+		      , s.STORE_LOCATION
+		      , s.STORE_CATEGORY
+		      , s.STORE_DETAIL
+		      , s.STORE_INFO
+		      , s.STORE_PLUS
+		      , date_format(str_to_date(STORE_ST, '%H%i') , '%h:%i:%p') as "STORE_ST"
+		      , date_format(str_to_date(STORE_ET, '%H%i') , '%h:%i:%p') as "STORE_ET"
+		      , s.STORE_RT
+		      , date_format(str_to_date(STORE_BTS, '%H%i') , '%h:%i:%p') as "STORE_BTS"
+		      , date_format(str_to_date(STORE_BTE, '%H%i') , '%h:%i:%p') as "STORE_BTE"
+		      , s.STORE_LO
+		      , date_format(str_to_date(STORE_RST, '%H%i') , '%h:%i:%p') as "STORE_RST"
+		      , date_format(str_to_date(STORE_RET, '%H%i') , '%h:%i:%p') as "STORE_RET"
+		      , s.STORE_CLOSE
+		      , si.BA1
+		      , si.BA2
+		      , si.SU1
+		      , ifnull(re.REV_SCORE, 0) as "REV_SCORE"
+		  from STORE s
+		  left join (select 
+					STORE_NO
+				  , max(case when PHOTO_TYPE = 'BA1' then PHOTO_NAME end) as "BA1"
+				  , max(case when PHOTO_TYPE = 'BA2' then PHOTO_NAME end) as "BA2"
+				  , max(case when PHOTO_TYPE = 'SU1' then PHOTO_NAME end) as "SU1"
+				  from STORE_IMAGE
+				 group by STORE_NO) si
+			on s.STORE_NO = si.STORE_NO
+		  left join (select 
+					STORE_NO
+				  , avg(REV_SCORE) as "REV_SCORE"
+				  from REVIEW
+		         group by STORE_NO) re
+			on s.STORE_NO = re.STORE_NO
+		 where s.STORE_NO = #{STORE_NO}
+			   ;	
+ 	</select>
 </mapper>
 
 
