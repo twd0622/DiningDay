@@ -4,31 +4,37 @@
 
 <mapper namespace="Owner">
 
+	<select id="idCheck" parameterType="String" resultType="map">
+ 		select OWN_ID
+ 		from  OWNER
+		where OWN_ID=#{OWN_ID};
+	</select>
+
 	<select id="joinCheck" parameterType="map" resultType="map">
- 		select OWN_NO    ,
-			  OWN_ID    ,
-			  OWN_PW  ,
-			  OWN_NAME ,
-			  OWN_TEL   ,
-			  OWN_EMAIL ,
-			  OWN_CRN, 
-			  STORE_NO  ,
-			  OWN_DATE
+ 		select OWN_NO    
+			  , OWN_ID    
+			  , OWN_PW  
+			  , OWN_NAME 
+			  , OWN_TEL   
+			  , OWN_EMAIL 
+			  , OWN_CRN 
+			  , STORE_NO  
+			  , OWN_DATE
  		from  OWNER
 		where OWN_CRN=#{OWN_CRN};
 	</select>
 		
 	<insert id="insert" parameterType="map">
  		insert into OWNER
-			( OWN_NO    ,
-			  OWN_ID    ,
-			  OWN_PW  ,
-			  OWN_NAME ,
-			  OWN_TEL   ,
-			  OWN_EMAIL ,
-			  OWN_CRN, 
-			  STORE_NO  ,
-			  OWN_DATE)  
+			( OWN_NO    
+			 , OWN_ID    
+			 , OWN_PW  
+			 , OWN_NAME 
+			 , OWN_TEL   
+			 , OWN_EMAIL 
+			 , OWN_CRN 
+			 , STORE_NO  
+			 , OWN_DATE)  
 		values
 			(CONCAT('OW', ( select *             
 				from (select ifnull(max(cast(trim(leading 'OW' from OWN_NO) as unsigned)), 0) + 1
@@ -45,45 +51,45 @@
 	
 	
 	<select id="ownerCheck" parameterType="map" resultType="map">
- 		select OWN_NO    ,
-			  OWN_ID    ,
-			  OWN_PW  ,
-			  OWN_NAME ,
-			  OWN_TEL   ,
-			  OWN_EMAIL ,
-			  OWN_CRN, 
-			  STORE_NO  ,
-			  OWN_DATE
+ 		select OWN_NO    
+			  , OWN_ID    
+			  , OWN_PW  
+			  , OWN_NAME 
+			  , OWN_TEL   
+			  , OWN_EMAIL 
+			  , OWN_CRN 
+			  , STORE_NO  
+			  , OWN_DATE
  		from  OWNER
 		where OWN_ID=#{OWN_ID}
 		and   OWN_PW=#{OWN_PW};
 	</select>
 	
 	<select id="authCheck" parameterType="map" resultType="map">
- 		select OWN_NO    ,
-			  OWN_ID    ,
-			  OWN_PW  ,
-			  OWN_NAME ,
-			  OWN_TEL   ,
-			  OWN_EMAIL ,
-			  OWN_CRN, 
-			  STORE_NO  ,
-			  OWN_DATE
+	 	select OWN_NO    
+			  , OWN_ID    
+			  , OWN_PW  
+			  , OWN_NAME 
+			  , OWN_TEL   
+			  , OWN_EMAIL 
+			  , OWN_CRN 
+			  , STORE_NO  
+			  , OWN_DATE
  		from  OWNER
 		where OWN_CRN=#{OWN_CRN}
 		and   OWN_EMAIL=#{OWN_EMAIL};
 	</select>
 	
 	<select id="authPwCheck" parameterType="map" resultType="map">
- 		select OWN_NO    ,
-			  OWN_ID    ,
-			  OWN_PW  ,
-			  OWN_NAME ,
-			  OWN_TEL   ,
-			  OWN_EMAIL ,
-			  OWN_CRN, 
-			  STORE_NO  ,
-			  OWN_DATE
+		select OWN_NO    
+			  , OWN_ID    
+			  , OWN_PW  
+			  , OWN_NAME 
+			  , OWN_TEL   
+			  , OWN_EMAIL 
+			  , OWN_CRN 
+			  , STORE_NO  
+			  , OWN_DATE
  		from  OWNER
 		where OWN_CRN=#{OWN_CRN}
 		and   OWN_ID=#{OWN_ID}
@@ -94,8 +100,6 @@
  		update OWNER
  		set OWN_PW = #{OWN_PW}
  		where OWN_ID = #{OWN_ID}; 
-		
 	</update>
-	
-	
+
 </mapper>

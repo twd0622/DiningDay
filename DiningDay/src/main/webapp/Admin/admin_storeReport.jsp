@@ -19,6 +19,12 @@ $(()=>{
 })
 </script>
 <script src="Admin/js/delBtn.js"></script>
+<script src="Admin/js/storeReport.js"></script>
+<style>
+	.delBtn{
+		z-index: 1;
+	}
+</style>
 </head>
 <!-- main은 속성 값은 왠만하면 건들지x -->
 <main
@@ -78,18 +84,20 @@ $(()=>{
 						<th class="hashtag col-1 align-middle"><a>식당명</a></th>
 						<th class="user-id col-2"><a>신고 제목</a></th>
 						<th class="created-at col-1"><a>신고일자</a></th>
-						<th class="created-at col-1"><a></a></th>
 					</tr>
 				</thead>
 				<tbody>
 						<c:forEach var="sReport" items="${storeReport}">
 							<tr class="sRep_no" id="${sReport.SREP_NO}">
-								<td class="title align-middle" id="td1" onClick="location.href='admin_storeReportDetail.ad?SREP_NO=${sReport.SREP_NO}&CUS_NO=${sReport.CUS_NO}&STORE_NO=${sReport.STORE_NO}'">${sReport.SREP_NO}</td>
-								<td class="hashtag align-middle" id="td1" onClick="location.href='admin_storeReportDetail.ad?SREP_NO=${sReport.SREP_NO}&CUS_NO=${sReport.CUS_NO}&STORE_NO=${sReport.STORE_NO}'">${sReport.STORE_NAME}</td>
-								<td class="user-id align-middle" style="text-align: left;" id="td1" onClick="location.href='admin_storeReportDetail.ad?SREP_NO=${sReport.SREP_NO}&CUS_NO=${sReport.CUS_NO}&STORE_NO=${sReport.STORE_NO}'"> ${sReport.SREP_TITLE}</td>
-								<td class="created-at col-1 align-middle" id="td1" onClick="location.href='admin_storeReportDetail.ad?SREP_NO=${sReport.SREP_NO}&CUS_NO=${sReport.CUS_NO}&STORE_NO=${sReport.STORE_NO}'">${sReport.DATE}</td>
+								<td class="title align-middle">${sReport.SREP_NO}</td>
+								<td style="display: none;" class="CUS_NO" id="${sReport.CUS_NO}"></td>
+								<td style="display: none;" class="STORE_NO" id="${sReport.STORE_NO}"></td>
+								<td class="hashtag align-middle" >${sReport.STORE_NAME}</td>
+								<td class="user-id align-middle" style="text-align: left;" > ${sReport.SREP_TITLE}</td>
+								<td class="created-at col-1 align-middle">${sReport.DATE}</td>
 <%-- 								<td class="align-middle"><a href="admin_storeReportDelete.ad?SREP_NO=${sReport.SREP_NO}" onclick="return confirm('정말 삭제하시겠습니까?');" class="align-middle btn btn-outline-danger">삭제</a></td> --%>
-								<td class="align-middle"><input type="button" class="delBtn btn btn-outline-danger" value="삭제" ></td>
+<!-- 								<td onclick='event.cancelBubble=true;' class="align-middle"><input type="button" class="delBtn btn btn-outline-danger" value="삭제" ></td> -->
+								
 							</tr>
 						</c:forEach>
 				</tbody>

@@ -28,4 +28,12 @@ public class Review_ReportService {
 		
 	}
 
+
+	public String getNick(String CUS_NO) {
+		review_ReportDAO = new Review_ReportDAO();
+		
+		return(review_ReportDAO.getNick(CUS_NO));
+		
+	}
+
 }

@@ -10,11 +10,19 @@ import com.diningday.util.TeamUtil;
 public class OwnerService {
 	OwnerDAO ownerDAO = new OwnerDAO();
 	
+	public boolean idCheck(String OWN_ID) {
+		boolean result = ownerDAO.idCheck(OWN_ID);
+		return result;
+	}
+	
+	public Map<String, String> joinCheck(HttpServletRequest req) {
+		Map<String, String> ownerDTO = TeamUtil.requestToMap(req);
+		return ownerDAO.joinCheck(ownerDTO);
+	}
+
 	public boolean insertOwner(HttpServletRequest req) {
 		Map<String, String> ownerDTO = TeamUtil.requestToMap(req);
-		
 		boolean result = ownerDAO.insertOwner(ownerDTO);
-		
 		return result;
 	}
 
@@ -22,12 +30,6 @@ public class OwnerService {
 		Map<String, String> ownerDTO = TeamUtil.requestToMap(req);
 		
 		return ownerDAO.ownerCheck(ownerDTO);
-	}
-
-	public Map<String, String> joinCheck(HttpServletRequest req) {
-		Map<String, String> ownerDTO = TeamUtil.requestToMap(req);
-		
-		return ownerDAO.joinCheck(ownerDTO);
 	}
 
 	public Map<String, String> authCheck(HttpServletRequest req) {
@@ -41,9 +43,8 @@ public class OwnerService {
 	}
 	
 	public boolean newPw(HttpServletRequest req, Map<String, String> param) {
-		Map<String, String> customerDTO = TeamUtil.requestToMap(req, param);
-		return ownerDAO.newPw(customerDTO);
+		Map<String, String> ownerDTO = TeamUtil.requestToMap(req, param);
+		return ownerDAO.newPw(ownerDTO);
 	}
-	
 
 }

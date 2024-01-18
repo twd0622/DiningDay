@@ -21,7 +21,7 @@
 				<h1 class="fw-bold mb-0 fs-2">아이디 찾기</h1>
 			</div>
 			<div class="modal-body p-5 pt-0">
-				<form action="search_idPro.ow" method="post" name="searchId">
+				<form action="search_idPro.ow" method="post" name="searchForm">
 					<c:set var="searchInfo" value="${requestScope.authCheck}"/>
 					<div class="form-outline mb-4">
 					  	<div><label>사업자번호</label></div>
@@ -34,7 +34,7 @@
 					<button type="submit" class="btn btn-primary btn-block mb-4" id="sendBtn">인증번호 받기</button>
 					<div class="form-outline mb-4">
 						<div> <label>인증번호</label></div>
-						<input type="text" name="idCode" id="idCode" class="form-control">
+						<input type="text" name="authCode" id="authCode" class="form-control">
 					</div>
 					<button type="button" class="btn btn-primary btn-block mb-4" id="authBtn">다음</button>
          
@@ -61,39 +61,13 @@
 	</div>	
 </div>
 <script>
-// 아이디 찾기 모달
-var authModal = document.getElementById("authModal");
-var authBtn = document.getElementById("authBtn");
-var authSpan = document.getElementsByClassName("auth-close")[0];
-var authOk = document.getElementById("authOk");
-var AuthNumber = '<%=(String)session.getAttribute("AuthNumber")%>';
- 
-let inputs = document.searchId;
-
-authBtn.onclick = function() {
-	if(!inputs.idCode.value) {        // 입력하지 않았을 때
-		alert("인증번호를 입력하세요.");
-		authmodal.style.display = "none";
-	} else if(AuthNumber != inputs.idCode.value){   // 값이 틀렸을 때 
-		alert("입력한 인증번호가 틀렸습니다. 다시 확인해 주십시오.");
-		authmodal.style.display = "none";
-	} else {
-		authModal.style.display = "block";
-		<%
-			session.removeAttribute("AuthNumber");
-			session.removeAttribute("authCheck");
-		%>
-	}
-}
-
-authSpan.onclick = function() {
-	authModal.style.display = "none";
-}
-authOk.onclick = function() {
-	authModal.style.display = "none";
-	location.href="owner_login.ow";
-}
+	var AuthNumber = '<%=(String)session.getAttribute("AuthNumber")%>';
 </script>
+<script src="Owner/js/search.js"></script>
+<%
+	session.removeAttribute("AuthNumber");
+	session.removeAttribute("authCheck");
+%>
 </main>
 <%@ include file="/Template/footer.jsp"%> 
 

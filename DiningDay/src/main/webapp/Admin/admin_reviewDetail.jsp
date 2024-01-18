@@ -53,38 +53,6 @@
 		<hr>
 			<table class="table table-hover" id="article-table">
 				<tbody>
-					<tr>
-						<th class="title align-middle table-success"><a>작성자</a></th>
-						<td class="user-id align-middle text-center"
-							style="text-align: left;">${reviewList.CUS_NICK}</td>
-					</tr>
-					<tr>
-						<th class="title align-middle table-success"><a></a></th>
-						<td class="user-id align-middle text-center"
-							style="text-align: left;">${reviewList.REV_SCORE}</td>
-					</tr>
-					<tr>
-						<th class="title align-middle table-success"><a>작성일자</a></th>
-						<td class="user-id align-middle text-center"
-							style="text-align: left;">${reviewList.REV_DATE}</td>
-					</tr>
-					<tr>
-						<th class="title align-middle table-success"><a>파일첨부</a></th>
-						<td class="user-id align-middle text-center"
-							style="text-align: left;">${reviewList.REV_IMAGE}</td>
-					</tr>
-					<tr style="height: 150px;">
-						<th class="title align-middle table-success col-3"><a>리뷰 내용</a></th>
-						<td class="user-id align-middle text-center"
-							style="text-align: left;">${reviewList.REV_CONTENT}</td>
-					</tr>
-				</tbody>
-			</table>
-			<hr>
-			<p style="text-align: center;"><b>식당 답글내용</b></p>
-			<hr>
-			<table class="table table-hover" id="article-table">
-				<tbody>
 				<c:set var="cRepDetail" value="${ requestScope.cRepDetail }"/>
 					<tr>
 						<th class="title align-middle table-warning"><a>리뷰 번호</a></th>
@@ -128,6 +96,38 @@
 						<th class="title align-middle table-warning col-3"><a>리뷰 내용</a></th>
 						<td class="user-id align-middle text-center"
 							style="text-align: left;">${cRepDetail.REV_CONTENT}</td>
+					</tr>
+				</tbody>
+			</table>
+			<hr>
+			<p style="text-align: center;"><b>식당 답글내용</b></p>
+			<hr>
+			<table class="table table-hover" id="article-table">
+				<tbody>
+					<tr>
+						<th class="title align-middle table-success"><a>작성자</a></th>
+						<td class="user-id align-middle text-center"
+							style="text-align: left;">${reviewList.CUS_NICK}</td>
+					</tr>
+					<tr>
+						<th class="title align-middle table-success"><a></a></th>
+						<td class="user-id align-middle text-center"
+							style="text-align: left;">${reviewList.REV_SCORE}</td>
+					</tr>
+					<tr>
+						<th class="title align-middle table-success"><a>작성일자</a></th>
+						<td class="user-id align-middle text-center"
+							style="text-align: left;">${reviewList.REV_DATE}</td>
+					</tr>
+					<tr>
+						<th class="title align-middle table-success"><a>파일첨부</a></th>
+						<td class="user-id align-middle text-center"
+							style="text-align: left;">${reviewList.REV_IMAGE}</td>
+					</tr>
+					<tr style="height: 150px;">
+						<th class="title align-middle table-success col-3"><a>리뷰 내용</a></th>
+						<td class="user-id align-middle text-center"
+							style="text-align: left;">${reviewList.REV_CONTENT}</td>
 					</tr>
 				</tbody>
 			</table>

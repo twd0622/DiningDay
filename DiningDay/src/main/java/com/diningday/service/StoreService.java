@@ -2,6 +2,7 @@ package com.diningday.service;
 
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -82,4 +83,29 @@ public class StoreService {
 	public boolean seatInsert(HttpServletRequest req) {
 		return storeDAO.seatInsert(TeamUtil.fileRequestToMap(req));
 	}
+	// ----------------- 01/17 준우 작성 건들 ㄴㄴ -------------------------------------------------
+	public List<Map<String, String>> getReviewList(Map<String, String> reviewDTO) {
+		return storeDAO.getReviewList(reviewDTO);
+		
+	}
+
+	public Map<String, String> answerInsert(Map<String, String> answerDTO) {
+		return storeDAO.answerInsert(answerDTO);
+	}
+	
+	// -------------------여기 까지 s_review-------------------------------------------------------
+
+	
+	//	01/17_강현아 + 점주 정보 저장 및 수정
+
+	public Map<String, String> getOwner(String OWN_NO) {
+		return storeDAO.getOwner(OWN_NO);
+	}
+
+	public boolean ownerEdit(HttpServletRequest req, Map<String, String> param) {
+		Map<String, String> ownerDTO = TeamUtil.requestToMap(req, param);
+		return storeDAO.ownerEdit(ownerDTO);
+	}
+	
+	
 }

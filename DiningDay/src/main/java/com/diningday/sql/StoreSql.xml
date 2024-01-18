@@ -299,7 +299,75 @@
  	 			;			
  	</insert>
  	
-<!-- 식당 좌석 끝 --> 	
+<!-- 식당 좌석 끝 -->
+ 	
+<!-- ===================== 1/17 준우 작성 건들 ㄴㄴ ===================== -->
+ 	<select id="getReviewList" parameterType="map" resultType="map">
+ 		select R.REV_NO
+			 , R.CUS_NICK
+		     , R.STORE_NO
+		     , (SELECT GROUP_CONCAT(concat(MENU_NAME,'/',MENU_COUNT)) MENU_NAME FROM RESERVATION_MENU WHERE RES_NO = R.RES_NO GROUP BY RES_NO) MENU_NAME
+		     , (select SEAT_NAME from SEAT where SEAT_NO = R.SEAT_NO and STORE_NO = R.STORE_NO) SEAT_NAME
+		     , R.REV_CONTENT
+		     , CAST(str_to_date(R.REV_DATE, '%Y%m%d%H%i%s') AS CHAR(30)) REV_DATE
+		     , R.REV_SCORE
+		     , R.REV_GOOD
+		     , ifnull(R.REV_IMAGE, '0') REV_IMAGE
+		     , RA.ANSWER_CONTENT
+		     , CAST(str_to_date(RA.ANSWER_DATE, '%Y%m%d%H%i%s') AS CHAR(30)) ANSWER_DATE
+		     , ifnull(RA.ANSWER_CONTENT, '2') 'SELECT'
+		from REVIEW R
+		left join REVIEW_ANSWER RA
+		  on R.REV_NO = RA.REV_NO
+		where 1=1
+		  and R.STORE_NO = #{STORE_NO}
+		  <if test='select == "2"'> <!-- 답글 미작성 -->
+		  and RA.ANSWER_CONTENT is null
+		  </if>
+		  <if test='select == "1"'> <!-- 답글 작성 -->
+		  and RA.ANSWER_CONTENT is not null
+		  </if>
+		  ;
+ 	</select>
+ 	
+ 	<insert id="answerInsert" parameterType="map">
+ 		insert into REVIEW_ANSWER
+		values(#{REV_NO}, #{STORE_NO}, #{ANSWER_CONTENT}, date_format(now(),'%Y%m%d%H%i%s'));
+ 	</insert>
+ 	
+ 	<select id="getAnswer" parameterType="map" resultType="map">
+ 		select REV_NO
+ 		     , ST_NO
+ 		     , ANSWER_CONTENT
+ 		     , CAST(str_to_date(ANSWER_DATE, '%Y%m%d%H%i%s') AS CHAR(30)) ANSWER_DATE
+          from REVIEW_ANSWER
+         where REV_NO = #{REV_NO};
+ 	</select>
+ 	
+<!-- ===================== 여기 까지 s_review ===================== -->
+ 	
+<!-- 01/17_강현아 + 점주 정보 저장 및 수정 -->
+	<select id="getOwner" parameterType="String" resultType="map">
+		select OWN_NO    
+			  , OWN_ID   
+			  , OWN_PW 
+			  , OWN_NAME 
+			  , OWN_TEL   
+			  , OWN_EMAIL 
+			  , OWN_CRN 
+		from OWNER
+		where OWN_NO = #{OWN_NO};
+	</select>	
+	
+	<update id="ownerEdit" parameterType="String">
+		update 	OWNER
+		set		OWN_NAME	= #{OWN_NAME}
+				, OWN_TEL 	= #{OWN_TEL}
+				, OWN_EMAIL = #{OWN_EMAIL}
+				, OWN_REDATE= DATE_FORMAT(SYSDATE(), '%Y%m%d%H%i%s')
+		where	OWN_NO = #{OWN_NO};
+	</update>	
+	 	
 </mapper>
 
 

@@ -77,17 +77,17 @@ $(()=>{
 						<th class="title col-1 align-middle">글번호</th>
 						<th class="hashtag col-3 align-middle">제목</th>
 						<th class="created-at col-1">작성일자</th>
-						<th class="created-at col-1"></th>
+<!-- 						<th class="created-at col-1"></th> -->
 					</tr>
 				</thead>
 				<tbody>
 					<c:forEach var="notice" items="${noticeList}">
-						<tr class="notice_no" id="${notice.NOT_NO}" style="height: 60px;" align="center" >
-							<td class="title align-middle" onclick="location.href='admin_noticeDetail.ad?NOT_NO=${ notice.NOT_NO }'">${notice.NOT_NO}</td>
-							<td class="hashtag align-middle" onclick="location.href='admin_noticeDetail.ad?NOT_NO=${ notice.NOT_NO }'">${notice.NOT_TITLE}</td>
-							<td class="created-at col-1 align-middle" id="dateRegex" onclick="location.href='admin_noticeDetail.ad?NOT_NO=${ notice.NOT_NO }'">${notice.DATE}</td>
+						<tr class="notice_no" id="${notice.NOT_NO}" style="height: 60px;" align="center" onclick="location.href='admin_noticeDetail.ad?NOT_NO=${ notice.NOT_NO }'">
+							<td class="title align-middle" >${notice.NOT_NO}</td>
+							<td class="hashtag align-middle">${notice.NOT_TITLE}</td>
+							<td class="created-at col-1 align-middle" id="dateRegex">${notice.DATE}</td>
 <%-- 							<td class="title align-middle"><a href="admin_noticeDelete.ad?NOT_NO=${notice.NOT_NO}" onclick="return confirm('정말 삭제하시겠습니까?');" class="align-middle btn btn-outline-danger">삭제</a></td> --%>
-							<td class="align-middle"><input type="button" class="delBtn btn btn-outline-danger" value="삭제" ></td>
+							
 						</tr>
 					</c:forEach>
 				</tbody>

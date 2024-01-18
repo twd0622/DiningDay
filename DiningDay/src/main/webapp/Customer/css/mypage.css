@@ -43,6 +43,14 @@
 	width: 40px;
 }
 
+#store {
+	color: gray;
+}
+
+#modal_store_name {
+	text-decoration: underline;
+}
+
 #myBtn {
 	color: #111111; 
 	background-color: white; 
@@ -51,6 +59,11 @@
 
 #exBtn {
 	color: gray;
+}
+
+#profileImage {
+	 width: 150px;
+	 height: 150px;
 }
 
 .modal {
@@ -155,4 +168,30 @@
 	color: #000;
 	text-decoration: none;
 	cursor: pointer;
+}
+
+
+
+/* cus_edit.jsp */
+#edit_success {
+ 	color: #111111;
+ 	background-color: #FFF2A6;
+}
+ 
+#edit_fail {
+	color: #111111; 
+	background-color: #d6d6d6;
+}	
+
+#image_container {
+  position: relative;
+  width: 100%;
+  margin-bottom: 10px;
+  overflow: hidden;
+} 
+
+#newImage{
+	margin-top: 10%;
+	width: 200px;
+ 	height: 200px;
 }

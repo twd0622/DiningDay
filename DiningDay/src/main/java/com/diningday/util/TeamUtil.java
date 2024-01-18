@@ -165,7 +165,6 @@ public class TeamUtil {
 		
 		for(Map<String, String> map : MapList) {
 			JsonObject jsonObject = new JsonObject();
-			
 			map.forEach((key, value) ->{
 				jsonObject.addProperty(key, value);
 			});

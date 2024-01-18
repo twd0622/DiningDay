@@ -55,7 +55,10 @@
 	                			<c:if test="${reservationInfo.REQ_STATE eq '2'}">
 		                			<td style="vertical-align: middle; color: green;" rowspan="2" width="40px"><b>방문완료</b></td>
 		                			<td class="align-middle" rowspan="2" width="20px">
-		                				<button type="button" class="btn btn-outline-warning" onclick="location.href='reviewWrite.re?STORE_NAME=${reservationInfo.STORE_NAME}&RES_NO=${reservationInfo.RES_NO}'">작성하기</button>
+		                				<c:if test="${empty reservationInfo.REV_NO}">
+		                					<button onclick="location.href='reviewWrite.re?STORE_NAME=${reservationInfo.STORE_NAME}&RES_NO=${reservationInfo.RES_NO}'"
+		                							type="button" class="btn btn-outline-warning">작성하기</button>
+		                				</c:if>
 		                				</td>
 	                			</c:if>	
 	                			<c:if test="${reservationInfo.REQ_STATE eq '1'}">
@@ -106,9 +109,9 @@
 		                <div class="row">
 		                    <div class="col-md-6"><label id="label">식당명</label></div>
 		                    <div class="col-md-6">
-		                        <p style="color: gray;">
-		                        <b><a id="modal_store_no" style="color: gray;">
-		                        <label id="modal_store_name" style="text-decoration: underline;"></label></a></b><br>
+		                        <p id="store">
+		                        <b><a id="modal_store_no">
+		                        <label id="modal_store_name"></label></a></b><br>
 		                        (<label id="modal_store_location"></label>)</p>
 		                    </div>
 		                </div>
@@ -180,8 +183,9 @@
         <div class="col-md-3">
             <div class="d-flex flex-column align-items-center text-center p-3 py-5 mt-5">
             <h4>고객 정보</h4>
-           	 <img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
-            	<span class="font-weight-bold">${sessionScope.CUS_NICK}</span>
+            <c:set var="customerInfo" value="${requestScope.customerInfo}"/>
+           	 <img class="rounded-circle mt-5 mb-3" id="profileImage" src="upload/${customerInfo.CUS_IMAGE}">
+            	<span class="font-weight-bold">${customerInfo.CUS_NICK}</span>
 			<button type="submit" class="btn btn-primary btn-block mt-5" onclick="location.href='cus_edit.cu'"
   		  		    id="myBtn">고객 정보 수정하기</button>
 			<button type="submit" class="btn btn-primary btn-block" onclick="#"
