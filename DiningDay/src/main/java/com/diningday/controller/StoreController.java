@@ -143,6 +143,14 @@ public class StoreController extends HttpServlet {
 		
 		// ----------------- 01/17 준우 작성 건들 ㄴㄴ -------------------------------------------------
 		if(sPath.equals("/sreview.st")) {
+			// 점수, 리뷰 개수, 답글 개수
+			String STORE_NO = (String)session.getAttribute("STORE_NO");
+			
+			// req.setAttribute("reviewInfo", storeService.getReviewInfo(STORE_NO));
+			Map<String, String> dto = storeService.getReviewInfo(STORE_NO);
+			
+			req.setAttribute("REVIEW_SCORE", dto.get("REVIEW_SCORE"));
+			req.setAttribute("reviewInfo", dto);
 			dispatcher = req.getRequestDispatcher("Store/sreview.jsp");
 			dispatcher.forward(req, res);
 		}
@@ -161,6 +169,23 @@ public class StoreController extends HttpServlet {
 			
 			res.setContentType("application/x-json; charset=utf-8");
 			res.getWriter().print(TeamUtil.mapToJSON(storeService.answerInsert(TeamUtil.requestToMap(req, map))));
+		}
+		
+		if(sPath.equals("/answerUpdate.st")) {
+			Map<String, String> map = new HashMap<String, String>();
+			map.put("STORE_NO", (String)session.getAttribute("STORE_NO"));
+			
+			res.setContentType("application/x-json; charset=utf-8");
+			res.getWriter().print(TeamUtil.mapToJSON(storeService.answerUpdate(TeamUtil.requestToMap(req, map))));
+			
+		}
+		
+		if(sPath.equals("/insertReviewReport.st")) {
+			Map<String, String> map = new HashMap<String, String>();
+			map.put("STORE_NO", (String)session.getAttribute("STORE_NO"));
+			
+			res.setContentType("charset=utf-8");
+			res.getWriter().print(storeService.insertReviewReport(TeamUtil.requestToMap(req, map)));
 		}
 		
 		// -------------------여기 까지 s_review-------------------------------------------------------

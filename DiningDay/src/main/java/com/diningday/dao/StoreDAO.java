@@ -124,9 +124,7 @@ public class StoreDAO {
 	// ----------------- 01/17 준우 작성 건들 ㄴㄴ -------------------------------------------------
 	public List<Map<String, String>> getReviewList(Map<String, String> reviewDTO) {
 		session = sqlSessionFactory.openSession();
-		System.out.println(reviewDTO);
 		List<Map<String, String>> reviewLists = session.selectList("Store.getReviewList", reviewDTO);
-		System.out.println(reviewLists);
 		
 		session.close();
 		
@@ -136,7 +134,7 @@ public class StoreDAO {
 	public Map<String, String> answerInsert(Map<String, String> answerDTO) {
 		session = sqlSessionFactory.openSession();
 		
-		int insertMenu = session.insert("Store.answerInsert", answerDTO); 
+		session.insert("Store.answerInsert", answerDTO); 
 		session.commit();
 		
 		Map<String, String> answer = session.selectOne("Store.getAnswer", answerDTO);
@@ -146,7 +144,42 @@ public class StoreDAO {
 		return answer;
 		
 	}
+	
+	public Map<String, String> answerUpdate(Map<String, String> answerDTO) {
+		session = sqlSessionFactory.openSession();
+		
+		session.update("Store.answerUpdate", answerDTO); 
+		session.commit();
+		
+		Map<String, String> answer = session.selectOne("Store.getAnswer", answerDTO);
+		
+		session.close();
+		
+		return answer;
+		
+	}
+	
+	public Map<String, String> getReviewInfo(String STORE_NO) {
+		session = sqlSessionFactory.openSession();
+		
+		Map<String, String> reviewInfo = session.selectOne("Store.getReviewInfo", STORE_NO);
+		
+		session.close();
+		
+		return reviewInfo;
+	}
+	
+	public int insertReviewReport(Map<String, String> reportDTO) {
+		session = sqlSessionFactory.openSession();
+		
+		int result = session.insert("Store.insertReviewReport", reportDTO); 
+		session.commit();
+		session.close();
+		
+		return result;
+	}
 
+	
 	// -------------------여기 까지 s_review-------------------------------------------------------
 
 	// 01/17_강현아 + 점주 정보 저장 및 수정
@@ -166,4 +199,5 @@ public class StoreDAO {
 		session.close();
 		return ownerEdit > 0 ? true : false;
 	}
+
 }
