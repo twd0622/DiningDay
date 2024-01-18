@@ -78,10 +78,20 @@ public class AdminDAO {
 		return noticeList;
 	}
 	
+	public Map<String, String> noticeCount() {
+		session = sqlSessionFactory.openSession();
+		Map<String, String> noticeCount = session.selectOne("Admin.noticeCount"); // namespace.id
+		
+		session.close();
+		
+		return noticeCount;
+	}
+	
 	public Map<String, String> getNoticeDetail(Map<String, String> adminDTO) {
 		session = sqlSessionFactory.openSession();
+		System.out.println(adminDTO);
 		Map<String, String> noticeDetail = session.selectOne("Admin.selectNoticeDetail", adminDTO); // namespace.id
-		
+		System.out.println(noticeDetail);
 		session.close();
 		
 		return noticeDetail;
@@ -103,6 +113,15 @@ public class AdminDAO {
 		session.close();
 		
 		return storeList;
+	}
+	
+	public Map<String, String> storeCount() {
+		session = sqlSessionFactory.openSession();
+		Map<String, String> storeCount = session.selectOne("Admin.storeCount"); // namespace.id
+		
+		session.close();
+		
+		return storeCount;
 	}
 	
 	public int storeDelete(Map<String, String> adminDTO) {
@@ -132,6 +151,15 @@ public class AdminDAO {
 		session.close();
 		
 		return userList;
+	}
+
+	public Map<String, String> userCount() {
+		session = sqlSessionFactory.openSession();
+		Map<String, String> userCount = session.selectOne("Admin.userCount"); // namespace.id
+		
+		session.close();
+		
+		return userCount;
 	}
 	
 	public List<Map<String, String>> getUserList(Map<String, String> requestToMap) {
@@ -172,6 +200,15 @@ public class AdminDAO {
 		return storeReport;
 	}
 	
+	public Map<String, String> sRepCount() {
+		session = sqlSessionFactory.openSession();
+		Map<String, String> sRepCount = session.selectOne("Admin.sRepCount"); // namespace.id
+		
+		session.close();
+		
+		return sRepCount;
+	}
+	
 	public int sRepReport(Map<String, String> adminDTO) {
 		session = sqlSessionFactory.openSession();
 		
@@ -199,6 +236,15 @@ public class AdminDAO {
 		session.close();
 		
 		return reviewReport;
+	}
+	
+	public Map<String, String> cRepCount() {
+		session = sqlSessionFactory.openSession();
+		Map<String, String> cRepCount = session.selectOne("Admin.cRepCount"); // namespace.id
+		
+		session.close();
+		
+		return cRepCount;
 	}
 	
 	public List<Map<String, String>> getReviewReport(Map<String, String> requestToMap) {

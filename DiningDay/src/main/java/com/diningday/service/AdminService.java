@@ -46,6 +46,11 @@ public class AdminService {
 		return noticeList;
 	}
 	
+	public Map<String, String> noticeCount() {
+		Map<String, String> noticeCount = adminDAO.noticeCount();
+		return noticeCount;
+	}
+	
 	public List<Map<String, String>> getNoticeList(HttpServletRequest req) {
 		List<Map<String, String>> noticeList = adminDAO.getNoticeList(TeamUtil.requestToMap(req));
 		return noticeList;
@@ -66,6 +71,10 @@ public class AdminService {
 		return storeList;
 	}
 	
+	public Map<String, String> storeCount() {
+		Map<String, String> storeCount = adminDAO.storeCount();
+		return storeCount;
+	}
 	
 	public int storeDelete(HttpServletRequest req) {
 		int storeDelete = adminDAO.storeDelete(TeamUtil.requestToMap(req));
@@ -88,7 +97,12 @@ public class AdminService {
 		List<Map<String, String>> userList = adminDAO.getUserList(TeamUtil.requestToMap(req));
 		return userList;
 	}
-
+	
+	public Map<String, String> userCount() {
+		Map<String, String> userCount = adminDAO.userCount();
+		return userCount;
+	}
+	
 	public int userDelete(HttpServletRequest req) {
 		int userDelete = adminDAO.userDelete(TeamUtil.requestToMap(req));
 		
@@ -103,6 +117,11 @@ public class AdminService {
 	public List<Map<String, String>> getStoreReport(HttpServletRequest req) {
 		List<Map<String, String>> storeReport = adminDAO.getStoreReport(TeamUtil.requestToMap(req));
 		return storeReport;
+	}
+	
+	public Map<String, String> sRepCount() {
+		Map<String, String> sRepCount = adminDAO.sRepCount();
+		return sRepCount;
 	}
 	
 	public int sRepReport(HttpServletRequest req) {
@@ -124,6 +143,11 @@ public class AdminService {
 	public List<Map<String, String>> getReviewReport(HttpServletRequest req) {
 		List<Map<String, String>> reviewReport = adminDAO.getReviewReport(TeamUtil.requestToMap(req));
 		return reviewReport;
+	}
+	
+	public Map<String, String> cRepCount() {
+		Map<String, String> cRepCount = adminDAO.cRepCount();
+		return cRepCount;
 	}
 	
 	public int cRepDelete(HttpServletRequest req) {

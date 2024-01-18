@@ -84,9 +84,10 @@ public class AdminController extends HttpServlet {
 		if(sPath.equals("/admin_noticeList.ad")) {
 			List<Map<String, String>> noticeList = adminService.getNoticeList(req);
 			req.setAttribute("noticeList", noticeList);
+			Map<String, String> noticeCount = adminService.noticeCount();
+			req.setAttribute("noticeCount", noticeCount);
 			dispatcher = req.getRequestDispatcher("Admin/admin_noticeList.jsp");
 			dispatcher.forward(req, res);
-			
 		}
 //		----------------------------------------------------------------------------------------------------		
 		if(sPath.equals("/admin_noticeDetail.ad")) {
@@ -102,6 +103,7 @@ public class AdminController extends HttpServlet {
 		if(sPath.equals("/admin_noticeUpdate.ad")) {
 			Map<String, String> noticeDetail = adminService.getNoticeDetail(req);
 			req.setAttribute("noticeDetail", noticeDetail);
+			System.out.println(noticeDetail);
 			String NOT_NO = req.getParameter("NOT_NO");
 //			req.setAttribute("NOT_NO", NOT_NO);
 			session.setAttribute("NOT_NO", NOT_NO);
@@ -123,6 +125,8 @@ public class AdminController extends HttpServlet {
 		if(sPath.equals("/admin_storeList.ad")) {
 			List<Map<String, String>> storeList = adminService.getStoreList(req);
 			req.setAttribute("storeList", storeList);
+			Map<String, String> storeCount = adminService.storeCount();
+			req.setAttribute("storeCount", storeCount);
 			dispatcher = req.getRequestDispatcher("Admin/admin_storeList.jsp");
 			dispatcher.forward(req, res);
 		}
@@ -147,6 +151,8 @@ public class AdminController extends HttpServlet {
 		if(sPath.equals("/admin_userList.ad")) {
 			List<Map<String, String>> userList = adminService.getUserList(req);
 			req.setAttribute("userList", userList);
+			Map<String, String> userCount = adminService.userCount();
+			req.setAttribute("userCount", userCount);
 			dispatcher = req.getRequestDispatcher("Admin/admin_userList.jsp");
 			dispatcher.forward(req, res);
 		}
@@ -163,6 +169,8 @@ public class AdminController extends HttpServlet {
 		if(sPath.equals("/admin_storeReport.ad")) {
 			List<Map<String, String>> storeReport = adminService.getStoreReport(req);
 			req.setAttribute("storeReport", storeReport);
+			Map<String, String> sRepCount = adminService.sRepCount();
+			req.setAttribute("sRepCount", sRepCount);
 			dispatcher = req.getRequestDispatcher("Admin/admin_storeReport.jsp");
 			dispatcher.forward(req, res);
 		}
@@ -187,6 +195,8 @@ public class AdminController extends HttpServlet {
 		if(sPath.equals("/admin_userReport.ad")) {
 			List<Map<String, String>> reviewReport = adminService.getReviewReport(req);
 			req.setAttribute("reviewReport", reviewReport);
+			Map<String, String> cRepCount = adminService.cRepCount();
+			req.setAttribute("cRepCount", cRepCount);
 			dispatcher = req.getRequestDispatcher("Admin/admin_userReport.jsp");
 			dispatcher.forward(req, res);
 		}

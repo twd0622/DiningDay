@@ -29,6 +29,7 @@ h4:hover {
 </head>
 <!-- main은 속성 값은 왠만하면 건들지x -->
 <c:set var="userList" value="${ requestScope.userList }"/>
+
 <main
 	style="display: flex; align-items: center; text-align: center; padding: 20px 50px 20px 50px;">
 
@@ -80,6 +81,8 @@ h4:hover {
 				</div>
 			</div>
 		</div>
+		<c:set var="userCount" value="${ requestScope.userCount }"/>
+		<div style="text-align: left; padding-left: 7%"><b>총 고객 수 : ${userCount.COUNT}</b></div>
 		<div class="row" style="padding: 1% 7% 1% 7%;" id="userTable">
 			<table class="table table-hover" id="article-table">
 				<thead>

@@ -10,6 +10,7 @@
 <meta charset="utf-8">
 <title>공지사항 | 다이닝데이</title>
 <c:set var="noticeList" value="${ requestScope.noticeList }"/>
+<c:set var="noticeCount" value="${ requestScope.noticeCount }"/>
 <link href="resources/css/variable_admin.css" rel="stylesheet">
 <script src="resources/js/variableCode.js"></script>
 <script src="resources/js/jquery.twbsPagination.min.js"></script>
@@ -77,6 +78,7 @@ h4:hover {
 				</div>
 			</div>
 		</div>
+		<div style="text-align: left; padding-left: 7%"><b>전체 글 수 : ${noticeCount.COUNT}</b></div>
 		<div class="row" style="padding: 1% 7% 1% 7%;" id="noticeTable">
 		<form action="admin_noticeDelete.ad?NOT_NO=${notice.NOT_NO}" name="removefrm" method="post">
 			<table class="table table-hover" id="article-table">

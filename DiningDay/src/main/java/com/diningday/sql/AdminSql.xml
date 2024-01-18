@@ -59,11 +59,16 @@
 		order by cast(trim(leading 'NO' from NOT_NO) as unsigned) desc;
 	</select>
 	
+	<select id="noticeCount" resultType="map">
+		select 	concat(count(*),"개") as "COUNT"
+		from 	NOTICE;
+	</select>
+	
 	<select id="selectNoticeDetail" parameterType="map" resultType="map">
-		select NOT_NO
+		select TRIM(BOTH "NO" FROM NOT_NO) as "NOT_NO"
 			 , NOT_TITLE
 			 , NOT_CONTENT
-			 , date_format(ifnull(NOT_REDATE, NOT_DATE), '%Y-%m-%d') as "DATE"
+			 , date_format(ifnull(NOT_REDATE, NOT_DATE), '%Y년 %m월 %d일 %H시 %i분') as "DATE"
 		from   NOTICE
 		where  1 = 1
 		and	   NOT_NO = concat('NO', #{NOT_NO});
@@ -94,6 +99,11 @@
 		)
 		</if>
 		order by cast(trim(leading 'ST' from STORE_NO) as unsigned) desc;
+	</select>
+	
+	<select id="storeCount" resultType="map">
+		select 	concat(count(*),"개") as "COUNT"
+		from 	STORE;
 	</select>
 	
 	<delete id="storeDelete" parameterType="map">
@@ -169,6 +179,11 @@
 		order by cast(trim(leading 'CU' from CUS_NO) as unsigned) desc;	
 	</select>
 	
+	<select id="userCount" resultType="map">
+		select 	concat(count(*),"명") as "COUNT"
+		from 	CUSTOMER;
+	</select>
+	
 	<delete id="userDelete" parameterType="map">
 		delete from	CUSTOMER
 		 where CUS_NO = #{CUS_NO};
@@ -195,6 +210,11 @@
 		and SREP_NO like concat("%",#{searchValue},"%")
 		</if>
 		order by cast(trim(leading 'SR' from SREP_NO) as unsigned) desc;	
+	</select>
+	
+	<select id="sRepCount" resultType="map">
+		select 	concat(count(*),"개") as "COUNT"
+		from 	STORE_REPORT;
 	</select>
 	
 	<delete id="sRepReport" parameterType="map">
@@ -225,52 +245,59 @@
 	</select>
 	
 	<select id="selectReviewReport" resultType="map">
-		select CREP_NO
-			 , REV_NO
-			 , OWN_NO
-			 , CREP_TITLE
-			 , STORE_NAME
-			 , CREP_CONTENT
-			 , date_format(CREP_DATE, '%Y-%m-%d') as "DATE"
-			 , CREP_PROCESS
-		from REVIEW_REPORT
+		select R.RREP_NO
+			 , R.REV_NO
+			 , S.OWN_NO
+			 , S.STORE_NO
+			 , S.STORE_NAME
+			 , R.RREP_CONTENT
+			 , date_format(RREP_DATE, '%Y-%m-%d') as "DATE"
+			 , R.RREP_PROCESS
+		from REVIEW_REPORT R
+		join STORE S
+		on	 R.STORE_NO = S.STORE_NO
 		where 1 = 1
-		<if test="searchType == '신고 제목'">
-		and CREP_TITLE like concat("%",#{searchValue},"%")
+		<if test="searchType == '신고 내용'">
+		and R.RREP_CONTENT like concat("%",#{searchValue},"%")
 		</if>
 		<if test="searchType == '신고번호'">
-		and CREP_NO like concat("%",#{searchValue},"%")
+		and R.RREP_NO like concat("%",#{searchValue},"%")
 		</if>
-		<if test="searchType == '점주번호'">
-		and OWN_NO like concat("%",#{searchValue},"%")
+		<if test="searchType == '식당번호'">
+		and S.STORE_NO like concat("%",#{searchValue},"%")
 		</if>
-		order by cast(trim(leading 'RR' from CREP_NO) as unsigned) desc;
+		order by cast(trim(leading 'RR' from RREP_NO) as unsigned) desc;
+	</select>
+	
+	<select id="cRepCount" resultType="map">
+		select 	concat(count(*),"개") as "COUNT"
+		from 	REVIEW_REPORT;
 	</select>
 	
 	<delete id="cRepDelete" parameterType="map">
 		delete 	from	REVIEW_REPORT
-				where	CREP_NO = #{CREP_NO};
+				where	RREP_NO = #{RREP_NO};
 	</delete>
 	
 	<select id="selectCRepDetail" parameterType="map" resultType="map">
-		select  CR.CREP_NO
+		select  RR.RREP_NO
 			,	R.REV_NO
-		    ,	CR.OWN_NO
-		    ,	CR.CREP_TITLE
-		    ,	CR.STORE_NAME
-		    ,	CR.CREP_CONTENT
-		    ,	date_format(CREP_DATE, '%Y-%m-%d') as "CRDATE"
-		    ,	CR.CREP_PROCESS
+		    ,	S.OWN_NO
+		    ,	S.STORE_NAME
+		    ,	RR.RREP_CONTENT
+		    ,	date_format(RREP_DATE, '%Y년 %m월 %d일 %H시 %i분') as "RRDATE"
+		    ,	RR.RREP_PROCESS
 		    ,	R.REV_CONTENT
 		    ,	lpad('', REV_SCORE, '★') as "REV_SCORE"
-		    ,	date_format(R.REV_DATE, '%Y-%m-%d') as "RDATE"
-		from 	REVIEW_REPORT CR 
-		join    REVIEW R
-		on 		CR.REV_NO = R.REV_NO
+		    ,	date_format(R.REV_DATE, '%Y년 %m월 %d일 %H시 %i분') as "RDATE"
+		from 	REVIEW_REPORT RR
+		join 	REVIEW R
+		on 		RR.REV_NO = R.REV_NO
+		join	STORE S
+		on		RR.STORE_NO = S.STORE_NO
 		where 	1 = 1
-		and		CR.CREP_NO = #{CREP_NO}
-		and		CR.REV_NO = #{REV_NO}
-		and		CR.OWN_NO = #{OWN_NO};
+ 		and		RR.RREP_NO = #{RREP_NO};
+
 	</select>
 	
 	<select id="reviewList" parameterType="map" resultType="map">
@@ -302,9 +329,9 @@
 	</select>
 	
 	<select id="reviewDetail" parameterType="map" resultType="map">
-		 select  R.REV_NO
+		 select R.REV_NO
 			,	R.REV_CONTENT
-		    ,	date_format(R.REV_DATE, '%Y-%m-%d') as "REV_DATE"
+		    ,	date_format(R.REV_DATE, '%Y년 %m월 %d일 %H시 %i분') as "REV_DATE"
 		    ,	lpad('', REV_SCORE, '★') as "REV_SCORE"
 		    ,	R.REV_IMAGE
 		    ,	R.CUS_NO
@@ -323,7 +350,7 @@
 		    ,	S.STORE_NAME
 		    ,	C.COM_NO
             ,	C.COM_CONTENT
-		    ,	date_format(C.COM_DATE, '%Y-%m-%d') as "COM_DATE"
+		    ,	date_format(C.COM_DATE, '%Y년 %m월 %d일 %H시 %i분') as "COM_DATE"
 		from 	REVIEW R
 		join 	STORE S
 		on 		R.STORE_NO = S.STORE_NO

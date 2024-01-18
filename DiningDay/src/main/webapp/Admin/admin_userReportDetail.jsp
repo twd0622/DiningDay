@@ -63,12 +63,7 @@
 				<c:set var="cRepDetail" value="${ requestScope.cRepDetail }"/>
 					<tr class="tr1">
 						<th class="title align-middle table-success"><a>신고번호</a></th>
-						<td class="user-id align-middle text-center" style="text-align: left;">${cRepDetail.CREP_NO}</td>
-					</tr>
-					<tr>
-						<th class="title align-middle table-success"><a>글 제목</a></th>
-						<td class="user-id align-middle text-center"
-							style="text-align: left;">${cRepDetail.CREP_TITLE}</td>
+						<td class="user-id align-middle text-center" style="text-align: left;">${cRepDetail.RREP_NO}</td>
 					</tr>
 					<tr>
 						<th class="title align-middle table-success"><a>작성자</a></th>
@@ -78,12 +73,12 @@
 					<tr>
 						<th class="title align-middle table-success"><a>신고일자</a></th>
 						<td class="user-id align-middle text-center"
-							style="text-align: left;">${cRepDetail.CRDATE}</td>
+							style="text-align: left;">${cRepDetail.RRDATE}</td>
 					</tr>
 					<tr style="height: 150px;">
 						<th class="title align-middle table-success col-3"><a>신고 내용</a></th>
 						<td class="user-id align-middle text-center"
-							style="text-align: left;">${cRepDetail.CREP_CONTENT}</td>
+							style="text-align: left;">${cRepDetail.RREP_CONTENT}</td>
 					</tr>
 				</tbody>
 			</table>

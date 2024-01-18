@@ -8,6 +8,7 @@
 <meta charset="utf-8">
 <title>식당신고 | 다이닝데이</title>
 <c:set var="storeReport" value="${ requestScope.storeReport }"/>
+<c:set var="sRepCount" value="${ requestScope.sRepCount }"/>
 <link href="resources/css/variable_admin.css" rel="stylesheet">
 <script src="resources/js/variableCode.js"></script>
 <script src="resources/js/jquery.twbsPagination.min.js"></script>
@@ -83,6 +84,7 @@ h4:hover {
 				</div>
 			</div>
 		</div>
+		<div style="text-align: left; padding-left: 7%"><b>전체 글 수 : ${sRepCount.COUNT}</b></div>
 		<div class="row" style="padding: 1% 7% 1% 7%;" id="sRepTable">
 			<table class="table table-hover" id="article-table">
 				<thead>
