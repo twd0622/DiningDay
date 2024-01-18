@@ -63,10 +63,16 @@ public class StoreController extends HttpServlet {
 		}
 		
 		if(sPath.equals("/smenuDelete.st")) {
-			boolean bl = storeService.menuDelete(req);
-//			System.out.println(Arrays.toString(a.get("STORE_NO")));
-//			System.out.println(Arrays.toString(a.get("MENU_NO")));
-			res.getWriter().print(bl);
+			Map<String, String[]> dto = new HashMap<String, String[]>();
+			dto = TeamUtil.fileRequestToArrayMap(req);
+			boolean bl = storeService.menuDelete(dto);
+
+			Map<String, String> dtoData = new HashMap<String, String>();
+			dtoData.put("isTrue", String.valueOf(bl));
+			dtoData.put("MENU_NO", dto.get("MENU_NO")[0]);
+			
+			res.setContentType("application/x-json; charset=utf-8");
+			res.getWriter().print(TeamUtil.mapToJSON(dtoData));
 		}
 		
 		if(sPath.equals("/smenuInsert.st")) {

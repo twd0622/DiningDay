@@ -36,21 +36,24 @@
 						<h1 class="mb-5 mt-5" style="text-align: left">예약 대기</h1>
 						<table class="table mb-5" border="1">
 						    <thead>
-								<tr><th colspan="6" style="background-color: #9CED92;">
+								<tr><th colspan="7" style="background-color: #9CED92;">
 									<input name="RES_DATE" class="form-control" type="date" style="width: 200px;margin-left: 30px;">
 								</th></tr>
 						    	<tr>
+						    		<th style="background-color: #FFF2A6;">결제 코드</th>
 						    		<th style="background-color: #FFF2A6;">예약자</th>
+						    		<th style="background-color: #FFF2A6;">예약자 전화번호</th>
 						    		<th style="background-color: #FFF2A6;">좌석 종류</th>
 						    		<th style="background-color: #FFF2A6;">인원</th>
 						    		<th style="background-color: #FFF2A6;">예약 시간</th>
 						    		<th style="background-color: #FFF2A6;">요청사항</th>
-						    		<th style="background-color: #FFF2A6;">승인여부</th>
 						    	</tr>
 						    </thead>
 							<tbody id="tbody_1" class="table-group-divider">
 								<tr>
+									<td>결제코드</td>
 									<td>홍길동</td>
+									<td>01011112222</td>
 									<td>야외 4인석</td>
 									<td>3명</td>
 									<td>14:00</td>

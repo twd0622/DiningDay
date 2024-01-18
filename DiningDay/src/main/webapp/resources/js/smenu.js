@@ -63,12 +63,10 @@ $(() => {
 		var ajaxTotalData = btnClickEventListener(e);			
 		
 		if(typeof ajaxTotalData != 'object'){
-			alert("객채아님");
 			return;
 		}
 		
 		if(typeof ajaxTotalData === 'object'){
-			alert("객채임");
 		}
 		
 		
@@ -81,8 +79,7 @@ $(() => {
 			ajaxTotalData	
 		)
 		.done(function(data){
-			debugger;
-			ajaxDone.excute(data, deleteIndex);
+			ajaxDone.excute(data);
 			
 			//	전역 변수, 객체 초기화 
 			confirmText = '';
@@ -91,7 +88,11 @@ $(() => {
 		.fail(function(){
 			
 		})
-	
+		
+		$("input[type=file]").change(e => {	
+			file_image(e, trTagIndex);
+		});
+		
 	})
 })
 
@@ -215,6 +216,7 @@ var _beforeSend;
 var confirmText = "";
 var ajaxDone = {};
 var deleteIndex = 0;
+var deleteTrTag = '';
 // 전역 변수 모음 끝
 
 function dividebtnAction(btn, currentTargetParentTag){
@@ -227,7 +229,7 @@ function dividebtnAction(btn, currentTargetParentTag){
 	
 	switch(btn){
 		case "PHOTO_SEARCH":
-
+			
 			trTagIndex = $(btnParentTag).attr("id");
 			$("." + trTagIndex).click();
 			ajaxExcuteCheck = false;
@@ -348,16 +350,15 @@ function dividebtnAction(btn, currentTargetParentTag){
 			_data.append("PHOTO_NAME", fileList[0]);   
 			                            						 
 			ajaxDone.excute = (data) => {
+
 				var firstIndex = (data.MENU_NO).split("ME")[1];
+				var maxIndex = $("#tbody_2").find("tr").length + 1;
 				$("#sResModal").css("display", "none");
 				$("#modalForm")[0].reset();
 				$("#modalData").find("input[name=MENU_NO]").remove();
 				$("#tbody_2").prepend(htmlTag(data, firstIndex));
-				$("#img_1").empty();
 				
-				$("input[type=file]").change(e => {	
-					file_image(e, trTagIndex);
-				});
+				$("#img_1").empty();
 				
 				$("#" + firstIndex).find("select option")
 								   .eq($("#" + firstIndex).find("select")
@@ -366,6 +367,8 @@ function dividebtnAction(btn, currentTargetParentTag){
 				
 				$("#modalData").find("input[type=text]").attr("class", "form-control is-invalid");
 				$("#modalData").find("textarea").attr("class", "form-control is-invalid");
+				$("#MENU_DATA").append("<input type='file' class='" + maxIndex + "' style='display:none;'>");
+				$("button[name=insert]").prop("disabled", true);
 				
 				hideTag($("#" + firstIndex), true);
 				paging("#tbody_2 tr", 5, 0);
@@ -381,6 +384,8 @@ function dividebtnAction(btn, currentTargetParentTag){
 				return;
 			}
 			
+			deleteTrTag = currentTargetParentTag;
+			
 			confirmText = "*주의*\r\n정말 삭제하시겠습니까?";
 			
 			deleteIndex = $(this).closest("tr").attr("id");
@@ -393,10 +398,11 @@ function dividebtnAction(btn, currentTargetParentTag){
 	        
 	        _url = "smenuDelete.st";
 	        
-			ajaxDone.excute = (data, deleteIndex) => {
-				if(new Boolean(data)){
+			ajaxDone.excute = (data) => {
+				if(new Boolean(data.isTrue)){
 					debugger;
-					$("#" + deleteIndex).remove();
+					var tagIndex = (data.MENU_NO).split("ME")[1];
+					$("#" + tagIndex).remove();
 					paging("#tbody_2 tr", 5, 0);
 				}
 			};

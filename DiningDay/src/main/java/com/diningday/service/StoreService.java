@@ -52,8 +52,8 @@ public class StoreService {
 		return TeamUtil.mapToJSON(storeDAO.menuMax(dto));
 	}
 	
-	public boolean menuDelete(HttpServletRequest req) {
-		return storeDAO.deleteMenu(TeamUtil.fileRequestToArrayMap(req));
+	public boolean menuDelete(Map<String, String[]> dto) {
+		return storeDAO.deleteMenu(dto);
 	}
 	
 	public JsonObject storeSelect(HttpServletRequest req) {
