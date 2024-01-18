@@ -30,6 +30,10 @@
   overflow: hidden;
   pointer-events: none;
 }
+
+.table th {
+	width: 350px;
+}
 </style>
 <script src="resources/js/jquery.twbsPagination.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -99,26 +103,8 @@
 						<td class="user-id align-middle text-center" style="text-align: left;">
 						
 							<span class="star">
-								<c:if test="${cRepDetail.REV_SCORE == '5'}">
   								★★★★★
-  								<span>★★★★★</span>
-  								</c:if>
-  								<c:if test="${cRepDetail.REV_SCORE == '4'}">
-  								★★★★★
-  								<span>★★★★</span>
-  								</c:if>
-  								<c:if test="${cRepDetail.REV_SCORE == '3'}">
-  								★★★★★
-  								<span>★★★</span>
-  								</c:if>
-  								<c:if test="${cRepDetail.REV_SCORE == '2'}">
-  								★★★★★
-  								<span>★★</span>
-  								</c:if>
-  								<c:if test="${cRepDetail.REV_SCORE == '1'}">
-  								★★★★★
-  								<span>★</span>
-  								</c:if>
+  								<span>${cRepDetail.REV_SCORE}</span>
 							</span>
 						</td>
 					</tr>
@@ -138,7 +124,7 @@
 		<hr>
 		<div class="row" style="padding: 0px 20px;">
 			<div class="d-grid gap-2 d-md-flex justify-content-md-center">
-					<input type="button" class="btn btn-outline-dark" value="목록" onclick="window.history.back()">
+					<input type="button" class="btn btn-outline-dark" value="목록" onclick="location.href='admin_userReport.ad'">
 					<input type="button" class="delBtn btn btn-outline-danger" value="삭제" >
 			</div>
 		</div>

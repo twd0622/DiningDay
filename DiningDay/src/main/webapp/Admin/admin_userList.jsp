@@ -18,6 +18,14 @@
 	})
 </script>
 <script src="Admin/js/delBtn.js"></script>
+<style type="text/css">
+h4 {
+	cursor: pointer;
+}
+h4:hover {
+	color: gray;
+}
+</style>
 </head>
 <!-- main은 속성 값은 왠만하면 건들지x -->
 <c:set var="userList" value="${ requestScope.userList }"/>
@@ -87,7 +95,7 @@
 						<c:forEach var="user" items="${userList}">
 							<tr class="cus_no" id="${user.CUS_NO}" style="height: 60px;">
 								<td class="title align-middle">${user.CUS_NO}</td>
-								<td class="hashtag align-middle"><small>${user.CUS_ID}</small> (${user.CUS_NICK})</td>
+								<td class="hashtag align-middle"><small>${user.CUS_ID}</small> <br> (${user.CUS_NICK})</td>
 								<td class="created-at col-1 align-middle text-start">
 									<div style="display: flex; flex-direction: row; justify-content: space-between; padding: 0 60px;">
 										<span><b>　고객명 　: </b></span><span>${user.CUS_NAME} (${user.CUS_GENDER})</span>

@@ -16,6 +16,10 @@
 	scrollbar-color: #d4aa70 #e4e4e4;
 	scrollbar-width: thin;
 }
+
+.table th {
+	width: 350px;
+}
 </style>
 <script src="resources/js/jquery.twbsPagination.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -58,8 +62,8 @@
 						<c:otherwise> 
 							<tr>
 								<th class="title align-middle table-success" style="vertical-align: middle;">첨부파일</th>
-								<td><img src="upload/${sRepDetail.SREP_FILE}" disabled='disabled'
-									style="max-width: 50%; max-height: 50%;">
+								<td><a href="upload/${sRepDetail.SREP_FILE}" target="_blank"><img src="upload/${sRepDetail.SREP_FILE}" alt="${sRepDetail.SREP_FILE}" disabled='disabled'
+									style="max-width: 50%; max-height: 50%;"></a>
 								</td>
 							</tr>
 						</c:otherwise>
@@ -77,7 +81,7 @@
 		<hr>
 		<div class="row" style="padding: 0px 20px;">
 			<div class="d-grid gap-2 d-md-flex justify-content-md-center">
-				<input type="button" class="btn btn-outline-dark" value="목록" onclick="window.history.back()">
+				<input type="button" class="btn btn-outline-dark" value="목록" onclick="location.href='admin_storeReport.ad'">
 				<input type="button" class="delBtn btn btn-outline-danger" value="삭제">
 			</div>
 		</div>

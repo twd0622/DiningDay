@@ -76,11 +76,28 @@
 					<tr>
 						<th class="title align-middle table-warning"><a>별점 리뷰</a></th>
 						<td class="user-id align-middle text-center" style="text-align: left;">
-								
-								
+						
 							<span class="star">
+								<c:if test="${reviewDetail.REV_SCORE == '5'}">
   								★★★★★
-  								<span>${reviewDetail.REV_SCORE}</span>
+  								<span>★★★★★</span>
+  								</c:if>
+  								<c:if test="${reviewDetail.REV_SCORE == '4'}">
+  								★★★★★
+  								<span>★★★★</span>
+  								</c:if>
+  								<c:if test="${reviewDetail.REV_SCORE == '3'}">
+  								★★★★★
+  								<span>★★★</span>
+  								</c:if>
+  								<c:if test="${reviewDetail.REV_SCORE == '2'}">
+  								★★★★★
+  								<span>★★</span>
+  								</c:if>
+  								<c:if test="${reviewDetail.REV_SCORE == '1'}">
+  								★★★★★
+  								<span>★</span>
+  								</c:if>
 							</span>
 						</td>
 					</tr>
@@ -147,7 +164,7 @@
 		<hr>
 		<div class="row" style="padding: 0px 20px;">
 			<div class="d-grid gap-2 d-md-flex justify-content-md-center">
-					<input type="button" class="btn btn-outline-dark" value="목록" onclick="location.href='admin_reviewList.ad'">
+					<input type="button" class="btn btn-outline-dark" value="목록" onclick="window.history.back()">
 					<input type="button" class="delBtn btn btn-outline-danger" value="삭제" >
 			</div>
 		</div>

@@ -60,14 +60,13 @@
 	</select>
 	
 	<select id="selectNoticeDetail" parameterType="map" resultType="map">
-		select concat('NO', NOT_NO) as "NOT_NO"
+		select NOT_NO
 			 , NOT_TITLE
 			 , NOT_CONTENT
-			 , date_format(ifnull(NOT_REDATE, NOT_DATE)
-			 , '%Y-%m-%d') as "DATE"
+			 , date_format(ifnull(NOT_REDATE, NOT_DATE), '%Y-%m-%d') as "DATE"
 		from   NOTICE
 		where  1 = 1
-		and	   NOT_NO = #{NOT_NO};
+		and	   NOT_NO = concat('NO', #{NOT_NO});
 	</select>
 	
 	<select id="selectStoreList" parameterType="map" resultType="map">
@@ -263,9 +262,10 @@
 		    ,	date_format(CREP_DATE, '%Y-%m-%d') as "CRDATE"
 		    ,	CR.CREP_PROCESS
 		    ,	R.REV_CONTENT
-		    ,	R.REV_SCORE
+		    ,	lpad('', REV_SCORE, '★') as "REV_SCORE"
 		    ,	date_format(R.REV_DATE, '%Y-%m-%d') as "RDATE"
-		from 	REVIEW_REPORT CR join REVIEW R
+		from 	REVIEW_REPORT CR 
+		join    REVIEW R
 		on 		CR.REV_NO = R.REV_NO
 		where 	1 = 1
 		and		CR.CREP_NO = #{CREP_NO}
@@ -286,6 +286,18 @@
 		join	STORE S
 		on		R.STORE_NO = S.STORE_NO
 		where 	1 = 1
+		<if test="searchType == '작성자'">
+		and C.CUS_NICK like concat("%",#{searchValue},"%")
+		</if>
+		<if test="searchType == '방문 식당명'">
+		and S.STORE_NAME like concat("%",#{searchValue},"%")
+		</if>
+		<if test="searchType == '리뷰내용'">
+		and	R.REV_CONTENT like concat("%",#{searchValue},"%")
+		</if>
+		<if test="searchType == '리뷰번호'">
+		and R.REV_NO like concat("%",#{searchValue},"%")
+		</if>
 		order by cast(trim(leading 'RV' from REV_NO) as unsigned) desc;
 	</select>
 	
@@ -293,7 +305,7 @@
 		 select  R.REV_NO
 			,	R.REV_CONTENT
 		    ,	date_format(R.REV_DATE, '%Y-%m-%d') as "REV_DATE"
-		    ,	R.REV_SCORE
+		    ,	lpad('', REV_SCORE, '★') as "REV_SCORE"
 		    ,	R.REV_IMAGE
 		    ,	R.CUS_NO
 		    ,	R.CUS_NICK

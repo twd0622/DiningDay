@@ -18,6 +18,14 @@
 	})
 </script>
 <script src="Admin/js/delBtn.js"></script>
+<style type="text/css">
+h4 {
+	cursor: pointer;
+}
+h4:hover {
+	color: gray;
+}
+</style>
 </head>
 
 <!-- main은 속성 값은 왠만하면 건들지x -->
@@ -81,7 +89,7 @@
 				</thead>
 				<tbody>
 						<c:forEach var="cReport" items="${reviewReport}">
-							<tr class="cRep_no" id="${cReport.CREP_NO}" style="height: 60px;" onClick="location.href='admin_userReportDetail.ad?CREP_NO=${cReport.CREP_NO}&REV_NO=${cReport.REV_NO}&OWN_NO=${cReport.OWN_NO}'">
+							<tr class="cRep_no" id="${cReport.CREP_NO}" style="height: 60px; cursor: pointer;" onClick="location.href='admin_userReportDetail.ad?CREP_NO=${cReport.CREP_NO}&REV_NO=${cReport.REV_NO}&OWN_NO=${cReport.OWN_NO}'">
 								<td class="title align-middle">${cReport.CREP_NO}</td>
 								<td class="hashtag align-middle">${cReport.OWN_NO} <br><small>(${cReport.STORE_NAME})</small></td>
 								<td class="created-at col-1 align-middle">${cReport.CREP_TITLE}</td>

@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ include file="/Template/admin_sidebar_open.jsp"%>
 <!DOCTYPE html>
 <html>
@@ -15,16 +14,12 @@
 <link href="resources/css/variable_admin.css" rel="stylesheet">
 <script src="resources/js/variableCode.js"></script>
 <script src="resources/js/jquery.twbsPagination.min.js"></script>
-<script src="Admin/js/detail.js"></script>
+<script src="Admin/js/delBtn.js"></script>
 <script>
 	$(()=>{
-		
 		paging("tbody tr" ,10, 1);
 	})
-	var rev_no = $("#rev_no").text();
-	
 </script>
-<script>document.write(rev_no);</script>
 <style type="text/css">
 h4 {
 	cursor: pointer;
@@ -34,9 +29,6 @@ h4:hover {
 }
 </style>
 </head>
-
-<c:out value="${pageScope.rev_no}"/>
-
 <!-- main은 속성 값은 왠만하면 건들지x -->
 <main
 	style="display: flex; align-items: center; text-align: center; padding: 20px 50px 50px 50px;">
@@ -90,25 +82,38 @@ h4:hover {
 		</div>
 		<br>
 		<div class="row" style="padding: 0 7% 0 7%;">
-			<table class="table table-hover" id="article-table1">
+			<table class="table" id="article-table1">
 				<thead>
 					<tr class="table-success">
-						<th class="title col-1 align-middle">리뷰번호</th>
-						<th class="hashtag col-1 align-middle">작성자</th>
-						<th class="hashtag col-1 align-middle">방문 식당명</th>
-						<th class="user-id col-3 align-middle">리뷰내용</th>
+						<th class="title col-2 align-middle">리뷰번호</th>
+						<th class="hashtag col-2 align-middle">작성자</th>
+						<th class="hashtag col-3 align-middle">방문 식당명</th>
+						<th class="user-id col-1 align-middle" colspan="2">리뷰내용</th>
 						<th class="created-at col-2 align-middle">작성일자</th>
+						<th class="created-at col-1 align-middle"></th>
+
 					</tr>
 
 				</thead>
 				<tbody>
 				<c:forEach var="reviewList" items="${reviewList}">
-					<tr onclick="location.href='admin_reviewDetail.ad?REV_NO=${reviewList.REV_NO}'">
-						<td class="title align-middle" id="rev_no">${reviewList.REV_NO}</td>
+					<tr>
+						<td class="title align-middle" >${reviewList.REV_NO}</td>
 						<td class="hashtag align-middle">${reviewList.CUS_NICK}</td>
 						<td class="hashtag align-middle">${reviewList.STORE_NAME}</td>
+						<td class="user-id align-middle text-center"
+							style="text-align: left;"><a href="upload/${reviewDetail.REV_IMAGE}" target="_blank"><img class="img-fluid rounded"
+							src="upload/${reviewDetail.REV_IMAGE}" alt="${reviewDetail.REV_IMAGE}" style="width: 200px; height: 100px;"></a></td>
 						<td class="user-id align-middle" style="overflow:hidden; white-space:nowrap; text-overflow:ellipsis; table-layout: fixed;">${reviewList.REV_CONTENT}</td>
 						<td class="created-at col-1 align-middle">${reviewList.REV_DATE}</td>
+						<td class="created-at col-1 align-middle" rowspan="2" onclick="location.href='admin_reviewDetail.ad?REV_NO=${reviewList.REV_NO}'">상세<br>보기</td>
+						
+					</tr>
+					<tr class="table">
+						<td class="hashtag align-middle"><b>ㄴ</b></td>
+						<td class="created-at col-1 align-middle" colspan="5" maxlength style="text-align: left; text-overflow:ellipsis; overflow:hidden; white-space:nowrap;" title="문자열이 길 경우 말줄임표를 사용하여 보여주고 마우스를 글자위에 올리면 title 속성을 이용하여 말풍선으로 전체 문자열을 보여줍니다.">
+							<b>ㄴㅁㅇㅁㄴㅇ</b>
+						</td>
 					</tr>
 				</c:forEach>
 				</tbody>

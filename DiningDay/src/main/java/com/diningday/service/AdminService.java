@@ -143,6 +143,11 @@ public class AdminService {
 		return reviewList;
 	}
 	
+	public List<Map<String, String>> reviewList(HttpServletRequest req) {
+		List<Map<String, String>> reviewList = adminDAO.reviewList(TeamUtil.requestToMap(req));
+		return reviewList;
+	}
+	
 	public Map<String, String> reviewDetail(HttpServletRequest req) {
 		
 		return adminDAO.reviewDetail(TeamUtil.requestToMap(req));

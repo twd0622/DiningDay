@@ -22,7 +22,6 @@ $(()=>{
 					    
 					})
 					.then((result) => {
-						debugger;
 						if($(this).parent("div").parent("div").siblings(".container").children().children().children(".tr1").children("#sRep_no").text().substring(0,2) == "SR"){
 							var sRep_no = $(this).parent("div").parent("div").siblings(".container").children().children().children(".tr1").children("#sRep_no").text();
 							location.href = "admin_storeReportDelete.ad?SREP_NO="+sRep_no;

@@ -20,6 +20,14 @@ $(()=>{
 })
 </script>
 <script src="Admin/js/delBtn.js"></script>
+<style type="text/css">
+h4 {
+	cursor: pointer;
+}
+h4:hover {
+	color: gray;
+}
+</style>
 </head>
 <!-- main은 속성 값은 웬만하면 건들지x -->
 <main
@@ -82,7 +90,7 @@ $(()=>{
 				</thead>
 				<tbody>
 					<c:forEach var="notice" items="${noticeList}">
-						<tr class="notice_no" id="${notice.NOT_NO}" style="height: 60px;" align="center" onclick="location.href='admin_noticeDetail.ad?NOT_NO=${ notice.NOT_NO }'">
+						<tr class="notice_no" id="${notice.NOT_NO}" style="height: 60px; cursor: pointer;" align="center" onclick="location.href='admin_noticeDetail.ad?NOT_NO=${ notice.NOT_NO }'">
 							<td class="title align-middle" >${notice.NOT_NO}</td>
 							<td class="hashtag align-middle">${notice.NOT_TITLE}</td>
 							<td class="created-at col-1 align-middle" id="dateRegex">${notice.DATE}</td>

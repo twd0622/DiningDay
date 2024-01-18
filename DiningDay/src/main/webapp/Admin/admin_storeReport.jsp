@@ -21,9 +21,16 @@ $(()=>{
 <script src="Admin/js/delBtn.js"></script>
 <script src="Admin/js/storeReport.js"></script>
 <style>
-	.delBtn{
+.delBtn{
 		z-index: 1;
 	}
+	
+h4 {
+	cursor: pointer;
+}
+h4:hover {
+	color: gray;
+}
 </style>
 </head>
 <!-- main은 속성 값은 왠만하면 건들지x -->
@@ -88,7 +95,7 @@ $(()=>{
 				</thead>
 				<tbody>
 						<c:forEach var="sReport" items="${storeReport}">
-							<tr class="sRep_no" id="${sReport.SREP_NO}">
+							<tr class="sRep_no" id="${sReport.SREP_NO}" style="cursor: pointer;">
 								<td class="title align-middle">${sReport.SREP_NO}</td>
 								<td style="display: none;" class="CUS_NO" id="${sReport.CUS_NO}"></td>
 								<td style="display: none;" class="STORE_NO" id="${sReport.STORE_NO}"></td>

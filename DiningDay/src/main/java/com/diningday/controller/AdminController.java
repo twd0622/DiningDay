@@ -209,7 +209,7 @@ public class AdminController extends HttpServlet {
 		}
 //		----------------------------------------------------------------------------------------------------
 		if(sPath.equals("/admin_reviewList.ad")) {
-			List<Map<String, String>> reviewList = adminService.reviewList();
+			List<Map<String, String>> reviewList = adminService.reviewList(req);
 			req.setAttribute("reviewList", reviewList);
 			dispatcher = req.getRequestDispatcher("Admin/admin_reviewList.jsp");
 			dispatcher.forward(req, res);

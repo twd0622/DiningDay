@@ -37,6 +37,14 @@ $(()=>{
 	
 </script>
 <script src="Admin/js/delBtn.js"></script>
+<style type="text/css">
+h4 {
+	cursor: pointer;
+}
+h4:hover {
+	color: gray;
+}
+</style>
 </head>
 <!-- main은 속성 값은 왠만하면 건들지x -->
 <main
@@ -100,7 +108,7 @@ $(()=>{
 				</thead>
 				<tbody>
 					<c:forEach var="store" items="${storeList}">
-						<tr class="store_no" id="${store.STORE_NO}" style="height: 60px;" onClick="location.href='admin_storeDetail.ad?STORE_NO=${store.STORE_NO}'">
+						<tr class="store_no" id="${store.STORE_NO}" style="height: 60px; cursor: pointer;" onClick="location.href='admin_storeDetail.ad?STORE_NO=${store.STORE_NO}'">
 						<td class="title align-middle">${store.STORE_NO}</td>
 							<td class="align-middle">${store.STORE_NAME}</td>
 							<td class="created-at col-1 align-middle text-start">															

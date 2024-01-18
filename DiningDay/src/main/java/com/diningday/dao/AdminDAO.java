@@ -240,6 +240,15 @@ public class AdminDAO {
 		return reviewList;
 	}
 	
+	public List<Map<String, String>> reviewList(Map<String, String> requestToMap) {
+		session = sqlSessionFactory.openSession();
+		List<Map<String, String>> reviewList = session.selectList("Admin.reviewList", requestToMap); // namespace.id
+		
+		session.close();
+		
+		return reviewList;
+	}
+	
 	
 	public Map<String, String> reviewDetail(Map<String, String> adminDTO) {
 		session = sqlSessionFactory.openSession();
@@ -258,7 +267,6 @@ public class AdminDAO {
 		
 		return reviewComment;
 	}
-	
 	
 	public int reviewDelete(Map<String, String> adminDTO) {
 		session = sqlSessionFactory.openSession();
