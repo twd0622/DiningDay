@@ -19,23 +19,23 @@ public class StoreDAO {
 	public Boolean insertMenu(Map<String, String> dto) {
 		session = sqlSessionFactory.openSession();
 		
-		int insertMenu = session.insert("Store.menuInsert", dto); 
+		int insert = session.insert("Store.menuInsert", dto); 
 		
 		session.commit();
 		session.close();
 		
-		return insertMenu > 0 ? true : false;
+		return insert > 0 ? true : false;
 	}
 	
 	public Boolean deleteMenu(Map<String, String[]> dto) {
 		session = sqlSessionFactory.openSession();
 		
-		int deleteMenu = session.delete("Store.menuDelete", dto); 
+		int delete = session.delete("Store.menuDelete", dto); 
 		
 		session.commit();
 		session.close();
 		
-		return deleteMenu > 0 ? true : false;
+		return delete > 0 ? true : false;
 	}
 	
 	public List<Map<String, String>> menuList(Map<String, String> dto) {
@@ -51,12 +51,12 @@ public class StoreDAO {
 	public boolean menuUpdate(Map<String, String> dto) {
 		session = sqlSessionFactory.openSession();
 		
-		int updateMenu = session.update("Store.menuUpdate", dto); 
+		int update = session.update("Store.menuUpdate", dto); 
 		
 		session.commit();
 		session.close();
 		
-		return updateMenu > 0 ? true : false;
+		return update > 0 ? true : false;
 	}
 	
 	public Map<String, String> menuSelect(Map<String, String> dto) {
@@ -102,23 +102,34 @@ public class StoreDAO {
 	public Boolean storeInsert(Map<String, String> dto) {
 		session = sqlSessionFactory.openSession();
 		
-		int insertMenu = session.insert("Store.storeInsert", dto); 
+		int insert = session.insert("Store.storeInsert", dto); 
 		
 		session.commit();
 		session.close();
 		
-		return insertMenu > 0 ? true : false;
+		return insert > 0 ? true : false;
 	}
 	
 	public Boolean firstInsertStore_OwnerUpdate(Map<String, String> dto) {
 		session = sqlSessionFactory.openSession();
 		
-		int insertMenu = session.update("Store.firstInsertStore_OwnerUpdate", dto); 
+		int update = session.update("Store.firstInsertStore_OwnerUpdate", dto); 
 		
 		session.commit();
 		session.close();
 		
-		return insertMenu > 0 ? true : false;
+		return update > 0 ? true : false;
+	}
+	
+	public Boolean seatInsert(Map<String, String> dto) {
+		session = sqlSessionFactory.openSession();
+		
+		int insert = session.insert("Store.seatInsert", dto); 
+		
+		session.commit();
+		session.close();
+		
+		return insert > 0 ? true : false;
 	}
 	
 }

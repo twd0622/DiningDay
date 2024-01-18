@@ -258,7 +258,7 @@ ul{
 		                        <span class="nav_name">좌석</span>
 		                    </a>
                     	</li>
-	                    <li><a class="nav__link" href="${ pageContext.request.contextPath }/stable_insert.st" style="width: 130px;">
+	                    <li><a  id="stable_insert" class="nav__link" href="${ pageContext.request.contextPath }/stable_insert.st" style="width: 130px;">
 	                    	<small>● 좌석 추가</small></a>
 	                    </li>
 	                    <li class="mt-2 mb-5"><a class="nav__link" href="${ pageContext.request.contextPath }/stable.st" style="width: 130px;">
@@ -291,7 +291,6 @@ ul{
 				$($(".nav__list")[0]).show();
 				return;
 			} 
-			debugger;
 			$(".nav__list").show();
 			$($(".nav__list")[0]).hide();
 			

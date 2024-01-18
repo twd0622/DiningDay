@@ -6,6 +6,7 @@ $(() => {
 });
 
 var file
+
 function file_image(){
 	$("input[type=file]").change(e => {
 		var index = $(e.currentTarget).attr('id').split('_')[1];
@@ -16,7 +17,7 @@ function file_image(){
 		var ImageTempUrl = window.URL.createObjectURL(file[0]);
 	
 		image.src = ImageTempUrl;
-		image.style = "width:400px; height:400px; padding:6.5px; z-index: 1;";
+		image.style = "width:300px; height:300px; padding:6.5px; z-index: 1;";
 		$("button[type=reset]").on("click", () => {
 			$('#img_' + index).empty();
 		});

@@ -14,8 +14,10 @@
 				)
 			values
 				( #{STORE_NO}
-				, (select concat('PH', ifnull(max(cast(REPLACE(#{MENU_NO}, 'ME', '') as unsigned)), 1))
-					 from STORE_IMAGE a)
+				, (SELECT CONCAT("PH", ifnull(MAX(CAST(REPLACE(PHOTO_NO, "PH", "") AS UNSIGNED)), 0) + 1) as "PHOTO_NO"
+					 FROM STORE_IMAGE a
+					where 1 = 1
+					  and STORE_NO = #{STORE_NO})
 				, #{PHOTO_NAME}
 				, #{MENU_NO}
 				)
@@ -47,10 +49,10 @@
 		    on (m.MENU_NO, m.STORE_NO) = (s.PHOTO_TYPE, s.STORE_NO)
 		 where 1 = 1
 		   and m.STORE_NO = #{STORE_NO}   
-		 order by CAST(REPLACE(m.MENU_NO, "ME", "") AS UNSIGNED) desc
+		 order by CAST(REPLACE(m.MENU_NO, "ME", "") AS UNSIGNED)
 		 ;   
 	</select>
-	
+
 	<update id="menuUpdate" parameterType="map">
 		update MENU m, STORE_IMAGE s
 	   	   set 
@@ -70,7 +72,7 @@
  		select m.MENU_NAME, s.PHOTO_NAME, m.MENU_INFO, m.MENU_PRICE, m.MENU_HIDE, m.MENU_NO
 		  from MENU m 
 		  join STORE_IMAGE s
-		    on m.MENU_NO = s.PHOTO_TYPE
+		    on (m.MENU_NO, m.STORE_NO) = (s.PHOTO_TYPE, s.STORE_NO)
 		 where 1 = 1
 	 	   and m.MENU_NO = #{MENU_NO}
 	   	   and m.STORE_NO = #{STORE_NO}
@@ -79,6 +81,9 @@
  	
  	<select id="menuMax" parameterType="map" resultType="map">
  		SELECT CONCAT("ME", ifnull(MAX(CAST(REPLACE(MENU_NO, "ME", "") AS UNSIGNED)), 0) + 1) as "MENU_NO"
+ 			  ,(select STORE_NAME
+ 			      from STORE a
+ 			     where STORE_NO = #{STORE_NO}) as "STORE_NAME"
 		  FROM MENU
 		 where 1 = 1
 		   and STORE_NO = #{STORE_NO}
@@ -240,6 +245,61 @@
 		 where s.STORE_NO = #{STORE_NO}
 			   ;	
  	</select>
+ 	
+<!-- 식당 메인 끝 -->
+
+<!-- 식당 좌석 시작 -->
+ 	
+ 	<insert id="seatInsert" parameterType="map">
+ 	 	insert
+ 	 		into SEAT
+ 	 			( SEAT_NO
+ 	 			, STORE_NO
+ 	 			, SEAT_NAME
+ 	 			, SEAT_MIN
+ 	 			, SEAT_MAX
+ 	 			, SEAT_CONTENT
+ 	 			, SEAT_OC
+ 	 			)
+ 	 		values
+ 	 			(
+ 	 			  (SELECT CONCAT("SE", ifnull(MAX(CAST(REPLACE(SEAT_NO, "SE", "") AS UNSIGNED)), 0) + 1) as "SEAT_NO"
+				     FROM SEAT a
+				    where 1 = 1
+				      and STORE_NO = #{STORE_NO})
+ 	 			, #{STORE_NO}
+ 	 			, #{SEAT_NAME}
+ 	 			, #{SEAT_MIN}
+ 	 			, #{SEAT_MAX}
+ 	 			, #{SEAT_CONTENT}
+ 	 			, #{SEAT_OC}
+ 	 			)
+ 	 			;
+ 	 	insert
+ 	 		into STORE_IMAGE
+ 	 			(
+ 	 			  PHOTO_NO
+ 	 			, STORE_NO
+ 	 			, PHOTO_NAME
+ 	 			, PHOTO_TYPE  
+ 	 			)
+ 	 		values
+ 	 			(
+ 	 			  (SELECT CONCAT("PH", ifnull(MAX(CAST(REPLACE(PHOTO_NO, "PH", "") AS UNSIGNED)), 0) + 1) as "PHOTO_NO"
+				     FROM STORE_IMAGE a
+				    where 1 = 1
+				      and STORE_NO = #{STORE_NO})
+ 	 			, #{STORE_NO}
+ 	 			, #{PHOTO_NAME}
+ 	 			, (select CONCAT("SE", ifnull(MAX(CAST(REPLACE(SEAT_NO, "SE", "") AS UNSIGNED)), 0) + 1) as "SEAT_NO"
+ 	 			     from SEAT b
+ 	 			    where 1 = 1
+ 	 			      and STORE_NO = #{STORE_NO})
+ 	 			)
+ 	 			;			
+ 	</insert>
+ 	
+<!-- 식당 좌석 끝 --> 	
 </mapper>
 
 

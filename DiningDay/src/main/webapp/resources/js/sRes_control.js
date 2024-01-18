@@ -16,11 +16,5 @@ document.write('<script type="text/javascript"' +
  */
 
 $(() => {
-	$("input[name=RES_DATE]").on("change", e => {
-		$("#datePrint").val($(e.target).val())
-	})
 	
-	$("button").on("click", e => {
-		$(e.target.closest("tr")).remove();
-	})
 })

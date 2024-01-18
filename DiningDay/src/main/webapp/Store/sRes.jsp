@@ -33,7 +33,7 @@
 							<button type="button" class="btn btn-white btn-animate no_resList" 
 							style=" background-color: rgb(156, 237, 146); color: white;">예약 노쇼 명단</button>
 						</div>
-						<h1 class="mb-5 mt-5" style="text-align: left">예약 승인</h1>
+						<h1 class="mb-5 mt-5" style="text-align: left">예약 대기</h1>
 						<table class="table mb-5" border="1">
 						    <thead>
 								<tr><th colspan="6" style="background-color: #9CED92;">
@@ -48,7 +48,7 @@
 						    		<th style="background-color: #FFF2A6;">승인여부</th>
 						    	</tr>
 						    </thead>
-							<tbody id="tbody_2" class="table-group-divider">
+							<tbody id="tbody_1" class="table-group-divider">
 								<tr>
 									<td>홍길동</td>
 									<td>야외 4인석</td>
@@ -134,7 +134,7 @@
 						    		<th style="background-color: #FFF2A6;">승인여부</th>
 						    	</tr>
 						    </thead>
-							<tbody id="tbody_2" class="table-group-divider">
+							<tbody id="tbody_3" class="table-group-divider">
 								<tr>
 									<td>이순신</td>
 									<td>야외 4인석</td>
@@ -171,7 +171,7 @@
 						    		<th style="background-color: #FFF2A6;">승인여부</th>
 						    	</tr>
 						    </thead>
-							<tbody id="tbody_2" class="table-group-divider">
+							<tbody id="tbody_4" class="table-group-divider">
 								<tr>
 									<td>이순신</td>
 									<td>야외 4인석</td>

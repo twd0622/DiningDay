@@ -48,6 +48,8 @@ public class StoreController extends HttpServlet {
 		
 		if(sPath.equals("/smenuUpdate.st")) {
 			Map<String, String> stSession = TeamUtil.fileRequestToMap(req);
+			stSession.put("STORE_NO", (String)session.getAttribute("STORE_NO"));
+			
 			boolean bl = storeService.menuUpdate(stSession);
 			if(!bl) return;
 			
@@ -57,19 +59,19 @@ public class StoreController extends HttpServlet {
 		
 		if(sPath.equals("/smenuAddEvent.st")) {
 			res.setContentType("application/x-json; charset=utf-8");
-			res.getWriter().print(storeService.menuMax(req));
+			res.getWriter().print(storeService.menuMax((String)session.getAttribute("STORE_NO")));
 		}
 		
 		if(sPath.equals("/smenuDelete.st")) {
 			boolean bl = storeService.menuDelete(req);
 //			System.out.println(Arrays.toString(a.get("STORE_NO")));
 //			System.out.println(Arrays.toString(a.get("MENU_NO")));
-			
 			res.getWriter().print(bl);
 		}
 		
 		if(sPath.equals("/smenuInsert.st")) {
 			Map<String, String> stSession = TeamUtil.fileRequestToMap(req);
+			stSession.put("STORE_NO", (String)session.getAttribute("STORE_NO"));
 			boolean isTrue = storeService.insertMenu(stSession);
 			if(!isTrue) return;
 			
@@ -151,10 +153,17 @@ public class StoreController extends HttpServlet {
 			dispatcher.forward(req, res);
 		}
 		
-		
+//		-------------------------------------------------------------------------------
 		if(sPath.equals("/stable_insert.st")) {
 			dispatcher = req.getRequestDispatcher("Store/stable_insert.jsp");
 			dispatcher.forward(req, res);
+		}
+		
+		if(sPath.equals("/seatInsert.st")) {
+			boolean bl = storeService.seatInsert(req);
+			
+			res.setContentType("application/x-json; charset=utf-8");
+			res.getWriter().print(bl);
 		}
 		
 		if(sPath.equals("/stable.st")) {
@@ -162,6 +171,7 @@ public class StoreController extends HttpServlet {
 			dispatcher.forward(req, res);
 		}
 		
+//		-------------------------------------------------------------------------------
 		if(sPath.equals("/sdeclare.st")) {
 			dispatcher = req.getRequestDispatcher("Store/sdeclare.jsp");
 			dispatcher.forward(req, res);

@@ -70,13 +70,9 @@ $(() => {
 						aJaxFunction(dataList)
 					)
 					.done(function(data){
-	//					debugger;
+						debugger;
 						ajaxDone.func(data);
 					})
-					.fail(function(fail){
-						alert("실패");
-						var a = fail;
-					})					
 				}
 //				debugger;
 			})
@@ -271,6 +267,8 @@ function clickFunction(e){
 			     .show();
 			$(tr).find("span")
 			     .show();
+		     var thisCheckBox = $(tr).find(".form-check-input");
+			$(thisCheckBox).prop("checked", false);
 			break;	
 	}
 	
@@ -286,15 +284,15 @@ function aJaxFunction(dataList){
 	var ajaxJson = {
 		type: "post",
 		url: dataList[0],
-		cache: false,
+		async: false,
 		data: dataList[1],
 		contentType: false,
         processData: false 
 	}
 	
-	if(dataList[2]){
-		ajaxJson.dataType = "json";
-	}
+//	if(dataList[2]){
+//		ajaxJson.dataType = "json";
+//	}
 
 	return ajaxJson;	
 }
@@ -341,6 +339,7 @@ function htmlTag(menu){
 				'</td>' +
 				'<td><input type="text" class="border border-dark form-control" name="MENU_NAME" value="' + menu.MENU_NAME + '"></td>' +
 				'<td><input type="hidden" name="MENU_NO" value="' + menu.MENU_NO + '">' +
+					'<img src="upload/' + menu.PHOTO_NAME + '" style="width:100px; height:100px; alt=""/>' +
 					'<span>' + menu.PHOTO_NAME + '</span>' +
 					'<input type="file" class="border border-dark form-control" id="inputFile_2" name="hiddenfile" aria-describedby="fileButton_1">' +
 				'</td>' +

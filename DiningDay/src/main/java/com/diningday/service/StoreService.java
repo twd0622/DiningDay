@@ -1,6 +1,7 @@
 package com.diningday.service;
 
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -43,8 +44,11 @@ public class StoreService {
 		return TeamUtil.mapToJSON(storeDAO.menuSelect(map));
 	}
 	
-	public JsonObject menuMax(HttpServletRequest req) {
-		return TeamUtil.mapToJSON(storeDAO.menuMax(TeamUtil.fileRequestToMap(req)));
+	public JsonObject menuMax(String req) {
+		Map<String, String> dto = new HashMap<String, String>();
+		dto.put("STORE_NO", req);
+		
+		return TeamUtil.mapToJSON(storeDAO.menuMax(dto));
 	}
 	
 	public boolean menuDelete(HttpServletRequest req) {
@@ -73,5 +77,9 @@ public class StoreService {
 	
 	public boolean firstInsertStore_OwnerUpdate(Map<String, String> storeDTO) {
 		return storeDAO.firstInsertStore_OwnerUpdate(storeDTO);
+	}
+	
+	public boolean seatInsert(HttpServletRequest req) {
+		return storeDAO.seatInsert(TeamUtil.fileRequestToMap(req));
 	}
 }
