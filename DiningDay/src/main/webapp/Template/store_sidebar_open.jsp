@@ -273,10 +273,10 @@ ul{
 		                    <span class="nav_name">계정관리</span>
 		                </a>
                 	</li>
-                    <li><a class="nav__link" href="${ pageContext.request.contextPath }/info_update.st" style="width: 130px;">
+                    <li><a class="nav__link" href="info_update.st" style="width: 130px;">
                     	<small>● 계정 수정</small></a>
                     </li>
-                    <li class="mt-2"><a class="nav__link" href="${ pageContext.request.contextPath }/logout.st" style="width: 130px;">
+                    <li class="mt-2"><a class="nav__link" href="logout.st" style="width: 130px;">
                     	<small>● 로그아웃</small></a>
                     </li>
             	</ul>
@@ -291,7 +291,6 @@ ul{
 				$($(".nav__list")[0]).show();
 				return;
 			} 
-			debugger;
 			$(".nav__list").show();
 			$($(".nav__list")[0]).hide();
 			
