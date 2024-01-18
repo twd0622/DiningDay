@@ -26,7 +26,12 @@
 		, #{rev_image}); 
     			    
 	</insert>	
-		
+	
+	<select id="getNick" resultType="String" parameterType="String">
+		select CUS_NICK
+		from CUSTOMER
+		WHERE CUS_NO = #{CUS_NO}
+	</select>
 	
 </mapper>
 

@@ -51,12 +51,15 @@
 			 , ST.STORE_NAME
 			 , SE.SEAT_NAME
 			 , R.RES_NO
+			 , V.REV_NO
 		FROM RESERVATION R JOIN STORE ST
 			 ON R.STORE_NO = ST.STORE_NO
 		 	 JOIN SEAT SE
 			 ON (R.SEAT_NO, R.STORE_NO) = (SE.SEAT_NO, SE.STORE_NO)
 			 JOIN PAYMENT P
              ON R.RES_NO = P.RES_NO
+             LEFT JOIN REVIEW V
+			 ON R.RES_NO = V.RES_NO
 		WHERE R.CUS_NO = #{CUS_NO}
 		ORDER BY RES_DATE DESC;
 	</select>
@@ -120,7 +123,7 @@
 				, CUS_EMAIL = #{CUS_EMAIL}
 				, CUS_BIRTH = replace(cast(#{CUS_BIRTH} as char), "-", "")
 				, CUS_REDATE= DATE_FORMAT(SYSDATE(), '%Y%m%d%H%i%s')
-				, CUS_IMAGE = #{CUS_IMAGE}
+				, CUS_IMAGE = IF(#{CUS_IMAGE} is not null, #{CUS_IMAGE}, CUS_IMAGE)
 		where	CUS_NO = #{CUS_NO};
 	</update>
 	

@@ -40,7 +40,7 @@
 									<input type="hidden" name="cus_no" value="${sessionScope.CUS_NO}">
 									<input type="hidden" name="res_no" value="${requestScope.RES_NO }">
 									<input type="text" class="form-control"
-										placeholder="작성자" name="cus_nick" value="${sessionScope.CUS_NICK }" readonly="readonly">
+										name="cus_nick" value="${requestScope.nick }" readonly="readonly">
 								</td>
 							</tr>
 							<tr>

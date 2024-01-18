@@ -8,6 +8,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.diningday.service.AdminService;
 import com.diningday.service.Review_ReportService;
@@ -54,6 +55,11 @@ public class Review_ReportController extends HttpServlet {
 		
 		if(sPath.equals("/reviewWrite.re")) {
 			System.out.println("/reviewWrite.re");
+			review_ReportService = new Review_ReportService();
+			HttpSession session = req.getSession();
+			
+			
+			req.setAttribute("nick", review_ReportService.getNick((String)session.getAttribute("CUS_NO")));
 			req.setAttribute("RES_NO", req.getParameter("RES_NO"));
 			req.setAttribute("store_name", req.getParameter("STORE_NAME"));
 			dispatcher = req.getRequestDispatcher("Review_Report/reviewWrite.jsp");
@@ -74,6 +80,11 @@ public class Review_ReportController extends HttpServlet {
 			res.sendRedirect("mypage.cu");
 		}
 		
+		if(sPath.equals("/store_review.re")) {
+			
+			dispatcher = req.getRequestDispatcher("Review_Report/store_review.jsp");
+			dispatcher.forward(req, res);
+		}
 		
 	}
 }

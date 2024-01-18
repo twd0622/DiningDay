@@ -31,6 +31,15 @@ public class Review_ReportDAO {
 		
 	}
 
+	public String getNick(String CUS_NO) {
+		session = sqlSessionFactory.openSession();
+		String nick = session.selectOne("Review_Report.getNick",CUS_NO);
+		
+		session.close();
+		
+		return nick;
+	}
+
 	
 
 }
