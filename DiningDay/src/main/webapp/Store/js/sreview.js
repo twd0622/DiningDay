@@ -38,7 +38,7 @@ var reviewTag = function(data){
 		+ 			'</div>'
 		+ 			'<div class="answer_write_box">'
 		+ 				'<textarea class="form-control answer_write"></textarea>'
-		+ 				'<button class="btn answerBtn">작성</button>'
+		+ 				'<button class="btn answerBtn">등록</button>'
 		+ 			'</div>';
 		
 		var YesAnswer = 
@@ -83,8 +83,13 @@ var reviewTag = function(data){
 	$(".updateBtn").on("click", function(){
 		updateBtnClick($(this));
 	})
+	
+	$(".reviewReportBtn").on("click", function(){
+		reviewReportModalOpen($(this))
+	})
 }
 
+// 등록 버튼 클릭
 var answerBtnClick = function(e){
 	var answerContent = e.siblings(".answer_write").val().trim();
 	if(answerContent == ''){
@@ -118,12 +123,17 @@ var answerBtnClick = function(e){
 		+				'<span>'+ data.ANSWER_CONTENT +'</span>'
 		+			'</div>';
 		
-		$("#"+data.REV_NO).find(".review_answer_box").append(YesAnswer);	
+		$("#"+data.REV_NO).find(".review_answer_box").append(YesAnswer);
+		
+		$("#"+data.REV_NO).find(".updateBtn").on("click", function(){
+		updateBtnClick($(this));
+	})	
 	})
 	
 	
 };
 
+// 수정 버튼 클릭
 var updateBtnClick = function(e){
 	var REV_NO = e.parents(".review").attr("id");
 	var answerContent = $("#"+REV_NO).find(".review_answer_content span").text();
@@ -143,11 +153,100 @@ var updateBtnClick = function(e){
 		+			'</div>'
 		+ 			'<div class="answer_write_box">'
 		+ 				'<textarea class="form-control answer_write">'+answerContent+'</textarea>'
-		+ 				'<button class="btn answerBtn">수정</button>'
+		+ 				'<button class="btn updateAnswerBtn">수정 등록</button>'
 		+ 			'</div>';
 		
 	$("#"+REV_NO).find(".review_answer_box").append(UpdateAnswer);
+	
+	$("#"+REV_NO).find(".updateAnswerBtn").on("click", function(){
+		updateAnswerBtnClick($(this));
+	})
+	
+	$("#"+REV_NO).find(".cancelBtn").on("click", function(){
+		cancelBtnClick(REV_NO, answerContent, answerDate);
+	})
 }
+
+// 수정 취소 버튼 클릭
+var cancelBtnClick = function(REV_NO, answerContent, answerDate){
+	var YesAnswer = 
+		 			'<div class="flexBox">'
+		+				'<div class="review_answer_info">'
+		+					'<span class="material-symbols-outlined arrow_icon">subdirectory_arrow_right</span>'
+		+					'<span class="owner">사장님</span>'
+		+					'<span class="review_answer_date">'+ answerDate +'</span>'
+		+				'</div>'
+		+				'<div>'
+		+					'<span class="updateBtn">수정</span>'
+		+				'</div>'					
+		+			'</div>'
+		+			'<div class="review_answer_content">'
+		+				'<span>'+ answerContent +'</span>'
+		+			'</div>';
+		
+		$("#"+REV_NO).find(".review_answer_box").empty();
+		$("#"+REV_NO).find(".review_answer_box").append(YesAnswer);
+		
+		$("#"+REV_NO).find(".updateBtn").on("click", function(){
+			updateBtnClick($(this));
+		})
+}
+
+
+// 수정 등록 버튼 클릭
+var updateAnswerBtnClick = function(e){
+	$.ajax({
+		type: "post",
+		url:"answerUpdate.st",
+		data: {
+			REV_NO: e.parents(".review").attr("id"),
+			ANSWER_CONTENT: e.siblings(".answer_write").val()
+		}
+	})
+	.done(function(data){
+		$("#"+data.REV_NO).find(".review_answer_box").empty();
+			
+		var YesAnswer = 
+		 			'<div class="flexBox">'
+		+				'<div class="review_answer_info">'
+		+					'<span class="material-symbols-outlined arrow_icon">subdirectory_arrow_right</span>'
+		+					'<span class="owner">사장님</span>'
+		+					'<span class="review_answer_date">'+ data.ANSWER_DATE +'</span>'
+		+				'</div>'
+		+				'<div>'
+		+					'<span class="updateBtn">수정</span>'
+		+				'</div>'					
+		+			'</div>'
+		+			'<div class="review_answer_content">'
+		+				'<span>'+ data.ANSWER_CONTENT +'</span>'
+		+			'</div>';
+		
+		$("#"+data.REV_NO).find(".review_answer_box").append(YesAnswer);
+		
+		$("#"+data.REV_NO).find(".updateBtn").on("click", function(){
+			updateBtnClick($(this));
+		})
+		
+	})
+} 
+
+// 신고 모달 오픈 클릭
+var reviewReportModalOpen = function(e){
+	$("#reportModalContainer").removeClass("hidden");
+	
+	$(window).on("click",function(e){
+		if (e.target == $("#reportModalContainer")[0]) {
+			$("input[type=radio]").prop("checked", false);
+			$(".otherContent").val('');
+			$("#reportModalContainer").addClass("hidden");
+		}
+	})
+	
+	var REV_NO = e.parents(".review").attr("id")
+	
+	$("#rev_no").val(REV_NO);
+}
+
 
 // ====================================================
 $(()=>{
@@ -180,6 +279,26 @@ $(()=>{
 		})
 	})
 	
+	// 신고 모달 창에 신고 버튼 클릭
+	$(".reportBtn").on("click", function(){
+		
+		var formData = $(".reviewReportForm").serialize();
+		formData = decodeURIComponent(formData);
+		
+		$.ajax({
+			type: "post",
+			url:"insertReviewReport.st",
+			data: formData,
+		})
+		.done(function(data){
+			if(data == '1') alert("신고가 완료되었습니다.");
+			
+			$("input[type=radio]").prop("checked", false);
+			$(".otherContent").val('');
+			$("#reportModalContainer").addClass("hidden");
+			
+		})
+	})
 	
 })
 

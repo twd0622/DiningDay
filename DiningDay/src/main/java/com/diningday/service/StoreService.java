@@ -86,6 +86,20 @@ public class StoreService {
 		return storeDAO.answerInsert(answerDTO);
 	}
 	
+	public Map<String, String> answerUpdate(Map<String, String> answerDTO) {
+		return storeDAO.answerUpdate(answerDTO);
+		
+	}
+	
+	public Map<String, String> getReviewInfo(String STORE_NO) {
+		return storeDAO.getReviewInfo(STORE_NO);
+		
+	}
+	
+	public int insertReviewReport(Map<String, String> reportDTO) {
+		return storeDAO.insertReviewReport(reportDTO);
+	}
+	
 	// -------------------여기 까지 s_review-------------------------------------------------------
 
 	
@@ -99,6 +113,6 @@ public class StoreService {
 		Map<String, String> ownerDTO = TeamUtil.requestToMap(req, param);
 		return storeDAO.ownerEdit(ownerDTO);
 	}
-	
+
 	
 }

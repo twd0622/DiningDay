@@ -254,7 +254,7 @@
 		     , R.REV_GOOD
 		     , ifnull(R.REV_IMAGE, '0') REV_IMAGE
 		     , RA.ANSWER_CONTENT
-		     , CAST(str_to_date(RA.ANSWER_DATE, '%Y%m%d%H%i%s') AS CHAR(30)) ANSWER_DATE
+		     , CAST(ifnull(concat('(수정) ', str_to_date(RA.ANSWER_UPDATE_DATE, '%Y%m%d%H%i%s')), str_to_date(RA.ANSWER_DATE, '%Y%m%d%H%i%s')) AS CHAR(30)) ANSWER_DATE
 		     , ifnull(RA.ANSWER_CONTENT, '2') 'SELECT'
 		from REVIEW R
 		left join REVIEW_ANSWER RA
@@ -267,6 +267,7 @@
 		  <if test='select == "1"'> <!-- 답글 작성 -->
 		  and RA.ANSWER_CONTENT is not null
 		  </if>
+		order by REV_DATE desc
 		  ;
  	</select>
  	
@@ -279,10 +280,38 @@
  		select REV_NO
  		     , ST_NO
  		     , ANSWER_CONTENT
- 		     , CAST(str_to_date(ANSWER_DATE, '%Y%m%d%H%i%s') AS CHAR(30)) ANSWER_DATE
+ 		     , CAST(ifnull(concat('(수정) ', str_to_date(ANSWER_UPDATE_DATE, '%Y%m%d%H%i%s')), str_to_date(ANSWER_DATE, '%Y%m%d%H%i%s')) AS CHAR(30)) ANSWER_DATE
           from REVIEW_ANSWER
          where REV_NO = #{REV_NO};
  	</select>
+ 	
+ 	<update id="answerUpdate" parameterType="map">
+ 		update REVIEW_ANSWER
+		set ANSWER_CONTENT = #{ANSWER_CONTENT}, ANSWER_UPDATE_DATE = date_format(now(),'%Y%m%d%H%i%s')
+		where REV_NO = #{REV_NO};
+ 	</update>
+ 	
+ 	<select id="getReviewInfo" parameterType="String" resultType="map">
+	  select count(R.REV_NO) REVIEW_COUNT
+	       , count(RA.REV_NO) REVIEW_ANSWER_COUNT
+	       , format(avg(R.REV_SCORE), 1) REVIEW_SCORE
+	    from REVIEW R
+	    LEFT join REVIEW_ANSWER RA
+	      on R.REV_NO = RA.REV_NO
+	   where R.STORE_NO = #{STORE_NO};
+ 	</select>
+ 	
+ 	<insert id="insertReviewReport" parameterType="map">
+ 		insert into REVIEW_REPORT (RREP_NO, REV_NO, STORE_NO, RREP_CONTENT, RREP_DATE, RREP_PROCESS)
+		VALUES
+		( concat("RR", IFNULL((select MAX(cast(replace(RREP_NO, "RR", "") AS unsigned))+1 FROM REVIEW_REPORT A), 1))
+		, #{REV_NO}
+		, #{STORE_NO}
+		, if(#{RREP_CONTENT} = '기타', #{otherContent}, #{RREP_CONTENT})
+		, date_format(now(), '%Y%m%d%H%i%s')
+		, '0'
+		)
+ 	</insert>
  	
 <!-- ===================== 여기 까지 s_review ===================== -->
  	
