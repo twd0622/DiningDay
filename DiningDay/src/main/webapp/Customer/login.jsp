@@ -24,16 +24,19 @@
 				<form action="loginPro.cu" method="post" id="form">
 					<!-- 카카오버튼 --> 
 					<a id="kakao-login-btn" href="javascript:loginWithKakao()" class="w-100 py-2 mb-2 btn btn-warning rounded-3">
-						<img src="${ pageContext.request.contextPath }/resources/img/kakao.png" id="image"/>
-						<span id="span">kakao 계정으로 로그인</span></a>
+						<img src="./resources/img/kakao.png" id="image"/>
+						<span id="span">Kakao로 시작하기</span></a>
 					<!-- 구글 버튼 -->
 					<a id="GgCustomLogin" href="javascript:void(0)" class="w-100 py-2 mb-2 btn btn-outline-secondary rounded-3">
-						<img src="${ pageContext.request.contextPath }/resources/img/google.png" id="image"/>
-						<span id="span">Google로 시작하기</span></a>
+						<img src="./resources/img/google.png" id="image"/>
+						<span id="span">Google로 시작하기</span>
+					</a>
+					<a id="gLoginBtn" style="display:none;"></a>
+					
 					<!-- 네이버 버튼 -->
 					<a id="naverIdLogin_loginButton" href="javascript:void(0)" class="w-100 py-2 mb-2 btn btn-success rounded-3">
-						<img src="${ pageContext.request.contextPath }/resources/img/naver.png" id="image"/>
-						<span id="span">Naver 계정으로 로그인</span></a>
+						<img src="./resources/img/naver.png" id="image"/>
+						<span id="span">Naver로 시작하기</span></a>
 					<hr class="my-4">
 					<!-- 점주용 이동 -->
 					<a class="icon-link icon-link-hover mt-2" href="owner_login.ow">

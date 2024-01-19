@@ -110,6 +110,13 @@ public class CustomerController extends HttpServlet {
 			res.sendRedirect("mypage.cu");
 		}
 		
+		
+		if(sPath.equals("/resetImage.cu")) {
+			String CUS_NO = (String) session.getAttribute("CUS_NO");
+			customerService.resetImage(CUS_NO);
+			res.sendRedirect("cus_edit.cu");
+		}
+		
 //		-------------------------------------------------------------
 		
 		if(sPath.equals("/logout.cu")) {
@@ -160,5 +167,4 @@ public class CustomerController extends HttpServlet {
 	        e.printStackTrace();
 	    }
 	}
-	
 }

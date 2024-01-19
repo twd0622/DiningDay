@@ -52,7 +52,7 @@
 				    			<input type="text" name="OWN_ID" class="form-control col-md-8" id="id"
 									   onchange="check_id()" placeholder="영어 소문자, 숫자 포함 6~10자"/>
 				  				<input class="form-control col-md-3" type="button" value="중복체크"
-				  					   id="trueCheck" onclick="idCheck()" />
+				  					   id="trueCheck"/>
 							</div>
 						</div>
 						<span id="checkId"></span>

@@ -88,8 +88,8 @@ public class OwnerController extends HttpServlet {
 				String url= "search_id.ow";
 				String AuthNumber = sendCodemail(res, receiver, subject, url);
 				session.setAttribute("AuthNumber", AuthNumber);
-				}	
-			}
+			}	
+		}
 		
 		if(sPath.equals("/search_pw.ow")) {
 			dispatcher = req.getRequestDispatcher("Owner/search_pw.jsp");

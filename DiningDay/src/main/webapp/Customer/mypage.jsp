@@ -52,23 +52,13 @@
 	                	  	  		<b><a id="${reservationInfo.RES_NO}" href="#" class=resBtn>${reservationInfo.MERCHANT_UID}</a></b></td>
 	                			<td rowspan="2" width="20px">${reservationInfo.RES_DATE}</td>
 	                			<td colspan="2">${reservationInfo.STORE_NAME}</td>
-	                			<c:if test="${reservationInfo.REQ_STATE eq '2'}">
-		                			<td style="vertical-align: middle; color: green;" rowspan="2" width="40px"><b>방문완료</b></td>
-		                			<td class="align-middle" rowspan="2" width="20px">
-		                				<c:if test="${empty reservationInfo.REV_NO}">
-		                					<button onclick="location.href='reviewWrite.re?STORE_NAME=${reservationInfo.STORE_NAME}&RES_NO=${reservationInfo.RES_NO}'"
-		                							type="button" class="btn btn-outline-warning">작성하기</button>
-		                				</c:if>
-		                				</td>
-	                			</c:if>	
-	                			<c:if test="${reservationInfo.REQ_STATE eq '1'}">
-	                			    <td id="REQ_STATE_1" rowspan="2"><b>예약취소</b></td>
-		                			<td rowspan="2" width="20px"></td>
-	                			</c:if>	
-	     			            <c:if test="${reservationInfo.REQ_STATE eq '0'}">
-	                				<td id="REQ_STATE_0" rowspan="2"><b>예약완료</b></td>
-		                			<td rowspan="2" width="20px"></td>
-	                			</c:if>	
+	                			<td id="REQ_STATE_${reservationInfo.REQ_STATE}" rowspan="2"><b>${reservationInfo.STATE_NAME}</b></td>
+	                			<td rowspan="2" width="20px">
+		                			<c:if test="${reservationInfo.REVIEW_ON eq 'Y'}">
+	                					<button onclick="location.href='reviewWrite.re?STORE_NAME=${reservationInfo.STORE_NAME}&RES_NO=${reservationInfo.RES_NO}'"
+	                							type="button" class="btn btn-outline-warning">작성하기</button>
+	                				</c:if>
+	                			</td>
 	                		</tr>
 	                		<tr>
 	                			<td width="50px">${reservationInfo.SEAT_NAME}</td>

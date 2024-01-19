@@ -161,7 +161,6 @@ public class StoreDAO {
 	public boolean ownerEdit(Map<String, String> ownerDTO) {
 		session = sqlSessionFactory.openSession();
 		int ownerEdit = session.update("Store.ownerEdit", ownerDTO);
-		System.out.println("ownerEdit: " + ownerEdit);
 		session.commit();
 		session.close();
 		return ownerEdit > 0 ? true : false;

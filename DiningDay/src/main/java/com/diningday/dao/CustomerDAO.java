@@ -42,6 +42,12 @@ public class CustomerDAO {
 		return customerEdit > 0 ? true : false;
 	}
 
+	public void resetImage(String CUS_NO) {
+		session = sqlSessionFactory.openSession();
+		session.update("Customer.resetImage", CUS_NO);
+		session.commit();
+		session.close();
+	}
 	
 	public Map<String, String> customerCheck(Map<String, String> customerDTO) {
 		session = sqlSessionFactory.openSession();
@@ -97,6 +103,7 @@ public class CustomerDAO {
 		session.close();
 		return result > 0 ? true : false;
 	}
+
 	
 	
 	
