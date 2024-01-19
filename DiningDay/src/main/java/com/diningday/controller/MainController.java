@@ -65,14 +65,15 @@ public class MainController extends HttpServlet {
 			}
 			
 			Map<String, String> map = new HashMap<String, String>();
-			map.put("LOC_NAME", req.getParameter("LOC_NAME"));
+			map.put("LOC_NAME", (String)session.getAttribute("LOC_NAME"));
 			
 			List<Map<String, String>> mainStoreInfo = mainService.getMainInfo(TeamUtil.requestToMap(req, map));
 			JsonObject mainInfo = TeamUtil.MapListsToJson(mainStoreInfo);
 			
 			if(req.getParameter("searchInput") == null) {
-				List<Map<String, String>> bestReview = mainService.getBestReview(TeamUtil.requestToMap(req));
+				List<Map<String, String>> bestReview = mainService.getBestReview(TeamUtil.requestToMap(req,map));
 				mainInfo = TeamUtil.MapListsToJson(mainStoreInfo, bestReview);
+				System.out.println(mainInfo);
 			}
 			
 			res.setContentType("application/x-json; charset=utf-8");

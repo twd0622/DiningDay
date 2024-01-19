@@ -219,7 +219,7 @@ public class TeamUtil {
 		
 		JsonObject jsonObject = new JsonObject();
 		jsonObject.add("json1", jsonArray1);
-		jsonObject.add("json2", jsonArray1);
+		jsonObject.add("json2", jsonArray2);
 		
 		return jsonObject;
 	}

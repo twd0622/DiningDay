@@ -17,7 +17,7 @@
 }
 
 .cus_nickname{
-	margin-top: 10px;
+	padding-bottom: 5px;
 }
 
 .box1{
@@ -72,6 +72,39 @@
 }
 
 .review_content{
-	font-size: 19px;
+	width: 300px;
+	height: auto;
 	
+	border-radius: 10px;
+	background-color: rgb(240 240 240);
+	padding: 20px 20px;
+	
+	font-size: 15px;
+	text-align: left;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: wrap;
+}
+
+.reviewBox{
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+}
+
+.rank{
+	padding-right: 20px;
+	font-weight: bolder;
+	font-size: 30px;
+	
+}
+
+.showDetailBtnBox{
+	text-align: right;
+}
+
+.showDetailBtn{
+	color: #333;
+	font-size: 14px;
+	margin-top: 10px;
 }

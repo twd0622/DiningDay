@@ -30,7 +30,24 @@ var getMainInfo = function(data){
 			$(".recomannedStore").append(recomannedStore);
 		}
 	};
-	
+
+var bestReview = function(data){
+	for(Review of data){
+		var bestReviewTag = 
+		  '<div class="col-lg-4 col-sm-6 mb-4 reviewBox">'
+		+     '<div class="rankBox"><span class="rank">'+ Review.RANK +'</span></div>'
+		+     '<div>'
+	    +     	'<svg class="bd-placeholder-img rounded-circle" width="120" height="120"  role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false" style="border: 1px solid black; background-image: url(\'upload/'+Review.CUS_IMAGE+'\'); background-size: contain;"></svg>'
+	    +     	'<h6 class="fw-normal cus_nickname">' + Review.CUS_NICK + '</h6>'
+	    +     	'<p class="showDetailBtnBox"><a class="showDetailBtn" href="store_review.re?STORE_NO='+ Review.STORE_NO +'#'+ Review.REV_NO +'">상세보기 »</a></p>'
+	    +     	'<p class="review_content">' + Review.REV_CONTENT + '</p>'
+	    +     '</div>'
+      	+ '</div>'
+      	
+      	$("#bestReviewBox").append(bestReviewTag);
+	}
+}
+
 $(()=>{
 	$.ajax({
 		type: "get",
@@ -164,6 +181,7 @@ $(()=>{
 	})
 	.done(function(data){
 		getMainInfo(data.json1);
+		bestReview(data.json2);
 	})
 	
 	$(".leftBtn").on("click",function(){
@@ -197,7 +215,9 @@ $(()=>{
 		})
 		.done(function(data){
 			$(".recomannedStore").empty();
+			$("#bestReviewBox").empty();
 			getMainInfo(data.json1);
+			bestReview(data.json2);
 			$("#locationName").text(loc_name)
 			modal.css("display" , "none");
 		})
