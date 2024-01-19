@@ -186,6 +186,20 @@ h1{
 	align-items: center;
 }
 
+.goodBtn{
+	border: 1px #D9AF4C solid;
+	border-radius: 10px;
+	margin: 10px 0;
+	padding: 5px 15px;
+	
+	color: #D9AF4C;
+		
+	width: 110px;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+}
+
 .like{
 	font-weight: 400;
 }
