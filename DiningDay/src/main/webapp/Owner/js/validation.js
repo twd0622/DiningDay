@@ -95,7 +95,7 @@ function submit() {
 		return false;
 	}
 	if(inputs.OWN_CRN.value == ""){
-		alert("사업자번호를 입력해 주십시오.");
+		alert("사업자번호(10자리)를 입력해 주십시오.");
 		inputs.OWN_CRN.focus();
 		return false;
 	}

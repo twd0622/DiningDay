@@ -49,8 +49,7 @@ public class OwnerController extends HttpServlet {
 		}
 		
 		if(sPath.equals("/idCheck.ow")) {
-			String OWN_ID = req.getParameter("OWN_ID");
-			boolean result = ownerService.idCheck(OWN_ID);
+			boolean result = ownerService.idCheck(req);
 			res.getWriter().print(result);
 		}
 		

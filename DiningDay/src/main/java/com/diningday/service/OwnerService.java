@@ -10,8 +10,9 @@ import com.diningday.util.TeamUtil;
 public class OwnerService {
 	OwnerDAO ownerDAO = new OwnerDAO();
 	
-	public boolean idCheck(String OWN_ID) {
-		boolean result = ownerDAO.idCheck(OWN_ID);
+	public boolean idCheck(HttpServletRequest req) {
+		Map<String, String> ownerDTO = TeamUtil.requestToMap(req);
+		boolean result = ownerDAO.idCheck(ownerDTO);
 		return result;
 	}
 	
