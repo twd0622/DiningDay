@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 
 import com.diningday.service.StoreService;
 import com.diningday.util.TeamUtil;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.mysql.fabric.xmlrpc.base.Array;
 
@@ -139,6 +140,7 @@ public class StoreController extends HttpServlet {
 		
 //		---------------------------------------------------------------------------------------------
 		
+//		--- 예약 시작 ---		
 		if(sPath.equals("/sRes_control.st")) {
 			dispatcher = req.getRequestDispatcher("Store/sRes_control.jsp");
 			dispatcher.forward(req, res);
@@ -148,6 +150,17 @@ public class StoreController extends HttpServlet {
 			dispatcher = req.getRequestDispatcher("Store/sRes.jsp");
 			dispatcher.forward(req, res);
 		}
+		
+		if(sPath.equals("/sResPro.st")) {
+			Map<String, String> dto = new HashMap<String, String>();
+			dto.put("STORE_NO", (String)session.getAttribute("STORE_NO"));
+			JsonArray a = storeService.resSelectList(req, dto);
+			System.out.println(a + "***@@@");
+			
+			res.setContentType("application/x-json; charset=utf-8");
+			res.getWriter().print(a);
+		}
+//		--- 예약 끝 ---
 		
 		// ----------------- 01/17 준우 작성 건들 ㄴㄴ -------------------------------------------------
 		if(sPath.equals("/sreview.st")) {

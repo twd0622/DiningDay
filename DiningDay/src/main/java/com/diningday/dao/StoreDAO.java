@@ -132,6 +132,16 @@ public class StoreDAO {
 		return insert > 0 ? true : false;
 	}
 	
+	public List<Map<String, String>> resSelectList(Map<String, String> dto) {
+		session = sqlSessionFactory.openSession();
+		
+		List<Map<String, String>> resSelectList = session.selectList("Store.resSelectList", dto); 
+		
+		session.close();
+		
+		return resSelectList;
+	}
+	
 	// ----------------- 01/17 준우 작성 건들 ㄴㄴ -------------------------------------------------
 	public List<Map<String, String>> getReviewList(Map<String, String> reviewDTO) {
 		session = sqlSessionFactory.openSession();

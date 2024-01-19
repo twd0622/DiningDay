@@ -23,9 +23,9 @@
 			<div class="mainContainer" style="border: 1px solid black; width: 100%; height: 2000px; background:white; ">
 				<div class="p-5">
 					<form method="post" name="예약관리">
-						<div class="text-box">
+						<div class="text-box" id="changePageBtn">
 							<button type="button" class="btn btn-white btn-animate resList" 
-							style=" background-color: rgb(156, 237, 146); color: white;">예약 승인 명단</button>
+							style=" background-color: rgb(156, 237, 146); color: white;">예약 대기 명단</button>
 							<button type="button" class="btn btn-white btn-animate suc_resList" 
 							style=" background-color: rgb(156, 237, 146); color: white;">예약 완료 명단</button>
 							<button type="button" class="btn btn-white btn-animate suc_resList" 
@@ -33,12 +33,14 @@
 							<button type="button" class="btn btn-white btn-animate no_resList" 
 							style=" background-color: rgb(156, 237, 146); color: white;">예약 노쇼 명단</button>
 						</div>
-						<h1 class="mb-5 mt-5" style="text-align: left">예약 대기</h1>
+						<h1 id="pageName" class="mb-5 mt-5" style="text-align: left">예약 대기 명단</h1>
 						<table class="table mb-5" border="1">
 						    <thead>
-								<tr><th colspan="7" style="background-color: #9CED92;">
-									<input name="RES_DATE" class="form-control" type="date" style="width: 200px;margin-left: 30px;">
-								</th></tr>
+								<tr>
+									<th colspan="10" style="background-color: #9CED92;">
+										<input name="RES_DATE" class="form-control" type="date" style="width: 200px;margin-left: 30px;">
+									</th>
+								</tr>
 						    	<tr>
 						    		<th style="background-color: #FFF2A6;">결제 코드</th>
 						    		<th style="background-color: #FFF2A6;">예약자</th>
@@ -47,162 +49,18 @@
 						    		<th style="background-color: #FFF2A6;">인원</th>
 						    		<th style="background-color: #FFF2A6;">예약 시간</th>
 						    		<th style="background-color: #FFF2A6;">요청사항</th>
+						    		<th style="background-color: #FFF2A6;">메뉴정보</th>
+						    		<th style="background-color: #FFF2A6;">승인여부</th>
 						    	</tr>
 						    </thead>
 							<tbody id="tbody_1" class="table-group-divider">
-								<tr>
-									<td>결제코드</td>
-									<td>홍길동</td>
-									<td>01011112222</td>
-									<td>야외 4인석</td>
-									<td>3명</td>
-									<td>14:00</td>
-									<td><textarea cols="20" rows="2" style="resize: none;">아이 동반 입니다.</textarea></td>
-									<td>
-							    		<button type="button" class="btn btn-outline-success save"
-							    		style="text-align: center;width:80px;height:50px;margin: 0 auto;">완료</button>
-							    		<button type="button" class="btn btn-outline-danger cancel"
-							    		style="text-align: center;width:80px;height:50px;margin: 0 auto;">취소</button>
-							    		<button type="button" class="btn btn-outline-warning noshow"
-							    		style="text-align: center;width:80px;height:50px;margin: 0 auto;">노쇼</button>
-				                   	 </td>
-								</tr>
-								<tr>
-									<td>강감찬</td>
-									<td>실내 4인석</td>
-									<td>4명</td>
-									<td>18:00</td>
-									<td><textarea cols="20" rows="2" style="resize: none;">아이 동반 입니다.</textarea></td>
-									<td>
-							    		<button type="button" class="btn btn-outline-success save"
-							    		style="text-align: center;width:80px;height:50px;margin: 0 auto;">완료</button>
-							    		<button type="button" class="btn btn-outline-danger cancel"
-							    		style="text-align: center;width:80px;height:50px;margin: 0 auto;">취소</button>
-							    		<button type="button" class="btn btn-outline-warning noshow"
-							    		style="text-align: center;width:80px;height:50px;margin: 0 auto;">노쇼</button>
-				                   	 </td>
-								</tr>
-					    	</tbody>
-						</table>
-						<h1 class="mb-5 mt-5" style="text-align: left;">예약 완료 명단</h1>
-						<table class="table mb-5" border="1">
-						    <thead>
-						    	<tr>
-						    		<th style="background-color: #FFF2A6;">예약자</th>
-						    		<th style="background-color: #FFF2A6;">좌석 종류</th>
-						    		<th style="background-color: #FFF2A6;">인원</th>
-						    		<th style="background-color: #FFF2A6;">예약 시간</th>
-						    		<th style="background-color: #FFF2A6;">요청사항</th>
-						    		<th style="background-color: #FFF2A6;">승인여부</th>
-						    	</tr>
-						    </thead>
-							<tbody id="tbody_2" class="table-group-divider">
-								<tr>
-									<td>이순신</td>
-									<td>야외 4인석</td>
-									<td>3명</td>
-									<td>14:00</td>
-									<td><textarea cols="20" rows="2" style="resize: none;">아이 동반 입니다.</textarea></td>
-									<td>
-										<button type="button" class="btn btn-outline-success finish"
-							    		style="text-align: center;width:80px;height:50px;margin: 0 auto;" disabled>완료됨</button>
-				                   	 	<button type="button" class="btn btn-outline-danger cancel"
-							    		style="text-align: center;width:80px;height:50px;margin: 0 auto;">취소</button>
-			                		</td>
-								</tr>
-								<tr>
-									<td>송준우</td>
-									<td>실내 4인석</td>
-									<td>4명</td>
-									<td>18:00</td>
-									<td><textarea cols="20" rows="2" style="resize: none;">아이 동반 입니다.</textarea></td>
-									<td>
-				                   	 	<button type="button" class="btn btn-outline-success finish"
-							    		style="text-align: center;width:80px;height:50px;margin: 0 auto;" disabled>완료됨</button>
-				                   	 	<button type="button" class="btn btn-outline-danger cancel"
-							    		style="text-align: center;width:80px;height:50px;margin: 0 auto;">취소</button>
-			                		</td>
-								</tr>
-					    	</tbody>
-						</table>
-						<h1 class="mb-5 mt-5" style="text-align: left">예약 취소 명단</h1>
-						<table class="table mb-5" border="1">
-						    <thead>
-						    	<tr>
-						    		<th style="background-color: #FFF2A6;">예약자</th>
-						    		<th style="background-color: #FFF2A6;">좌석 종류</th>
-						    		<th style="background-color: #FFF2A6;">인원</th>
-						    		<th style="background-color: #FFF2A6;">예약 시간</th>
-						    		<th style="background-color: #FFF2A6;">요청사항</th>
-						    		<th style="background-color: #FFF2A6;">승인여부</th>
-						    	</tr>
-						    </thead>
-							<tbody id="tbody_3" class="table-group-divider">
-								<tr>
-									<td>이순신</td>
-									<td>야외 4인석</td>
-									<td>3명</td>
-									<td>14:00</td>
-									<td><textarea cols="20" rows="2" style="resize: none;">아이 동반 입니다.</textarea></td>
-									<td>
-				                   	 	<button type="button" class="btn btn-outline-success save"
-							    		style="text-align: center;width:80px;height:50px;margin: 0 auto;">승인</button>
-			                		</td>
-								</tr>
-								<tr>
-									<td>송준우</td>
-									<td>실내 4인석</td>
-									<td>4명</td>
-									<td>18:00</td>
-									<td><textarea cols="20" rows="2" style="resize: none;">아이 동반 입니다.</textarea></td>
-									<td>
-				                   	 	<button type="button" class="btn btn-outline-success save"
-							    		style="text-align: center;width:80px;height:50px;margin: 0 auto;">승인</button>
-			                		</td>
-								</tr>
-					    	</tbody>
-						</table>
-						<h1 class="mb-5 mt-5" style="text-align: left">예약 노쇼 명단</h1>
-						<table class="table mb-5" border="1">
-						    <thead>
-						    	<tr>
-						    		<th style="background-color: #FFF2A6;">예약자</th>
-						    		<th style="background-color: #FFF2A6;">좌석 종류</th>
-						    		<th style="background-color: #FFF2A6;">인원</th>
-						    		<th style="background-color: #FFF2A6;">예약 시간</th>
-						    		<th style="background-color: #FFF2A6;">요청사항</th>
-						    		<th style="background-color: #FFF2A6;">승인여부</th>
-						    	</tr>
-						    </thead>
-							<tbody id="tbody_4" class="table-group-divider">
-								<tr>
-									<td>이순신</td>
-									<td>야외 4인석</td>
-									<td>3명</td>
-									<td>14:00</td>
-									<td><textarea cols="20" rows="2" style="resize: none;">아이 동반 입니다.</textarea></td>
-									<td>
-				                   	 	<button type="button" class="btn btn-outline-danger cancel"
-							    		style="text-align: center;width:80px;height:50px;margin: 0 auto;">취소</button>
-			                		</td>
-								</tr>
-								<tr>
-									<td>송준우</td>
-									<td>실내 4인석</td>
-									<td>4명</td>
-									<td>18:00</td>
-									<td><textarea cols="20" rows="2" style="resize: none;">아이 동반 입니다.</textarea></td>
-									<td>
-				                   	 	<button type="button" class="btn btn-outline-danger cancel"
-							    		style="text-align: center;width:80px;height:50px;margin: 0 auto;">취소</button>
-			                		</td>
-								</tr>
+								
 					    	</tbody>
 						</table>
 					</form>
 				</div>
 			</div>
     	</main>	
-    	<script src="${ pageContext.request.contextPath }/resources/js/sRes_control.js"></script>
+    	<script src="${ pageContext.request.contextPath }/resources/js/sRes.js"></script>
 	<%@ include file="/Template/store_sidevar_close.jsp"%> 	
 </html> 

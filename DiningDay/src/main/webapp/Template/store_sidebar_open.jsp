@@ -242,10 +242,10 @@ ul{
 		                        <span class="nav_name">예약</span>
 		                    </a>
                     	</li>
-	                    <li><a class="nav__link" href="${ pageContext.request.contextPath }/sRes.st" style="width: 130px;">
+	                    <li><a class="nav__link" id="sRes" href="${ pageContext.request.contextPath }/sRes.st" style="width: 130px;">
 	                    	<small>● 예약 체크</small></a>
 	                    </li>
-	                    <li class="mt-2 mb-5"><a class="nav__link" href="${ pageContext.request.contextPath }/sRes_control.st" style="width: 130px;">
+	                    <li class="mt-2 mb-5"><a id="sRes_control" class="nav__link" href="${ pageContext.request.contextPath }/sRes_control.st" style="width: 130px;">
 	                    	<small>● 예약 관리 시트</small></a>
 	                    </li>
                     </ul>

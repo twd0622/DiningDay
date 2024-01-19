@@ -301,6 +301,40 @@
  	
 <!-- 식당 좌석 끝 -->
  	
+<!-- 예약 시작 -->
+
+	<select id="resSelectList" parameterType="map" resultType="map">
+		select r.RES_NO
+			 , r.PAY_NO
+		     , r.SEAT_NO
+			 , r.CUS_NO
+		     , r.CUS_NAME
+		     , r.CUS_TEL
+		     , r.RES_REQ
+		     , r.REQ_STATE
+		     , r.RES_PEOPLE
+		     , r.RES_TIME
+		     , rm.MENU_NAME
+		     , (select SEAT_NAME
+				  from SEAT
+				 where SEAT_NO = r.SEAT_NO
+				   and STORE_NO = r.STORE_NO) as "SEAT_NAME"
+			 , (select MERCHANT_UID
+			   	  from PAYMENT
+			     where RES_NO = r.RES_NO) as "MERCHANT_UID"	   
+		  from RESERVATION r
+		  join (select PAY_NO, group_concat(MENU_NAME, '/', MENU_COUNT, '/', PAID_PRICE) as "MENU_NAME"
+				  from RESERVATION_MENU
+				 group by PAY_NO) rm
+		    on r.PAY_NO = rm.PAY_NO
+		 where 1 = 1
+		   and r.STORE_NO = #{STORE_NO}
+		   and r.RES_DATE = #{RES_DATE}
+		    and r.REQ_STATE = #{REQ_STATE}
+		 order by r.RES_TIME;
+	</select>
+
+<!-- 예약 종료 -->
 <!-- ===================== 1/17 준우 작성 건들 ㄴㄴ ===================== -->
  	<select id="getReviewList" parameterType="map" resultType="map">
  		select R.REV_NO

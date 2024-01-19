@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import com.diningday.dao.StoreDAO;
 import com.diningday.util.TeamUtil;
@@ -34,11 +35,6 @@ public class StoreService {
 	
 	public boolean menuUpdate(Map<String, String> map) {
 		return storeDAO.menuUpdate(map);
-	}
-	
-	public JsonObject menuSelect(HttpServletRequest req) {
-		JsonObject a = null;
-		return a;
 	}
 	
 	public JsonObject menuSelect(Map<String, String> map) {
@@ -83,6 +79,13 @@ public class StoreService {
 	public boolean seatInsert(HttpServletRequest req) {
 		return storeDAO.seatInsert(TeamUtil.fileRequestToMap(req));
 	}
+	
+//	--- 예약 시작 ---
+	public JsonArray resSelectList(HttpServletRequest req, Map<String, String> dto) {
+		return TeamUtil.mapListToJSONList(storeDAO.resSelectList(TeamUtil.requestToMap(req, dto)));
+	}
+//	--- 예약 끝 ---
+	
 	// ----------------- 01/17 준우 작성 건들 ㄴㄴ -------------------------------------------------
 	public List<Map<String, String>> getReviewList(Map<String, String> reviewDTO) {
 		return storeDAO.getReviewList(reviewDTO);
