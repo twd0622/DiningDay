@@ -30,7 +30,7 @@ var getMainInfo = function(data){
 			$(".recomannedStore").append(recomannedStore);
 		}
 	};
-
+	
 $(()=>{
 	$.ajax({
 		type: "get",

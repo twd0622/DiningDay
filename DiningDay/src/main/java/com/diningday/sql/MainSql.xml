@@ -4,7 +4,7 @@
 
 <mapper namespace="Main">
 	
-	<select id="getMainInfo" parameterType="map" resultType="map">
+	<select id="getMainStoreInfo" parameterType="map" resultType="map">
 		select
 			    ST.STORE_NO
 		 	  , ST.STORE_NAME

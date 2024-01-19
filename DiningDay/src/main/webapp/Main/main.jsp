@@ -45,17 +45,17 @@
 	<main style="display: flex; justify-content: center; align-items: center; text-align: center;">
 		<!-- 여기에 바디내용 넣기 -->
 		<section class="page-section main_section" id="portfolio" style="background:white;">
-            <div class="container" style="border-bottom: 1.5px solid #f0f0f3; padding-top: 50px;">
+            <div class="container" style="border-bottom: 1.5px solid #f0f0f3; padding-top: 15px;">
                 <div class="text-center">
-                    <h2 class="section-heading text-uppercase" style="margin-left:20px; text-align: left">
-                    <c:if test="${!empty sessionScope.LOC_NAME}">
+                	<h5 class="section-heading text-uppercase" style="margin:0 0 20px 20px; text-align: left">
+                	<c:if test="${!empty sessionScope.LOC_NAME}">
                     "<span id="locationName">${sessionScope.LOC_NAME}</span>" 	
                     </c:if>
                     <c:if test="${empty sessionScope.LOC_NAME}">
                     "<span id="locationName">전국</span>"	
                     </c:if>
-                     
-                    추천 맛집</h2>
+                	기준 검색</h5>
+                    <h4 class="section-heading text-uppercase" style="margin-left:20px; text-align: left">추천 맛집</h4>
                 </div>
                   <div class="box1">
 	                <button class="leftBtn" ><span class="material-symbols-outlined">arrow_back_ios</span></button>
@@ -67,25 +67,27 @@
 	            	<button class="rightBtn"><span class="material-symbols-outlined">arrow_forward_ios</span></button>
                 </div>
             </div>
-            <div class="container" style="padding-top: 50px;">
-	            <h2 class="section-heading text-uppercase" style=" margin-left:20px; text-align: left">인기 리뷰</h2>	
+            <div class="container" style="padding-top: 40px;">
+	            <h4 class="section-heading text-uppercase" style=" margin-left:20px; text-align: left">베스트 리뷰</h4>	
             	<div style="display: flex; flex-direction: row; justify-content: space-around;">
-					<div class="col-lg-4 col-sm-6 mb-4">
-				        <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false" style="fill:#9CED92;"><title>Placeholder</title><rect width="100%" height="100%"></rect></svg>
-				        <h2 class="fw-normal cus_nickname">유저1</h2>
-				        <p>맛집 인정!</p>
+					<div class="col-lg-4 col-sm-6 mb-4" > <!-- style="display: flex; flex-direction: row;" -->
+				        <svg class="bd-placeholder-img rounded-circle" width="120" height="120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false" style="fill:#9CED92;"><title>Placeholder</title><rect width="100%" height="100%"></rect></svg>
+				        <div>
+					        <h6 class="fw-normal cus_nickname">유저1</h6>
+					        <p class="review_content">맛집 인정!</p>
+					        <p><a class="btn" href="#" style="background: #FFF2A6;">상세보기 »</a></p>
+				        </div>
+			      	</div>
+			      	<div class="col-lg-4 col-sm-6 mb-4">
+				        <svg class="bd-placeholder-img rounded-circle" width="120" height="120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false" style="fill:#9CED92;"><title>Placeholder</title><rect width="100%" height="100%"></rect></svg>
+				        <h6 class="fw-normal cus_nickname">유저2</h6>
+				        <p class="review_content">완전 맛도리!</p>
 				        <p><a class="btn" href="#" style="background: #FFF2A6;">상세보기 »</a></p>
 			      	</div>
 			      	<div class="col-lg-4 col-sm-6 mb-4">
-				        <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false" style="fill:#9CED92;"><title>Placeholder</title><rect width="100%" height="100%"></rect></svg>
-				        <h2 class="fw-normal cus_nickname">유저2</h2>
-				        <p>완전 맛도리!</p>
-				        <p><a class="btn" href="#" style="background: #FFF2A6;">상세보기 »</a></p>
-			      	</div>
-			      	<div class="col-lg-4 col-sm-6 mb-4">
-				        <svg class="bd-placeholder-img rounded-circle" width="140" height="140" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false" style="fill:#9CED92;"><title>Placeholder</title><rect width="100%" height="100%"></rect></svg>
-				        <h2 class="fw-normal cus_nickname">유저3</h2>
-				        <p>꿀맛!</p>
+				        <svg class="bd-placeholder-img rounded-circle" width="120" height="120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false" style="fill:#9CED92;"><title>Placeholder</title><rect width="100%" height="100%"></rect></svg>
+				        <h6 class="fw-normal cus_nickname">유저3</h6>
+				        <p class="review_content">꿀맛!</p>
 				        <p><a class="btn" href="#" style="background: #FFF2A6;">상세보기 »</a></p>
 			      	</div>
 				</div>
