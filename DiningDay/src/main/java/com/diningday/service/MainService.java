@@ -57,9 +57,12 @@ public class MainService {
 	}
 
 	public List<Map<String, String>> getMainInfo(Map<String, String> storeDTO) {
-		System.out.println(storeDTO);
 		return mainDAO.getMainInfo(storeDTO);
 		
+	}
+
+	public List<Map<String, String>> getBestReview(Map<String, String> reviewDTO) {
+		return mainDAO.getBestReview(reviewDTO);
 	}
 
 }

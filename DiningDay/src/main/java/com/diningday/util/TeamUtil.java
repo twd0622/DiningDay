@@ -175,6 +175,57 @@ public class TeamUtil {
 		return jsonArray;
 	}
 	
+	// 맵이 담긴 리스트 들을 json으로
+	public static JsonObject MapListsToJson(List<Map<String, String>> MapList1) {
+		JsonArray jsonArray1 = new JsonArray();
+		
+		for(Map<String, String> map : MapList1) {
+			JsonObject jsonObject = new JsonObject();
+			map.forEach((key, value) ->{
+				jsonObject.addProperty(key, value);
+			});
+			
+			jsonArray1.add(jsonObject);
+		}
+		
+		
+		JsonObject jsonObject = new JsonObject();
+		jsonObject.add("json1", jsonArray1);
+		
+		return jsonObject;
+	}
+	
+	public static JsonObject MapListsToJson(List<Map<String, String>> MapList1, List<Map<String, String>> MapList2) {
+		JsonArray jsonArray1 = new JsonArray();
+		JsonArray jsonArray2 = new JsonArray();
+		
+		for(Map<String, String> map : MapList1) {
+			JsonObject jsonObject = new JsonObject();
+			map.forEach((key, value) ->{
+				jsonObject.addProperty(key, value);
+			});
+			
+			jsonArray1.add(jsonObject);
+		}
+		
+		for(Map<String, String> map : MapList2) {
+			JsonObject jsonObject = new JsonObject();
+			map.forEach((key, value) ->{
+				jsonObject.addProperty(key, value);
+			});
+			
+			jsonArray2.add(jsonObject);
+		}
+		
+		JsonObject jsonObject = new JsonObject();
+		jsonObject.add("json1", jsonArray1);
+		jsonObject.add("json2", jsonArray1);
+		
+		return jsonObject;
+	}
+	
+	
+	
 	//---------------------------------------------------------------------------------------
 	
 	// json을 map으로
@@ -186,5 +237,5 @@ public class TeamUtil {
 	public static List<Map<String, String>> jsonListToMapList(JsonArray jsonArray) {
 		return new Gson().fromJson(jsonArray, new TypeToken<List<Map<String, String>>>(){}.getType());
 	}
-	
+
 }	

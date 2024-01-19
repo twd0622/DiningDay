@@ -47,14 +47,10 @@ $(()=>{
 				$(".District__List").eq(1).append('<li class="District__Item"><button class="District__Item__Button false">'+loc_name.LOC_NAME+'</button></li>')
 			}
 			
-			$(".District__List").slice(0,2).find(".District__Item__Button").on(
-				"click",
-				function(){
-					switchLoc(this)
-					getLoc(this)	
-				}
-				
-			)
+			$(".District__List").slice(0,2).find(".District__Item__Button").on("click",function(){
+				switchLoc(this)
+				getLoc(this)	
+			})
 		}
 	)
 	
@@ -107,14 +103,10 @@ $(()=>{
 					$(".District__List").eq(loc_scope).append('<li class="District__Item"><button class="District__Item__Button false">'+loc_name.LOC_NAME+'</button></li>')
 				}
 				
-				$(".District__List").eq(loc_scope,3).find(".District__Item__Button").on(
-					"click",
-					function(){
-						switchLoc(this)
-						getLoc(this)	
-					}
-					
-				)
+				$(".District__List").eq(loc_scope,3).find(".District__Item__Button").on("click",function(){
+					switchLoc(this)
+					getLoc(this)	
+				})
 			}
 		)
 	}
@@ -137,33 +129,22 @@ $(()=>{
 	})
 	
 	
-	$(window).on(
-		"click",
-		function(e){
-			if (e.target == modal[0]) {
-				modal.css("display" , "none")
-  			}
+	$(window).on("click",function(e){
+		if (e.target == modal[0]) {
+			modal.css("display" , "none")
 		}
-	)
+	})
 	
 	// 모달창 띄우기
-	$("#locationBtn").on(
-		"click",
-		function(){
-			$("#modal_layer").css(
-				"display", ""
-			)
-		}
-	)
+	$("#locationBtn").on("click",function(){
+		$("#modal_layer").css("display", "")
+	})
 	
-	$("#searchBtn").on(
-		"click",
-		function(){
-			var form = $("#searchForm");
-			
-			form.submit();
-		}
-	)
+	$("#searchBtn").on("click",function(){
+		var form = $("#searchForm");
+		
+		form.submit();
+	})
 	
 	$("#searchForm").submit(()=>{
 		
@@ -182,7 +163,7 @@ $(()=>{
 		dataType:"json"
 	})
 	.done(function(data){
-		getMainInfo(data);
+		getMainInfo(data.json1);
 	})
 	
 	$(".leftBtn").on("click",function(){
@@ -216,7 +197,7 @@ $(()=>{
 		})
 		.done(function(data){
 			$(".recomannedStore").empty();
-			getMainInfo(data);
+			getMainInfo(data.json1);
 			$("#locationName").text(loc_name)
 			modal.css("display" , "none");
 		})

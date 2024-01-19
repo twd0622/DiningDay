@@ -55,7 +55,7 @@
                     "<span id="locationName">전국</span>"	
                     </c:if>
                 	기준 검색</h5>
-                    <h4 class="section-heading text-uppercase" style="margin-left:20px; text-align: left">추천 맛집</h4>
+                    <h4 class="section-heading text-uppercase" style="margin:0 0 13px 20px; text-align: left">추천 맛집</h4>
                 </div>
                   <div class="box1">
 	                <button class="leftBtn" ><span class="material-symbols-outlined">arrow_back_ios</span></button>
@@ -73,7 +73,7 @@
 					<div class="col-lg-4 col-sm-6 mb-4">
 				        <svg class="bd-placeholder-img rounded-circle" width="120" height="120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false" style="fill:#9CED92;"><rect width="100%" height="100%"></rect></svg>
 				        <h6 class="fw-normal cus_nickname">유저1</h6>
-				        <p class="">맛집 인정!</p>
+				        <p class="review_content">맛집 인정!</p>
 				        <p><a class="btn" href="#" style="background: #FFF2A6;">상세보기 »</a></p>
 			      	</div>
 			      	<div class="col-lg-4 col-sm-6 mb-4">

@@ -194,7 +194,7 @@ $(function(){
 		})
 		.done(function(data){
 			$("#resultBox").empty();
-			storeTag(data);
+			storeTag(data.json1);
 			modal.css("display" , "none");
 		})
 		

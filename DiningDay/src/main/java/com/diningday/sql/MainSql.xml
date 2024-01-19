@@ -43,6 +43,32 @@
 		  ORDER BY STORE_SCORE DESC, LIKE_COUNT DESC;
 	</select>
 	
+	<select id="getMainReviewInfo" parameterType="String" resultType="map">
+		SELECT R.REV_NO
+			 , R.CUS_NO
+		     , R.CUS_NICK
+		     , R.REV_CONTENT
+		     , R.STORE_NO
+		     , C.CUS_IMAGE
+		  FROM REVIEW R
+		  JOIN (select R.REV_NO
+					 , count(RL_NO) LIKE_COUNT
+				  from REVIEW R
+				  left join REVIEW_LIKE RL
+					on R.REV_NO = RL.REV_NO
+				 group by R.REV_NO) RL
+			ON R.REV_NO = RL.REV_NO
+		  JOIN CUSTOMER C
+		    ON R.CUS_NO = C.CUS_NO
+		  JOIN STORE S
+		    ON R.STORE_NO = S.STORE_NO
+		 WHERE 1=1
+	       <if test="LOC_NAME != '' and LOC_NAME != null">
+	           and S.STORE_LOCATION LIKE concat('%', #{LOC_NAME} ,'%')
+	       </if>
+		 order by RL.LIKE_COUNT DESC limit 3;
+	</select>
+	
 	<select id="searchCount" parameterType="map" resultType="int">
 		select count(*)
 		  from STORE
