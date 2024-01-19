@@ -84,9 +84,11 @@ function handleCredentialResponse(response) {
 
 
 //<!-- Naver -->
+let callbackUrl = document.location.href;
+
 var naverLogin = new naver.LoginWithNaverId({
 	clientId: "CAuxVKiVTj4jz8eHQxaN"
-	, callbackUrl: "http://localhost:8080/DiningDay/login.cu"
+	, callbackUrl: callbackUrl
 	, isPopup: false
 	, callbackHandle: true
 });	
@@ -111,6 +113,7 @@ window.addEventListener('load', function () {
 			})
 			.done(
 				function(data){
+					debugger;
 					naverLogin.logout();
 					location.href="main.ma";					
 			});

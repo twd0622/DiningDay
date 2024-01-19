@@ -18,9 +18,9 @@ public class OwnerDAO {
 	private SqlSessionFactory sqlSessionFactory = SqlMapClient.getSqlSessionFactory();
 	SqlSession session;
 
-	public boolean idCheck(String OWN_ID) {
+	public boolean idCheck(Map<String, String> ownerDTO) {
 		session = sqlSessionFactory.openSession();
-		Map<String, String> idCheck = session.selectOne("Owner.idCheck", OWN_ID);
+		Map<String, String> idCheck = session.selectOne("Owner.selectCheck", ownerDTO);
 		session.close();
 		return idCheck != null ? true : false;
 	}
@@ -42,21 +42,21 @@ public class OwnerDAO {
 	
 	public Map<String, String> ownerCheck(Map<String, String> ownerDTO) {
 		session = sqlSessionFactory.openSession();
-		Map<String, String> ownerCheck =  session.selectOne("Owner.ownerCheck", ownerDTO);
+		Map<String, String> ownerCheck =  session.selectOne("Owner.selectCheck", ownerDTO);
 		session.close();
 		return ownerCheck;
 	}
 
 	public Map<String, String> authCheck(Map<String, String> ownerDTO) {
 		session = sqlSessionFactory.openSession();
-		Map<String, String> authCheck =  session.selectOne("Owner.authCheck", ownerDTO);
+		Map<String, String> authCheck =  session.selectOne("Owner.selectCheck", ownerDTO);
 		session.close();
 		return authCheck;
 	}
 
 	public Map<String, String> authPwCheck(Map<String, String> ownerDTO) {
 		session = sqlSessionFactory.openSession();
-		Map<String, String> authPwCheck =  session.selectOne("Owner.authPwCheck", ownerDTO);
+		Map<String, String> authPwCheck =  session.selectOne("Owner.selectCheck", ownerDTO);
 		session.close();
 		return authPwCheck;
 	}

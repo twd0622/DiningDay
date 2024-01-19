@@ -15,11 +15,13 @@
 	width:500px;
 }
 
-#id {
+#id,
+#CRN {
 	width: 70%;
 }
 
-#trueCheck {
+#trueCheck,
+#CRNCheck {
 	width: 30%;
 	color: #111111;
  	background-color: #FFF2A6;
@@ -45,6 +47,20 @@
 			</div>
 			<div class="modal-body p-5 pt-0">
 				<form action="owner_joinPro.ow" method="get" name="owner_join">
+				
+		  			<div class="form-outline mb-4">
+					  	<div><label>사업자번호</label></div>
+					  	<div class="container">
+			  				<div class="row">
+							    <input type="text" name="OWN_CRN" class="form-control col-md-8" id="CRN"
+									   placeholder="('-' 제외) 숫자 10자"/>
+							    <input class="form-control col-md-3" type="button" value="번호조회"
+						  			   id="CRNCheck"/>
+							</div>
+						</div>
+						<span id="checkCRN"></span>
+		  			</div>
+		  			
 		  			<div class="form-outline mb-4">
 			  			<div><label>아이디</label></div>
 			  			<div class="container">
@@ -56,7 +72,6 @@
 							</div>
 						</div>
 						<span id="checkId"></span>
-
 		  			</div>
 	      			<div class="form-outline mb-4">
 		    			<div><label>비밀번호</label></div>
@@ -80,11 +95,7 @@
 		 			<div class="form-outline mb-4">
 					  	<div><label>이메일</label></div>
 				    	<input type="email" name="OWN_EMAIL" class="form-control" />
-		 			</div>	  
-		 			<div class="form-outline mb-4">
-					  	<div><label>사업자번호</label></div>
-					    <input type="text" name="OWN_CRN" class="form-control" />
-		  			</div><br>
+		 			</div><br>
 		  
 	    			<ul class="nav nav-pills nav-justified mb-3">
 						<li class="nav-item">

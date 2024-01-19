@@ -35,10 +35,6 @@
 	
 	<select id="searchId" parameterType="map" resultType="map">
 		select CUS_NO
-			   , CUS_ID 
-			   , CUS_EMAIL 
-			   , CUS_NICK
-			   , CUS_IMAGE
 		from CUSTOMER
 		where CUS_ID = #{CUS_ID};
 	</select>
