@@ -62,21 +62,21 @@
 				<tbody>
 				<c:set var="cRepDetail" value="${ requestScope.cRepDetail }"/>
 					<tr class="tr1">
-						<th class="title align-middle table-success"><a>신고번호</a></th>
+						<th class="title align-middle table-danger"><a>신고번호</a></th>
 						<td class="user-id align-middle text-center" style="text-align: left;">${cRepDetail.RREP_NO}</td>
 					</tr>
 					<tr>
-						<th class="title align-middle table-success"><a>작성자</a></th>
+						<th class="title align-middle table-danger"><a>작성자</a></th>
 						<td class="user-id align-middle text-center"
 							style="text-align: left;">${cRepDetail.STORE_NAME}</td>
 					</tr>
 					<tr>
-						<th class="title align-middle table-success"><a>신고일자</a></th>
+						<th class="title align-middle table-danger"><a>신고일자</a></th>
 						<td class="user-id align-middle text-center"
 							style="text-align: left;">${cRepDetail.RRDATE}</td>
 					</tr>
 					<tr style="height: 150px;">
-						<th class="title align-middle table-success col-3"><a>신고 내용</a></th>
+						<th class="title align-middle table-danger col-3"><a>신고 내용</a></th>
 						<td class="user-id align-middle text-center"
 							style="text-align: left;">${cRepDetail.RREP_CONTENT}</td>
 					</tr>

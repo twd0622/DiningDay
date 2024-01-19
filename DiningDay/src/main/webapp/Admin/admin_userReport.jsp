@@ -83,7 +83,7 @@ h4:hover {
 		<div class="row" style="padding: 1% 7% 1% 7%;" id="cRepTable">
 			<table class="table table-hover" id="article-table">
 				<thead>
-					<tr class="table-success">
+					<tr class="table-danger">
 						<th class="title col-1 align-middle"><a>신고번호</a></th>
 						<th class="hashtag col-1 align-middle"><a>점주번호(식당명)</a></th>
 						<th class="user-id col-3"><a>신고 제목</a></th>

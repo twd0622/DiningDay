@@ -42,26 +42,26 @@
 				<tbody>
 				<c:set var="sRepDetail" value="${ requestScope.sRepDetail }"/>
 					<tr class="tr1">
-						<th class="title1 align-middle table-success">신고번호</th>
+						<th class="title1 align-middle table-danger">신고번호</th>
 						<td id="sRep_no">${sRepDetail.SREP_NO}</td>
 					</tr>
 					<tr>
-						<th class="title2 align-middle table-success">글 제목</th>
+						<th class="title2 align-middle table-danger">글 제목</th>
 						<td>${sRepDetail.SREP_TITLE}</td>
 					</tr>
 					<tr>
-						<th class="title3 align-middle table-success">작성자</th>
+						<th class="title3 align-middle table-danger">작성자</th>
 						<td>${sRepDetail.CUS_NO}</td>
 					</tr>
 					<tr>
-						<th class="title4 align-middle table-success">작성일자</th>
+						<th class="title4 align-middle table-danger">작성일자</th>
 						<td>${sRepDetail.DATE}</td>
 					</tr>
 					<c:choose> 
 						<c:when test="${sRepDetail.SREP_FILE eq null}"></c:when>
 						<c:otherwise> 
 							<tr>
-								<th class="title align-middle table-success" style="vertical-align: middle;">첨부파일</th>
+								<th class="title align-middle table-danger" style="vertical-align: middle;">첨부파일</th>
 								<td><a href="upload/${sRepDetail.SREP_FILE}" target="_blank"><img src="upload/${sRepDetail.SREP_FILE}" alt="${sRepDetail.SREP_FILE}" disabled='disabled'
 									style="max-width: 50%; max-height: 50%;"></a>
 								</td>
@@ -72,7 +72,7 @@
 					
 					
 					<tr>
-						<th class="title align-middle table-success">글 내용</th>
+						<th class="title align-middle table-danger">글 내용</th>
 						<td>${sRepDetail.SREP_CONTENT}</td>
 					</tr>
 				</tbody>

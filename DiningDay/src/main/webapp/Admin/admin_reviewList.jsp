@@ -20,7 +20,7 @@
 <script>
 	$(()=>{
 		
-		paging("tbody tr" ,10, 1);
+		paging("tbody tr" ,5, 1);
 	})
 	var rev_no = $("#rev_no").text();
 	
@@ -106,11 +106,11 @@ h4:hover {
 		<div class="row" style="padding: 10px 7% 0 7%;">
 			<table class="table table-hover" id="article-table1">
 				<thead>
-					<tr class="table-success">
+					<tr class="table-warning">
 						<th class="title col-1 align-middle">리뷰번호</th>
 						<th class="hashtag col-1 align-middle">작성자</th>
 						<th class="hashtag col-2 align-middle">방문 식당명</th>
-						<th class="user-id col-3 align-middle">리뷰내용</th>
+						<th class="user-id col-4 align-middle" colspan="2">리뷰내용</th>
 						<th class="created-at col-2 align-middle">작성일자</th>
 						<th class="created-at col-1 align-middle">답글여부</th>
 					</tr>
@@ -118,11 +118,25 @@ h4:hover {
 				</thead>
 				<tbody>
 				<c:forEach var="reviewList" items="${reviewList}">
-					<tr onclick="location.href='admin_reviewDetail.ad?REV_NO=${reviewList.REV_NO}'">
+					<tr onclick="location.href='admin_reviewDetail.ad?REV_NO=${reviewList.REV_NO}'" style="height: 100px;">
 						<td class="title align-middle" id="rev_no">${reviewList.REV_NO}</td>
 						<td class="hashtag align-middle">${reviewList.CUS_NICK}</td>
 						<td class="hashtag align-middle">${reviewList.STORE_NAME}</td>
-						<td class="user-id align-middle" style="overflow:hidden; white-space:nowrap; text-overflow:ellipsis; table-layout: fixed;">${reviewList.REV_CONTENT}</td>
+						
+						<c:choose> 
+						<c:when test="${reviewList.REV_IMAGE eq null}">
+							<td class="user-id align-middle" style="overflow:hidden; white-space:nowrap; text-overflow:ellipsis; table-layout: fixed; text-align: left;">${reviewList.REV_CONTENT}</td>
+							<td class="user-id align-middle text-center" style="text-align: left;">　</td>
+						</c:when>
+						<c:otherwise> 
+							<td class="user-id align-middle" style="overflow:hidden; white-space:nowrap; text-overflow:ellipsis; table-layout: fixed; text-align: left;">${reviewList.REV_CONTENT}</td>
+							<td class="user-id align-middle text-center" style="text-align: left;"><a href="upload/${reviewList.REV_IMAGE}" target="_blank"><img class="img-fluid rounded"
+								src="upload/${reviewList.REV_IMAGE}" alt="${reviewList.REV_IMAGE}" style="width: 250px; height: 100px;"></a></td>
+						</c:otherwise>
+					</c:choose>
+						
+						
+						
 						<td class="created-at col-1 align-middle">${reviewList.REV_DATE}</td>
 						
 						<c:choose> 

@@ -309,6 +309,7 @@
 			, 			C.CUS_NICK
 			,			S.STORE_NAME
 			,		 	R.REV_CONTENT
+			,			R.REV_IMAGE
 			, 			date_format(R.REV_DATE, '%Y-%m-%d') as "REV_DATE"
 			,			A.ANSWER_CONTENT
 		from 			REVIEW R 

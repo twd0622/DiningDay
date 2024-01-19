@@ -159,6 +159,7 @@ a:active {
 	<c:set var="reviewReport" value="${ requestScope.reviewReport }"/>
 	<div class="grid-container"
 		style="width: 100%; height: 100%; background: white; padding: 50px 80px 50px 80px;">
+		
 		<div class="grid-item" id="item1" style="padding: 30px;">
 		<h4><a href="admin_noticeList.ad" id="notice">&lt; 공지사항 &gt;</a></h4>
 		<hr>
