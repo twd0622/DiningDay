@@ -152,7 +152,6 @@ a:active {
 <!-- main은 속성 값은 왠만하면 건들지x -->
 <main
 	style="display: flex; align-items: center; text-align: center; padding: 20px 50px 20px 50px;">
-
 	<!-- 예시div style속성 값 조절해서 사용! -->
 	<c:set var="noticeList" value="${ requestScope.noticeList }"/>
 	<c:set var="storeList" value="${ requestScope.storeList }"/>
@@ -250,16 +249,16 @@ a:active {
 					<tr class="table-success">
 						<th class="title col-1 align-middle"><a>번호</a></th>
 						<th class="hashtag col-1 align-middle"><a>점주번호</a></th>
-						<th class="user-id col-3"><a>신고 제목</a></th>
+						<th class="user-id col-3"><a>신고 내용</a></th>
 						<th class="hashtag col-1 align-middle"><a>신고일자</a></th>
 					</tr>
 				</thead>
 				<tbody>
 					<c:forEach var="cReport" items="${reviewReport}">
-						<tr style="height: 60px;" onClick="location.href='admin_userReportDetail.ad?CREP_NO=${cReport.CREP_NO}&REV_NO=${cReport.REV_NO}&OWN_NO=${cReport.OWN_NO}'">
-							<td class="title align-middle">${cReport.CREP_NO}</td>
-							<td class="hashtag align-middle">${cReport.OWN_NO}</td>
-							<td class="created-at col-1 align-middle">${cReport.CREP_TITLE}</td>
+						<tr style="height: 60px;" onClick="location.href='admin_userReportDetail.ad?CREP_NO=${cReport.RREP_NO}&REV_NO=${cReport.REV_NO}&OWN_NO=${cReport.OWN_NO}'">
+							<td class="title align-middle">${cReport.RREP_NO}</td>
+							<td class="hashtag align-middle">${cReport.OWN_NO} <br> <small>(${cReport.STORE_NAME})</small></td>
+							<td class="created-at col-1 align-middle">${cReport.RREP_CONTENT}</td>
 							<td class="created-at col-1 align-middle">${cReport.DATE}</td>
 						</tr>
 					</c:forEach>

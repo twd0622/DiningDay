@@ -7,6 +7,11 @@
 <head>
 <meta charset="utf-8">
 <title>리뷰상세 | 다이닝데이</title>
+<script type="text/javascript">
+	var rev_no = document.getElementById("answer_content").innerText
+	
+	localStorage.setItem('rev_no', rev_no);
+</script>
 <style type="text/css">
 .star {
   position: relative;
@@ -38,6 +43,7 @@
 </style>
 <link href="resources/css/variable_admin.css" rel="stylesheet">
 <link href="resources/css/variable_admin.css" rel="stylesheet">
+<link>
 <script src="resources/js/variableCode.js"></script>
 <script src="resources/js/jquery.twbsPagination.min.js"></script>
 <script src="Admin/js/delBtn.js"></script>
@@ -112,7 +118,7 @@
 			<p style="text-align: center;"><b>식당 답글내용</b></p>
 			<hr>
 			<c:choose> 
-				<c:when test="${reviewComment.COM_CONTENT eq null}">
+				<c:when test="${reviewComment.ANSWER_CONTENT eq null}">
 					<table class="table" id="article-table" >
 						<tr>
 							<td class="title align-middle table-secondary" style="height: 80px;"><big>아직 답글을 작성하지 않았습니다.</big></td>
@@ -124,6 +130,11 @@
 					<table class="table table-hover" id="article-table">
 						<tbody>
 							<tr>
+								<th class="title align-middle table-success"><a>식당번호</a></th>
+								<td class="user-id align-middle text-center"
+									style="text-align: left;">${reviewComment.STORE_NO}</td>
+							</tr>
+							<tr>
 								<th class="title align-middle table-success"><a>식당명</a></th>
 								<td class="user-id align-middle text-center"
 									style="text-align: left;">${reviewComment.STORE_NAME}</td>
@@ -131,12 +142,12 @@
 							<tr>
 								<th class="title align-middle table-success"><a>작성일자</a></th>
 								<td class="user-id align-middle text-center"
-									style="text-align: left;">${reviewComment.COM_DATE}</td>
+									style="text-align: left;">${reviewComment.DATE}</td>
 							</tr>
 							<tr>
 								<th class="title align-middle table-success"><a>답글 내용</a></th>
 								<td class="user-id align-middle text-center"
-									style="text-align: left;">${reviewComment.COM_CONTENT}</td>
+									style="text-align: left;" id="answer_content">${reviewComment.ANSWER_CONTENT}</td>
 							</tr>
 					
 						</tbody>

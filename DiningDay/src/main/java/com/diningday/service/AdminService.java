@@ -73,7 +73,7 @@ public class AdminService {
 	
 	public Map<String, String> storeCount() {
 		Map<String, String> storeCount = adminDAO.storeCount();
-		return storeCount;
+		return storeCount; 
 	}
 	
 	public int storeDelete(HttpServletRequest req) {
@@ -170,6 +170,11 @@ public class AdminService {
 	public List<Map<String, String>> reviewList(HttpServletRequest req) {
 		List<Map<String, String>> reviewList = adminDAO.reviewList(TeamUtil.requestToMap(req));
 		return reviewList;
+	}
+	
+	public Map<String, String> reviewCount() {
+		Map<String, String> reviewCount = adminDAO.reviewCount();
+		return reviewCount; 
 	}
 	
 	public Map<String, String> reviewDetail(HttpServletRequest req) {

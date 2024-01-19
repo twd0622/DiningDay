@@ -38,7 +38,7 @@
 						<tr style="height: 60px;" class="tr1">
 							<th class="title align-middle table-success">글번호</th>
 							<td class="user-id align-middle text-center"
-								style="text-align: left;">${noticeDetail.NOT_NO}</td>
+								style="text-align: left;" id="not_no">${noticeDetail.NOT_NO}</td>
 						</tr>
 						<tr style="height: 60px;">
 							<th class="title align-middle table-success">제목</th>

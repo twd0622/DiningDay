@@ -7,7 +7,7 @@
 <head>
 <meta charset="utf-8">
 <title>식당조회 | 다이닝데이</title>
-
+<c:set var="storeCount" value="${ requestScope.storeCount }"/>
 <style type="text/css">
 pre{
     background-color: #E6E6FA;
@@ -96,6 +96,7 @@ h4:hover {
 				</div>
 			</div>
 		</div>
+		<div style="text-align: left; padding-left: 7%"><b>총 식당 수 : ${storeCount.COUNT}</b></div>
 		<c:set var="storeList" value="${ requestScope.storeList }"/>
 		<div class="row" style="padding: 1% 7% 1% 7%;" id="storeTable">
 			<table class="table table-hover" id="article-table">

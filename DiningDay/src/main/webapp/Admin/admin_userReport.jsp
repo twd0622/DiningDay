@@ -47,9 +47,10 @@ h4:hover {
 									<div class="col-lg-3 col-md-3 col-sm-12 p-0">
 										<label for="search-type" hidden>검색 유형</label> <select
 											class="form-control" id="search-type" name="searchType">
-											<option>신고 제목</option>
+											<option>신고 내용</option>
 											<option>신고번호</option>
 											<option>점주번호</option>
+											<option>식당명</option>
 											</select>
 									</div>
 									<div class="col-lg-8 col-md-6 col-sm-12 p-0">

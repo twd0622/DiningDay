@@ -126,7 +126,7 @@ public class AdminController extends HttpServlet {
 			List<Map<String, String>> storeList = adminService.getStoreList(req);
 			req.setAttribute("storeList", storeList);
 			Map<String, String> storeCount = adminService.storeCount();
-			req.setAttribute("storeCount", storeCount);
+			req.setAttribute("storeCount", storeCount); 
 			dispatcher = req.getRequestDispatcher("Admin/admin_storeList.jsp");
 			dispatcher.forward(req, res);
 		}
@@ -221,6 +221,10 @@ public class AdminController extends HttpServlet {
 		if(sPath.equals("/admin_reviewList.ad")) {
 			List<Map<String, String>> reviewList = adminService.reviewList(req);
 			req.setAttribute("reviewList", reviewList);
+			Map<String, String> reviewComment = adminService.reviewComment(req);
+			req.setAttribute("reviewComment", reviewComment);
+			Map<String, String> reviewCount = adminService.reviewCount();
+			req.setAttribute("reviewCount", reviewCount); 
 			dispatcher = req.getRequestDispatcher("Admin/admin_reviewList.jsp");
 			dispatcher.forward(req, res);
 		}

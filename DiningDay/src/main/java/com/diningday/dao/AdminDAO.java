@@ -49,7 +49,7 @@ public class AdminDAO {
 	
 	public int noticeDelete(Map<String, String> adminDTO) {
 		session = sqlSessionFactory.openSession();
-		
+	
 		int noticeDelete = session.delete("Admin.noticeDelete", adminDTO); // namespace.id
 		
 		session.commit();
@@ -89,9 +89,7 @@ public class AdminDAO {
 	
 	public Map<String, String> getNoticeDetail(Map<String, String> adminDTO) {
 		session = sqlSessionFactory.openSession();
-		System.out.println(adminDTO);
 		Map<String, String> noticeDetail = session.selectOne("Admin.selectNoticeDetail", adminDTO); // namespace.id
-		System.out.println(noticeDetail);
 		session.close();
 		
 		return noticeDetail;
@@ -295,6 +293,14 @@ public class AdminDAO {
 		return reviewList;
 	}
 	
+	public Map<String, String> reviewCount() {
+		session = sqlSessionFactory.openSession();
+		Map<String, String> reviewCount = session.selectOne("Admin.reviewCount"); // namespace.id
+		
+		session.close();
+		
+		return reviewCount;
+	}
 	
 	public Map<String, String> reviewDetail(Map<String, String> adminDTO) {
 		session = sqlSessionFactory.openSession();

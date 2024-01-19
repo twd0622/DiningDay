@@ -33,7 +33,7 @@
 	
 	<delete id="noticeDelete" parameterType="map">
 		delete 	from	NOTICE
-				where	NOT_NO = #{NOT_NO};
+				where	NOT_NO = concat('NO',#{NOT_NO});
 	</delete>
 	
 	<select id="admin" parameterType="map" resultType="map">
@@ -263,8 +263,11 @@
 		<if test="searchType == '신고번호'">
 		and R.RREP_NO like concat("%",#{searchValue},"%")
 		</if>
-		<if test="searchType == '식당번호'">
-		and S.STORE_NO like concat("%",#{searchValue},"%")
+		<if test="searchType == '점주번호'">
+		and S.OWN_NO like concat("%",#{searchValue},"%")
+		</if>
+		<if test="searchType == '식당명'">
+		and S.STORE_NAME like concat("%",#{searchValue},"%")
 		</if>
 		order by cast(trim(leading 'RR' from RREP_NO) as unsigned) desc;
 	</select>
@@ -301,18 +304,21 @@
 	</select>
 	
 	<select id="reviewList" parameterType="map" resultType="map">
-		select  R.REV_NO
-			,	C.CUS_NO
-			, 	C.CUS_NICK
-			,	S.STORE_NAME
-			, 	R.REV_CONTENT
-			, 	date_format(R.REV_DATE, '%Y-%m-%d') as "REV_DATE"
-		from 	REVIEW R 
-		join	CUSTOMER C
-		on 		R.CUS_NO = C.CUS_NO
-		join	STORE S
-		on		R.STORE_NO = S.STORE_NO
-		where 	1 = 1
+		select 		    R.REV_NO
+			,			C.CUS_NO
+			, 			C.CUS_NICK
+			,			S.STORE_NAME
+			,		 	R.REV_CONTENT
+			, 			date_format(R.REV_DATE, '%Y-%m-%d') as "REV_DATE"
+			,			A.ANSWER_CONTENT
+		from 			REVIEW R 
+		join			CUSTOMER C
+		on 				R.CUS_NO = C.CUS_NO
+		join			STORE S
+		on				R.STORE_NO = S.STORE_NO
+		left outer join	REVIEW_ANSWER A
+		on				R.REV_NO = A.REV_NO
+		where 			1 = 1
 		<if test="searchType == '작성자'">
 		and C.CUS_NICK like concat("%",#{searchValue},"%")
 		</if>
@@ -325,7 +331,12 @@
 		<if test="searchType == '리뷰번호'">
 		and R.REV_NO like concat("%",#{searchValue},"%")
 		</if>
-		order by cast(trim(leading 'RV' from REV_NO) as unsigned) desc;
+		order by cast(trim(leading 'RV' from R.REV_NO) as unsigned) desc;
+	</select>
+	
+	<select id="reviewCount" resultType="map">
+		select 	concat(count(*),"개") as "COUNT"
+		from 	REVIEW;
 	</select>
 	
 	<select id="reviewDetail" parameterType="map" resultType="map">
@@ -345,19 +356,16 @@
 	</select>
 	
 	<select id="reviewComment" parameterType="map" resultType="map">
-		select  R.REV_NO
-		    ,	R.STORE_NO
+		select  A.REV_NO
+		    ,	A.STORE_NO
 		    ,	S.STORE_NAME
-		    ,	C.COM_NO
-            ,	C.COM_CONTENT
-		    ,	date_format(C.COM_DATE, '%Y년 %m월 %d일 %H시 %i분') as "COM_DATE"
-		from 	REVIEW R
+            ,	A.ANSWER_CONTENT
+            ,	date_format(ifnull(ANSWER_UPDATE_DATE, ANSWER_DATE), '%Y년 %m월 %d일 %H시 %i분') as "DATE"
+		from 	REVIEW_ANSWER A
 		join 	STORE S
-		on 		R.STORE_NO = S.STORE_NO
-        join 	COMMENT C
-        on		R.REV_NO = C.REV_NO
+		on 		A.STORE_NO = S.STORE_NO
 		where 	1 = 1
-		and		R.REV_NO = #{REV_NO};
+		and		A.REV_NO = #{REV_NO};
 	</select>
 	
 	<delete id="reviewDelete" parameterType="map">

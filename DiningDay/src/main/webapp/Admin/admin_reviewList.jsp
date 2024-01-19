@@ -11,6 +11,7 @@
 <c:set var="reviewList" value="${ requestScope.reviewList }"/>
 <c:set var="reviewDetail" value="${ requestScope.reviewDetail }"/>
 <c:set var="reviewComment" value="${ requestScope.reviewComment }"/>
+<c:set var="reviewCount" value="${ requestScope.reviewCount }"/>
 
 <link href="resources/css/variable_admin.css" rel="stylesheet">
 <script src="resources/js/variableCode.js"></script>
@@ -25,6 +26,19 @@
 	
 </script>
 <script>document.write(rev_no);</script>
+<script type="text/javascript">
+	var result = document.getElementById("answer").innerHTML;
+	if(localStorage.getItem('rev_no')){
+		 var rev_no = localStorage.getItem('rev_no')
+		  if(rev_no == null) {
+			  result = document.getElementById("answer").innerText = "없음";
+		  } else {
+			  result = document.getElementById("answer").innerText = "있음";
+		  }
+		}
+	
+	
+</script>
 <style type="text/css">
 h4 {
 	cursor: pointer;
@@ -88,16 +102,17 @@ h4:hover {
 				</div>
 			</div>
 		</div>
-		<br>
-		<div class="row" style="padding: 0 7% 0 7%;">
+		<div style="text-align: left; padding-left: 7%"><b>총 리뷰 수 : ${reviewCount.COUNT}</b></div>
+		<div class="row" style="padding: 10px 7% 0 7%;">
 			<table class="table table-hover" id="article-table1">
 				<thead>
 					<tr class="table-success">
 						<th class="title col-1 align-middle">리뷰번호</th>
 						<th class="hashtag col-1 align-middle">작성자</th>
-						<th class="hashtag col-1 align-middle">방문 식당명</th>
+						<th class="hashtag col-2 align-middle">방문 식당명</th>
 						<th class="user-id col-3 align-middle">리뷰내용</th>
 						<th class="created-at col-2 align-middle">작성일자</th>
+						<th class="created-at col-1 align-middle">답글여부</th>
 					</tr>
 
 				</thead>
@@ -109,6 +124,16 @@ h4:hover {
 						<td class="hashtag align-middle">${reviewList.STORE_NAME}</td>
 						<td class="user-id align-middle" style="overflow:hidden; white-space:nowrap; text-overflow:ellipsis; table-layout: fixed;">${reviewList.REV_CONTENT}</td>
 						<td class="created-at col-1 align-middle">${reviewList.REV_DATE}</td>
+						
+						<c:choose> 
+							<c:when test="${reviewList.ANSWER_CONTENT eq null}">
+								<td class="created-at col-1 align-middle" id="answer" style="color: red;">미답변</td>
+							</c:when>
+							<c:otherwise> 
+								<td class="created-at col-1 align-middle" id="answer" style="color: green;">답변완료</td>
+							</c:otherwise>
+						</c:choose>
+						
 					</tr>
 				</c:forEach>
 				</tbody>
