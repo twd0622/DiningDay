@@ -1,5 +1,6 @@
 package com.diningday.service;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -33,6 +34,15 @@ public class Review_ReportService {
 		review_ReportDAO = new Review_ReportDAO();
 		
 		return(review_ReportDAO.getNick(CUS_NO));
+		
+	}
+
+	public List<Map<String,String>> getStore_review(HttpServletRequest req) {
+		String STORE_NO = req.getParameter("STORE_NO");
+		review_ReportDAO = new Review_ReportDAO();
+		
+		
+		return review_ReportDAO.getSTORE_review(STORE_NO);
 		
 	}
 

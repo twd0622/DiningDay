@@ -1,5 +1,6 @@
 package com.diningday.dao;
 
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -38,6 +39,16 @@ public class Review_ReportDAO {
 		session.close();
 		
 		return nick;
+	}
+
+	public List<Map<String,String>> getSTORE_review(String STORE_NO) {
+		session = sqlSessionFactory.openSession();
+		List<Map<String,String>> storeReviewList = session.selectList("Review_Report.getStore_review",STORE_NO);
+		
+		session.close();
+		
+		return storeReviewList;
+		
 	}
 
 	

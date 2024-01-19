@@ -81,9 +81,13 @@ public class Review_ReportController extends HttpServlet {
 		}
 		
 		if(sPath.equals("/store_review.re")) {
+			review_ReportService = new Review_ReportService();
+			
+			req.setAttribute("storeReviewList", review_ReportService.getStore_review(req)); 
 			
 			dispatcher = req.getRequestDispatcher("Review_Report/store_review.jsp");
 			dispatcher.forward(req, res);
+			
 		}
 		
 	}

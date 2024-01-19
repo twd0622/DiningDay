@@ -152,7 +152,8 @@ $(()=>{
 	
 	//--------------- 리뷰 -----------------------
 	$("#reviewBtn").on("click", function(){
-		location.href = "store_review.re";
+		
+		location.href = "store_review.re?STORE_NO="+$(".store_profile").attr("id");
 	})
 	
 	
