@@ -3,6 +3,7 @@ function check_id(){
     var id = document.getElementById('id').value;
     var checkId = document.getElementById('checkId');
     var idRegex = /^[a-z0-9]{6,10}$/;
+    const trueCheck = document.getElementById('#trueCheck');
     
 	if (idRegex.test(id)) {
 		checkId.innerHTML = '';
@@ -27,10 +28,10 @@ $('#trueCheck').on('click', function(){
  		, data: {OWN_ID: $("#id").val()}
  		, success: function(data) {
 			 if(data) {
-				 $("#checkId").append("이미 사용중인 아이디입니다.");
+				 $("#checkId").text("이미 사용중인 아이디입니다.");
 				 $("#checkId").css("color","red");
 			 } else {
-				 $("#checkId").append("사용가능한 아이디입니다.");
+				 $("#checkId").text("사용 가능한 아이디입니다.");
 				 $("#checkId").css("color","green");
 			 }
  		}
@@ -45,9 +46,10 @@ function check_pw(){
     var pwRegex = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*?_]).{6,14}$/;
 
 	if (pwRegex.test(pw)) {
-		if (pw == pw2) {
+		if (pw == pw2 && pw != '') {
 			check.innerHTML = '비밀번호가 일치합니다.';
 			check.style.color = 'green';
+			$("#authOk").attr("disabled", false); 
 		}else{
 			check.innerHTML = '비밀번호가 일치하지 않습니다.';
 			check.style.color = 'red';

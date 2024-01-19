@@ -48,10 +48,14 @@
   			 , CONCAT(DATE_FORMAT(CAST(R.RES_DATE AS date), '%Y년 %m월 %d일 '), DATE_FORMAT(CAST(R.RES_TIME AS time), '%i:%s')) "RES_DATE"
 			 , R.RES_PEOPLE
 			 , R.REQ_STATE
+			 , CASE WHEN R.REQ_STATE = '2' THEN '방문완료'
+					WHEN R.REQ_STATE = '1' THEN '예약취소'
+					WHEN R.REQ_STATE = '0' THEN '예약완료' END "STATE_NAME"
 			 , ST.STORE_NAME
 			 , SE.SEAT_NAME
 			 , R.RES_NO
-			 , V.REV_NO
+			 , CASE WHEN V.REV_NO IS NULL AND R.REQ_STATE = '2' THEN 'Y'
+													  		  	ELSE 'N' END "REVIEW_ON"
 		FROM RESERVATION R JOIN STORE ST
 			 ON R.STORE_NO = ST.STORE_NO
 		 	 JOIN SEAT SE
@@ -83,11 +87,11 @@
 			 , P.CARD_NAME
 			 , P.CARD_NUMBER
 		FROM RESERVATION R JOIN STORE ST
-			 ON R.STORE_NO = ST.STORE_NO
-		 	 JOIN SEAT SE
-			 ON (R.SEAT_NO, R.STORE_NO) = (SE.SEAT_NO, SE.STORE_NO)
-			 JOIN PAYMENT P
-			 ON R.RES_NO = P.RES_NO
+		  ON R.STORE_NO = ST.STORE_NO
+		JOIN SEAT SE
+		  ON (R.SEAT_NO, R.STORE_NO) = (SE.SEAT_NO, SE.STORE_NO)
+	    JOIN PAYMENT P
+		  ON R.RES_NO = P.RES_NO
 		WHERE R.RES_NO = #{RES_NO};
 	</select>
 	
@@ -125,6 +129,12 @@
 				, CUS_REDATE= DATE_FORMAT(SYSDATE(), '%Y%m%d%H%i%s')
 				, CUS_IMAGE = IF(#{CUS_IMAGE} is not null, #{CUS_IMAGE}, CUS_IMAGE)
 		where	CUS_NO = #{CUS_NO};
+	</update>
+	
+	<update  id="resetImage" parameterType="String">
+		update 	CUSTOMER
+		set 	CUS_IMAGE = default
+		where 	CUS_NO = #{CUS_NO};
 	</update>
 	
 	<select id="customerCheck" parameterType="map" resultType="map">

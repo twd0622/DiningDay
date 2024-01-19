@@ -66,7 +66,7 @@
 								</div>
 							</div>
 						    <div class="modal-footer" id="auth-modal-footer">
-								<button type="submit" class="btn btn-outline-warning" id="authOk">변경</button>   
+								<button type="submit" class="btn btn-outline-warning" id="authOk" disabled>변경</button>   
 								<button type="button" class="btn btn-secondary" id="cancelBtn">취소</button>       
 						    </div>
 						</div>
@@ -82,10 +82,6 @@
 </script>
 <script src="Owner/js/search.js"></script>
 <script src="Owner/js/validation.js"></script>
-<%
-	//session.removeAttribute("AuthNumber");
-	//session.removeAttribute("authCheck");
-%>
 </main>
 <%@ include file="/Template/footer.jsp"%> 
 </html>

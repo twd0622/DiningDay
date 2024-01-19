@@ -59,12 +59,14 @@
 				</div><br>
 				<div class="container-fluid align-items-center">
 					<div class="card align-items-center">
-					<button type="button" id="inputBtn" class="btn btn-secondary border px-3 p-1 add-experience" onclick="editImage()" >
-						<i class="fa fa-plus"></i>&nbsp;사진 선택</button>
-						<input type="file" name="CUS_IMAGE" id="CUS_IMAGE" onchange="setThumbnail(event);" hidden=""/>
-						<div class="align-items-center text-center" id="image_container">
-							<img class="rounded-circle mb-3"name="CUS_IMAGE" id="newImage" src="upload/${customerInfo.CUS_IMAGE}">
-						</div><br>
+						<button type="button" id="inputBtn" class="btn btn-secondary border px-3 p-1 add-experience" onclick="editImage()" >
+							<i class="fa fa-plus"></i>&nbsp;사진 선택</button>
+							<input type="file" name="CUS_IMAGE" id="CUS_IMAGE" onchange="setThumbnail(event);" hidden=""/>
+							<div class="align-items-center text-center" id="image_container">
+								<img class="rounded-circle mb-3"name="CUS_IMAGE" id="newImage" src="upload/${customerInfo.CUS_IMAGE}">
+							</div><br>
+						<button type="button" id="resetBtn" class="btn btn-secondary border px-3 p-1 add-experience"
+								onclick="resetImage()">기본 이미지로 변경</button>
 					</div>
 				</div>
             </div>
@@ -89,6 +91,11 @@ function setThumbnail(event){
 		document.getElementById("newImage").src = event.target.result;
 	};
 	reader.readAsDataURL(event.target.files[0]);
+}
+
+function resetImage() {
+	// document.getElementById("newImage").src = "upload/profile.png";
+	if(confirm("현재 프로필이미지를 삭제하고 기본으로 변경하시겠습니까?")) document.location = 'resetImage.cu';
 }
 </script>
 <%@ include file="/Template/footer.jsp"%> 

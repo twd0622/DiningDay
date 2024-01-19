@@ -61,7 +61,7 @@
 			  , STORE_NO  
 			  , OWN_DATE
  		from  OWNER
-		where OWN_ID=#{OWN_ID}
+ 		where OWN_ID=#{OWN_ID}
 		and   OWN_PW=#{OWN_PW};
 	</select>
 	

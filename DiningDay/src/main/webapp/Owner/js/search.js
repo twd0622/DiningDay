@@ -1,5 +1,4 @@
 $(function(){
-	// 아이디 찾기 모달
 	var authModal = document.getElementById("authModal");
 	var authBtn = document.getElementById("authBtn");
 	var authSpan = document.getElementsByClassName("auth-close")[0];

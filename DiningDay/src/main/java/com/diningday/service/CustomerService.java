@@ -31,7 +31,11 @@ public class CustomerService {
 		customerDTO.putAll(param);
 		return customerDAO.customerEdit(customerDTO);
 	}
-
+	
+	public void resetImage(String CUS_NO) {
+		customerDAO.resetImage(CUS_NO);
+	}
+	
 	public Map<String, String> customerCheck(HttpServletRequest req, Map<String, String> param) {
 		Map<String, String> customerDTO = TeamUtil.requestToMap(req, param);
 		return customerDAO.customerCheck(customerDTO);

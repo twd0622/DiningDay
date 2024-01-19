@@ -30,7 +30,7 @@ function getInfo() {
 	         .done(
 				function(data){
 					Kakao.Auth.logout();
-//					location.href="main.ma";					
+					location.href="main.ma";					
 			}); 
         }
         , fail: function (error) {
@@ -43,18 +43,15 @@ function getInfo() {
 //<!-- Google -->
 window.onload = function () {
 	  google.accounts.id.initialize({
-	    client_id: "383007591516-vj9jddsusaj9kdj8mbd2ncgh46ktsuqd.apps.googleusercontent.com"
+	      client_id: "383007591516-vj9jddsusaj9kdj8mbd2ncgh46ktsuqd.apps.googleusercontent.com"
 	    , callback: handleCredentialResponse
 	  });
 	  google.accounts.id.renderButton(
-	    document.getElementById("GgCustomLogin")
-	    , {text: "signin_with"
-	       , shape: "square"
-	       , width: "330px"
-	       , height: "50px"
-	       , logo_alignment: "center"
-	    });
-	}
+	  document.getElementById("gLoginBtn"), {});
+	  $('#GgCustomLogin').on('click', function(){
+		  $('#gLoginBtn').find('div')[2].click();
+	  });
+}
 
 function parseJwt (token) {
     var base64Url = token.split('.')[1];
