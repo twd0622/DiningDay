@@ -10,9 +10,13 @@
 	<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
     <link href="Review_Report/css/store_review.css" rel="stylesheet" >
+    <link href="Store/css/sreview_modal	.css" rel="stylesheet" >
     
     <script src="Store/js/sreview.js"></script> 
 </head>
+
+<c:set var="REVIEW_SCORE" value="${requestScope.REVIEW_SCORE}"/>
+<c:set var="reviewInfo" value="${requestScope.reviewInfo}"/>
 
 <!-- main은 속성 값은 왠만하면 건들지x -->
 <main style="display: flex; align-items: center; text-align: center; justify-content: center; padding: 60px;">
@@ -22,7 +26,7 @@
 			<div class="store_reivew">
 				<div class="store_reivew_info">
 					<div class="store_score_box">
-						<h1 class="tit">5.0</h1>
+						<h1 class="tit">${reviewInfo.REVIEW_SCORE}</h1>
 						<span class="material-icons grade_icon" style="color: #F7CE3E;">grade</span>
 						<span class="material-icons grade_icon" style="color: #F7CE3E;">grade</span>
 						<span class="material-icons grade_icon" style="color: #F7CE3E;">grade</span>
@@ -38,109 +42,61 @@
 							</select>
 						</div>
 						<div class="store_review_count_box">
-							<span>리뷰 1000개 / 사장님 답글 890개</span>
+							<span>리뷰 ${reviewInfo.REVIEW_COUNT}개 / 사장님 답글 ${reviewInfo.REVIEW_ANSWER_COUNT}개</span>
 						</div>
 					</div>
 				</div>
 			</div>
 			<div class="review_box">
-			
-<!-- 				<div class="review"> -->
-<!-- 					<div class="flexBox"> -->
-<!-- 						<div class="reviewWriter_box"> -->
-<!-- 							<span class="cus_nick">유저 닉네임</span> -->
-<!-- 							<span class="review_date">리뷰 날짜</span> -->
-<!-- 						</div> -->
-<!-- 						<div> -->
-<!-- 							<span class="reviewReportBtn">신고</span> -->
-<!-- 						</div> -->
-<!-- 					</div> -->
-<!-- 					<div class="review_score_box"> -->
-<!-- 						<span class="material-icons review_grade_icon" style="color: #F7CE3E;">grade</span> -->
-<!-- 						<span class="material-icons review_grade_icon" style="color: #F7CE3E;">grade</span> -->
-<!-- 						<span class="material-icons review_grade_icon" style="color: #F7CE3E;">grade</span> -->
-<!-- 						<span class="material-icons review_grade_icon" style="color: #F7CE3E;">grade</span> -->
-<!-- 						<span class="material-icons review_grade_icon" style="color: #F7CE3E;">grade</span> -->
-<!-- 						<span class="review_grade">5.0</span> -->
-<!-- 					</div> -->
-<!-- 					<div class="reivew_image_box"> -->
-<!-- 						<div class="review_image"> -->
-<!-- 							사진영역 -->
-<!-- 						</div> -->
-<!-- 					</div> -->
-<!-- 					<div class="flexBox"> -->
-<!-- 						<div class="reservation_info_box"> -->
-<!-- 							<span>좌석: A1</span> -->
-<!-- 							<span>메뉴: 메뉴 이름/1</span> -->
-<!-- 						</div> -->
-<!-- 					</div> -->
-<!-- 					<div class="review_content"> -->
-<!-- 						<span>맛있어요~</span> -->
-<!-- 					</div> -->
-<!-- 					<div class="review_answer_box"> -->
-<!-- 						<div class="flexBox"> -->
-<!-- 							<div class="review_answer_info"> -->
-<!-- 								<span class="material-symbols-outlined arrow_icon">subdirectory_arrow_right</span> -->
-<!-- 								<span class="owner">사장님</span> -->
-<!-- 								<span class="review_answer_date">답글 날짜</span> -->
-<!-- 							</div> -->
-<!-- 							<div> -->
-<!-- 								<span class="updateBtn">수정</span> -->
-<!-- 							</div>						 -->
-<!-- 						</div> -->
-<!-- 						<div class="review_answer_content"> -->
-<!-- 							<span>(고객 닉네임)님, 별점 5점 감사드립니다^^*</span> -->
-<!-- 						</div> -->
-<!-- 					</div> -->
-<!-- 				</div> -->
-				
-<!-- 				<div class="review"> -->
-<!-- 					<div class="reviewWriter_box"> -->
-<!-- 						<span class="cus_nick">유저 닉네임</span> -->
-<!-- 						<span class="review_date">리뷰 날짜</span> -->
-<!-- 					</div> -->
-<!-- 					<div class="review_score_box"> -->
-<!-- 						<span class="material-icons review_grade_icon" style="color: #F7CE3E;">grade</span> -->
-<!-- 						<span class="material-icons review_grade_icon" style="color: #F7CE3E;">grade</span> -->
-<!-- 						<span class="material-icons review_grade_icon" style="color: #F7CE3E;">grade</span> -->
-<!-- 						<span class="material-icons review_grade_icon" style="color: #F7CE3E;">grade</span> -->
-<!-- 						<span class="material-icons review_grade_icon" style="color: #F7CE3E;">grade</span> -->
-<!-- 						<span class="review_grade">5.0</span> -->
-<!-- 					</div> -->
-<!-- 					<div class="reivew_image_box"> -->
-<!-- 						<div class="review_image"> -->
-<!-- 							사진영역 -->
-<!-- 						</div> -->
-<!-- 					</div> -->
-<!-- 					<div class="flexBox"> -->
-<!-- 						<div class="reservation_info_box"> -->
-<!-- 							<span>좌석: A1</span> -->
-<!-- 							<span>메뉴: 메뉴 이름/1</span> -->
-<!-- 						</div> -->
-<!-- 					</div> -->
-<!-- 					<div class="review_content"> -->
-<!-- 						<span>맛있어요~</span> -->
-<!-- 					</div> -->
-<!-- 					<div class="review_answer_box"> -->
-<!-- 						<div class="review_answer_info"> -->
-<!-- 							<span class="material-symbols-outlined arrow_icon">subdirectory_arrow_right</span> -->
-<!-- 							<span class="owner">사장님</span> -->
-<!-- 						</div> -->
-<!-- 						<div class="answer_write_box"> -->
-<!-- 							<textarea class="form-control answer_write"></textarea> -->
-<!-- 							<button class="btn">작성</button> -->
-<!-- 						</div> -->
-<!-- 					</div> -->
-<!-- 				</div> -->
-				
-				
-				
-				
+				<!-- 리뷰 내용 -->				
 			</div>
 			
 		</div>
 	</div>
-
+	
+	<div id="reportModalContainer" class="hidden">
+	  <div id="modalContent">
+	     <h4>신고 하기</h4>
+	     <form class="reviewReportForm" action="" method="post">
+	     <input id="rev_no" name="REV_NO" type="hidden" value="">
+		 <div class="reportResonBox">
+		 	 <span class="reportResonHead">신고 사유 (필수)</span>
+			 <div class="reportReson">
+			 	<input class="form-check-input" type="radio" name="RREP_CONTENT" value="주문과 관련 없는 리뷰(사진/내용)">
+			 	<span class="ResonContent">주문과 관련 없는 리뷰(사진/내용)</span>
+			 </div>
+			 <div class="reportReson" >
+			 	<input class="form-check-input" type="radio" name="RREP_CONTENT" value="욕설/비방">
+			 	<span class="ResonContent">욕설/비방</span>
+			 </div>
+			 <div class="reportReson">
+			 	<input class="form-check-input" type="radio" name="RREP_CONTENT" value="개인정보 유출 위험">
+			 	<span class="ResonContent">개인정보 유출 위험</span>
+			 </div>
+			 <div class="reportReson">
+			 	<input class="form-check-input" type="radio" name="RREP_CONTENT" value="음란/유해">
+			 	<span class="ResonContent">음란/유해</span>
+			 </div>
+			 <div class="reportReson">
+			 	<input class="form-check-input" type="radio" name="RREP_CONTENT" value="광고/홍보">
+			 	<span class="ResonContent">광고/홍보</span>
+			 </div>
+			 <div class="reportReson">
+			 	<input class="form-check-input" type="radio" name="RREP_CONTENT" value="저작권 불법도용 의심 (사진 등)">
+			 	<span class="ResonContent">저작권 불법도용 의심 (사진 등)</span>
+			 </div>
+			 <div class="reportReson">
+			 	<input class="form-check-input" type="radio" name="RREP_CONTENT" value="기타">
+			 	<span class="ResonContent">기타</span>
+			 </div>
+			 <div class="otherContentBox">
+			 	<textarea class="otherContent" name="otherContent" placeholder="기타 사유를 입력해 주세요."></textarea>
+			 </div>
+		 </div>
+		 <input class="btn reportBtn"  type="button" value="신고">
+	     </form>
+	  </div>
+	</div>
 </main>
 <%@ include file="/Template/store_sidevar_close.jsp"%>
 </html>

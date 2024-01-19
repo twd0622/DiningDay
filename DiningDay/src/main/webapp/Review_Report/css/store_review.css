@@ -211,7 +211,7 @@ h1{
 }
 
 .review_image{
-	border: 1px black solid;
+/*	border: 1px black solid;*/
 	width: auto;
 	height: 400px;	
 }

@@ -1,0 +1,79 @@
+#reportModalContainer {
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+#modalContent {
+  position: absolute;
+  background-color: #ffffff;
+  width: 20%;
+  padding: 15px;
+}
+
+#reportModalContainer.hidden {
+  display: none;
+}
+
+.reportResonHead{
+	text-align: left;
+	font-size: 19px;
+	font-weight: 900;
+}
+
+.reportResonBox{
+	display: flex;
+	flex-direction: column;
+}
+
+.reportReson{
+	display: flex;
+	flex-direction: row;
+	
+	margin-top: 5px;
+}
+
+.otherContent{
+	width: 100%;
+	height: 100px;
+	resize: none;
+	color: #66666e;
+	margin-top: 5px;
+}
+
+.ResonContent{
+	margin-left: 5px;
+}
+
+.reportBtn{
+	border: none;
+	background-color: #12192c;
+	width: 100%;
+	color: white;
+	box-shadow: 1px 1px 3px #d8d8d8;	
+}
+
+.reportBtn:hover{
+	border: none;
+	background-color: #354A82;
+	color: white;
+}
+
+.reportBtn:active{
+	border: none;
+	background-color: #4661AB !important;
+	color: white !important;
+}
+
+.reportBtn:disabled{
+	color: #66666e;
+	background-color: rgb(240 240 240);
+	border: none;
+}
