@@ -68,10 +68,7 @@ public class Review_ReportController extends HttpServlet {
 		
 		if(sPath.equals("/reviewWritePro.re")) {
 			System.out.println("/reviewWritePro.re");
-			String content = req.getParameter("rev_content");
-			System.out.println(content);
-			String score = req.getParameter("rev_score");
-			System.out.println(score);
+		
 			
 			Map<String, String> review_ReportDTO = TeamUtil.fileRequestToMap(req);
 			System.out.println(review_ReportDTO);
@@ -83,7 +80,11 @@ public class Review_ReportController extends HttpServlet {
 		if(sPath.equals("/store_review.re")) {
 			review_ReportService = new Review_ReportService();
 			
+			Map<String,String> storeInfo =review_ReportService.getStoreInfo(req);
+			
 			req.setAttribute("storeReviewList", review_ReportService.getStore_review(req)); 
+			
+			req.setAttribute("storeInfo", storeInfo);
 			
 			dispatcher = req.getRequestDispatcher("Review_Report/store_review.jsp");
 			dispatcher.forward(req, res);

@@ -46,4 +46,13 @@ public class Review_ReportService {
 		
 	}
 
+	public Map<String,String> getStoreInfo(HttpServletRequest req) {
+		String STORE_NO = req.getParameter("STORE_NO");
+		review_ReportDAO = new Review_ReportDAO();
+		
+		
+		return review_ReportDAO.getStoreInfo(STORE_NO);
+	}
+
+
 }

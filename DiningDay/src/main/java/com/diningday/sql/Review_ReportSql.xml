@@ -56,7 +56,40 @@
 		where R.STORE_NO = #{STORE_NO};
 	</select>
 	
+	<select id="getStoreInfo" resultType="map" parameterType="String">
+		  select
+				  ST.STORE_NO
+				, ST.STORE_NAME
+				, ST.STORE_TEL
+				, ST.STORE_CATEGORY
+				, ST.STORE_DETAIL
+				, (select count(LIKE_NO) LIKE_COUNT from LIKE_LIST where STORE_NO = ST.STORE_NO) LIKE_COUNT
+		        , R.REVIEW_COUNT
+		        , R.REVIEW_ANSWER_COUNT
+		        , R.REV_SCORE
+				, SI.BA1
+				, SI.BA2
+			 from STORE ST
+			 LEFT JOIN (SELECT STORE_NO
+							, MAX(CASE WHEN PHOTO_TYPE = 'BA1' THEN PHOTO_NAME END) AS BA1
+							, MAX(CASE WHEN PHOTO_TYPE = 'BA2' THEN PHOTO_NAME END) AS BA2
+						FROM STORE_IMAGE
+						GROUP BY STORE_NO ) SI
+		 	   ON ST.STORE_NO = SI.STORE_NO     
+		     JOIN (select S.STORE_NO
+					   	, count(R.REV_NO) REVIEW_COUNT
+					  	, format(avg(R.REV_SCORE), 1) REV_SCORE
+					  	, count(RA.REV_NO) REVIEW_ANSWER_COUNT
+				  	 from STORE S
+				 	 join REVIEW R
+					   on S.STORE_NO = R.STORE_NO
+				     LEFT join REVIEW_ANSWER RA
+                       on R.REV_NO = RA.REV_NO
+				 	group by S.STORE_NO) R
+			  ON ST.STORE_NO = R.STORE_NO
+		   where ST.STORE_NO = #{STORE_NO};
 	
+	</select>
 </mapper>
 
 

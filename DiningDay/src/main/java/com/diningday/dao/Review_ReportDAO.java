@@ -51,6 +51,15 @@ public class Review_ReportDAO {
 		
 	}
 
+	public Map<String,String> getStoreInfo(String STORE_NO) {
+		session = sqlSessionFactory.openSession();
+		Map<String,String> storeInfo = session.selectOne("Review_Report.getStoreInfo",STORE_NO);
+		session.close();
+		
+		return storeInfo;
+		
+	}
+
 	
 
 }
