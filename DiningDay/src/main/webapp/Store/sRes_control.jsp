@@ -4,7 +4,6 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>현재 페이지 타이틀</title>
     <link href="${ pageContext.request.contextPath }/resources/css/sResmodal.css" rel="stylesheet" />
 	<style type="text/css">
 		td, th {

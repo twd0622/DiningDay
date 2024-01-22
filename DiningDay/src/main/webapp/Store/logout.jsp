@@ -4,7 +4,6 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>현재 페이지 타이틀</title>
 </head>
 	<%@ include file="/Template/store_sidebar_open.jsp"%> 	
 	

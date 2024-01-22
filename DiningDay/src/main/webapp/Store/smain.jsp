@@ -4,7 +4,6 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>현재 페이지 타이틀</title>
     <link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/timepicki.css">
     <style>
     	.select2-container--default .select2-selection--multiple .select2-selection__choice {

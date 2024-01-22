@@ -74,9 +74,9 @@
 					<input type="text" name="SU1" value="${STORE.SU1}">
 					<input type="text" name="BA1" value="${STORE.BA1}">
 					<input type="text" name="BA2" value="${STORE.BA2}">
-					<input type="file" id="inputfile_1" name="SU1_PHOTO_NAME">
-					<input type="file" id="inputfile_2" name="BA1_PHOTO_NAME">
-					<input type="file" id="inputfile_3" name="BA2_PHOTO_NAME">
+					<input type="file" id="inputfile_1" name="SU1_PHOTO_NAME" style="display: none;">
+					<input type="file" id="inputfile_2" name="BA1_PHOTO_NAME" style="display: none;">
+					<input type="file" id="inputfile_3" name="BA2_PHOTO_NAME" style="display: none;">
 				</form>
 				<form id="newData" style="display: flex; justify-content: center;">
 					<div style="width: 1000px; height: 2000px; display: flex; flex-direction: column;" class="rounded-4 shadow mt-5 mb-5">
@@ -229,7 +229,7 @@
 								</div>
 							</div>
 						</div>
-						<div class="mt-5" style="display: flex; justify-content: space-around;">
+						<div class="mt-5 mb-5" style="display: flex; justify-content: space-around;">
 							<div style="width: 350px;">
 								<div class="input-group">
 									<span class="input-group-text" id="tagName_1">예약 시작 시간</span>
@@ -245,7 +245,19 @@
 								</div>
 							</div>
 						</div>
-						<div>
+						<div class="mt-5" style="display: flex; justify-content: space-around;">
+							<div>
+								<div><button type="button" class="btn btn-success">좌측 배너 사진</button></div>
+								<div class="mt-3 rounded-4 shadow" style="width: 400px; height: 400px; border: 1px solid green;">
+								
+								</div>
+							</div>
+							<div>
+								<div><button type="button" class="btn btn-success">우측 배너 사진</button></div>
+								<div class="mt-3 rounded-4 shadow" style="width: 400px; height: 400px; border: 1px solid green;">
+								
+								</div>	
+							</div>
 						</div>
 					</div>
 				</form>	

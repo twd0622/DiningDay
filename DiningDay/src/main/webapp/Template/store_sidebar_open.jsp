@@ -230,9 +230,6 @@ ul{
 	                    <li><a class="nav__link" id="sreview" href="${ pageContext.request.contextPath }/sreview.st" style="width: 130px;">
 	                    	<small>● 전체 리뷰 목록</small></a>
 	                    </li>
-	                    <li class="mt-2 mb-5"><a class="nav__link" href="${ pageContext.request.contextPath }/sdeclare.st" style="width: 130px;">
-	                    	<small>● 신고 내역</small></a>
-	                    </li>
                     </ul>
 				</div>
 				<div class="nav__list">

@@ -40,7 +40,7 @@ $(() => {
 	thumbnail_banner();		//	썸네일, 배너 사진 컨트롤
 	search_address;			//	주소 검색
 	
-	$("#totalInsert").hide();
+//	$("#totalInsert").hide();
 	$("input[type=button]").on("click", function(){
 		var index = ($(this).attr("id")).split("_")[1];
 		$("#inputfile_" + index).click();
@@ -50,16 +50,16 @@ $(() => {
 		$($("div[name=storeBold]")[i]).css(variable.borderlist);
 	}
 	
-	$(document).on("change", "#checkboxList input", function(){
-		debugger;
-		for(var i = 0; i < $("input[type=checkbox]").length; i++){
-			if(!$("." + i).is(":checked")){
-				$("#totalInsert").hide();
-				return;				
-			}
-		}
-		$("#totalInsert").show();
-	})
+//	$(document).on("change", "#checkboxList input", function(){
+//		debugger;
+//		for(var i = 0; i < $("input[type=checkbox]").length; i++){
+//			if(!$("." + i).is(":checked")){
+//				$("#totalInsert").hide();
+//				return;				
+//			}
+//		}
+//		$("#totalInsert").show();
+//	})
 	
 	paging("main .storePaging", 1, 0);
 	$(".demo").hide();
