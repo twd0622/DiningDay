@@ -141,7 +141,7 @@
 							<span class="review_grade">${storeReview.REV_SCORE}</span>
 						</div>
 						<c:if test="${storeReview.REV_IMAGE != '0'}">
-						<div class="reivew_image_box">
+						<div class="review_image_box">
 							<div class="review_image">
 								<img src="upload/${storeReview.REV_IMAGE}" alt="${storeReview.REV_IMAGE}" style="width:100%; height:100%"/>
 							</div>

@@ -15,6 +15,7 @@
   			  , R.STORE_REVIEW_COUNT
 			  , cast((select count(LIKE_NO) LIKE_COUNT from LIKE_LIST where STORE_NO = ST.STORE_NO) as char(30)) LIKE_COUNT
 			  , SI.PHOTO_NAME
+			  , cast((SELECT COUNT(RES_NO) FROM RESERVATION WHERE STORE_NO = ST.STORE_NO GROUP BY STORE_NO) as char(30)) RESERVATION_COUNT
 		   from STORE ST
 		   LEFT JOIN (select STORE_NO
 						   , group_concat(case PHOTO_TYPE when 'SU1' then PHOTO_NAME end) PHOTO_NAME
@@ -40,11 +41,79 @@
 	      <if test="LOC_NAME != '' and LOC_NAME != null">
             and STORE_LOCATION LIKE concat('%', #{LOC_NAME} ,'%')
 	      </if>
-		  ORDER BY STORE_SCORE DESC, LIKE_COUNT DESC;
+		  ORDER BY (RESERVATION_COUNT*5)+(STORE_REVIEW_COUNT*4)+(LIKE_COUNT*3) DESC, STORE_SCORE DESC limit 10;
+	</select>
+		
+	<select id="getReviewHighStore" parameterType="map" resultType="map">
+		select
+			    ST.STORE_NO
+		 	  , ST.STORE_NAME
+			  , ST.STORE_CATEGORY
+			  , ST.STORE_DETAIL
+			  , SUBSTRING_INDEX(STORE_LOCATION, ' ', 3) STORE_LOCATION
+			  , R.STORE_SCORE
+  			  , R.STORE_REVIEW_COUNT
+			  , cast((select count(LIKE_NO) LIKE_COUNT from LIKE_LIST where STORE_NO = ST.STORE_NO) as char(30)) LIKE_COUNT
+			  , SI.PHOTO_NAME
+		   from STORE ST
+		   LEFT JOIN (select STORE_NO
+						   , group_concat(case PHOTO_TYPE when 'SU1' then PHOTO_NAME end) PHOTO_NAME
+					    from STORE_IMAGE
+					   where PHOTO_TYPE='SU1'
+					   group by STORE_NO) SI 
+			 ON ST.STORE_NO = SI.STORE_NO
+		   LEFT JOIN (select S.STORE_NO
+						   , ifnull(cast(COUNT(R.RES_NO) as char(10)), '0') STORE_REVIEW_COUNT
+				           , ifnull(cast(format(AVG(R.REV_SCORE), 1) as char(10)), '0.0') STORE_SCORE
+						from STORE S
+						left join REVIEW R
+						  ON S.STORE_NO = R.STORE_NO
+					   WHERE S.STORE_NO = S.STORE_NO
+					   GROUP BY S.STORE_NO) R
+		     ON ST.STORE_NO = R.STORE_NO			 
+	      where 1 = 1
+	      <if test="LOC_NAME != '' and LOC_NAME != null">
+            and STORE_LOCATION LIKE concat('%', #{LOC_NAME} ,'%')
+	      </if>
+		  ORDER BY STORE_SCORE DESC, LIKE_COUNT DESC limit 10;
+	</select>
+	
+	<select id="getLikeHighStore" parameterType="map" resultType="map">
+		select
+			    ST.STORE_NO
+		 	  , ST.STORE_NAME
+			  , ST.STORE_CATEGORY
+			  , ST.STORE_DETAIL
+			  , SUBSTRING_INDEX(STORE_LOCATION, ' ', 3) STORE_LOCATION
+			  , R.STORE_SCORE
+  			  , R.STORE_REVIEW_COUNT
+			  , cast((select count(LIKE_NO) LIKE_COUNT from LIKE_LIST where STORE_NO = ST.STORE_NO) as char(30)) LIKE_COUNT
+			  , SI.PHOTO_NAME
+		   from STORE ST
+		   LEFT JOIN (select STORE_NO
+						   , group_concat(case PHOTO_TYPE when 'SU1' then PHOTO_NAME end) PHOTO_NAME
+					    from STORE_IMAGE
+					   where PHOTO_TYPE='SU1'
+					   group by STORE_NO) SI 
+			 ON ST.STORE_NO = SI.STORE_NO
+		   LEFT JOIN (select S.STORE_NO
+						   , ifnull(cast(COUNT(R.RES_NO) as char(10)), '0') STORE_REVIEW_COUNT
+				           , ifnull(cast(format(AVG(R.REV_SCORE), 1) as char(10)), '0.0') STORE_SCORE
+						from STORE S
+						left join REVIEW R
+						  ON S.STORE_NO = R.STORE_NO
+					   WHERE S.STORE_NO = S.STORE_NO
+					   GROUP BY S.STORE_NO) R
+		     ON ST.STORE_NO = R.STORE_NO			 
+	      where 1 = 1
+	      <if test="LOC_NAME != '' and LOC_NAME != null">
+            and STORE_LOCATION LIKE concat('%', #{LOC_NAME} ,'%')
+	      </if>
+		  ORDER BY LIKE_COUNT DESC, STORE_SCORE DESC limit 10;
 	</select>
 	
 	<select id="getMainReviewInfo" parameterType="String" resultType="map">
-		SELECT concat(ROW_NUMBER() over (order by RL.LIKE_COUNT DESC ), '.')  'RANK'
+		SELECT concat(ROW_NUMBER() over (order by RL.LIKE_COUNT DESC ), '위')  'RANK'
 		     , R.REV_NO
 			 , R.CUS_NO
 		     , R.CUS_NICK
@@ -73,9 +142,12 @@
 	<select id="searchCount" parameterType="map" resultType="int">
 		select count(*)
 		  from STORE
-		 where STORE_NAME like CONCAT('%',#{searchInput},'%')
+		 where (STORE_NAME like CONCAT('%',#{searchInput},'%')
  		 	or STORE_CATEGORY like concat('%',#{searchInput},'%')
-	        or STORE_DETAIL like concat('%',#{searchInput},'%');
+	        or STORE_DETAIL like concat('%',#{searchInput},'%'))
+        <if test="LOC_NAME != '' and LOC_NAME != null">
+           and STORE_LOCATION LIKE concat('%', #{LOC_NAME} ,'%');
+       </if>
 	</select>
 	
 	<select id="getStore" parameterType="map" resultType="map">

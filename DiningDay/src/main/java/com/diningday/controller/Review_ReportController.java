@@ -68,7 +68,6 @@ public class Review_ReportController extends HttpServlet {
 		
 		if(sPath.equals("/reviewWritePro.re")) {
 			System.out.println("/reviewWritePro.re");
-		
 			
 			Map<String, String> review_ReportDTO = TeamUtil.fileRequestToMap(req);
 			System.out.println(review_ReportDTO);

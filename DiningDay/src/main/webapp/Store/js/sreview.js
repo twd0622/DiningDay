@@ -14,7 +14,7 @@ var reviewTag = function(data){
 		+ 		'<div class="review_score_box">'
 		+ 			'<span class="review_grade">'+ reviewList.REV_SCORE +'</span>'
 		+ 		'</div>'
-		+ 		'<div class="reivew_image_box">'
+		+ 		'<div class="review_image_box">'
 		+ 		'</div>'
 		+ 		'<div class="flexBox">'
 		+ 			'<div class="reservation_info_box">'

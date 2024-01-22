@@ -178,7 +178,7 @@
             	<span class="font-weight-bold">${customerInfo.CUS_NICK}</span>
 			<button type="submit" class="btn btn-primary btn-block mt-5" onclick="location.href='cus_edit.cu'"
   		  		    id="myBtn">고객 정보 수정하기</button>
-			<button type="submit" class="btn btn-primary btn-block" onclick="#"
+			<button type="submit" class="btn btn-primary btn-block" onclick="location.href='cus_review.cu'"
   		  		    id="myBtn">나의 리뷰 보기</button>
 			<button type="submit" class="btn btn-primary btn-block mb-4" onclick="location.href='like_list.cu'"
   		  		    id="myBtn">찜한 식당 보기</button>  	  

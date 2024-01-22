@@ -195,9 +195,11 @@ public class TeamUtil {
 		return jsonObject;
 	}
 	
-	public static JsonObject MapListsToJson(List<Map<String, String>> MapList1, List<Map<String, String>> MapList2) {
+	public static JsonObject MapListsToJson(List<Map<String, String>> MapList1, List<Map<String, String>> MapList2, List<Map<String, String>> MapList3, List<Map<String, String>> MapList4) {
 		JsonArray jsonArray1 = new JsonArray();
 		JsonArray jsonArray2 = new JsonArray();
+		JsonArray jsonArray3 = new JsonArray();
+		JsonArray jsonArray4 = new JsonArray();
 		
 		for(Map<String, String> map : MapList1) {
 			JsonObject jsonObject = new JsonObject();
@@ -217,9 +219,29 @@ public class TeamUtil {
 			jsonArray2.add(jsonObject);
 		}
 		
+		for(Map<String, String> map : MapList3) {
+			JsonObject jsonObject = new JsonObject();
+			map.forEach((key, value) ->{
+				jsonObject.addProperty(key, value);
+			});
+			
+			jsonArray3.add(jsonObject);
+		}
+		
+		for(Map<String, String> map : MapList4) {
+			JsonObject jsonObject = new JsonObject();
+			map.forEach((key, value) ->{
+				jsonObject.addProperty(key, value);
+			});
+			
+			jsonArray4.add(jsonObject);
+		}
+		
 		JsonObject jsonObject = new JsonObject();
 		jsonObject.add("json1", jsonArray1);
 		jsonObject.add("json2", jsonArray2);
+		jsonObject.add("json3", jsonArray3);
+		jsonObject.add("json4", jsonArray4);
 		
 		return jsonObject;
 	}

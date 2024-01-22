@@ -16,6 +16,12 @@
     <link href="Main/css/main.css" rel="stylesheet">
     <link href="Main/css/location_select_modal.css" rel="stylesheet">
 	
+	<!-- Owl carousel -->
+	<link rel="stylesheet" href="Main/plugin/owl.carousel.min.css">
+	<link rel="stylesheet" href="Main/plugin/owl.theme.default.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<script src="Main/plugin/owl.carousel.min.js"></script>
+	
     <script src="Main/js/main.js"></script>
     <title>DINING DAY</title>    
 </head>
@@ -44,8 +50,8 @@
     </div>
 	<main style="display: flex; justify-content: center; align-items: center; text-align: center;">
 		<!-- 여기에 바디내용 넣기 -->
-		<section class="page-section main_section" id="portfolio" style="background:white;">
-            <div class="container" style="border-bottom: 1.5px solid #f0f0f3; padding-top: 15px;">
+		<section class="page-section main_section" id="portfolio" >
+            <div class="container containerColor" style="border-bottom: 1.5px solid #f0f0f3; padding-top: 15px;">
                 <div class="text-center">
                 	<h5 class="section-heading text-uppercase" style="margin:0 0 20px 20px; text-align: left">
                 	<c:if test="${!empty sessionScope.LOC_NAME}">
@@ -55,42 +61,51 @@
                     "<span id="locationName">전국</span>"	
                     </c:if>
                 	기준 검색</h5>
-                    <h4 class="section-heading text-uppercase" style="margin:0 0 13px 20px; text-align: left">추천 맛집</h4>
+                    <h4 class="section-heading text-uppercase" style="margin:0 0 13px 20px; text-align: left">📌 추천 맛집</h4>
                 </div>
-                  <div class="box1">
-	                <button class="leftBtn" ><span class="material-symbols-outlined">arrow_back_ios</span></button>
-	                <div class="recomannedStoreBox">
-		                <div class="recomannedStore">
-		                <!-- 추천 맛집 -->
-		                </div>
-	                </div>
-	            	<button class="rightBtn"><span class="material-symbols-outlined">arrow_forward_ios</span></button>
+                
+                <div class="box1">
+	               <div class="recomannedStoreBox">
+	                   <!-- 추천 맛집 -->
+                   </div>
                 </div>
             </div>
-            <div class="container" style="padding-top: 40px;">
-	            <h4 class="section-heading text-uppercase" style=" margin-left:20px; text-align: left">베스트 리뷰</h4>	
+            <p class="gap20"></p>
+            
+            <div class="container containerColor" style="border-bottom: 1.5px solid #f0f0f3; padding-top: 15px;">
+                <div class="text-center">
+                    <h4 class="section-heading text-uppercase" style="margin:0 0 13px 20px; text-align: left">⭐ 별점 높은 순</h4>
+                </div>
+                
+                <div class="box2">
+	               <div class="reviewHighStoreBox">
+	                   <!-- 별점 높은 맛집 -->
+                   </div>
+                </div>
+            </div>
+            <p class="gap20"></p>
+            
+            <div class="container containerColor" style="border-bottom: 1.5px solid #f0f0f3; padding-top: 15px;">
+                <div class="text-center">
+                    <h4 class="section-heading text-uppercase" style="margin:0 0 13px 20px; text-align: left">❤️ 찜 많은 순</h4>
+                </div>
+                
+                <div class="box3">
+	               <div class="likeHighStoreBox">
+	                   <!-- 찜 많은 맛집 -->
+                   </div>
+                </div>
+            </div>
+            <p class="gap20"></p>
+            
+            
+            
+            
+            
+            <div class="container containerColor" style="padding-top: 40px;">
+	            <h4 class="section-heading text-uppercase" style=" margin-left:20px; text-align: left">🏅 베스트 리뷰</h4>	
             	<div id="bestReviewBox"  style="display: flex; flex-direction: row; justify-content: space-around;">
-<!-- 					 <div class="col-lg-4 col-sm-6 mb-4 reviewBox"> -->
-<!-- 					 	<div class="rankBox"><span class="rank">1.</span></div> -->
-<!-- 					 	<div> -->
-<!-- 					        <svg class="bd-placeholder-img rounded-circle" width="120" height="120"  role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false" style="border: 1px solid black; background-image: url('upload/profile.png'); background-size: contain;"></svg> -->
-<!-- 					        <h6 class="fw-normal cus_nickname">유저1</h6> -->
-<!-- 					        <p class="review_content">맛집 인정!</p> -->
-<!-- 					        <p><a class="btn" href="#" style="background: #FFF2A6;">상세보기 »</a></p> -->
-<!-- 					 	</div> -->
-<!-- 			      	</div> -->
-<!-- 			      	<div class="col-lg-4 col-sm-6 mb-4"> -->
-<!-- 				        <svg class="bd-placeholder-img rounded-circle" width="120" height="120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false" style="fill:#9CED92;"><rect width="100%" height="100%"></rect></svg> -->
-<!-- 				        <h6 class="fw-normal cus_nickname">유저2</h6> -->
-<!-- 				        <p class="review_content">완전 맛도리!</p> -->
-<!-- 				        <p><a class="btn" href="#" style="background: #FFF2A6;">상세보기 »</a></p> -->
-<!-- 			      	</div> -->
-<!-- 			      	<div class="col-lg-4 col-sm-6 mb-4"> -->
-<!-- 				        <svg class="bd-placeholder-img rounded-circle" width="120" height="120" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false" style="fill:#9CED92;"><rect width="100%" height="100%"></rect></svg> -->
-<!-- 				        <h6 class="fw-normal cus_nickname">유저3</h6> -->
-<!-- 				        <p class="review_content">꿀맛!</p> -->
-<!-- 				        <p><a class="btn" href="#" style="background: #FFF2A6;">상세보기 »</a></p> -->
-<!-- 			      	</div> -->
+            	<!-- bestReview -->
 				</div>
 	    	</div>
         </section>
