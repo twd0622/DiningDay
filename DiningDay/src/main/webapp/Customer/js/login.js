@@ -47,9 +47,13 @@ window.onload = function () {
 	    , callback: handleCredentialResponse
 	  });
 	  google.accounts.id.prompt(function(a){
-		  cnosole.log('!@#!@#')
+		  console.log('!@#!@#')
 		  console.log(a.getNotDisplayedReason()) 
 	  })
+	  google.accounts.id.prompt((notification) => {
+      	  if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
+    	  }
+ 	   });
 	  google.accounts.id.renderButton(document.getElementById("gLoginBtn"), {});
 	  $('#GgCustomLogin').on('click', function(){
 		  $('#gLoginBtn').find('div')[2].click();
