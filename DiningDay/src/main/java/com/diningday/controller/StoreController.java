@@ -3,7 +3,9 @@ package com.diningday.controller;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,8 +14,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.javassist.expr.NewArray;
+
 import com.diningday.service.StoreService;
 import com.diningday.util.TeamUtil;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.mysql.fabric.xmlrpc.base.Array;
 
@@ -48,6 +53,8 @@ public class StoreController extends HttpServlet {
 		
 		if(sPath.equals("/smenuUpdate.st")) {
 			Map<String, String> stSession = TeamUtil.fileRequestToMap(req);
+			stSession.put("STORE_NO", (String)session.getAttribute("STORE_NO"));
+			
 			boolean bl = storeService.menuUpdate(stSession);
 			if(!bl) return;
 			
@@ -57,19 +64,27 @@ public class StoreController extends HttpServlet {
 		
 		if(sPath.equals("/smenuAddEvent.st")) {
 			res.setContentType("application/x-json; charset=utf-8");
-			res.getWriter().print(storeService.menuMax(req));
+			res.getWriter().print(storeService.menuMax((String)session.getAttribute("STORE_NO")));
 		}
 		
 		if(sPath.equals("/smenuDelete.st")) {
-			boolean bl = storeService.menuDelete(req);
-//			System.out.println(Arrays.toString(a.get("STORE_NO")));
-//			System.out.println(Arrays.toString(a.get("MENU_NO")));
+			Map<String, String[]> dto = new HashMap<String, String[]>();
+			dto = TeamUtil.fileRequestToArrayMap(req);
 			
-			res.getWriter().print(bl);
+			boolean bl = storeService.menuDelete(dto);
+
+			Map<String, String> dtoData = new HashMap<String, String>();
+			dtoData.put("isTrue", String.valueOf(bl));
+			dtoData.put("MENU_NO", dto.get("MENU_NO")[0]);
+			
+			res.setContentType("application/x-json; charset=utf-8");
+			res.getWriter().print(TeamUtil.mapToJSON(dtoData));
 		}
 		
 		if(sPath.equals("/smenuInsert.st")) {
 			Map<String, String> stSession = TeamUtil.fileRequestToMap(req);
+			stSession.put("STORE_NO", (String)session.getAttribute("STORE_NO"));
+			
 			boolean isTrue = storeService.insertMenu(stSession);
 			if(!isTrue) return;
 			
@@ -131,15 +146,78 @@ public class StoreController extends HttpServlet {
 		
 //		---------------------------------------------------------------------------------------------
 		
+//		--- 예약 시작 ---		
 		if(sPath.equals("/sRes_control.st")) {
 			dispatcher = req.getRequestDispatcher("Store/sRes_control.jsp");
 			dispatcher.forward(req, res);
 		}
 		
 		if(sPath.equals("/sRes.st")) {
+			req.setAttribute("dateCheck", req.getParameter("resCheck"));
+			
 			dispatcher = req.getRequestDispatcher("Store/sRes.jsp");
 			dispatcher.forward(req, res);
 		}
+		
+		if(sPath.equals("/sResPro.st")) {
+			Map<String, String> dto = new HashMap<String, String>();
+			dto.put("STORE_NO", (String)session.getAttribute("STORE_NO"));
+			JsonArray a = storeService.resSelectList(req, dto);
+			
+			res.setContentType("application/x-json; charset=utf-8");
+			res.getWriter().print(a);
+		}
+		
+		if(sPath.equals("/sResUpdate.st")) {
+			
+			Map<String, String> dto = new HashMap<String, String>();
+			dto = TeamUtil.requestToMap(req);
+			dto.put("STORE_NO", (String)session.getAttribute("STORE_NO"));
+			 
+			if(!storeService.resUpdate(dto)) {
+				System.out.println("실패");
+				return;
+			}
+			
+			res.setContentType("application/x-json; charset=utf-8");
+			res.getWriter().print(TeamUtil.mapToJSON(dto));
+		}
+		
+		if(sPath.equals("/sRes_controlPro.st")) {
+			Map<String, String> dto = new HashMap<String, String>();
+			dto = TeamUtil.requestToMap(req);
+			dto.put("STORE_NO", (String)session.getAttribute("STORE_NO"));
+			dto.put("OWN_NO", (String)session.getAttribute("OWN_NO"));
+			System.out.println("!@#!@#!@#");
+			
+			
+			res.setContentType("application/x-json; charset=utf-8");
+			res.getWriter().print(TeamUtil.mapToJSON(storeService.resSelect(dto)));
+		}
+		
+		if(sPath.equals("/sResMonthData.st")) {
+			Map<String, String> dto = new HashMap<String, String>();
+			dto = TeamUtil.requestToMap(req);
+			dto.put("STORE_NO", (String)session.getAttribute("STORE_NO"));
+			
+			res.setContentType("application/x-json; charset=utf-8");
+			res.getWriter().print(storeService.resMonthSelect(dto));
+		}
+		
+		if(sPath.equals("/sResWeekData.st")) {
+			Map<String, String> dto = new HashMap<String, String>();
+			dto = TeamUtil.requestToMap(req);
+			dto.put("STORE_NO", (String)session.getAttribute("STORE_NO"));
+			
+			res.setContentType("application/x-json; charset=utf-8");
+			res.getWriter().print(storeService.resWeekSelect(dto));
+		}
+		
+		if(sPath.equals("/resDateCheck.st")) {
+			res.getWriter().print(req.getParameter("dateCheck"));
+		}
+		
+//		--- 예약 끝 ---
 		
 		// ----------------- 01/17 준우 작성 건들 ㄴㄴ -------------------------------------------------
 		if(sPath.equals("/sreview.st")) {
@@ -190,9 +268,18 @@ public class StoreController extends HttpServlet {
 		
 		// -------------------여기 까지 s_review-------------------------------------------------------
 		
+//		--- 식당 좌석 시작 ---
+		
 		if(sPath.equals("/stable_insert.st")) {
 			dispatcher = req.getRequestDispatcher("Store/stable_insert.jsp");
 			dispatcher.forward(req, res);
+		}
+		
+		if(sPath.equals("/seatInsert.st")) {
+			boolean bl = storeService.seatInsert(req);
+			
+			res.setContentType("application/x-json; charset=utf-8");
+			res.getWriter().print(bl);
 		}
 		
 		if(sPath.equals("/stable.st")) {
@@ -200,6 +287,62 @@ public class StoreController extends HttpServlet {
 			dispatcher.forward(req, res);
 		}
 		
+		if(sPath.equals("/stablePro.st")) {
+			Map<String, String> dto = new HashMap<String, String>();
+			dto.put("STORE_NO", (String)session.getAttribute("STORE_NO"));
+			
+			res.setContentType("application/x-json; charset=utf-8");
+			res.getWriter().print(storeService.seatSelectList(dto));
+		}
+		
+		if(sPath.equals("/stableResCheck.st")) {
+			Map<String, String> dto = new HashMap<String, String>();
+			dto.put("STORE_NO", (String)session.getAttribute("STORE_NO"));
+			dto.put("REQ_STATE", "false");
+			dto = TeamUtil.requestToMap(req, dto);
+			List<Map<String, String>> dtoList = storeService.stableResCheck(dto);
+			
+			for(Map<String, String> str : dtoList) {
+				if(str.values().contains("0")) {
+					dto.put("REQ_STATE", "true");
+					break;
+				}
+			}
+
+			res.setContentType("application/x-json; charset=utf-8");
+			res.getWriter().print(TeamUtil.mapToJSON(dto));		
+		}
+		
+		if(sPath.equals("/seatDeletePro.st")) {
+			Map<String, String> dto = new HashMap<String, String>();
+			dto = TeamUtil.fileRequestToMap(req);
+			dto.put("STORE_NO", (String)session.getAttribute("STORE_NO"));
+			
+			boolean bl = storeService.seatDelete(dto);
+			if(!bl) {
+				return;
+			}
+			
+			res.getWriter().print(dto.get("COLOUMN"));	
+		}
+		
+		if(sPath.equals("/seatUpdatePro.st")) {
+			Map<String, String> dto = new HashMap<String, String>();
+			dto = TeamUtil.fileRequestToMap(req);
+			dto.put("STORE_NO", (String)session.getAttribute("STORE_NO"));
+			
+			boolean bl = storeService.seatUpdate(dto);
+			if(!bl) {
+				return;
+			}
+			
+			res.setContentType("application/x-json; charset=utf-8");
+			res.getWriter().print(TeamUtil.mapToJSON(dto));
+		}
+
+//		--- 식당 좌석 끝 ---		
+		
+//		-------------------------------------------------------------------------------
 		if(sPath.equals("/sdeclare.st")) {
 			dispatcher = req.getRequestDispatcher("Store/sdeclare.jsp");
 			dispatcher.forward(req, res);

@@ -98,8 +98,11 @@ keyframes blink {
 				<div class="p-5" style="text-align: left;">
 					<input type="hidden" name="STORE_NO" value="${ sessionScope.STORE_NO }">
 					<h1 class="mb-3 mt-5">메뉴 관리</h1>
+<!-- 					style="display: none; -->
 					<div>
-						<table class="table" border="3">
+						<form id="ONE_MENU_DATA" enctype="multipart/form-data"></form>
+						<form id="MENU_DATA" enctype="multipart/form-data"></form>
+						<table class="table rounded-4 shadow">
 						    <thead>
 						    	<tr>
 						    		<th style="background-color: var(--bg-color); color: white; width: 180px;">
@@ -121,28 +124,25 @@ keyframes blink {
 							<tbody id="tbody_2" class="table-group-divider">
 					    	</tbody>
 						</table>
-						<div style="display: flex; justify-content: space-between;">
+						<div style="display: flex; justify-content: center;">
 							<div></div>
 							<div class="demo">
 							    <nav class="pagination-outer"  aria-label="Page navigation">
 							        <ul class="pagination" id="pagination"></ul>
 							    </nav>
 							</div>  
-							<div style="display: flex; justify-content: flex-end;">
-								<button type="button" class="btn btn-danger btn-lg" name="totalDelete" data-bs-html="true"
-								 data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="(주의!) 체크된 항목만</br>삭제되는 버튼입니다 :)">일괄 삭제</button>
-							</div>
 						</div>
-					</div>
-					<h3 class="mt-5">메뉴 수정 사진 미리보기</h3>
-					<div class="rotated_box image_container" id="img_2">
+						<div style="display: flex; justify-content: flex-end;">
+							<button type="button" class="btn btn-danger btn-lg rounded-4 shadow" name="totalDelete" data-bs-html="true"
+							 data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="(주의!) 체크된 항목만</br>삭제되는 버튼입니다 :)">일괄 삭제</button>
+						</div>
 					</div>
 				</div>
 			</div>
 			<div id="sResModal" class="sResmodal">
 		  	<div class="sResmodal-content">
 		  		<div style="display: flex; height: 35px; align-items: center; justify-content: flex-end; background-color: var(--bg-color);">
-		    		<span class="close">&times;</span>
+		    		<span style="font-size: 50px;" class="close mt-5 p-3">&times;</span>
 		    	</div>
 		    	<div class="sResmodal-header" style="display: flex; justify-content: center;">
 	    			<h1>메뉴 등록</h1>
@@ -151,29 +151,30 @@ keyframes blink {
 		    		<form style="display: flex;" id="modalForm">
 		    			<div>
 		    				<h3>메뉴 추가 사진 미리보기</h3>
-		    				<div class="rotated_box image_container" id="img_1"></div>
+		    				<div class="image_container" id="img_1" style="border: 1px solid black;">
+		    				</div>
 		    			</div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		    			<div>
 			    			<ul id="modalData">
 			    				<li>
 			    					<div class="form-floating mt-2 mb-2">
-				    					<input type="text" class="form-control border border-dark" name="MENU_NAME" id="menuName">
+				    					<input type="text" class="form-control is-invalid" name="MENU_NAME" id="0">
 										<label for="menuName">메뉴이름</label>
 									</div>
 								</li>
 			    				<li>
-			    					<input type="file" class="form-control border border-dark" id="inputFile_1" name="hiddenfile" aria-describedby="fileButton_1">
+			    					<input type="file" class="form-control border border-dark" id="inputFile_1" name="hidden_file" aria-describedby="fileButton_1">
 									<input type="hidden" name="PHOTO_TYPE">
 			    				</li>
 			    				<li>
 			    					<div class="form-floating  mt-2 mb-2">
-				    					<textarea class="form-control border border-dark" style="resize: none; height: 200px;" id="menuInfo" name="MENU_INFO"></textarea>
+				    					<textarea class="form-control is-invalid" style="resize: none; height: 200px;" id="1" name="MENU_INFO"></textarea>
 				    					<label for="menuInfo">메뉴 정보</label>
 			    					</div>
 			    				</li>
 			    				<li>
 			    					<div class="form-floating  mt-2 mb-2">
-				    					<input type="text" class="form-control border border-dark" id="menuPrice" name="MENU_PRICE">
+				    					<input type="text" class="form-control is-invalid" id="2" name="MENU_PRICE">
 				    					<label for="menuPrice">메뉴 가격</label>
 			    					</div>
 			    				</li>
@@ -184,16 +185,13 @@ keyframes blink {
 									</select>
 			    				</li>
 			    			</ul>
-		    			<div style="display: flex; justify-content: space-between">
-		    				<button type="button" name="insert" class="btn btn-success btn-lg">저장하기</button>&nbsp;&nbsp;
-		    				<button type="reset" class="btn btn-danger btn-lg" name="delete_1"style="text-align: center;">초기화
-				        	</button>
+		    			<div style="display: flex; justify-content: center;">
+		    				<button type="button" name="insert" class="btn btn-success btn-lg" disabled>등록하기</button>
 		    			</div>
 		    			</div>
 		    		</form>
 		     	</div>
 		    	<div class="sResmodal-footer">
-		      		<h3>XX식당 식당이름 올자리</h3>
 		    	</div>
 		  	</div>
 		</div>
@@ -204,6 +202,6 @@ keyframes blink {
 			</div>
 		</div>
     	</main>	
-    	<script src="${ pageContext.request.contextPath }/resources/js/menu.js"></script>
+    	<script src="${ pageContext.request.contextPath }/resources/js/smenu.js"></script>
 	<%@ include file="/Template/store_sidevar_close.jsp"%> 	
 </html> 

@@ -4,119 +4,29 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>현재 페이지 타이틀</title>
+    <style>
+    	 .closeP{
+    	 	width:100px !important; 
+    	 	border: 1px solid red !important; 
+    	 	font-size:22px !important; 
+    	 	color:red !important;
+    	 }
+    	 
+    	 .marginBox{
+    	 	margin-right: 6% !important;
+    	 }
+    </style>
 </head>
 	<%@ include file="/Template/store_sidebar_open.jsp"%> 	
 		<main style="display: flex;  align-items: center; text-align: center; padding:20px;">
-			<div class="mainContainer" style="border: 1px solid black; width: 100%; height: 2200px;justify-content: center; background:white; display: flex;  align-items: center; text-align: center; padding:20px; flex-direction: column">
+			<div class="mainContainer" style="width: 100%; justify-content: center; background:#f0f0f3; display: flex;  align-items: center; text-align: center; padding:20px; flex-direction: column">
 				<h1>좌석 관리</h1>
-				<div class="row p-5" style="width: 95%; height: 95%; display: flex; justify-content: flex-start;">
-					<div class="p-5" style="border: solid 1px; width:400px; margin: 20px; display: flex; flex-direction: column; justify-content: space-between">
-						<div style="width: 300px; height: 250px; background-color: gray;">사진 오는곳</div>
-						<ul style="list-style: inherit;">
-							<li class="mt-3">테이블 명 : 테이블 명1</li>
-							<li class="mt-3">이용시간 : 이용시간1</li>
-							<li class="mt-3">최소 인원: 4 | 최대 인원: 6</li>
-							<li class="mt-3"><textarea cols="20" rows="3" style="resize: none;">좌석 설명: 좌석 설명1</textarea></li>
-						</ul>
-						<div class="mt-5" style="display: flex; justify-content: space-between">
-							<button type="button" class="btn btn-outline-warning" style="width: 100px;">수정</button>
-							<button type="button" class="btn btn-outline-danger" style="width: 100px;">삭제</button>
-						</div>
-					</div>
-					<div class="p-5" style="border: solid 1px; width:400px; margin: 20px; display: flex; flex-direction: column; justify-content: space-between">
-						<div style="width: 300px; height: 250px; background-color: gray;">사진 오는곳</div>
-						<ul style="list-style: inherit;">
-							<li class="mt-3">테이블 명 : 테이블 명1</li>
-							<li class="mt-3">이용시간 : 이용시간1</li>
-							<li class="mt-3">최소 인원: 4 | 최대 인원: 6</li>
-							<li class="mt-3"><textarea cols="20" rows="3" style="resize: none;">좌석 설명: 좌석 설명1</textarea></li>
-						</ul>
-						<div class="mt-5" style="display: flex; justify-content: space-between;">
-							<button type="button" class="btn btn-outline-warning" style="width: 100px;">수정</button>
-							<button type="button" class="btn btn-outline-danger" style="width: 100px;">삭제</button>
-						</div>
-					</div>
-					<div class="p-5" style="border: solid 1px; width:400px; margin: 20px; display: flex; flex-direction: column; justify-content: space-between">
-						<div style="width: 300px; height: 250px; background-color: gray;">사진 오는곳</div>
-						<ul style="list-style: inherit;">
-							<li class="mt-3">테이블 명 : 테이블 명1</li>
-							<li class="mt-3">이용시간 : 이용시간1</li>
-							<li class="mt-3">최소 인원: 4 | 최대 인원: 6</li>
-							<li class="mt-3"><textarea cols="20" rows="3" style="resize: none;">좌석 설명: 좌석 설명1</textarea></li>
-						</ul>
-						<div class="mt-5" style="display: flex; justify-content: space-between;">
-							<button type="button" class="btn btn-outline-warning" style="width: 100px;">수정</button>
-							<button type="button" class="btn btn-outline-danger" style="width: 100px;">삭제</button>
-						</div>
-					</div>
-					<div class="p-5" style="border: solid 1px; width:400px; margin: 20px; display: flex; flex-direction: column; justify-content: space-between">
-						<div style="width: 300px; height: 250px; background-color: gray;">사진 오는곳</div>
-						<ul style="list-style: inherit;">
-							<li class="mt-3">테이블 명 : 테이블 명1</li>
-							<li class="mt-3">이용시간 : 이용시간1</li>
-							<li class="mt-3">최소 인원: 4 | 최대 인원: 6</li>
-							<li class="mt-3"><textarea cols="20" rows="3" style="resize: none;">좌석 설명: 좌석 설명1</textarea></li>
-						</ul>
-						<div class="mt-5" style="display: flex; justify-content: space-between;">
-							<button type="button" class="btn btn-outline-warning" style="width: 100px;">수정</button>
-							<button type="button" class="btn btn-outline-danger" style="width: 100px;">삭제</button>
-						</div>
-					</div>
-					<div class="p-5" style="border: solid 1px; width:400px; margin: 20px; display: flex; flex-direction: column; justify-content: space-between">
-						<div style="width: 300px; height: 250px; background-color: gray;">사진 오는곳</div>
-						<ul style="list-style: inherit;">
-							<li class="mt-3">테이블 명 : 테이블 명1</li>
-							<li class="mt-3">이용시간 : 이용시간1</li>
-							<li class="mt-3">최소 인원: 4 | 최대 인원: 6</li>
-							<li class="mt-3"><textarea cols="20" rows="3" style="resize: none;">좌석 설명: 좌석 설명1</textarea></li>
-						</ul>
-						<div class="mt-5" style="display: flex; justify-content: space-between;">
-							<button type="button" class="btn btn-outline-warning" style="width: 100px;">수정</button>
-							<button type="button" class="btn btn-outline-danger" style="width: 100px;">삭제</button>
-						</div>
-					</div>	
-					<div class="p-5" style="border: solid 1px; width:400px; margin: 20px; display: flex; flex-direction: column; justify-content: space-between">
-						<div style="width: 300px; height: 250px; background-color: gray;">사진 오는곳</div>
-						<ul style="list-style: inherit;">
-							<li class="mt-3">테이블 명 : 테이블 명1</li>
-							<li class="mt-3">이용시간 : 이용시간1</li>
-							<li class="mt-3">최소 인원: 4 | 최대 인원: 6</li>
-							<li class="mt-3"><textarea cols="20" rows="3" style="resize: none;">좌석 설명: 좌석 설명1</textarea></li>
-						</ul>
-						<div class="mt-5" style="display: flex; justify-content: space-between;">
-							<button type="button" class="btn btn-outline-warning" style="width: 100px;">수정</button>
-							<button type="button" class="btn btn-outline-danger" style="width: 100px;">삭제</button>
-						</div>
-					</div>
-					<div class="p-5" style="border: solid 1px; width:400px; margin: 20px; display: flex; flex-direction: column; justify-content: space-between">
-						<div style="width: 300px; height: 250px; background-color: gray;">사진 오는곳</div>
-						<ul style="list-style: inherit;">
-							<li class="mt-3">테이블 명 : 테이블 명1</li>
-							<li class="mt-3">이용시간 : 이용시간1</li>
-							<li class="mt-3">최소 인원: 4 | 최대 인원: 6</li>
-							<li class="mt-3"><textarea cols="20" rows="3" style="resize: none;">좌석 설명: 좌석 설명1</textarea></li>
-						</ul>
-						<div class="mt-5" style="display: flex; justify-content: space-between;">
-							<button type="button" class="btn btn-outline-warning" style="width: 100px;">수정</button>
-							<button type="button" class="btn btn-outline-danger" style="width: 100px;">삭제</button>
-						</div>
-					</div>
-					<div class="p-5" style="border: solid 1px; width:400px; margin: 20px; display: flex; flex-direction: column; justify-content: space-between">
-						<div style="width: 300px; height: 250px; background-color: gray;">사진 오는곳</div>
-						<ul style="list-style: inherit;">
-							<li class="mt-3">테이블 명 : 테이블 명1</li>
-							<li class="mt-3">이용시간 : 이용시간1</li>
-							<li class="mt-3">최소 인원: 4 | 최대 인원: 6</li>
-							<li class="mt-3"><textarea cols="20" rows="3" style="resize: none;">좌석 설명: 좌석 설명1</textarea></li>
-						</ul>
-						<div class="mt-5" style="display: flex; justify-content: space-between">
-							<button type="button" class="btn btn-outline-warning" style="width: 100px;">수정</button>
-							<button type="button" class="btn btn-outline-danger" style="width: 100px;">삭제</button>
-						</div>
-					</div>
+				<div id="htmlTag" class="row mt-4" style="width: 95%; height: 95%; display: flex;  align-content: flex-start; margin-left: 4% !important;">
 				</div>
 			</div>
     	</main>	
-	<%@ include file="/Template/store_sidevar_close.jsp"%> 	
+	<%@ include file="/Template/store_sidevar_close.jsp"%>
+	<script src="${ pageContext.request.contextPath }/resources/js/stable.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+	<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" /> 	
 </html> 

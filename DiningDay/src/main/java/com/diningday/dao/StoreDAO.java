@@ -19,23 +19,23 @@ public class StoreDAO {
 	public Boolean insertMenu(Map<String, String> dto) {
 		session = sqlSessionFactory.openSession();
 		
-		int insertMenu = session.insert("Store.menuInsert", dto); 
+		int insert = session.insert("Store.menuInsert", dto); 
 		
 		session.commit();
 		session.close();
 		
-		return insertMenu > 0 ? true : false;
+		return insert > 0 ? true : false;
 	}
 	
 	public Boolean deleteMenu(Map<String, String[]> dto) {
 		session = sqlSessionFactory.openSession();
 		
-		int deleteMenu = session.delete("Store.menuDelete", dto); 
+		int delete = session.delete("Store.menuDelete", dto); 
 		
 		session.commit();
 		session.close();
 		
-		return deleteMenu > 0 ? true : false;
+		return delete > 0 ? true : false;
 	}
 	
 	public List<Map<String, String>> menuList(Map<String, String> dto) {
@@ -51,12 +51,12 @@ public class StoreDAO {
 	public boolean menuUpdate(Map<String, String> dto) {
 		session = sqlSessionFactory.openSession();
 		
-		int updateMenu = session.update("Store.menuUpdate", dto); 
+		int update = session.update("Store.menuUpdate", dto); 
 		
 		session.commit();
 		session.close();
 		
-		return updateMenu > 0 ? true : false;
+		return update > 0 ? true : false;
 	}
 	
 	public Map<String, String> menuSelect(Map<String, String> dto) {
@@ -102,24 +102,143 @@ public class StoreDAO {
 	public Boolean storeInsert(Map<String, String> dto) {
 		session = sqlSessionFactory.openSession();
 		
-		int insertMenu = session.insert("Store.storeInsert", dto); 
+		int insert = session.insert("Store.storeInsert", dto); 
 		
 		session.commit();
 		session.close();
 		
-		return insertMenu > 0 ? true : false;
+		return insert > 0 ? true : false;
 	}
 	
 	public Boolean firstInsertStore_OwnerUpdate(Map<String, String> dto) {
 		session = sqlSessionFactory.openSession();
 		
-		int insertMenu = session.update("Store.firstInsertStore_OwnerUpdate", dto); 
+		int update = session.update("Store.firstInsertStore_OwnerUpdate", dto); 
 		
 		session.commit();
 		session.close();
 		
-		return insertMenu > 0 ? true : false;
+		return update > 0 ? true : false;
 	}
+	
+//	---	좌석 시작 ----	
+	
+	public Boolean seatInsert(Map<String, String> dto) {
+		session = sqlSessionFactory.openSession();
+		
+		int insert = session.insert("Store.seatInsert", dto); 
+		
+		session.commit();
+		session.close();
+		
+		return insert > 0 ? true : false;
+	}
+	
+	public List<Map<String, String>> seatSelectList(Map<String, String> dto) {
+		session = sqlSessionFactory.openSession();
+		
+		List<Map<String, String>> select = session.selectList("Store.seatSelectList", dto); 
+		
+		session.close();
+		
+		return select;
+	}
+	
+	public List<Map<String, String>> stableResCheck(Map<String, String> dto) {
+		session = sqlSessionFactory.openSession();
+		
+		List<Map<String, String>> select = session.selectList("Store.stableResCheck", dto); 
+		Map<String, String> dtotoList = new HashMap<String, String>();
+		
+		dtotoList.put("REQ_STATE", "false");
+		
+		session.close();
+		
+		if(select.size() < 1) {
+			select.add(dtotoList);
+		}
+		
+		return select;
+	}
+	
+	public boolean seatDelete(Map<String, String> dto) {
+		session = sqlSessionFactory.openSession();
+		
+		int delete = session.delete("Store.seatDelete", dto); 
+		
+		session.commit();
+		session.close();
+		
+		return delete > 0 ? true : false;
+	}
+	
+	public boolean seatUpdate(Map<String, String> dto) {
+		session = sqlSessionFactory.openSession();
+		
+		int update = session.update("Store.seatUpdate", dto); 
+		
+		session.commit();
+		session.close();
+		
+		return update > 0 ? true : false;
+	}
+
+//	---	좌석 끝 ----	
+	
+//	--- 예약 시작 ---
+	
+	public List<Map<String, String>> resSelectList(Map<String, String> dto) {
+		session = sqlSessionFactory.openSession();
+		
+		List<Map<String, String>> select = session.selectList("Store.resSelectList", dto); 
+		
+		session.close();
+		
+		return select;
+	}
+	
+	public boolean resUpdate(Map<String, String> dto) {
+		session = sqlSessionFactory.openSession();
+		
+		int update = session.update("Store.resUpdate", dto); 
+		
+		session.commit();
+		session.close();
+		
+		return update > 0 ? true : false;
+	}
+	
+	public Map<String, String> resSelect(Map<String, String> dto) {
+		session = sqlSessionFactory.openSession();
+		
+		Map<String, String> select = session.selectOne("Store.resSelect", dto); 
+		
+		session.close();
+		
+		return select;
+	}
+	
+	public List<Map<String, String>> resMonthSelect(Map<String, String> dto) {
+		session = sqlSessionFactory.openSession();
+		
+		List<Map<String, String>> select = session.selectList("Store.resMonthSelect", dto); 
+		
+		session.close();
+		
+		return select;
+	}
+
+	public List<Map<String, String>> resWeekSelect(Map<String, String> dto) {
+		session = sqlSessionFactory.openSession();
+
+		List<Map<String, String>> select = session.selectList("Store.resWeekSelect", dto); 
+		
+		session.close();
+		
+		return select;
+	}
+	
+//	--- 예약 끝 ---	
 	
 	// ----------------- 01/17 준우 작성 건들 ㄴㄴ -------------------------------------------------
 	public List<Map<String, String>> getReviewList(Map<String, String> reviewDTO) {

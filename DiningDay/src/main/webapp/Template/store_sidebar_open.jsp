@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	
+	<title>DiningDay</title>
     <!-- CSS -->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
     <script src="${ pageContext.request.contextPath }/resources/js/jquery-3.6.0.js"></script>
@@ -15,6 +15,7 @@
 	<link rel="stylesheet" href="${ pageContext.request.contextPath }/resources/css/variable.css" />
     <title>SideBar sub menus</title>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <style>
     	/* GOOGLE FONTS */
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap");
@@ -226,7 +227,7 @@ ul{
 		                        <span class="nav_name">리뷰</span>
 		                    </a>
                     	</li>
-	                    <li><a class="nav__link" href="${ pageContext.request.contextPath }/sreview.st" style="width: 130px;">
+	                    <li><a class="nav__link" id="sreview" href="${ pageContext.request.contextPath }/sreview.st" style="width: 130px;">
 	                    	<small>● 전체 리뷰 목록</small></a>
 	                    </li>
 	                    <li class="mt-2 mb-5"><a class="nav__link" href="${ pageContext.request.contextPath }/sdeclare.st" style="width: 130px;">
@@ -242,10 +243,10 @@ ul{
 		                        <span class="nav_name">예약</span>
 		                    </a>
                     	</li>
-	                    <li><a class="nav__link" href="${ pageContext.request.contextPath }/sRes.st" style="width: 130px;">
+	                    <li><a class="nav__link" id="sRes" href="${ pageContext.request.contextPath }/sRes.st" style="width: 130px;">
 	                    	<small>● 예약 체크</small></a>
 	                    </li>
-	                    <li class="mt-2 mb-5"><a class="nav__link" href="${ pageContext.request.contextPath }/sRes_control.st" style="width: 130px;">
+	                    <li class="mt-2 mb-5"><a id="sRes_control" class="nav__link" href="${ pageContext.request.contextPath }/sRes_control.st" style="width: 130px;">
 	                    	<small>● 예약 관리 시트</small></a>
 	                    </li>
                     </ul>
@@ -258,10 +259,10 @@ ul{
 		                        <span class="nav_name">좌석</span>
 		                    </a>
                     	</li>
-	                    <li><a class="nav__link" href="${ pageContext.request.contextPath }/stable_insert.st" style="width: 130px;">
+	                    <li><a  id="stable_insert" class="nav__link" href="${ pageContext.request.contextPath }/stable_insert.st" style="width: 130px;">
 	                    	<small>● 좌석 추가</small></a>
 	                    </li>
-	                    <li class="mt-2 mb-5"><a class="nav__link" href="${ pageContext.request.contextPath }/stable.st" style="width: 130px;">
+	                    <li class="mt-2 mb-5"><a id="stable" class="nav__link" href="${ pageContext.request.contextPath }/stable.st" style="width: 130px;">
 	                    	<small>● 좌석 수정</small></a>
 	                    </li>
                     </ul>
@@ -273,7 +274,7 @@ ul{
 		                    <span class="nav_name">계정관리</span>
 		                </a>
                 	</li>
-                    <li><a class="nav__link" href="info_update.st" style="width: 130px;">
+                    <li><a class="nav__link" id="info_update" href="info_update.st" style="width: 130px;">
                     	<small>● 계정 수정</small></a>
                     </li>
                     <li class="mt-2"><a class="nav__link" href="logout.st" style="width: 130px;">
