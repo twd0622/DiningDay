@@ -46,18 +46,16 @@ window.onload = function () {
 	      client_id: "383007591516-vj9jddsusaj9kdj8mbd2ncgh46ktsuqd.apps.googleusercontent.com"
 	    , callback: handleCredentialResponse
 	  });
-	  google.accounts.id.prompt(function(a){
-		  console.log('!@#!@#')
-		  console.log(a.getNotDisplayedReason()) 
-	  })
-	  google.accounts.id.prompt((notification) => {
-      	  if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
-    	  }
- 	   });
-	  google.accounts.id.renderButton(document.getElementById("gLoginBtn"), {});
-	  $('#GgCustomLogin').on('click', function(){
-		  $('#gLoginBtn').find('div')[2].click();
-	  });
+
+	google.accounts.id.prompt(function(a){
+	  console.log('!@#!@#')
+	  console.log(a.getNotDisplayedReason()) 
+	});
+	  
+	google.accounts.id.renderButton(document.getElementById("gLoginBtn"), {});
+	$('#GgCustomLogin').on('click', function(){
+	 	$('#gLoginBtn').find('div')[2].click();
+	});
 }
 
 function parseJwt (token) {
