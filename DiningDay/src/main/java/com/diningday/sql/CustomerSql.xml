@@ -190,4 +190,28 @@
 		  AND PHOTO_TYPE = 'SU1';
 	</select>
 	
+	<!-- 01/22_준우 + 자기가 쓴 리뷰 보기 -->
+	<select id="cus_review" parameterType="String" resultType="map">
+		select R.REV_NO
+		     , R.CUS_NICK
+		     , R.REV_SCORE
+		     , R.REV_CONTENT
+		     , str_to_date(R.REV_DATE, '%Y%m%d%H%i%s') REV_DATE
+		     , ifnull(R.REV_IMAGE, '0') REV_IMAGE
+		     , ifnull(RA.ANSWER_CONTENT, '0') ANSWER_CONTENT
+			 , ifnull(concat('(수정) ', str_to_date(ifnull(RA.ANSWER_UPDATE_DATE, RA.ANSWER_DATE), '%Y%m%d%H%i%s')), '0') ANSWER_DATE
+		     , RM.MENU_NAME
+		     , S.SEAT_NAME
+	      	 , R.STORE_NO
+		from REVIEW R 
+		left JOIN REVIEW_ANSWER RA 
+		ON R.REV_NO = RA.REV_NO
+		JOIN SEAT S 
+		ON (R.SEAT_NO, R.STORE_NO) = (S.SEAT_NO, S.STORE_NO)
+		JOIN (select RES_NO, group_concat(concat(MENU_NAME, '/', MENU_COUNT)) MENU_NAME
+				from RESERVATION_MENU
+				group by RES_NO) RM
+		ON R.RES_NO = RM.RES_NO        
+		where R.CUS_NO = #{CUS_NO};
+	</select>
 </mapper>

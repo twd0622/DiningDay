@@ -67,13 +67,25 @@ public class MainController extends HttpServlet {
 			Map<String, String> map = new HashMap<String, String>();
 			map.put("LOC_NAME", (String)session.getAttribute("LOC_NAME"));
 			
-			List<Map<String, String>> mainStoreInfo = mainService.getMainInfo(TeamUtil.requestToMap(req, map));
-			JsonObject mainInfo = TeamUtil.MapListsToJson(mainStoreInfo);
+			Map<String, String> storeDTO = TeamUtil.requestToMap(req, map);
+			
+			List<Map<String, String>> mainStoreInfo = mainService.getMainInfo(storeDTO);
+			JsonObject mainInfo = new JsonObject();
 			
 			if(req.getParameter("searchInput") == null) {
-				List<Map<String, String>> bestReview = mainService.getBestReview(TeamUtil.requestToMap(req,map));
-				mainInfo = TeamUtil.MapListsToJson(mainStoreInfo, bestReview);
-				System.out.println(mainInfo);
+				List<Map<String, String>> reviewHighStoreList = mainService.getReviewHighStore(storeDTO);
+				List<Map<String, String>> likeHighStoreList = mainService.getLikeHighStore(storeDTO);
+				
+				List<Map<String, String>> bestReview = mainService.getBestReview(storeDTO);
+				mainInfo = TeamUtil.MapListsToJson(mainStoreInfo, reviewHighStoreList, likeHighStoreList, bestReview);
+			}
+			
+			if(req.getParameter("searchInput") != null) {
+				mainInfo = TeamUtil.MapListsToJson(mainStoreInfo);
+				
+				Map<String, String> searchCountMap = new HashMap<String, String>();
+				searchCountMap.put("searchCount", Integer.toString(mainService.searchCount(storeDTO)));
+				mainInfo.add("searchCountMap", TeamUtil.mapToJSON(searchCountMap));
 			}
 			
 			res.setContentType("application/x-json; charset=utf-8");

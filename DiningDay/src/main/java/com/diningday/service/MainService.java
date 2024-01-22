@@ -65,4 +65,14 @@ public class MainService {
 		return mainDAO.getBestReview(reviewDTO);
 	}
 
+	public List<Map<String, String>> getReviewHighStore(Map<String, String> storeDTO) {
+		return mainDAO.getReviewHighStore(storeDTO);
+		
+	}
+
+	public List<Map<String, String>> getLikeHighStore(Map<String, String> storeDTO) {
+		return mainDAO.getLikeHighStore(storeDTO);
+		
+	}
+
 }

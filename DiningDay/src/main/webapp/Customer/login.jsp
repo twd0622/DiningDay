@@ -10,6 +10,9 @@
 <head>
 <meta charset="utf-8">
 <title>로그인</title>
+<meta name="google-site-verification" content="FKL3S1Y8FPADaDMjUDD_lxy9cjBTRlHNUaeXxzVkd1g" />
+<meta name ="google-signin-client_id" 
+	  content="383007591516-vj9jddsusaj9kdj8mbd2ncgh46ktsuqd.apps.googleusercontent.com">
 </head>
 <link href="Customer/css/login.css" rel="stylesheet">
 <%@ include file="/Template/header.jsp"%> 
@@ -53,13 +56,11 @@
 		crossorigin="anonymous"></script>
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 <!-- Google -->
-<meta name ="google-signin-client_id" 
-	  content="AIzaSyBVfMqr34r31qxZCsCS2bcUDXRCYA-ckBQ.apps.googleusercontent.com">
-<script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
-<script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>
-<script src="https://apis.google.com/js/platform.js?onload=triggerGoogleLoaded"></script>
-<script src="https://apis.google.com/js/platform.js" async defer></script>
+<!-- <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script> -->
+<!-- <script src="https://apis.google.com/js/platform.js?onload=init" async defer></script> -->
+<!-- <script src="https://apis.google.com/js/platform.js?onload=triggerGoogleLoaded"></script> -->
 <script src="https://accounts.google.com/gsi/client" async defer></script>
+<script src="https://apis.google.com/js/platform.js" async defer></script>
 <!-- 네이버 -->
 <script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script>
 <script src="Customer/js/login.js"></script>

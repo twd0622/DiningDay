@@ -103,6 +103,15 @@ public class CustomerDAO {
 		session.close();
 		return result > 0 ? true : false;
 	}
+	
+	// 01/22_준우 + 자기가 쓴 리뷰 리스트 보기
+	public List<Map<String, String>> cus_review(String CUS_NO) {
+		session = sqlSessionFactory.openSession();
+		List<Map<String, String>> reviewList = session.selectList("Customer.cus_review", CUS_NO);
+		session.close();
+		
+		return reviewList;
+	}
 
 	
 	

@@ -56,15 +56,14 @@ Author: senthil
 .time_pick {
 	position: relative;
 }
+/*rgb(250, 128, 114, 0.8);*/
 
 .timepicker_wrap {
 	padding: 15px;
-	border-radius: 5px;
+	border-radius: 25px;
 	z-index: 1001;
 	display: none;
-	box-shadow: 2px 2px 5px 0 rgba(50,50,50,0.35);
-	background: salmon;
-	border: 1px solid #ccc;
+	background: rgb(0, 128, 0, 0.3);
 	float: left;
 	position: absolute;
 	top: 40px !important;

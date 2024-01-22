@@ -1,43 +1,213 @@
-var getMainInfo = function(data){
-		for(storeInfo of data){
-			var recomannedStore = 
-			 '<div class="col-lg-3 mb-4">'
-	        +    '<div class="portfolio-item">'
-	        +        '<a class="portfolio-link" href="store.ma?STORE_NO='+storeInfo.STORE_NO+'">'
-	        +            '<div class="portfolio-hover">'
-	        +                '<div class="portfolio-hover-content">'
-	        +                	'<div class="storeInfo">'
-	        +                		'<div class="storeInfo storeInfo_top">'
-	        +                    		'<span style="font-size: 20px; font-weight: bold">'+storeInfo.STORE_NAME+'</span>'
-	        +                    		'<span style="font-size: 13px;">'+storeInfo.STORE_CATEGORY+' | '+storeInfo.STORE_DETAIL+'</span>'
-	        +                    		'<span style="font-size: 14px; font-weight: bold">'+storeInfo.STORE_LOCATION+'</span>'
-	        +                		'</div>'
-	        +                		'<div class="storeInfo storeInfo_bottom">'	
-	        +                    		'<span><span class="material-icons icon" style="color: #F7CE3E;">grade</span> '+storeInfo.STORE_SCORE+' ('+storeInfo.STORE_REVIEW_COUNT+'명)</span>'
-	        +                    		'<span><span class="material-icons icon" style="color: #E21818;">favorite</span> '+storeInfo.LIKE_COUNT+'</span>'
-	        +                		'</div>'
-	        +                	'</div>'
-	        +                '</div>'
-	        +            '</div>'
-	        +            '<img class="img-fluid" src="upload/'+storeInfo.PHOTO_NAME+'" alt="'+storeInfo.PHOTO_NAME+'" />'
-	        +        '</a>'
-	        +        '<div class="portfolio-caption">'
-	        +            '<div class="portfolio-caption-heading">'+storeInfo.STORE_NAME+'</div>'
-	        +        '</div>'
-	        +    '</div>'
-	        +'</div>'
-			
-			$(".recomannedStore").append(recomannedStore);
-		}
-	};
+var getRecommandStoreInfo = function(data){
+	var div = '<div class="recomannedStore owl-carousel"></div>';
+	$(".recomannedStoreBox").append(div);
+	
+	for(storeInfo of data){
+		var recomannedStore = 
+		 '<div class="item">'
+        +    '<div class="portfolio-item">'
+        +        '<a class="portfolio-link" href="store.ma?STORE_NO='+storeInfo.STORE_NO+'">'
+        +            '<div class="portfolio-hover">'
+        +                '<div class="portfolio-hover-content">'
+        +                	'<div class="storeInfo">'
+        +                		'<div class="storeInfo storeInfo_top">'
+        +                    		'<span style="font-size: 20px; font-weight: bold">'+storeInfo.STORE_NAME+'</span>'
+        +                    		'<span style="font-size: 13px;">'+storeInfo.STORE_CATEGORY+' | '+storeInfo.STORE_DETAIL+'</span>'
+        +                    		'<span style="font-size: 14px; font-weight: bold">'+storeInfo.STORE_LOCATION+'</span>'
+        +                		'</div>'
+        +                		'<div class="storeInfo storeInfo_bottom">'	
+        +                    		'<span><span class="material-icons icon" style="color: #F7CE3E;">grade</span> '+storeInfo.STORE_SCORE+' ('+storeInfo.STORE_REVIEW_COUNT+'명)</span>'
+        +                    		'<span><span class="material-icons icon" style="color: #E21818;">favorite</span> '+storeInfo.LIKE_COUNT+'</span>'
+        +                		'</div>'
+        +                	'</div>'
+        +                '</div>'
+        +            '</div>'
+        +            '<img class="img-fluid" src="upload/'+storeInfo.PHOTO_NAME+'" alt="'+storeInfo.PHOTO_NAME+'" />'
+        +        '</a>'
+        +        '<div class="portfolio-caption">'
+        +            '<div class="portfolio-caption-heading">'+storeInfo.STORE_NAME+'</div>'
+        +        '</div>'
+        +    '</div>'
+        +'</div>'
+		
+		$(".recomannedStore").append(recomannedStore);
+	}
+	
+	$(".recomannedStore").owlCarousel({
+	    loop:true,
+	    margin:230,
+	    nav:true,
+	    responsive:{
+	        0:{
+	            items:1
+	        },
+	        600:{
+	            items:3
+	        },
+	        1000:{
+	            items:5
+	        }
+	    }
+	});	
+	
+	var preBtn = '<button class="recomannedStore_leftBtn scrollBtn" ><span class="material-symbols-outlined">arrow_back_ios</span></button>';
+	var nextBtn = '<button class="recomannedStore_rightBtn scrollBtn"><span class="material-symbols-outlined">arrow_forward_ios</span></button>';
+	$(".box1").prepend(preBtn);
+	$(".box1").append(nextBtn);
+	
+	$('.recomannedStore_rightBtn').click(function() {
+		$(".recomannedStore").trigger('next.owl.carousel');
+	})
+	// Go to the previous item
+	$('.recomannedStore_leftBtn').click(function() {
+	    // With optional speed parameter
+	    // Parameters has to be in square bracket '[]'
+	    $(".recomannedStore").trigger('prev.owl.carousel', [300]);
+	})
+};
 
+var getReviewHighStoreList = function(data){
+	var div = '<div class="reviewHighStore owl-carousel"></div>';
+	$(".reviewHighStoreBox").append(div);
+	
+	for(storeInfo of data){
+		var reviewHighStore = 
+		 '<div class="item">'
+        +    '<div class="portfolio-item">'
+        +        '<a class="portfolio-link" href="store.ma?STORE_NO='+storeInfo.STORE_NO+'">'
+        +            '<div class="portfolio-hover">'
+        +                '<div class="portfolio-hover-content">'
+        +                	'<div class="storeInfo">'
+        +                		'<div class="storeInfo storeInfo_top">'
+        +                    		'<span style="font-size: 20px; font-weight: bold">'+storeInfo.STORE_NAME+'</span>'
+        +                    		'<span style="font-size: 13px;">'+storeInfo.STORE_CATEGORY+' | '+storeInfo.STORE_DETAIL+'</span>'
+        +                    		'<span style="font-size: 14px; font-weight: bold">'+storeInfo.STORE_LOCATION+'</span>'
+        +                		'</div>'
+        +                		'<div class="storeInfo storeInfo_bottom">'	
+        +                    		'<span><span class="material-icons icon" style="color: #F7CE3E;">grade</span> '+storeInfo.STORE_SCORE+' ('+storeInfo.STORE_REVIEW_COUNT+'명)</span>'
+        +                    		'<span><span class="material-icons icon" style="color: #E21818;">favorite</span> '+storeInfo.LIKE_COUNT+'</span>'
+        +                		'</div>'
+        +                	'</div>'
+        +                '</div>'
+        +            '</div>'
+        +            '<img class="img-fluid" src="upload/'+storeInfo.PHOTO_NAME+'" alt="'+storeInfo.PHOTO_NAME+'" />'
+        +        '</a>'
+        +        '<div class="portfolio-caption">'
+        +            '<div class="portfolio-caption-heading">'+storeInfo.STORE_NAME+'</div>'
+        +        '</div>'
+        +    '</div>'
+        +'</div>'
+		
+		$(".reviewHighStore").append(reviewHighStore);
+	}
+	
+	$(".reviewHighStore").owlCarousel({
+	    loop:true,
+	    margin:230,
+	    nav:true,
+	    responsive:{
+	        0:{
+	            items:1
+	        },
+	        600:{
+	            items:3
+	        },
+	        1000:{
+	            items:5
+	        }
+	    }
+	});	
+	
+	var preBtn = '<button class="reviewHighStore_leftBtn scrollBtn" ><span class="material-symbols-outlined">arrow_back_ios</span></button>';
+	var nextBtn = '<button class="reviewHighStore_rightBtn scrollBtn"><span class="material-symbols-outlined">arrow_forward_ios</span></button>';
+	$(".box2").prepend(preBtn);
+	$(".box2").append(nextBtn);
+	
+	$('.reviewHighStore_rightBtn').click(function() {
+		$(".reviewHighStore").trigger('next.owl.carousel');
+	})
+	// Go to the previous item
+	$('.reviewHighStore_leftBtn').click(function() {
+	    // With optional speed parameter
+	    // Parameters has to be in square bracket '[]'
+	    $(".reviewHighStore").trigger('prev.owl.carousel', [300]);
+	})
+};
+
+var getLikeHighStoreList = function(data){
+	var div = '<div class="likeHighStore owl-carousel"></div>';
+	$(".likeHighStoreBox").append(div);
+	
+	for(storeInfo of data){
+		var likeHighStore = 
+		 '<div class="item">'
+        +    '<div class="portfolio-item">'
+        +        '<a class="portfolio-link" href="store.ma?STORE_NO='+storeInfo.STORE_NO+'">'
+        +            '<div class="portfolio-hover">'
+        +                '<div class="portfolio-hover-content">'
+        +                	'<div class="storeInfo">'
+        +                		'<div class="storeInfo storeInfo_top">'
+        +                    		'<span style="font-size: 20px; font-weight: bold">'+storeInfo.STORE_NAME+'</span>'
+        +                    		'<span style="font-size: 13px;">'+storeInfo.STORE_CATEGORY+' | '+storeInfo.STORE_DETAIL+'</span>'
+        +                    		'<span style="font-size: 14px; font-weight: bold">'+storeInfo.STORE_LOCATION+'</span>'
+        +                		'</div>'
+        +                		'<div class="storeInfo storeInfo_bottom">'	
+        +                    		'<span><span class="material-icons icon" style="color: #F7CE3E;">grade</span> '+storeInfo.STORE_SCORE+' ('+storeInfo.STORE_REVIEW_COUNT+'명)</span>'
+        +                    		'<span><span class="material-icons icon" style="color: #E21818;">favorite</span> '+storeInfo.LIKE_COUNT+'</span>'
+        +                		'</div>'
+        +                	'</div>'
+        +                '</div>'
+        +            '</div>'
+        +            '<img class="img-fluid" src="upload/'+storeInfo.PHOTO_NAME+'" alt="'+storeInfo.PHOTO_NAME+'" />'
+        +        '</a>'
+        +        '<div class="portfolio-caption">'
+        +            '<div class="portfolio-caption-heading">'+storeInfo.STORE_NAME+'</div>'
+        +        '</div>'
+        +    '</div>'
+        +'</div>'
+		
+		$(".likeHighStore").append(likeHighStore);
+	}
+	
+	$(".likeHighStore").owlCarousel({
+	    loop:true,
+	    margin:230,
+	    nav:true,
+	    responsive:{
+	        0:{
+	            items:1
+	        },
+	        600:{
+	            items:3
+	        },
+	        1000:{
+	            items:5
+	        }
+	    }
+	});	
+	
+	var preBtn = '<button class="likeHighStore_leftBtn scrollBtn" ><span class="material-symbols-outlined">arrow_back_ios</span></button>';
+	var nextBtn = '<button class="likeHighStore_rightBtn scrollBtn"><span class="material-symbols-outlined">arrow_forward_ios</span></button>';
+	$(".box3").prepend(preBtn);
+	$(".box3").append(nextBtn);
+	
+	$('.likeHighStore_rightBtn').click(function() {
+		$(".likeHighStore").trigger('next.owl.carousel');
+	})
+	// Go to the previous item
+	$('.likeHighStore_leftBtn').click(function() {
+	    // With optional speed parameter
+	    // Parameters has to be in square bracket '[]'
+	    $(".likeHighStore").trigger('prev.owl.carousel', [300]);
+	})
+};
 var bestReview = function(data){
 	for(Review of data){
 		var bestReviewTag = 
 		  '<div class="col-lg-4 col-sm-6 mb-4 reviewBox">'
 		+     '<div class="rankBox"><span class="rank">'+ Review.RANK +'</span></div>'
 		+     '<div>'
-	    +     	'<svg class="bd-placeholder-img rounded-circle" width="120" height="120"  role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false" style="border: 1px solid black; background-image: url(\'upload/'+Review.CUS_IMAGE+'\'); background-size: contain;"></svg>'
+	    +     	'<svg class="bd-placeholder-img rounded-circle" width="120" height="120"  role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false" style="border: 1px solid black; background-image: url(\'upload/'+Review.CUS_IMAGE+'\'); background-size: cover;"></svg>'
 	    +     	'<h6 class="fw-normal cus_nickname">' + Review.CUS_NICK + '</h6>'
 	    +     	'<p class="showDetailBtnBox"><a class="showDetailBtn" href="store_review.re?STORE_NO='+ Review.STORE_NO +'#'+ Review.REV_NO +'">상세보기 »</a></p>'
 	    +     	'<p class="review_content">' + Review.REV_CONTENT + '</p>'
@@ -49,6 +219,7 @@ var bestReview = function(data){
 }
 
 $(()=>{
+	
 	$.ajax({
 		type: "get",
 		url:"getLocation2.lo",
@@ -180,21 +351,12 @@ $(()=>{
 		dataType:"json"
 	})
 	.done(function(data){
-		getMainInfo(data.json1);
-		bestReview(data.json2);
+		getRecommandStoreInfo(data.json1);
+		getReviewHighStoreList(data.json2);
+		getLikeHighStoreList(data.json3);
+		bestReview(data.json4);
 	})
 	
-	$(".leftBtn").on("click",function(){
-		$(".recomannedStore").css({
-			transform: "translate(0)"
-		})
-	})
-	
-	$(".rightBtn").on("click",function(){
-		$(".recomannedStore").css({
-			transform: "translate(-1248px)"
-		})
-	})
 	
 	$(".Location__Popup__Submit").on("click", function(){
 		
@@ -214,10 +376,26 @@ $(()=>{
 			dataType:"json",
 		})
 		.done(function(data){
-			$(".recomannedStore").empty();
+			$(".recomannedStoreBox").empty();
+			$(".recomannedStore_leftBtn").remove();
+			$(".recomannedStore_rightBtn").remove();
+			getRecommandStoreInfo(data.json1);
+			
+			$(".reviewHighStoreBox").empty();
+			$(".reviewHighStore_leftBtn").remove();
+			$(".reviewHighStore_rightBtn").remove();
+			getReviewHighStoreList(data.json2);
+			
+			$(".likeHighStoreBox").empty();
+			$(".likeHighStore_leftBtn").remove();
+			$(".likeHighStore_rightBtn").remove();
+			getLikeHighStoreList(data.json3);
+			
+			
 			$("#bestReviewBox").empty();
-			getMainInfo(data.json1);
-			bestReview(data.json2);
+			bestReview(data.json4);
+			
+			
 			$("#locationName").text(loc_name)
 			modal.css("display" , "none");
 		})

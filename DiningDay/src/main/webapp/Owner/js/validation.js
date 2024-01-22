@@ -1,3 +1,32 @@
+// 사업자번호 유효성 검사()
+$('#CRNCheck').on('click', function(){
+	var b_no = $("#CRN").val();
+	var data = {
+	     b_no: [b_no]
+   	}; 
+   	var checkCRN = document.getElementById('checkCRN');
+   	let serviceKey = "dMQO0BJAD43217gzbcYWiSdYp0DYJIaEk%2BKt6OxOzbPNzF6K3Nq%2Fi47z%2BQxVCCGeRFDN8lX8j79%2FTEvvfHFm3Q%3D%3D";
+   
+	$.ajax({
+	  url: "https://api.odcloud.kr/api/nts-businessman/v1/status?serviceKey=" + serviceKey,
+	  type: "POST",
+	  data: JSON.stringify(data),
+	  dataType: "JSON",
+	  contentType: "application/json",
+	  accept: "application/json",
+	  success: function(result) {
+	      console.log(result);
+	      if(result.data[0].b_stt_cd == '01') {
+			  checkCRN.innerHTML = '유효한 사업자번호입니다';	 
+			  checkCRN.style.color = 'green';   
+		  }	else {
+			  checkCRN.innerHTML = '사용 불가능한 사업자번호입니다';
+	      	  checkCRN.style.color = 'red';
+		  }
+	  }
+	});
+});
+
 // 아이디 유효성 검사
 function check_id(){
     var id = document.getElementById('id').value;
@@ -98,6 +127,16 @@ function submit() {
 		alert("사업자번호(10자리)를 입력해 주십시오.");
 		inputs.OWN_CRN.focus();
 		return false;
+	}
+	if(checkCRN.style.color != 'green') {
+		alert("사업자번호가 유효하지 않습니다");
+		inputs.OWN_CRN.focus();
+		return false;
+	}
+	if(checkId.style.color != 'green') {
+		alert("아이디 중복체크를 확인해 주십시오.");
+		inputs.OWN_ID.focus();
+		return false;	
 	}
 			
 	inputs.submit();

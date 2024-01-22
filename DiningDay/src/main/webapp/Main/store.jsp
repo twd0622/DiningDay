@@ -169,9 +169,9 @@ ${storeInfo.STORE_INFO}
 						<c:forEach var="table" items="${tableList}">
 						<li>
 							<div class="table_" id="${table.SEAT_NO}">
-								<c:if test="${!empty menuInfo.PHOTO_NAME and menuInfo.PHOTO_NAME != '0'}">
+								<c:if test="${!empty table.PHOTO_NAME and table.PHOTO_NAME != '0'}">
 								<div class="table_img">
-									<img alt="${menuInfo.PHOTO_NAME}" src="upload/${menuInfo.PHOTO_NAME}" class="menu_img">
+									<img alt="${table.PHOTO_NAME}" src="upload/${table.PHOTO_NAME}" class="menu_img">
 								</div>
 								</c:if>
 								<div class="table_info" >

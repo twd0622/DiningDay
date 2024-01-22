@@ -65,5 +65,10 @@ public class CustomerService {
 		boolean result = customerDAO.insertEx(customerCheck);
 		return result;
 	}
+	
+	// 01/22_준우 + 자기가 쓴 리뷰 리스트 보기
+	public List<Map<String, String>> cus_review(String CUS_NO) {
+		return customerDAO.cus_review(CUS_NO);
+	}
 
 }

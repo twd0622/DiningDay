@@ -45,7 +45,7 @@
 		<section class="page-section main_section" id="portfolio" style="background:white; width: 1320px;">
             <div class="container" style="border-bottom: 1.5px solid #f0f0f3; padding-top: 50px;">
                 <div class="text-center">
-                    <h3 class="section-heading text-uppercase" style="margin-left:20px; text-align: left">"${requestScope.searchInput}" 검색결과 ${requestScope.searchCount}개</h3>
+                    <h3 class="section-heading text-uppercase" style="margin-left:20px; text-align: left">"${requestScope.searchInput}" 검색결과 <span class="section-heading text-uppercase searchCount" style="text-align: left">${requestScope.searchCount}</span>개</h3>
                 </div>
                 <div id="resultBox" style="display: flex; flex-direction: column; justify-content: space-around;">
 					<!-- 검색 결과 -->	

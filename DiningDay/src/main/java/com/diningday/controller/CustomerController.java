@@ -152,6 +152,15 @@ public class CustomerController extends HttpServlet {
 			dispatcher = req.getRequestDispatcher("Customer/like_list.jsp");
 			dispatcher.forward(req, res);
 		}
+		
+		// 01/22_준우 + 자기가 쓴 리뷰 리스트 보기	
+		if(sPath.equals("/cus_review.cu")) {
+			
+			req.setAttribute("reviewList", customerService.cus_review((String) session.getAttribute("CUS_NO")));
+			
+			dispatcher = req.getRequestDispatcher("Customer/cus_review.jsp");
+			dispatcher.forward(req, res);
+		}
 
 	}
 	
@@ -167,4 +176,5 @@ public class CustomerController extends HttpServlet {
 	        e.printStackTrace();
 	    }
 	}
+	
 }

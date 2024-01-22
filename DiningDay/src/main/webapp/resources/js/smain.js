@@ -25,7 +25,8 @@ $(() => {
 	customSelect2($('#storeCategory'));
 	customSelect2($("#storeLastOrder"));
 	customSelect2($("#storeResTerm"));
-	
+	ajaxLoading;
+		
 	const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
 	const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));			
 	$('[data-toggle="tooltip"]').tooltip();
@@ -39,7 +40,7 @@ $(() => {
 	thumbnail_banner();		//	썸네일, 배너 사진 컨트롤
 	search_address;			//	주소 검색
 	
-	
+//	$("#totalInsert").hide();
 	$("input[type=button]").on("click", function(){
 		var index = ($(this).attr("id")).split("_")[1];
 		$("#inputfile_" + index).click();
@@ -49,7 +50,35 @@ $(() => {
 		$($("div[name=storeBold]")[i]).css(variable.borderlist);
 	}
 	
+//	$(document).on("change", "#checkboxList input", function(){
+//		debugger;
+//		for(var i = 0; i < $("input[type=checkbox]").length; i++){
+//			if(!$("." + i).is(":checked")){
+//				$("#totalInsert").hide();
+//				return;				
+//			}
+//		}
+//		$("#totalInsert").show();
+//	})
+	
 	paging("main .storePaging", 1, 0);
+	$(".demo").hide();
+	
+	$("#validCheckBtn").find(".btn-success").prop("disabled", $("#pagination").find($(".next")).attr("class") == ("page-item next disabled"))
+	$("#validCheckBtn").find(".btn-danger").prop("disabled", $("#pagination").find($(".prev")).attr("class") == ("page-item prev disabled"))
+	
+	$("#validCheckBtn").find(".btn").click(function(){
+		var btnText = $(this).text();
+		if(btnText === '다음'){
+			$("#pagination").find($(".next")).click();
+			$(this).prop("disabled", $("#pagination").find($(".next")).attr("class") == ("page-item next disabled"));
+			$(this).prev().prop("disabled", $("#pagination").find($(".prev")).attr("class") == ("page-item prev disabled"));	
+		} else {
+			$("#pagination").find($(".prev")).click();
+			$(this).prop("disabled", $("#pagination").find($(".prev")).attr("class") == ("page-item prev disabled"));
+			$(this).next().prop("disabled", $("#pagination").find($(".next")).attr("class") == ("page-item next disabled"));
+		}
+	})
 	
 	$("#totalInsert").on("click", function(){
 		for(var i = 0; i < $("input[type=checkbox]").length; i++){
@@ -92,21 +121,8 @@ $(() => {
 })
 	
 function ValidationCheckBox(){
-	$("#checkboxList").append(
-		'<input class="0" type="checkbox" style="pointer-events: none;">&nbsp;&nbsp;' +
- 		'<input class="1" type="checkbox" style="pointer-events: none;">&nbsp;&nbsp;' +
-		'<input class="2" type="checkbox" style="pointer-events: none;">&nbsp;&nbsp;' +
-		'<input class="3" type="checkbox" style="pointer-events: none;">&nbsp;&nbsp;' +
-		'<input class="4" type="checkbox" style="display:none;">' +
-		'<input class="5" type="checkbox" style="pointer-events: none;">&nbsp;&nbsp;' +
-		'<input class="5" type="checkbox" style="pointer-events: none;">&nbsp;&nbsp;' +
-		'<input class="6" type="checkbox" style="pointer-events: none;">&nbsp;&nbsp;'
-	);
-	
-	$($("input[type=checkbox]")[4]).prop("checked", true);
-	
 	for(var i = 0; i < $("input[type=checkbox]").length; i++){
-		indexArr.push(parseInt($($("input[type=checkbox]")[i]).attr("class")));
+		indexArr.push(parseInt($($("input[type=checkbox]")[i]).attr("class").split(" ")[0]));
 	}
 	
 	CheckboxIndex.zero = indexArr[0];
@@ -364,7 +380,7 @@ var saveStoreOpen = $("button[name=saveTimepicker]").on("click", function(){
 
 /** 썸네일 및 배너 사진 등록 함수 시작 */
 var photoisExistCheck = $("button[name=photoCheck]").on("click", function(){
-
+	debugger;
 	variable.borderlist["border-color"] = "red";
 	variable.valid = false;
 	var index = $(this).closest("div").prev("div[name=photoParent]").find("img").length
@@ -372,7 +388,7 @@ var photoisExistCheck = $("button[name=photoCheck]").on("click", function(){
 	var addcount = 1;
 	var btnclaseName = "btn btn-success mb-4";
 	var btnText = "저장";
-	var checkBoxCount = CheckboxIndex.six + 1; 
+	var checkBoxCount = CheckboxIndex.six; 
 	
 	if(index != indexCheck || index === 0){
 		return;

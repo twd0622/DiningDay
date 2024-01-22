@@ -4,91 +4,18 @@
 document.write('<script type="text/javascript"' + 
 			    	'src="/' + window.location.pathname.split("/")[1] + '/resources/js/dateResult.js">' +
 			    '</script>');
-
-const monthData = {
-	labels: [
-		'1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월',
-	], datasets: [{
-		type: 'bar',
-    	label: '월별 예약회수 bar',
-    	data: [10, 20, 30, 40, 10, 20, 30, 40, 10, 20, 30, 40],
-    	borderColor: 'rgb(255, 99, 132)',
-    	backgroundColor: 'rgba(255, 99, 132, 0.2)'
-	}, {
-    	type: 'line',
-    	label: '월별 예약회수 line',
-    	data: [10, 20, 30, 40, 10, 20, 30, 40, 10, 20, 30, 40],
-    	fill: false,
-    	borderColor: 'rgb(54, 162, 235)'
-	}]
-};
-
-const ctx = document.getElementById('myChart').getContext('2d');
-const myChart = new Chart(ctx, {
-	type: 'scatter',
-  	data: monthData,
-  	options: {
-	    scales: {
-	    	y: {
-	    		suggestedMax: 100,
-	        	beginAtZero: true
-	      	}
-	    }
-  	}
-});
-	
-const weekData = {
-	labels: [
-		'월요일',
-		'화요일',
-		'수요일',
-		'목요일',
-		'금요일',
-		'토요일',
-		'일요일'
-], datasets: [{
-	label: '예약횟수',
-    data: [20, 50, 10, 70, 150, 80, 0],
-    backgroundColor: [
-		'rgba(255, 99, 132)',
-      	'rgba(255, 159, 64)',
-      	'rgba(255, 205, 86)',
-      	'rgba(75, 192, 192)',
-      	'rgba(54, 162, 235)',
-      	'rgba(153, 102, 255)',
-      	'rgba(201, 203, 207)'
-    ],
-		hoverOffset: 4
-	}]
-};
-
-const ctpie = document.getElementById('pieChart').getContext('2d');
-const pieChart = new Chart(ctpie, {
-  	type: 'doughnut',
-	data: weekData,
-	options: {
-		responsive: false,
-		legend: {
-			font: {
-				size: 15
-			},
-	    	display: false
-		},
-	}
-});
-
-function datePrint(dateData){
-	$("#month_1").html(dateData + " 일별 예약 횟수");
-	$("#month_2").html(dateData + " 요일별 예약 횟수");
-	$("#month_3").html(dateData + " 요일별 예약 횟수");
-	$("#month_4").html(dateData);
-}
+			    
+document.write('<script type="text/javascript"' + 
+			    	'src="/' + window.location.pathname.split("/")[1] + '/resources/js/variableCode.js">' +
+			   '</script>');			    
 
 $(() => {
 	
 	$("#nowYear").html((index, oldHTML) => {
 		return oldHTML + " : " + dateTotal.year + " 년";	
 	})
+	
+	
 	
 	$("select").on("change", () => {
 		var selectYear = $("select option:selected").val()
@@ -149,4 +76,49 @@ $(() => {
 	
 })
 
+const weekData = {
+	labels: [
+		'월요일',
+		'화요일',
+		'수요일',
+		'목요일',
+		'금요일',
+		'토요일',
+		'일요일'
+], datasets: [{
+	label: '예약횟수',
+    data: [20, 50, 10, 70, 150, 80, 0],
+    backgroundColor: [
+		'rgba(255, 99, 132)',
+      	'rgba(255, 159, 64)',
+      	'rgba(255, 205, 86)',
+      	'rgba(75, 192, 192)',
+      	'rgba(54, 162, 235)',
+      	'rgba(153, 102, 255)',
+      	'rgba(201, 203, 207)'
+    ],
+		hoverOffset: 4
+	}]
+};
 
+const ctpie = document.getElementById('pieChart').getContext('2d');
+const pieChart = new Chart(ctpie, {
+  	type: 'doughnut',
+	data: weekData,
+	options: {
+		responsive: false,
+		legend: {
+			font: {
+				size: 15
+			},
+	    	display: false
+		},
+	}
+});
+
+function datePrint(dateData){
+	$("#month_1").html(dateData + " 일별 예약 횟수");
+	$("#month_2").html(dateData + " 요일별 예약 횟수");
+	$("#month_3").html(dateData + " 요일별 예약 횟수");
+	$("#month_4").html(dateData);
+}

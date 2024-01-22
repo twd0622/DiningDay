@@ -131,6 +131,22 @@ public class MainDAO {
 		return bestReview;
 		
 	}
+
+	public List<Map<String, String>> getReviewHighStore(Map<String, String> storeDTO) {
+		session = sqlSessionFactory.openSession();
+		List<Map<String, String>> reviewHighStoreList = session.selectList("Main.getReviewHighStore", storeDTO);
+		session.close();
+		
+		return reviewHighStoreList;
+	}
+
+	public List<Map<String, String>> getLikeHighStore(Map<String, String> storeDTO) {
+		session = sqlSessionFactory.openSession();
+		List<Map<String, String>> likeHighStoreList = session.selectList("Main.getLikeHighStore", storeDTO);
+		session.close();
+		
+		return likeHighStoreList;
+	}
 	
 	
 
