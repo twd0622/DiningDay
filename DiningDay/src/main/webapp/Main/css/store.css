@@ -205,6 +205,14 @@ ul.list li{
     width: 28%;
 }
 
+.menu_img{
+	display: inline-block;
+	background-color: white;
+	height: 186px;
+	width: 225px;
+	border-radius: 10px;
+}
+
 .table_info{
 	display: flex;
 	flex-direction: column;
