@@ -54,10 +54,10 @@
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 <!-- Google -->
 <meta name ="google-signin-client_id" 
-	  content="AIzaSyBVfMqr34r31qxZCsCS2bcUDXRCYA-ckBQ.apps.googleusercontent.com">
-<script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
-<script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>
-<script src="https://apis.google.com/js/platform.js?onload=triggerGoogleLoaded"></script>
+	  content="383007591516-vj9jddsusaj9kdj8mbd2ncgh46ktsuqd.apps.googleusercontent.com">
+<!-- <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script> -->
+<!-- <script src="https://apis.google.com/js/platform.js?onload=init" async defer></script> -->
+<!-- <script src="https://apis.google.com/js/platform.js?onload=triggerGoogleLoaded"></script> -->
 <script src="https://apis.google.com/js/platform.js" async defer></script>
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 <!-- 네이버 -->
