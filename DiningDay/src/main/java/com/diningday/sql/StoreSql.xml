@@ -5,6 +5,7 @@
 <mapper namespace="Store">
 	
 	<insert id="menuInsert" parameterType="map">
+	
 		insert		
 			into STORE_IMAGE
 				( STORE_NO
@@ -43,6 +44,7 @@
 	</insert>
 	
 	<select id="menuList" parameterType="map" resultType="map">
+	
 		select m.MENU_NAME, s.PHOTO_NAME, m.MENU_INFO, m.MENU_PRICE, m.MENU_HIDE, m.MENU_NO 
 		  from MENU m 
 		  left join STORE_IMAGE s
@@ -54,6 +56,7 @@
 	</select>
 
 	<update id="menuUpdate" parameterType="map">
+	
 		update MENU m, STORE_IMAGE s
 	   	   set 
 			  	m.MENU_NAME = #{MENU_NAME}
@@ -69,6 +72,7 @@
 	</update>
 	
  	<select id="menuSelect" parameterType="map" resultType="map">
+ 	
  		select m.MENU_NAME, s.PHOTO_NAME, m.MENU_INFO, m.MENU_PRICE, m.MENU_HIDE, m.MENU_NO
 		  from MENU m 
 		  join STORE_IMAGE s
@@ -80,6 +84,7 @@
  	</select>
  	
  	<select id="menuMax" parameterType="map" resultType="map">
+ 	
  		SELECT CONCAT("ME", ifnull(MAX(CAST(REPLACE(MENU_NO, "ME", "") AS UNSIGNED)), 0) + 1) as "MENU_NO"
  			  ,(select STORE_NAME
  			      from STORE a
@@ -91,6 +96,7 @@
  	</select>
  	
  	<delete id="menuDelete" parameterType="map">
+ 	
  		DELETE A, B
 		  FROM MENU A INNER JOIN STORE_IMAGE B 
 		 WHERE 1 = 1 
@@ -110,6 +116,7 @@
 	
 	<!--  식당 메인 시작 -->
  	<select id="ownerSelect" parameterType="map" resultType="map">
+ 	
  		SELECT STORE_NO, OWN_NO
  		  FROM OWNER
  		 WHERE 1 = 1
@@ -118,6 +125,7 @@
  	</select>
  	
  	<insert id="storeInsert" parameterType="map">
+ 	
  		insert 
 			into STORE
 				( 
@@ -195,6 +203,7 @@
 				;
  	</insert>
  	<update id="firstInsertStore_OwnerUpdate" parameterType="map">
+ 	
  		update OWNER
  		   set STORE_NO = (select STORE_NO
  		                     from STORE
@@ -204,6 +213,7 @@
  	</update>
  	
  	<select id="storeSelect" parameterType="map" resultType="map">
+ 	
 		   select 
 				s.STORE_NO
 			  , s.OWN_NO
@@ -226,7 +236,10 @@
 		      , si.BA1
 		      , si.BA2
 		      , si.SU1
-		      , ifnull(re.REV_SCORE, 0) as "REV_SCORE"
+		      , (select cast(format(avg(REV_SCORE), 1) AS CHAR(10)) as REV_SCORE
+				  from REVIEW
+				 where STORE_NO = s.STORE_NO
+				 group by STORE_NO) as REV_SCORE
 		  from STORE s
 		  left join (select 
 					STORE_NO
@@ -251,6 +264,7 @@
 <!-- 식당 좌석 시작 -->
  	
  	<insert id="seatInsert" parameterType="map">
+ 	
  	 	insert
  	 		into SEAT
  	 			( SEAT_NO
@@ -296,14 +310,75 @@
  	 			    where 1 = 1
  	 			      and STORE_NO = #{STORE_NO})
  	 			)
- 	 			;			
+ 	 			;	
+ 	 					
  	</insert>
+ 	
+ 	<select id="seatSelectList" parameterType="map" resultType="map">
+ 	
+ 		select SEAT_NO
+			 , s.SEAT_NAME
+		     , s.SEAT_MIN
+		     , s.SEAT_MAX
+		     , s.SEAT_CONTENT
+		     , s.SEAT_OC
+		     , (select PHOTO_NAME
+		          from STORE_IMAGE
+				 where 1 = 1
+				   and STORE_NO = s.STORE_NO
+				   and PHOTO_TYPE = s.SEAT_NO) as "PHOTO_NAME"
+		  from SEAT s
+		  join STORE_IMAGE si
+		    on s.SEAT_NO = si.PHOTO_TYPE
+		 where s.STORE_NO = #{STORE_NO};
+		 
+ 	</select>
+ 	
+ 	<select id="stableResCheck" parameterType="map" resultType="map">
+		
+		select REQ_STATE
+		  from RESERVATION
+		 where 1 = 1
+		   and STORE_NO = #{STORE_NO}
+		   and SEAT_NO = #{SEAT_NO}
+		       ;
+		       
+ 	</select>
+ 	
+ 	<update id="seatUpdate" parameterType="map">
+ 		update SEAT s, STORE_IMAGE si
+	   	   set 
+			  	 s.SEAT_NAME = #{SEAT_NAME}
+		  	   , si.PHOTO_NAME = #{PHOTO_NAME}
+		  	   , s.SEAT_OC = #{SEAT_OC}
+		  	   , s.SEAT_MIN = #{SEAT_MIN}
+	      	   , s.SEAT_MAX = #{SEAT_MAX}
+	      	   , s.SEAT_CONTENT = #{SEAT_CONTENT}
+	   	 where 1 = 1
+	   	   and s.SEAT_NO = si.PHOTO_TYPE
+	   	   and s.STORE_NO = #{STORE_NO}
+	       and s.SEAT_NO = #{SEAT_NO}
+	           ;
+	   
+ 	</update>
+ 	
+ 	<delete id="seatDelete" parameterType="map">
+ 		DELETE S, P
+		  FROM SEAT S INNER JOIN STORE_IMAGE P 
+		 WHERE 1 = 1 
+		   AND S.SEAT_NO = P.PHOTO_TYPE 
+		   AND S.STORE_NO = P.STORE_NO
+		   AND S.SEAT_NO = #{SEAT_NO}
+		   AND S.STORE_NO = #{STORE_NO}
+		       ;
+ 	</delete>
  	
 <!-- 식당 좌석 끝 -->
  	
 <!-- 예약 시작 -->
 
 	<select id="resSelectList" parameterType="map" resultType="map">
+	
 		select r.RES_NO
 			 , r.PAY_NO
 		     , r.SEAT_NO
@@ -330,11 +405,129 @@
 		 where 1 = 1
 		   and r.STORE_NO = #{STORE_NO}
 		   and r.RES_DATE = #{RES_DATE}
-		    and r.REQ_STATE = #{REQ_STATE}
-		 order by r.RES_TIME;
+		   and r.REQ_STATE = #{REQ_STATE}
+		 order by r.RES_TIME
+		       ; 
+		 
 	</select>
+	
+	<update id="resUpdate" parameterType="map">
+		
+		update RESERVATION
+		   set REQ_STATE = #{REQ_STATE}
+		 where 1 = 1
+		   and STORE_NO = #{STORE_NO}
+		   and RES_NO = #{RES_NO}
+			   ;
+	</update>
 
+	<select id="resSelect" parameterType="map" resultType="map">
+	 	select 
+		  (select cast(count(RES_DATE) AS CHAR(10))
+			 from RESERVATION a
+			where STORE_NO = #{STORE_NO}
+			  and REQ_STATE = '2'
+		      and RES_DATE like #{RES_DATE_1}) as "RES_DATE_1",
+		  (select cast(count(RES_DATE) AS CHAR(10))
+			 from RESERVATION a
+			where STORE_NO = #{STORE_NO}
+			  and REQ_STATE = '2'
+		      and RES_DATE like #{RES_DATE_2}) as "RES_DATE_2",
+		  (select cast(count(RES_DATE) AS CHAR(10))
+			 from RESERVATION a
+			where STORE_NO = #{STORE_NO}
+			  and REQ_STATE = '2'
+		      and RES_DATE like #{RES_DATE_3}) as "RES_DATE_3",
+		  (select cast(count(RES_DATE) AS CHAR(10))
+			 from RESERVATION a
+			where STORE_NO = #{STORE_NO}
+			  and REQ_STATE = '2'
+		      and RES_DATE like #{RES_DATE_4}) as "RES_DATE_4",
+		  (select cast(count(RES_DATE) AS CHAR(10))
+			 from RESERVATION a
+			where STORE_NO = #{STORE_NO}
+			  and REQ_STATE = '2'
+		      and RES_DATE like #{RES_DATE_5}) as "RES_DATE_5",   
+		  (select cast(count(RES_DATE) AS CHAR(10))
+			 from RESERVATION a
+			where STORE_NO = #{STORE_NO}
+			  and REQ_STATE = '2'
+		      and RES_DATE like #{RES_DATE_6}) as "RES_DATE_6",   
+		  (select cast(count(RES_DATE) AS CHAR(10))
+			 from RESERVATION a
+			where STORE_NO = #{STORE_NO}
+			  and REQ_STATE = '2'
+		      and RES_DATE like #{RES_DATE_7}) as "RES_DATE_7",
+		  (select cast(count(RES_DATE) AS CHAR(10))
+			 from RESERVATION a
+			where STORE_NO = #{STORE_NO}
+			  and REQ_STATE = '2'
+		      and RES_DATE like #{RES_DATE_8}) as "RES_DATE_8",
+		  (select cast(count(RES_DATE) AS CHAR(10))
+			 from RESERVATION a
+			where STORE_NO = #{STORE_NO}
+			  and REQ_STATE = '2'
+		      and RES_DATE like #{RES_DATE_9}) as "RES_DATE_9",   
+		  (select cast(count(RES_DATE) AS CHAR(10))
+			 from RESERVATION a
+			where STORE_NO = #{STORE_NO}
+			  and REQ_STATE = '2'
+		      and RES_DATE like #{RES_DATE_10}) as "RES_DATE_10",    
+		  (select cast(count(RES_DATE) AS CHAR(10))
+			 from RESERVATION a
+			where STORE_NO = #{STORE_NO}
+			  and REQ_STATE = '2'
+		      and RES_DATE like #{RES_DATE_11}) as "RES_DATE_11",
+		  (select cast(count(RES_DATE) AS CHAR(10)) 
+			 from RESERVATION a
+			where STORE_NO = #{STORE_NO}
+			  and REQ_STATE = '2'
+		      and RES_DATE like #{RES_DATE_12}) as "RES_DATE_12",
+		   (select OWN_DATE
+		      from OWNER
+			 where STORE_NO = #{STORE_NO}
+		       and OWN_NO = #{OWN_NO}) as "OWN_DATE"  
+		  ;
+		
+	</select>
+	
+	<select id="resMonthSelect" parameterType="map" resultType="map">
+	
+		select cast(day(RES_DATE) AS CHAR(10)) as "RES_DATE"
+			 , cast(count(RES_DATE) AS CHAR(10)) as "RES_COUNT"
+			 , case dayofweek(RES_DATE)
+		       when '1' then '일요일'
+		   	   when '2' then '월요일'
+		   	   when '3' then '화요일'
+		   	   when '4' then '수요일'
+		   	   when '5' then '목요일'
+		   	   when '6' then '금요일'
+		   	   when '7' then '토요일'
+		    	end as "RES_DAY"
+		  from RESERVATION
+		 where 1 = 1
+		   and STORE_NO = #{STORE_NO}
+		   and REQ_STATE = '2'
+		   and RES_DATE like #{RES_DATE}
+		 group by RES_DATE	   
+		       ;
+	
+	</select>
+	
+	<select id="resWeekSelect" parameterType="map" resultType="map">
+		select cast(count(dayofweek(RES_DATE)) AS CHAR(10)) as "RES_COUNT"
+		     , cast(dayofweek(RES_DATE) AS CHAR(1)) as "RES_DAY"
+		  from RESERVATION
+		 where 1 = 1
+		   and STORE_NO = #{STORE_NO}
+		   and REQ_STATE = '2'
+		   and RES_DATE like #{RES_DATE}
+		 group by cast(dayofweek(RES_DATE) AS CHAR(1))
+		 	   ;
+	</select>
+	
 <!-- 예약 종료 -->
+
 <!-- ===================== 1/17 준우 작성 건들 ㄴㄴ ===================== -->
  	<select id="getReviewList" parameterType="map" resultType="map">
  		select R.REV_NO

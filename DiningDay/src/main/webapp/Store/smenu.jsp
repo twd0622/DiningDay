@@ -102,7 +102,7 @@ keyframes blink {
 					<div>
 						<form id="ONE_MENU_DATA" enctype="multipart/form-data"></form>
 						<form id="MENU_DATA" enctype="multipart/form-data"></form>
-						<table class="table" border="3">
+						<table class="table rounded-4 shadow">
 						    <thead>
 						    	<tr>
 						    		<th style="background-color: var(--bg-color); color: white; width: 180px;">
@@ -133,7 +133,7 @@ keyframes blink {
 							</div>  
 						</div>
 						<div style="display: flex; justify-content: flex-end;">
-							<button type="button" class="btn btn-danger btn-lg" name="totalDelete" data-bs-html="true"
+							<button type="button" class="btn btn-danger btn-lg rounded-4 shadow" name="totalDelete" data-bs-html="true"
 							 data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="(주의!) 체크된 항목만</br>삭제되는 버튼입니다 :)">일괄 삭제</button>
 						</div>
 					</div>

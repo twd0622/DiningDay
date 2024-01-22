@@ -15,8 +15,7 @@
  * 매개변수 2개 받음
  * 0번째 : 적용할 위치 문자열
  * 1번째 : 한 페이지 당 보여줄 행 개수
- * 2번째 : 현재 보여질 페이지 -> 입력할 내용은 현재 행 위치
- * 첫번째 페이지만 보여주고 싶으면 매개변수 안받아도 됨
+ * 2번째 : 0 => 데이터가 없어도 표시, 1 => 데이터가 있어야 표시 추가로 한페이지에 보여질 행이 꽉찼을 때 자동으로 다음페이지 페이징 숫자 추가됨
  * ex ) $(e.target).index() 
  */
 
@@ -79,13 +78,15 @@ function paging(pgEvent, pageSize, oneOrZero){
  * 로딩창 띄우기
  * 
  */
-$(() => {
+var ajaxLoading = () => {
+	
 	$(window).ajaxStart(function(){   
 		$("#loading").show();  
 	}).ajaxStop(function(){   
 	  	$("#loading").hide();  
 	});
-})
+} 
+
 
 
 function targetColor(currentPageTxt){

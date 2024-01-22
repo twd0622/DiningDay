@@ -37,6 +37,7 @@ $(() => {
 		}
 	})
 	
+	ajaxLoading;
 	targetColor($("#smenu"));		//	현재 페이지에 해당하는 사이드바 하이퍼링크 색상 변경 함수
 	paging("#tbody_2 tr", 5, 0);	//	페이징 처리 함수 호출
 	tooltipFunction();				//	부트스트랩 tooltip
@@ -65,10 +66,6 @@ $(() => {
 		if(typeof ajaxTotalData != 'object'){
 			return;
 		}
-		
-		if(typeof ajaxTotalData === 'object'){
-		}
-		
 		
 		if(!confirm(confirmText)){
 			confirmText = '';

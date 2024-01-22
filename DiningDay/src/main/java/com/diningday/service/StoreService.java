@@ -17,6 +17,7 @@ public class StoreService {
 
 	StoreDAO storeDAO = new StoreDAO();
 	
+//	--- 메뉴 시작 ---	
 	public boolean insertMenu(HttpServletRequest req) {
 		return storeDAO.insertMenu(TeamUtil.fileRequestToMap(req));
 	}
@@ -52,6 +53,10 @@ public class StoreService {
 		return storeDAO.deleteMenu(dto);
 	}
 	
+//	--- 메뉴 끝 ---
+	
+//	--- 식당 정보 시작 ---
+	
 	public JsonObject storeSelect(HttpServletRequest req) {
 		return TeamUtil.mapToJSON(storeDAO.storeSelect(TeamUtil.fileRequestToMap(req)));
 	}
@@ -75,15 +80,56 @@ public class StoreService {
 	public boolean firstInsertStore_OwnerUpdate(Map<String, String> storeDTO) {
 		return storeDAO.firstInsertStore_OwnerUpdate(storeDTO);
 	}
+
+//	--- 식당 정보 끝 ---
+	
+//	--- 좌석 시작 ---	
 	
 	public boolean seatInsert(HttpServletRequest req) {
 		return storeDAO.seatInsert(TeamUtil.fileRequestToMap(req));
 	}
 	
+	public JsonArray seatSelectList(Map<String, String> dto) {
+		return TeamUtil.mapListToJSONList(storeDAO.seatSelectList(dto));
+	}
+	
+	public List<Map<String, String>> stableResCheck(Map<String, String> dto) {
+		return storeDAO.stableResCheck(dto);
+	}
+	
+	public boolean seatDelete(Map<String, String> dto) {
+		return storeDAO.seatDelete(dto);
+	}
+	
+	public boolean seatUpdate(Map<String, String> dto) {
+		return storeDAO.seatUpdate(dto);
+	}
+	
+//	--- 좌석 끝 ---	
+	
 //	--- 예약 시작 ---
+	
 	public JsonArray resSelectList(HttpServletRequest req, Map<String, String> dto) {
 		return TeamUtil.mapListToJSONList(storeDAO.resSelectList(TeamUtil.requestToMap(req, dto)));
 	}
+	
+	public boolean resUpdate(Map<String, String> dto) {
+		return storeDAO.resUpdate(dto);
+	}
+	
+	public Map<String, String> resSelect(Map<String, String> dto) {
+		return storeDAO.resSelect(dto);
+	}
+	
+	public JsonArray resMonthSelect(Map<String, String> dto) {
+		return TeamUtil.mapListToJSONList(storeDAO.resMonthSelect(dto));
+	}
+	
+	public JsonArray resWeekSelect(Map<String, String> dto) {
+		return TeamUtil.mapListToJSONList(storeDAO.resWeekSelect(dto));
+	}
+	
+	
 //	--- 예약 끝 ---
 	
 	// ----------------- 01/17 준우 작성 건들 ㄴㄴ -------------------------------------------------
@@ -109,6 +155,6 @@ public class StoreService {
 		Map<String, String> ownerDTO = TeamUtil.requestToMap(req, param);
 		return storeDAO.ownerEdit(ownerDTO);
 	}
-	
+
 	
 }

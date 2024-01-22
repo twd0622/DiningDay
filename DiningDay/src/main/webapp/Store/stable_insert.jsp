@@ -9,7 +9,7 @@
 	<%@ include file="/Template/store_sidebar_open.jsp"%> 	
 		<main style="display: flex;  align-items: center; text-align: center; padding:20px;">
 			<div class="mainContainer" style=" width: 100%; background:#f0f0f3; display: flex; align-items: center;text-align: center; justify-content: center; flex-direction: column;">
-				<div class="p-5" style="margin-top:10%; display: flex;  align-items: center; text-align: center; width: 800px; flex-direction: row-reverse; background-color: white;">
+				<div class="p-5 rounded-4 shadow" style="margin-top:10%; display: flex;  align-items: center; text-align: center; width: 800px; flex-direction: row-reverse; background-color: white;">
 					<form id="SEAT_DATA" enctype="multipart/form-data">
 						<div style="display: flex; flex-direction: column;">
 							<h3 class="mb-5">좌석 등록</h3>
@@ -42,7 +42,7 @@
 					</div>
 				</div>
 				<div>
-					<button type="button" id="insertBtn" class="btn btn-outline-success btn-lg mt-4" disabled>등록</button>
+					<button type="button" id="insertBtn" class="btn btn-outline-success btn-lg mt-4 rounded-4 shadow" disabled>등록</button>
 				</div>			
 			</div>
     	</main>	
