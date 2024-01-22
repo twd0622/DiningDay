@@ -227,7 +227,7 @@ ul{
 		                        <span class="nav_name">리뷰</span>
 		                    </a>
                     	</li>
-	                    <li><a class="nav__link" id="sreview" href="${ pageContext.request.contextPath }/sreview.st" style="width: 130px;">
+	                    <li><a class="nav__link mb-5" id="sreview" href="${ pageContext.request.contextPath }/sreview.st" style="width: 130px;">
 	                    	<small>● 전체 리뷰 목록</small></a>
 	                    </li>
                     </ul>
