@@ -31,6 +31,23 @@ var getMainInfo = function(data){
 		}
 	};
 
+var bestReview = function(data){
+	for(Review of data){
+		var bestReviewTag = 
+		  '<div class="col-lg-4 col-sm-6 mb-4 reviewBox">'
+		+     '<div class="rankBox"><span class="rank">'+ Review.RANK +'</span></div>'
+		+     '<div>'
+	    +     	'<svg class="bd-placeholder-img rounded-circle" width="120" height="120"  role="img" aria-label="Placeholder" preserveAspectRatio="xMidYMid slice" focusable="false" style="border: 1px solid black; background-image: url(\'upload/'+Review.CUS_IMAGE+'\'); background-size: contain;"></svg>'
+	    +     	'<h6 class="fw-normal cus_nickname">' + Review.CUS_NICK + '</h6>'
+	    +     	'<p class="showDetailBtnBox"><a class="showDetailBtn" href="store_review.re?STORE_NO='+ Review.STORE_NO +'#'+ Review.REV_NO +'">상세보기 »</a></p>'
+	    +     	'<p class="review_content">' + Review.REV_CONTENT + '</p>'
+	    +     '</div>'
+      	+ '</div>'
+      	
+      	$("#bestReviewBox").append(bestReviewTag);
+	}
+}
+
 $(()=>{
 	$.ajax({
 		type: "get",
@@ -47,14 +64,10 @@ $(()=>{
 				$(".District__List").eq(1).append('<li class="District__Item"><button class="District__Item__Button false">'+loc_name.LOC_NAME+'</button></li>')
 			}
 			
-			$(".District__List").slice(0,2).find(".District__Item__Button").on(
-				"click",
-				function(){
-					switchLoc(this)
-					getLoc(this)	
-				}
-				
-			)
+			$(".District__List").slice(0,2).find(".District__Item__Button").on("click",function(){
+				switchLoc(this)
+				getLoc(this)	
+			})
 		}
 	)
 	
@@ -107,14 +120,10 @@ $(()=>{
 					$(".District__List").eq(loc_scope).append('<li class="District__Item"><button class="District__Item__Button false">'+loc_name.LOC_NAME+'</button></li>')
 				}
 				
-				$(".District__List").eq(loc_scope,3).find(".District__Item__Button").on(
-					"click",
-					function(){
-						switchLoc(this)
-						getLoc(this)	
-					}
-					
-				)
+				$(".District__List").eq(loc_scope,3).find(".District__Item__Button").on("click",function(){
+					switchLoc(this)
+					getLoc(this)	
+				})
 			}
 		)
 	}
@@ -137,33 +146,22 @@ $(()=>{
 	})
 	
 	
-	$(window).on(
-		"click",
-		function(e){
-			if (e.target == modal[0]) {
-				modal.css("display" , "none")
-  			}
+	$(window).on("click",function(e){
+		if (e.target == modal[0]) {
+			modal.css("display" , "none")
 		}
-	)
+	})
 	
 	// 모달창 띄우기
-	$("#locationBtn").on(
-		"click",
-		function(){
-			$("#modal_layer").css(
-				"display", ""
-			)
-		}
-	)
+	$("#locationBtn").on("click",function(){
+		$("#modal_layer").css("display", "")
+	})
 	
-	$("#searchBtn").on(
-		"click",
-		function(){
-			var form = $("#searchForm");
-			
-			form.submit();
-		}
-	)
+	$("#searchBtn").on("click",function(){
+		var form = $("#searchForm");
+		
+		form.submit();
+	})
 	
 	$("#searchForm").submit(()=>{
 		
@@ -182,7 +180,8 @@ $(()=>{
 		dataType:"json"
 	})
 	.done(function(data){
-		getMainInfo(data);
+		getMainInfo(data.json1);
+		bestReview(data.json2);
 	})
 	
 	$(".leftBtn").on("click",function(){
@@ -216,7 +215,9 @@ $(()=>{
 		})
 		.done(function(data){
 			$(".recomannedStore").empty();
-			getMainInfo(data);
+			$("#bestReviewBox").empty();
+			getMainInfo(data.json1);
+			bestReview(data.json2);
 			$("#locationName").text(loc_name)
 			modal.css("display" , "none");
 		})

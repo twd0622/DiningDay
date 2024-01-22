@@ -15,7 +15,7 @@ public class MainDAO {
 	
 	public List<Map<String, String>> searchResult(Map<String, String> searchDTO) {
 		session = sqlSessionFactory.openSession();
-		List<Map<String, String>> searchList = session.selectList("Main.getMainInfo", searchDTO);
+		List<Map<String, String>> searchList = session.selectList("Main.getMainStoreInfo", searchDTO);
 		
 		session.close();
 		
@@ -114,12 +114,22 @@ public class MainDAO {
 		return resTime;
 	}
 	
-	public List<Map<String, String>> getMainInfo(Map<String, String> requestToMap) {
+	public List<Map<String, String>> getMainInfo(Map<String, String> storeDTO) {
 		session = sqlSessionFactory.openSession();
-		List<Map<String, String>> mainInfo = session.selectList("Main.getMainInfo", requestToMap);
+		List<Map<String, String>> mainInfo = session.selectList("Main.getMainStoreInfo", storeDTO);
+		
 		session.close();
 		
 		return mainInfo;
+	}
+
+	public List<Map<String, String>> getBestReview(Map<String, String> reviewDTO) {
+		session = sqlSessionFactory.openSession();
+		List<Map<String, String>> bestReview = session.selectList("Main.getMainReviewInfo", reviewDTO);
+		session.close();
+		
+		return bestReview;
+		
 	}
 	
 	

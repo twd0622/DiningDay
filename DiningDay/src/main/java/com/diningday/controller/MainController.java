@@ -8,6 +8,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
@@ -21,6 +22,7 @@ import com.diningday.service.LocationService;
 import com.diningday.service.MainService;
 import com.diningday.util.TeamUtil;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 
 public class MainController extends HttpServlet {
 	RequestDispatcher dispatcher = null;
@@ -65,9 +67,19 @@ public class MainController extends HttpServlet {
 			Map<String, String> map = new HashMap<String, String>();
 			map.put("LOC_NAME", (String)session.getAttribute("LOC_NAME"));
 			
+			List<Map<String, String>> mainStoreInfo = mainService.getMainInfo(TeamUtil.requestToMap(req, map));
+			JsonObject mainInfo = TeamUtil.MapListsToJson(mainStoreInfo);
+			
+			if(req.getParameter("searchInput") == null) {
+				List<Map<String, String>> bestReview = mainService.getBestReview(TeamUtil.requestToMap(req,map));
+				mainInfo = TeamUtil.MapListsToJson(mainStoreInfo, bestReview);
+				System.out.println(mainInfo);
+			}
+			
 			res.setContentType("application/x-json; charset=utf-8");
-			res.getWriter().print(TeamUtil.mapListToJSONList(mainService.getMainInfo(TeamUtil.requestToMap(req, map))));
+			res.getWriter().print(mainInfo);
 		}
+	
 		
 		if(sPath.equals("/searchResult.ma")) {
 			Map<String, String> map = new HashMap<String, String>();

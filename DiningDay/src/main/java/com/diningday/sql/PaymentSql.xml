@@ -128,7 +128,7 @@
 					, #{menuDTO.MENU_NO}
 					, #{menuDTO.STORE_NO}
 					, #{menuDTO.MENU_NAME}
-					, IF(#{menuDTO.MENU_COUNT} = '', '1', '2')
+					, IF(#{menuDTO.MENU_COUNT} = '', '1', #{menuDTO.MENU_COUNT})
 					, ifnull((SELECT MENU_PRICE FROM MENU WHERE STORE_NO=#{menuDTO.STORE_NO} AND MENU_NO=#{menuDTO.MENU_NO}) * #{menuDTO.MENU_COUNT}, '10000')
 				)
 		</foreach>
