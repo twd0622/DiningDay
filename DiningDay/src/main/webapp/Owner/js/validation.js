@@ -128,6 +128,16 @@ function submit() {
 		inputs.OWN_CRN.focus();
 		return false;
 	}
+	if(checkCRN.style.color != 'green') {
+		alert("사업자번호가 유효하지 않습니다");
+		inputs.OWN_CRN.focus();
+		return false;
+	}
+	if(checkId.style.color != 'green') {
+		alert("아이디 중복체크를 확인해 주십시오.");
+		inputs.OWN_ID.focus();
+		return false;	
+	}
 			
 	inputs.submit();
 }
