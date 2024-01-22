@@ -155,7 +155,7 @@
 							<span class="goodBtn">
 								<span style="font-size:15px;" class="material-symbols-outlined">thumb_up</span>
 								<span style="font-size:13px; margin: 0 3px;">공감</span>
-								<span style="font-size:13px;">(100)</span>
+								<span style="font-size:13px;">(${storeReview.REVIEW_LIKE_COUNT})</span>
 							</span>
 						</div>
 						<div class="review_content">

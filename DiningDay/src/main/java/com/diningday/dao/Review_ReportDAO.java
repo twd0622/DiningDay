@@ -60,6 +60,35 @@ public class Review_ReportDAO {
 		
 	}
 
+	public int reviewLikeUP(Map<String, String> reviewLikeDTO) {
+		session = sqlSessionFactory.openSession();
+		int result = session.insert("Review_Report.reviewLikeUP",reviewLikeDTO);
+		
+		session.commit();
+		session.close();
+		
+		return result;
+	}
+
+	public int reviewLikeDOWN(Map<String, String> reviewLikeDTO) {
+		session = sqlSessionFactory.openSession();
+		System.out.println(reviewLikeDTO);
+		int result = session.delete("Review_Report.reviewLikeDOWN",reviewLikeDTO);
+		System.out.println(result);
+		session.commit();
+		session.close();
+		
+		return result;
+	}
+
+	public List<Map<String,String>> checkReviewLike(Map<String, String> reviewLikeDTO) {
+		session = sqlSessionFactory.openSession();
+		List<Map<String,String>> reviewLikeList = session.selectList("Review_Report.checkReviewLike",reviewLikeDTO);
+		session.close();
+		
+		return reviewLikeList;
+	}
+
 	
 
 }

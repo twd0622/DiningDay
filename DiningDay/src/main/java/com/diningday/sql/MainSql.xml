@@ -44,7 +44,7 @@
 	</select>
 	
 	<select id="getMainReviewInfo" parameterType="String" resultType="map">
-		SELECT concat(ROW_NUMBER() over (order by RL.LIKE_COUNT ), '.')  'RANK'
+		SELECT concat(ROW_NUMBER() over (order by RL.LIKE_COUNT DESC), '.')  'RANK'
 		     , R.REV_NO
 			 , R.CUS_NO
 		     , R.CUS_NICK

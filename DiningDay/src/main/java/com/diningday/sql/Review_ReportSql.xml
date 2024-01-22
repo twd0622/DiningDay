@@ -44,6 +44,7 @@
 			 , ifnull(concat('(수정) ', str_to_date(ifnull(RA.ANSWER_UPDATE_DATE, RA.ANSWER_DATE), '%Y%m%d%H%i%s')), '0') ANSWER_DATE
 		     , RM.MENU_NAME
 		     , S.SEAT_NAME
+		     , ifnull((SELECT count(RL_NO) FROM REVIEW_LIKE WHERE REV_NO = R.REV_NO group by REV_NO), '0') REVIEW_LIKE_COUNT
 		from REVIEW R 
 		left JOIN REVIEW_ANSWER RA 
 		ON R.REV_NO = RA.REV_NO
@@ -89,6 +90,29 @@
 			  ON ST.STORE_NO = R.STORE_NO
 		   where ST.STORE_NO = #{STORE_NO};
 	
+	</select>
+	
+	<insert id="reviewLikeUP" parameterType="map">
+		INSERT INTO REVIEW_LIKE(RL_NO, CUS_NO, REV_NO)
+		VALUES 
+		     ( concat("RL", IFNULL((select MAX(cast(replace(RL_NO, "RL", "") AS unsigned))+1 FROM REVIEW_LIKE A), 1))
+		     , #{CUS_NO}
+		     , #{REV_NO});
+	</insert>
+	
+	<delete id="reviewLikeDOWN" parameterType="map">
+		DELETE FROM REVIEW_LIKE
+		WHERE REV_NO = #{REV_NO}
+		  AND CUS_NO = #{CUS_NO};
+	</delete>
+	
+	<select id="checkReviewLike" parameterType="map" resultType="map">
+		SELECT RL.REV_NO
+		  FROM REVIEW_LIKE RL
+		  JOIN REVIEW R
+		    ON RL.REV_NO = R.REV_NO
+		 WHERE RL.CUS_NO = #{CUS_NO}
+		   AND R.STORE_NO = #{STORE_NO};
 	</select>
 </mapper>
 

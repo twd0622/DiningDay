@@ -31,8 +31,6 @@ public class Review_ReportController extends HttpServlet {
 		
 	}
 	
-	
-	
 	protected void doProcess(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		String sPath = req.getServletPath();
 		System.out.println(sPath);
@@ -89,6 +87,22 @@ public class Review_ReportController extends HttpServlet {
 			dispatcher = req.getRequestDispatcher("Review_Report/store_review.jsp");
 			dispatcher.forward(req, res);
 			
+		}
+		
+		if(sPath.equals("/reviewLikeUP.re")) {
+			res.setContentType("charset=utf-8");
+			res.getWriter().print(review_ReportService.reviewLikeUP(TeamUtil.requestToMap(req)));
+		}
+		
+		if(sPath.equals("/reviewLikeDOWN.re")) {
+			res.setContentType("charset=utf-8");
+			res.getWriter().print(review_ReportService.reviewLikeDOWN(TeamUtil.requestToMap(req)));
+			
+		}
+		
+		if(sPath.equals("/checkReviewLike.re")) {
+			res.setContentType("application/x-json; charset=utf-8");
+			res.getWriter().print(TeamUtil.mapListToJSONList(review_ReportService.checkReviewLike(TeamUtil.requestToMap(req))));
 		}
 		
 	}

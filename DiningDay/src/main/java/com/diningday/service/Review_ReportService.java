@@ -54,5 +54,18 @@ public class Review_ReportService {
 		return review_ReportDAO.getStoreInfo(STORE_NO);
 	}
 
+	public int reviewLikeUP(Map<String, String> reviewLikeDTO) {
+		return review_ReportDAO.reviewLikeUP(reviewLikeDTO);
+	}
+
+	public int reviewLikeDOWN(Map<String, String> reviewLikeDTO) {
+		return review_ReportDAO.reviewLikeDOWN(reviewLikeDTO);
+	}
+
+	public List<Map<String,String>> checkReviewLike(Map<String, String> reviewLikeDTO) {
+		return review_ReportDAO.checkReviewLike(reviewLikeDTO);
+		
+	}
+
 
 }

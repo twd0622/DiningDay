@@ -157,7 +157,7 @@
 				<div class="store_infoBOX">
 					<p class="tit">식당 설명</p>
 					<div>
-						<pre>
+						<pre class="store_info">
 ${storeInfo.STORE_INFO}
 						</pre>
 					</div>	

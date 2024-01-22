@@ -180,7 +180,7 @@ h1{
 	
 	color: #D9AF4C;
 		
-	width: 110px;
+	width: auto;
 	display: flex;
 	flex-direction: row;
 	align-items: center;
@@ -194,10 +194,14 @@ h1{
 	
 	color: #D9AF4C;
 		
-	width: 110px;
+	width: auto;
 	display: flex;
 	flex-direction: row;
 	align-items: center;
+}
+
+.goodBtn:hover{
+	cursor: pointer;
 }
 
 .like{

@@ -173,6 +173,10 @@ ul.list li{
 	background-color: white;
 }
 
+.store_info{
+	white-space: pre-wrap;
+}
+
 
 .menuBox ul li{
 	background: url(https://s3-ap-northeast-1.amazonaws.com/dcicons/new/images/web/Content/dash-line.jpg) center repeat-x;
