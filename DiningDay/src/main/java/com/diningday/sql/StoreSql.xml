@@ -305,7 +305,7 @@
 				      and STORE_NO = #{STORE_NO})
  	 			, #{STORE_NO}
  	 			, #{PHOTO_NAME}
- 	 			, (select CONCAT("SE", ifnull(MAX(CAST(REPLACE(SEAT_NO, "SE", "") AS UNSIGNED)), 0) + 1) as "SEAT_NO"
+ 	 			, (select CONCAT("SE", ifnull(MAX(CAST(REPLACE(SEAT_NO, "SE", "") AS UNSIGNED)), 0)) as "SEAT_NO"
  	 			     from SEAT b
  	 			    where 1 = 1
  	 			      and STORE_NO = #{STORE_NO})
@@ -329,7 +329,7 @@
 				   and PHOTO_TYPE = s.SEAT_NO) as "PHOTO_NAME"
 		  from SEAT s
 		  join STORE_IMAGE si
-		    on s.SEAT_NO = si.PHOTO_TYPE
+		    on (s.STORE_NO, s.SEAT_NO) = (si.STORE_NO, si.PHOTO_TYPE)
 		 where s.STORE_NO = #{STORE_NO};
 		 
  	</select>

@@ -79,7 +79,7 @@
 					<input type="file" id="inputfile_3" name="BA2_PHOTO_NAME" style="display: none;">
 				</form>
 				<form id="newData" style="display: flex; justify-content: center;">
-					<div style="width: 1000px; height: 2000px; display: flex; flex-direction: column;" class="rounded-4 shadow mt-5 mb-5">
+					<div style="width: 1000px; display: flex; flex-direction: column;" class="rounded-4 shadow mt-5 mb-5">
 						<div>
 							<div class="container p-4 mb-3" style="display: flex; justify-content: flex-start; align-items: flex-end;">
 								<div><h3>식당 정보</h3></div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -248,15 +248,28 @@
 						<div class="mt-5" style="display: flex; justify-content: space-around;">
 							<div>
 								<div><button type="button" class="btn btn-success">좌측 배너 사진</button></div>
-								<div class="mt-3 rounded-4 shadow" style="width: 400px; height: 400px; border: 1px solid green;">
-								
+								<div class="mt-3 rounded-4 shadow" style="width: 400px; height: 400px; border: 2px solid green; display: flex; justify-content: center; align-items: center;">
+									<img src="upload/${STORE.BA1}" style="width: 380px; height: 380px;" alt="" class="rounded-4 shadow"/>
 								</div>
 							</div>
 							<div>
 								<div><button type="button" class="btn btn-success">우측 배너 사진</button></div>
-								<div class="mt-3 rounded-4 shadow" style="width: 400px; height: 400px; border: 1px solid green;">
-								
+								<div class="mt-3 rounded-4 shadow" style="width: 400px; height: 400px; border: 2px solid green; display: flex; justify-content: center; align-items: center;">
+									<img src="upload/${STORE.BA2}" style="width: 380px; height: 380px;" alt="" class="rounded-4 shadow"/>
 								</div>	
+							</div>
+						</div>
+						<div class="mt-5 mb-5" style="display: flex; justify-content: space-around;">
+							<div>
+								<div><button type="button" class="btn btn-success">썸네일 사진</button></div>
+								<div class="mt-3 rounded-4 shadow" style="width: 400px; height: 400px; border: 2px solid green; display: flex; justify-content: center; align-items: center;">
+									<img src="upload/${STORE.SU1}" style="width: 380px; height: 380px;" alt="" class="rounded-4 shadow"/>
+								</div>
+							</div>
+							<div style="display: flex; width: 400px; height: 400px; align-items: center; justify-content: center;">
+								<div>
+									<button type="button" style="width: 150px; height:60px; font-size: 18px;" class="btn btn-warning rounded-4 shadow">수정하기</button>
+								</div>
 							</div>
 						</div>
 					</div>

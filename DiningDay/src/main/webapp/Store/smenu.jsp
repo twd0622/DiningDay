@@ -167,7 +167,7 @@ keyframes blink {
 			    				</li>
 			    				<li>
 			    					<div class="form-floating  mt-2 mb-2">
-				    					<textarea class="form-control is-invalid" style="resize: none; height: 200px;" id="1" name="MENU_INFO"></textarea>
+				    					<textarea class="form-control is-valid" style="resize: none; height: 200px;" id="1" name="MENU_INFO"></textarea>
 				    					<label for="menuInfo">메뉴 정보</label>
 			    					</div>
 			    				</li>

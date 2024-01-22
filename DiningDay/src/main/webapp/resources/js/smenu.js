@@ -47,9 +47,9 @@ $(() => {
 		$(".form-check-input").prop("checked", $("#allCheck").prop("checked"))					
 	})
 	
-	$("#modalForm").find("textarea").on("change", function(){
-		insertValidCheck(this);	
-	})
+//	$("#modalForm").find("textarea").on("change", function(){
+//		insertValidCheck(this);	
+//	})
 	
 	$("#modalForm").find("input[type=text]").on("change", function(){
 		insertValidCheck(this);
@@ -205,7 +205,7 @@ var ifCancelbtnClick = (currentTargetParentTag, boolean) => {
 
 // 전역 변수 모음 시작
 var selectIndex = $("#tbody_2").find("tr")
-var validCheck = [false, false, false];
+var validCheck = [false, true, false];
 var fileList = [];
 var thisDataList = [];
 var trTagIndex;
