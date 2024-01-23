@@ -41,51 +41,48 @@ function getInfo() {
 
 
 //<!-- Google -->
-//window.onload = function () {
-//	google.accounts.id.initialize({
-//	      client_id: "383007591516-vj9jddsusaj9kdj8mbd2ncgh46ktsuqd.apps.googleusercontent.com"
-//	    , callback: handleCredentialResponse
-//	  });
-//
-//	google.accounts.id.prompt(function(a){
-////	  console.log('!@#!@#')
-//	  console.log(a.getNotDisplayedReason()) 
-//	});
-//	  
-//	google.accounts.id.renderButton(document.getElementById("gLoginBtn"), {});
-//	$('#GgCustomLogin').on('click', function(){
-//	 	$('#gLoginBtn').find('div')[2].click();
-//	});
-//}
-//
-//function parseJwt (token) {
-//    var base64Url = token.split('.')[1];
-//    var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-//    var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
-//        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-//    }).join(''));
-//    return JSON.parse(jsonPayload);
-//};
-//
-//function handleCredentialResponse(response) {
-//	debugger;
-//	const responsePayload = parseJwt(response.credential);
-//	console.log(responsePayload);
-//	$.ajax({
-//		 type : "POST"
-//	   , url : "loginPro.cu"
-//	   , datatype : "JSON"
-//	   , data: {
-//		   CUS_ID : responsePayload.sub
-//		   , CUS_NAME :responsePayload.family_name + responsePayload.given_name
-//		   , CUS_EMAIL: responsePayload.email
-//	   }
-//	})
-//	.done(
-//		function(data){
-//			location.href="main.ma";					
-//	}); 
-//}
+window.onload = function () {
+	  google.accounts.id.initialize({
+	    client_id: "383007591516-vj9jddsusaj9kdj8mbd2ncgh46ktsuqd.apps.googleusercontent.com"
+	    , callback: handleCredentialResponse
+	  });
+	  google.accounts.id.renderButton(
+	    document.getElementById("GgCustomLogin")
+	    , {text: "signin_with"
+	       , shape: "square"
+	       , width: "330px"
+	       , height: "50px"
+	       , logo_alignment: "center"
+	    });
+	}
+
+function parseJwt (token) {
+    var base64Url = token.split('.')[1];
+    var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+    return JSON.parse(jsonPayload);
+};
+
+function handleCredentialResponse(response) {
+	const responsePayload = parseJwt(response.credential);
+	console.log(responsePayload);
+	$.ajax({
+		 type : "POST"
+	   , url : "loginPro.cu"
+	   , datatype : "JSON"
+	   , data: {
+		   CUS_ID : responsePayload.sub
+		   , CUS_NAME :responsePayload.family_name + responsePayload.given_name
+		   , CUS_EMAIL: responsePayload.email
+	   }
+	})
+	.done(
+		function(data){
+			location.href="main.ma";					
+	}); 
+}
 
 
 
