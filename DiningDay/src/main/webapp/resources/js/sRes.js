@@ -129,7 +129,10 @@ $(() => {
 			
 			$.ajax({
 				type: "post",
-				data: { MERCHANT_UID: resCheck },
+				data: { 
+					MERCHANT_UID: resCheck,
+					storeRes: 'resTrue'
+				},
 				url: "payment_cancel.pa",
 				async: false
 			})

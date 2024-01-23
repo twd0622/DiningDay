@@ -47,9 +47,6 @@ $(() => {
 		$(".form-check-input").prop("checked", $("#allCheck").prop("checked"))					
 	})
 	
-//	$("#modalForm").find("textarea").on("change", function(){
-//		insertValidCheck(this);	
-//	})
 	
 	$("#modalForm").find("input[type=text]").on("change", function(){
 		insertValidCheck(this);
@@ -68,6 +65,8 @@ $(() => {
 		}
 		
 		if(!confirm(confirmText)){
+			debugger;
+			fileList[$(e.target).closest("tr").attr("id")] = $(e.target).closest("tr").find("span").text();
 			confirmText = '';
 			return;
 		}
@@ -140,6 +139,8 @@ function hideTag(parentTag, boolean){	//	수정불가 하게 태그들 숨김 �
 	              .hide();
 	$($(parentTag).find($("button[name=PHOTO_SEARCH]")))
 	              .hide();
+	$($(parentTag).find($(".checkPhoto")))
+	              .hide();			              
 	$($(parentTag).find("button[name=cancel]"))
 	              .hide();
 	$(parentTag).find("img")
@@ -159,6 +160,8 @@ function showTag(parentTag, boolean){
 	              .show();
 	$($(parentTag).find($("button[name=PHOTO_SEARCH]")))
 	              .show();
+	$($(parentTag).find($(".checkPhoto")))
+	              .show();              
 	$($(parentTag).find("button[name=cancel]"))
 	              .show();
 	$(parentTag).find("img")
@@ -225,6 +228,7 @@ function dividebtnAction(btn, currentTargetParentTag){
 	var ajaxExcuteCheck = false;
 	
 	switch(btn){
+		
 		case "PHOTO_SEARCH":
 			
 			trTagIndex = $(btnParentTag).attr("id");
@@ -240,8 +244,13 @@ function dividebtnAction(btn, currentTargetParentTag){
 			showTag(btnParentTag, false);
 			
 			thisDataList[index] = ifCancelbtnClick(btnParentTag, false);
+				
+			var fileText = $(btnParentTag).find("span").text();			
+			if(fileText === '사진 없음'){
+				fileText = '0';
+			}
+			fileList[index] = fileText;
 			
-			fileList[index] = '0';
 			ajaxExcuteCheck = false;
 			break;
 			
@@ -256,7 +265,7 @@ function dividebtnAction(btn, currentTargetParentTag){
 			ifCancelbtnClick(btnParentTag, true);
 			
 			if(fileList[index] != undefined){
-				fileList[index] = '0';
+				fileList[index] = $(btnParentTag).find("span").text();
 			}
 			
 			ajaxExcuteCheck = false;
@@ -269,6 +278,10 @@ function dividebtnAction(btn, currentTargetParentTag){
 			}
 
 			index = $(btnParentTag).attr("id");
+			
+			if($(btnParentTag).find("input[name=photoDelete]").prop("checked")){
+				fileList[index] = '0';
+			}
 			
 			if(fileList[index] === undefined || fileList[index] === '0'){
 				confirmText = "*주의*\r\n사진을 등록 하지 않았습니다.\r\n이대로 진행 하시겠습니까?";
@@ -527,7 +540,8 @@ function htmlTag(menu, i){
 				'<td><input type="text" class="border border-dark form-control" name="MENU_NAME" value="' + menu.MENU_NAME + '"></td>' +
 				'<td><input type="hidden" name="MENU_NO" value="' + menu.MENU_NO + '">' +
 					imgIsEmpty + 
-					'<button class="btn btn-success" name="PHOTO_SEARCH">사진 찾아보기</button>' +
+					'<div><button class="btn btn-success" name="PHOTO_SEARCH">사진 선택</button></div>' +
+					'<div class="checkPhoto mt-2">사진 삭제 여부&nbsp;<input type="checkbox" name="photoDelete" value="사진 제거"></div>' +
 				'</td>' +
 				'<td><textarea style="resize: none;" cols="50" rows="3" name="MENU_INFO">' + menu.MENU_INFO + '</textarea></td>' +
 				'<td><input type="text" class="form-control border border-dark" name="MENU_PRICE" value="' + menu.MENU_PRICE + '"></td>' +
