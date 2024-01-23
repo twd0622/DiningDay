@@ -14,7 +14,6 @@ document.write('<script type="text/javascript"' +
 $(() => {
 	
 	targetColor($("#stable_insert"));
-	ajaxLoading;
 	
 	$("input[type=text]").change(function(){
 		var className = "form-control is-invalid";

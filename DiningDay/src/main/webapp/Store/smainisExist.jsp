@@ -51,7 +51,7 @@
 	<%@ include file="/Template/store_sidebar_open.jsp"%> 	
 	
 		<main style="display: flex;  align-items: center; text-align: center; padding:20px;">
-			<div class="mainContainer" style="width: 100%; background:white; ">
+			<div class="mainContainer" style="width: 100%; background:#f0f0f3; ">
 			<c:set var="STORE" value="${ requestScope.STORE_LIST}" />
 			
 				<form id="oldData" method="post" enctype="multipart/form-data" >
@@ -79,7 +79,7 @@
 					<input type="file" id="inputfile_3" name="BA2_PHOTO_NAME" style="display: none;">
 				</form>
 				<form id="newData" style="display: flex; justify-content: center;">
-					<div style="width: 1000px; display: flex; flex-direction: column;" class="rounded-4 shadow mt-5 mb-5">
+					<div style="width: 1000px; display: flex; flex-direction: column; background-color: white;" class="rounded-4 shadow mt-5 mb-5">
 						<div>
 							<div class="container p-4 mb-3" style="display: flex; justify-content: flex-start; align-items: flex-end;">
 								<div><h3>식당 정보</h3></div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -182,7 +182,7 @@
 								</div>
 							</div>
 							<div style="width: 350px;">
-								<div class="input-group">
+								<div class="input-group STORE_IS_OPEN">
 									<span class="input-group-text" id="tagName_1">휴무일</span>
 									<select multiple class="select form-control is-valid" id="STORE_CLOSE" name="STORE_CLOSE" multiple="multiple" aria-describedby="tagName_1">
 										<option value="0">없음</option>
@@ -214,6 +214,12 @@
 							</div>
 						</div>
 						<div class="mt-5" style="display: flex; justify-content: space-around;">
+							<div style="width: 350px;" class="STORE_BRT">
+								<div class="rounded-4 shadow">
+									<h4 style="color:green;">어머 휴게시간이 없네요 :(</h4>
+									<button type="button" class="btn btn-success">휴게시간 등록하기</button>
+								</div>	
+							</div>
 							<div style="width: 350px;">
 								<div class="input-group">
 									<span class="input-group-text" id="tagName_1">브레이크 시작 시간</span>
@@ -267,8 +273,12 @@
 								</div>
 							</div>
 							<div style="display: flex; width: 400px; height: 400px; align-items: center; justify-content: center;">
-								<div>
-									<button type="button" style="width: 150px; height:60px; font-size: 18px;" class="btn btn-warning rounded-4 shadow">수정하기</button>
+								<div id="storeBtn">
+									<div><button type="button" style="width: 150px; height:60px; font-size: 18px;" class="btn btn-warning rounded-4 shadow">수정하기</button></div>
+									<div>
+										<div><button type="button" style="width: 150px; height:60px; font-size: 18px;" class="btn btn-success rounded-4 shadow">저장하기</button></div>
+										<div><button type="button" style="width: 150px; height:60px; font-size: 18px;" class="btn btn-danger rounded-4 shadow mt-3">취소하기</button></div>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -279,29 +289,19 @@
     	<script>
 			$(() => {
 				$("#member_addr").on("click", function (){
-			
 					new daum.Postcode({
 				        oncomplete: function(data) {
-				        	
 				        	console.log(data);
 				        	
-				            // 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
-				            // 도로명 주소의 노출 규칙에 따라 주소를 표시한다.
-				            // 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
 				            var roadAddr = data.roadAddress; // 도로명 주소 변수
-			// 	            var jibunAddr = data.jibunAddress; // 지번 주소 변수
-				            // 우편번호와 주소 정보를 해당 필드에 넣는다. 
 				            if(roadAddr !== ''){
 				                document.getElementById("member_addr").value = roadAddr;
 				            } 
-			// 	            else if(jibunAddr !== ''){
-			// 	                document.getElementById("member_addr").value = jibunAddr;
-			// 	            }
 				        }
 				    }).open();
 				})
-				
 			})
+			
 			const starSize = 30, maxStar = 5, gutter = 2;//별 크기, 별 개수
 			let maskMax = 0; //오버레이 마스크 최대 너비
 			window.addEventListener('DOMContentLoaded',()=>{
@@ -326,7 +326,6 @@
 			        document.querySelector('.overlay').style.width = parseInt(maskMax - val * starSize - Math.floor(val) * gutter) + 'px';//마스크 크기 변경해서 별점 마킹
 			    }
 			})
-			
 		</script>
 		<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>

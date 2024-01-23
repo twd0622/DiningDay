@@ -37,7 +37,6 @@ $(() => {
 		}
 	})
 	
-	ajaxLoading;
 	targetColor($("#smenu"));		//	현재 페이지에 해당하는 사이드바 하이퍼링크 색상 변경 함수
 	paging("#tbody_2 tr", 5, 0);	//	페이징 처리 함수 호출
 	tooltipFunction();				//	부트스트랩 tooltip
@@ -580,7 +579,6 @@ function modalReset(){
 	$('#img_1').empty();
 	$("button[name=insert]").prop("disabled", true);
 	$("#modalData").find("input[type=text]").attr("class", "form-control is-invalid");
-	$("#modalData").find("textarea").attr("class", "form-control is-invalid");
 	fileList[0] = '0';	
 }
 

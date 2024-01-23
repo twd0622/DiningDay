@@ -101,6 +101,17 @@ $(function(){
 	$('#edit_fail').on('click', function(){
 		location.reload();
 	})
+	
+	/* 01/23_무창_사이드바 click hover 이벤트 css 추가 */
+	$('.nav__link').css('background-color', 'transparent');
+	$("#info_update").css('background-color', 'salmon');
+	
+	$('.nav__link').hover(function(){
+		$(this).css('background-color', 'salmon');
+	}, function(){
+		$(this).css('background-color', 'transparent');  
+		$("#info_update").css('background-color', 'salmon');  
+	});
 })
 </script>
 </html> 
