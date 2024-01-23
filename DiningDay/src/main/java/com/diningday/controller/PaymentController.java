@@ -84,8 +84,9 @@ RequestDispatcher dispatcher = null;
 			String MERCHANT_UID = req.getParameter("MERCHANT_UID");
 			String msg = "당일 취소는 불가 합니다. 식당에 문의해 주세요";
 			
+			String storeRes = req.getParameter("storeRes");
 			// 환불 가능한지 판단
-			if(paymentService.checkResDate(MERCHANT_UID)) {
+			if(paymentService.checkResDate(MERCHANT_UID) && storeRes == null) {
 				// 가능하다면 환불 처리
 				String token = PaymentCancel.getImportToken();
 				
@@ -100,8 +101,13 @@ RequestDispatcher dispatcher = null;
 					msg = "취소 실패 되었습니다.";
 				}
 				
+			} 
+			
+			if(storeRes != null) {
+				PaymentCancel.cancelPay(PaymentCancel.getImportToken(), MERCHANT_UID);
 			}
 			
+			System.out.println(msg);	
 			req.setAttribute("msg", msg);
 			dispatcher = req.getRequestDispatcher("Payment/payment_msg.jsp");
 			dispatcher.forward(req, res);

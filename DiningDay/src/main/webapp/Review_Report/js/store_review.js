@@ -120,7 +120,6 @@ $(()=>{
 			}
 		}
 		
-		debugger
 		$.ajax({
 			type: "post",
 			url: url,
@@ -130,7 +129,6 @@ $(()=>{
 			}
 		})
 		.done(function(data){
-			debugger;
 			if(data == 1){
 				upDown();
 			}

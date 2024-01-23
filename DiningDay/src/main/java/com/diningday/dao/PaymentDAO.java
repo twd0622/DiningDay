@@ -89,10 +89,9 @@ public class PaymentDAO {
 	public boolean checkResDate(String MERCHANT_UID) {
 		session = sqlSessionFactory.openSession();
 		Map<String, String> result = session.selectOne("Payment.checkResDate", MERCHANT_UID);
-		
+		System.out.println(result);
 		session.close();
-		
-		return result.get("result") == "1" ? true : false;
+		return result.get("RESULT").equals("1") ? true : false;
 	}
 
 }

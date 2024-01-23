@@ -14,15 +14,12 @@
 	<main style="display: flex; align-items: center; text-align: center; padding: 100px 50px 20px 50px;">
 		<!-- 예시div style속성 값 조절해서 사용! -->
 		<div class="mainContainer"
-			style="width: 100%; height: 850px; background: white;">
+			style="width: 100%; height: 100%; background: white; padding-bottom:20px; margin-bottom: 10px;">
 			<form method="post" action="reviewWritePro.re" id="myform" enctype="multipart/form-data">
 				<h4 style="text-align: left; padding-top: 20px;">&lt; 리뷰 평가 &gt;</h4>
 				<hr>
-				<div class="container" style="padding: 0 7% 0 7%;">
+				<div class="container">
 				<h2 id="2" >이 가게를 추천하시겠어요?</h2>
-				<font size="6" color="green">별점 </font>
-				<p style="text-decoration: overline;">별점을          선택해주세요</p>
-				<pre style="text-shadow: teal;">별점을       선택해주세요</pre>
 				 <fieldset>
 						<span class="text-bold">별점을 선택해주세요</span> <input type="radio"
 							name="rev_score" value="5" id="rate1"><label for="rate1">★</label>

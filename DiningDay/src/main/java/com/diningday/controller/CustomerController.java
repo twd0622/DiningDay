@@ -161,6 +161,13 @@ public class CustomerController extends HttpServlet {
 			dispatcher = req.getRequestDispatcher("Customer/cus_review.jsp");
 			dispatcher.forward(req, res);
 		}
+		if(sPath.equals("/checkReviewLike.cu")) {
+			String cus_no = req.getParameter("CUS_NO");
+			
+			res.setContentType("application/x-json; charset=utf-8");
+			res.getWriter().print(TeamUtil.mapListToJSONList(customerService.checkReviewLike(cus_no)));
+			
+		}
 
 	}
 	

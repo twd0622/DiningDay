@@ -47,7 +47,9 @@ public class PaymentService {
 	}
 
 	public boolean checkResDate(String MERCHANT_UID) {
-		return paymentDAO.checkResDate(MERCHANT_UID);
+		boolean result = paymentDAO.checkResDate(MERCHANT_UID);
+		System.out.println(result);
+		return result;
 	}
 
 	

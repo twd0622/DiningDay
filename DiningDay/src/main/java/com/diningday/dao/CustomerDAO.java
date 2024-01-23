@@ -113,6 +113,15 @@ public class CustomerDAO {
 		return reviewList;
 	}
 
+	public List<Map<String, String>> checkReviewLike(String cus_no) {
+		session = sqlSessionFactory.openSession();
+		List<Map<String, String>> reviewLikeCheckList = session.selectList("Customer.checkReviewLike", cus_no);
+		session.close();
+		
+		return reviewLikeCheckList;
+		
+	}
+
 	
 	
 	

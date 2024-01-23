@@ -71,4 +71,9 @@ public class CustomerService {
 		return customerDAO.cus_review(CUS_NO);
 	}
 
+	public List<Map<String, String>> checkReviewLike(String cus_no) {
+		return customerDAO.checkReviewLike(cus_no);
+		
+	}
+
 }

@@ -131,7 +131,7 @@ $(() => {
 				type: "post",
 				data: { 
 					MERCHANT_UID: resCheck,
-					storeRes: 'resTrue'
+					storeRes: "resTrue"
 				},
 				url: "payment_cancel.pa",
 				async: false
