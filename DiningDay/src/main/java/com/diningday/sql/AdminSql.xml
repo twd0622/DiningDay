@@ -291,6 +291,7 @@
 		    ,	date_format(RREP_DATE, '%Y년 %m월 %d일 %H시 %i분') as "RRDATE"
 		    ,	RR.RREP_PROCESS
 		    ,	R.REV_CONTENT
+		    ,	R.REV_IMAGE
 		    ,	lpad('', REV_SCORE, '★') as "REV_SCORE"
 		    ,	date_format(R.REV_DATE, '%Y년 %m월 %d일 %H시 %i분') as "RDATE"
 		from 	REVIEW_REPORT RR
