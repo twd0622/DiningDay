@@ -8,7 +8,7 @@
     
     <c:set var="LikeList" value="${requestScope.LikeList }" />
     
-    <title>${sessionScope.CUS_NICK}님의 찜 목록</title> 
+    <title>찜 목록</title> 
     
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
     <link href="Customer/css/like_list.css" rel="stylesheet">
@@ -46,7 +46,7 @@
 						<div class="store_info">
 							<div class="store_review_score">
 								<span class="store_info_icon material-icons" style="color: #F7CE3E;">grade</span>
-								<span class="store_info_text">${store.STORE_SCORE}점 (30 명)</span>
+								<span class="store_info_text">${store.STORE_SCORE}점 (${store.REVIEW_COUNT}명)</span>
 							</div>
 							<div class="store_like">
 								<span class="store_info_icon material-icons" style="color: #E21818;">favorite</span>
