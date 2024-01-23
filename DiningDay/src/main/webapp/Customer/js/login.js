@@ -122,39 +122,3 @@ window.addEventListener('load', function () {
 		}
 	});
 });
-
-
-// 트위터
-twitter_consumer_key = "UWoL9oc55pr5pUt8Z8yx02pEI"
-twitter_consumer_secret = "Bjg0tMN63NPkpHggLuT1ySmXBh7bAOTmeMycuKPr60TqIVb4ik"  
-twitter_access_token = "1749615844551008256-fZELQVOZON2iFcQqNNetH3KrXNw7lO"
-twitter_access_secret = "cqhRwkIt3Z3I3wkO3ArwkAMVRy6T2MCJnOnSLFdyva3Xa"
-
-twttr.events.bind(
-  'click',
-  function (ev) {
-    console.log(ev);
-  }
-);
-twttr.ready(
-  function (twttr) {
-    // bind events here
-  }
-);
-
-window.twttr = (function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0],
-    t = window.twttr || {};
-  if (d.getElementById(id)) return t;
-  js = d.createElement(s);
-  js.id = id;
-  js.src = "https://platform.twitter.com/widgets.js";
-  fjs.parentNode.insertBefore(js, fjs);
-
-  t._e = [];
-  t.ready = function(f) {
-    t._e.push(f);
-  };
-
-  return t;
-}(document, "script", "twitter-wjs"));
