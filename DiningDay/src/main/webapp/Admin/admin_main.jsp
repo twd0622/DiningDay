@@ -96,7 +96,7 @@
   border: 3px solid transparent;
 }
 .sRepSection::-webkit-scrollbar-track {
-  background-color: #D1E7DD;
+  background-color: #F8D7DA;
   border-radius: 10px;
 }
 
@@ -110,7 +110,7 @@
   border: 3px solid transparent;
 }
 .cRepSection::-webkit-scrollbar-track {
-  background-color: #D1E7DD;
+  background-color: #F8D7DA;
   border-radius: 10px;
 }
 /* -------------스크롤------------- */
@@ -220,7 +220,7 @@ a:active {
 			<div class="sRepSection">
  			<table class="table table-hover" id="article-table">
 				<thead>
-					<tr class="table-success">
+					<tr class="table-danger">
 						<th class="title col-1 align-middle"><a>번호</a></th>
 						<th class="hashtag col-1 align-middle"><a>식당명</a></th>
 						<th class="user-id col-2"><a>글 제목</a></th>
@@ -247,7 +247,7 @@ a:active {
 			<div class="cRepSection">
  			<table class="table table-hover" id="article-table">
 				<thead>
-					<tr class="table-success">
+					<tr class="table-danger">
 						<th class="title col-1 align-middle"><a>번호</a></th>
 						<th class="hashtag col-1 align-middle"><a>점주번호</a></th>
 						<th class="user-id col-3"><a>신고 내용</a></th>
