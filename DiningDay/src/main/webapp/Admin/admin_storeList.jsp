@@ -7,7 +7,7 @@
 <head>
 <meta charset="utf-8">
 <title>식당조회 | 다이닝데이</title>
-
+<c:set var="storeCount" value="${ requestScope.storeCount }"/>
 <style type="text/css">
 pre{
     background-color: #E6E6FA;
@@ -37,6 +37,14 @@ $(()=>{
 	
 </script>
 <script src="Admin/js/delBtn.js"></script>
+<style type="text/css">
+h4 {
+	cursor: pointer;
+}
+h4:hover {
+	color: gray;
+}
+</style>
 </head>
 <!-- main은 속성 값은 왠만하면 건들지x -->
 <main
@@ -88,6 +96,7 @@ $(()=>{
 				</div>
 			</div>
 		</div>
+		<div style="text-align: left; padding-left: 7%"><b>총 식당 수 : ${storeCount.COUNT}</b></div>
 		<c:set var="storeList" value="${ requestScope.storeList }"/>
 		<div class="row" style="padding: 1% 7% 1% 7%;" id="storeTable">
 			<table class="table table-hover" id="article-table">
@@ -100,7 +109,7 @@ $(()=>{
 				</thead>
 				<tbody>
 					<c:forEach var="store" items="${storeList}">
-						<tr class="store_no" id="${store.STORE_NO}" style="height: 60px;" onClick="location.href='admin_storeDetail.ad?STORE_NO=${store.STORE_NO}'">
+						<tr class="store_no" id="${store.STORE_NO}" style="height: 60px; cursor: pointer;" onClick="location.href='admin_storeDetail.ad?STORE_NO=${store.STORE_NO}'">
 						<td class="title align-middle">${store.STORE_NO}</td>
 							<td class="align-middle">${store.STORE_NAME}</td>
 							<td class="created-at col-1 align-middle text-start">															

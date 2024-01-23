@@ -49,7 +49,7 @@ public class AdminDAO {
 	
 	public int noticeDelete(Map<String, String> adminDTO) {
 		session = sqlSessionFactory.openSession();
-		
+	
 		int noticeDelete = session.delete("Admin.noticeDelete", adminDTO); // namespace.id
 		
 		session.commit();
@@ -78,10 +78,18 @@ public class AdminDAO {
 		return noticeList;
 	}
 	
+	public Map<String, String> noticeCount() {
+		session = sqlSessionFactory.openSession();
+		Map<String, String> noticeCount = session.selectOne("Admin.noticeCount"); // namespace.id
+		
+		session.close();
+		
+		return noticeCount;
+	}
+	
 	public Map<String, String> getNoticeDetail(Map<String, String> adminDTO) {
 		session = sqlSessionFactory.openSession();
 		Map<String, String> noticeDetail = session.selectOne("Admin.selectNoticeDetail", adminDTO); // namespace.id
-		
 		session.close();
 		
 		return noticeDetail;
@@ -103,6 +111,15 @@ public class AdminDAO {
 		session.close();
 		
 		return storeList;
+	}
+	
+	public Map<String, String> storeCount() {
+		session = sqlSessionFactory.openSession();
+		Map<String, String> storeCount = session.selectOne("Admin.storeCount"); // namespace.id
+		
+		session.close();
+		
+		return storeCount;
 	}
 	
 	public int storeDelete(Map<String, String> adminDTO) {
@@ -132,6 +149,15 @@ public class AdminDAO {
 		session.close();
 		
 		return userList;
+	}
+
+	public Map<String, String> userCount() {
+		session = sqlSessionFactory.openSession();
+		Map<String, String> userCount = session.selectOne("Admin.userCount"); // namespace.id
+		
+		session.close();
+		
+		return userCount;
 	}
 	
 	public List<Map<String, String>> getUserList(Map<String, String> requestToMap) {
@@ -172,6 +198,15 @@ public class AdminDAO {
 		return storeReport;
 	}
 	
+	public Map<String, String> sRepCount() {
+		session = sqlSessionFactory.openSession();
+		Map<String, String> sRepCount = session.selectOne("Admin.sRepCount"); // namespace.id
+		
+		session.close();
+		
+		return sRepCount;
+	}
+	
 	public int sRepReport(Map<String, String> adminDTO) {
 		session = sqlSessionFactory.openSession();
 		
@@ -199,6 +234,15 @@ public class AdminDAO {
 		session.close();
 		
 		return reviewReport;
+	}
+	
+	public Map<String, String> cRepCount() {
+		session = sqlSessionFactory.openSession();
+		Map<String, String> cRepCount = session.selectOne("Admin.cRepCount"); // namespace.id
+		
+		session.close();
+		
+		return cRepCount;
 	}
 	
 	public List<Map<String, String>> getReviewReport(Map<String, String> requestToMap) {
@@ -240,14 +284,51 @@ public class AdminDAO {
 		return reviewList;
 	}
 	
-	public List<Map<String, String>> reviewComment() {
+	public List<Map<String, String>> reviewList(Map<String, String> requestToMap) {
 		session = sqlSessionFactory.openSession();
+		List<Map<String, String>> reviewList = session.selectList("Admin.reviewList", requestToMap); // namespace.id
 		
-		List<Map<String, String>> reviewComment = session.selectList("Admin.reviewComment"); // namespace.id
+		session.close();
+		
+		return reviewList;
+	}
+	
+	public Map<String, String> reviewCount() {
+		session = sqlSessionFactory.openSession();
+		Map<String, String> reviewCount = session.selectOne("Admin.reviewCount"); // namespace.id
+		
+		session.close();
+		
+		return reviewCount;
+	}
+	
+	public Map<String, String> reviewDetail(Map<String, String> adminDTO) {
+		session = sqlSessionFactory.openSession();
+		Map<String, String> reviewDetail = session.selectOne("Admin.reviewDetail", adminDTO); // namespace.id
+		
+		session.close();
+		
+		return reviewDetail;
+	}
+	
+	public Map<String, String> reviewComment(Map<String, String> adminDTO) {
+		session = sqlSessionFactory.openSession();
+		Map<String, String> reviewComment = session.selectOne("Admin.reviewComment", adminDTO); // namespace.id
 		
 		session.close();
 		
 		return reviewComment;
+	}
+	
+	public int reviewDelete(Map<String, String> adminDTO) {
+		session = sqlSessionFactory.openSession();
+		
+		int reviewDelete = session.delete("Admin.reviewDelete", adminDTO); // namespace.id
+		
+		session.commit();
+		session.close();
+		
+		return reviewDelete;
 	}
 	
 }

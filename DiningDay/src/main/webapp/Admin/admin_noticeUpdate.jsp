@@ -8,6 +8,11 @@
 <head>
 <meta charset="utf-8">
 <title>공지수정 | 다이닝데이</title>
+<style type="text/css">
+.table th {
+	width: 350px;
+}
+</style>
 </head>
 
 <%@ include file="/Template/admin_sidebar_open.jsp"%>

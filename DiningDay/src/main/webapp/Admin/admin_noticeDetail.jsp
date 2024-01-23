@@ -13,6 +13,11 @@
 <script src="resources/js/variableCode.js"></script>
 <script src="resources/js/jquery.twbsPagination.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<style type="text/css">
+.table th {
+	width: 350px;
+}
+</style>
 </head>
 <script src="Admin/js/delBtn.js"></script>
 
@@ -33,7 +38,7 @@
 						<tr style="height: 60px;" class="tr1">
 							<th class="title align-middle table-success">글번호</th>
 							<td class="user-id align-middle text-center"
-								style="text-align: left;">${noticeDetail.NOT_NO}</td>
+								style="text-align: left;" id="not_no">${noticeDetail.NOT_NO}</td>
 						</tr>
 						<tr style="height: 60px;">
 							<th class="title align-middle table-success">제목</th>
@@ -69,7 +74,7 @@
 		<div class="row" style="padding: 0px 20px;">
 			<div class="d-grid gap-2 d-md-flex justify-content-md-center">
 				<a href="admin_noticeUpdate.ad?NOT_NO=${ noticeDetail.NOT_NO }" type="button" class="btn btn-outline-success">수정</a> 
-				<input type="button" class="btn btn-outline-dark" value="목록" onclick="window.history.back()">
+				<input type="button" class="btn btn-outline-dark" value="목록" onclick="location.href='admin_noticeList.ad'">
 				<input type="button" class="delBtn btn btn-outline-danger" value="삭제" >
 			</div>
 		</div>

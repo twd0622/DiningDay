@@ -9,6 +9,7 @@
 <title>리뷰신고 | 다이닝데이</title>
 <c:set var="reviewReport" value="${ requestScope.reviewReport }"/>
 <link href="resources/css/variable_admin.css" rel="stylesheet">
+<c:set var="cRepCount" value="${ requestScope.cRepCount }"/>
 <script src="resources/js/variableCode.js"></script>
 <script src="resources/js/jquery.twbsPagination.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -18,6 +19,14 @@
 	})
 </script>
 <script src="Admin/js/delBtn.js"></script>
+<style type="text/css">
+h4 {
+	cursor: pointer;
+}
+h4:hover {
+	color: gray;
+}
+</style>
 </head>
 
 <!-- main은 속성 값은 왠만하면 건들지x -->
@@ -38,9 +47,10 @@
 									<div class="col-lg-3 col-md-3 col-sm-12 p-0">
 										<label for="search-type" hidden>검색 유형</label> <select
 											class="form-control" id="search-type" name="searchType">
-											<option>신고 제목</option>
+											<option>신고 내용</option>
 											<option>신고번호</option>
 											<option>점주번호</option>
+											<option>식당명</option>
 											</select>
 									</div>
 									<div class="col-lg-8 col-md-6 col-sm-12 p-0">
@@ -69,22 +79,23 @@
 				</div>
 			</div>
 		</div>
+		<div style="text-align: left; padding-left: 7%"><b>전체 글 수 : ${cRepCount.COUNT}</b></div>
 		<div class="row" style="padding: 1% 7% 1% 7%;" id="cRepTable">
 			<table class="table table-hover" id="article-table">
 				<thead>
-					<tr class="table-success">
+					<tr class="table-danger">
 						<th class="title col-1 align-middle"><a>신고번호</a></th>
-						<th class="hashtag col-1 align-middle"><a>점주번호</a></th>
+						<th class="hashtag col-1 align-middle"><a>점주번호(식당명)</a></th>
 						<th class="user-id col-3"><a>신고 제목</a></th>
 						<th class="hashtag col-1 align-middle"><a>신고일자</a></th>
 					</tr>
 				</thead>
 				<tbody>
 						<c:forEach var="cReport" items="${reviewReport}">
-							<tr class="cRep_no" id="${cReport.CREP_NO}" style="height: 60px;" onClick="location.href='admin_userReportDetail.ad?CREP_NO=${cReport.CREP_NO}&REV_NO=${cReport.REV_NO}&OWN_NO=${cReport.OWN_NO}'">
-								<td class="title align-middle">${cReport.CREP_NO}</td>
+							<tr class="cRep_no" id="${cReport.RREP_NO}" style="height: 60px; cursor: pointer;" onClick="location.href='admin_userReportDetail.ad?RREP_NO=${cReport.RREP_NO}&REV_NO=${cReport.REV_NO}&OWN_NO=${cReport.OWN_NO}'">
+								<td class="title align-middle">${cReport.RREP_NO}</td>
 								<td class="hashtag align-middle">${cReport.OWN_NO} <br><small>(${cReport.STORE_NAME})</small></td>
-								<td class="created-at col-1 align-middle">${cReport.CREP_TITLE}</td>
+								<td class="created-at col-1 align-middle">${cReport.RREP_CONTENT}</td>
 								<td class="created-at col-1 align-middle">${cReport.DATE}</td>
 							</tr>
 						</c:forEach>

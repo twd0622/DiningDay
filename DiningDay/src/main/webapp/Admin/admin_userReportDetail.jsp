@@ -30,6 +30,10 @@
   overflow: hidden;
   pointer-events: none;
 }
+
+.table th {
+	width: 350px;
+}
 </style>
 <script src="resources/js/jquery.twbsPagination.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -58,28 +62,23 @@
 				<tbody>
 				<c:set var="cRepDetail" value="${ requestScope.cRepDetail }"/>
 					<tr class="tr1">
-						<th class="title align-middle table-success"><a>신고번호</a></th>
-						<td class="user-id align-middle text-center" style="text-align: left;">${cRepDetail.CREP_NO}</td>
+						<th class="title align-middle table-danger"><a>신고번호</a></th>
+						<td class="user-id align-middle text-center" style="text-align: left;">${cRepDetail.RREP_NO}</td>
 					</tr>
 					<tr>
-						<th class="title align-middle table-success"><a>글 제목</a></th>
-						<td class="user-id align-middle text-center"
-							style="text-align: left;">${cRepDetail.CREP_TITLE}</td>
-					</tr>
-					<tr>
-						<th class="title align-middle table-success"><a>작성자</a></th>
+						<th class="title align-middle table-danger"><a>작성자</a></th>
 						<td class="user-id align-middle text-center"
 							style="text-align: left;">${cRepDetail.STORE_NAME}</td>
 					</tr>
 					<tr>
-						<th class="title align-middle table-success"><a>신고일자</a></th>
+						<th class="title align-middle table-danger"><a>신고일자</a></th>
 						<td class="user-id align-middle text-center"
-							style="text-align: left;">${cRepDetail.CRDATE}</td>
+							style="text-align: left;">${cRepDetail.RRDATE}</td>
 					</tr>
 					<tr style="height: 150px;">
-						<th class="title align-middle table-success col-3"><a>신고 내용</a></th>
+						<th class="title align-middle table-danger col-3"><a>신고 내용</a></th>
 						<td class="user-id align-middle text-center"
-							style="text-align: left;">${cRepDetail.CREP_CONTENT}</td>
+							style="text-align: left;">${cRepDetail.RREP_CONTENT}</td>
 					</tr>
 				</tbody>
 			</table>
@@ -99,26 +98,8 @@
 						<td class="user-id align-middle text-center" style="text-align: left;">
 						
 							<span class="star">
-								<c:if test="${cRepDetail.REV_SCORE == '5'}">
   								★★★★★
-  								<span>★★★★★</span>
-  								</c:if>
-  								<c:if test="${cRepDetail.REV_SCORE == '4'}">
-  								★★★★★
-  								<span>★★★★</span>
-  								</c:if>
-  								<c:if test="${cRepDetail.REV_SCORE == '3'}">
-  								★★★★★
-  								<span>★★★</span>
-  								</c:if>
-  								<c:if test="${cRepDetail.REV_SCORE == '2'}">
-  								★★★★★
-  								<span>★★</span>
-  								</c:if>
-  								<c:if test="${cRepDetail.REV_SCORE == '1'}">
-  								★★★★★
-  								<span>★</span>
-  								</c:if>
+  								<span>${cRepDetail.REV_SCORE}</span>
 							</span>
 						</td>
 					</tr>
@@ -138,7 +119,7 @@
 		<hr>
 		<div class="row" style="padding: 0px 20px;">
 			<div class="d-grid gap-2 d-md-flex justify-content-md-center">
-					<input type="button" class="btn btn-outline-dark" value="목록" onclick="window.history.back()">
+					<input type="button" class="btn btn-outline-dark" value="목록" onclick="location.href='admin_userReport.ad'">
 					<input type="button" class="delBtn btn btn-outline-danger" value="삭제" >
 			</div>
 		</div>

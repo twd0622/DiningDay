@@ -8,6 +8,7 @@
 <meta charset="utf-8">
 <title>식당신고 | 다이닝데이</title>
 <c:set var="storeReport" value="${ requestScope.storeReport }"/>
+<c:set var="sRepCount" value="${ requestScope.sRepCount }"/>
 <link href="resources/css/variable_admin.css" rel="stylesheet">
 <script src="resources/js/variableCode.js"></script>
 <script src="resources/js/jquery.twbsPagination.min.js"></script>
@@ -21,9 +22,16 @@ $(()=>{
 <script src="Admin/js/delBtn.js"></script>
 <script src="Admin/js/storeReport.js"></script>
 <style>
-	.delBtn{
+.delBtn{
 		z-index: 1;
 	}
+	
+h4 {
+	cursor: pointer;
+}
+h4:hover {
+	color: gray;
+}
 </style>
 </head>
 <!-- main은 속성 값은 왠만하면 건들지x -->
@@ -76,10 +84,11 @@ $(()=>{
 				</div>
 			</div>
 		</div>
+		<div style="text-align: left; padding-left: 7%"><b>전체 글 수 : ${sRepCount.COUNT}</b></div>
 		<div class="row" style="padding: 1% 7% 1% 7%;" id="sRepTable">
 			<table class="table table-hover" id="article-table">
 				<thead>
-					<tr class="table-success">
+					<tr class="table-danger">
 						<th class="title col-1 align-middle"><a>신고번호</a></th>
 						<th class="hashtag col-1 align-middle"><a>식당명</a></th>
 						<th class="user-id col-2"><a>신고 제목</a></th>
@@ -88,7 +97,7 @@ $(()=>{
 				</thead>
 				<tbody>
 						<c:forEach var="sReport" items="${storeReport}">
-							<tr class="sRep_no" id="${sReport.SREP_NO}">
+							<tr class="sRep_no" id="${sReport.SREP_NO}" style="cursor: pointer;">
 								<td class="title align-middle">${sReport.SREP_NO}</td>
 								<td style="display: none;" class="CUS_NO" id="${sReport.CUS_NO}"></td>
 								<td style="display: none;" class="STORE_NO" id="${sReport.STORE_NO}"></td>

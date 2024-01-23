@@ -205,11 +205,11 @@ ul{
 		                        <span class="nav_name">공지사항</span>
 		                    </a>       
                     	</li>
-	                    <li><a class="nav__link" href="${ pageContext.request.contextPath }/admin_noticeWrite.ad" style="width: 130px;">
-	                    	<small>● 공지 등록</small></a>
-	                    </li>
-	                    <li class="mt-2 mb-5"><a class="nav__link" href="${ pageContext.request.contextPath }/admin_noticeList.ad" style="width: 130px;">
+	                    <li><a class="nav__link" href="${ pageContext.request.contextPath }/admin_noticeList.ad" style="width: 130px;">
 	                    	<small>● 공지 조회</small></a>
+	                    </li>
+	                    <li class="mt-2 mb-5"><a class="nav__link" href="${ pageContext.request.contextPath }/admin_noticeWrite.ad" style="width: 130px;">
+	                    	<small>● 공지 등록</small></a>
 	                    </li>
                     </ul>
                  </div>
