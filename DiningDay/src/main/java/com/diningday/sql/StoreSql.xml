@@ -226,24 +226,24 @@
 	           ;
 	     update STORE_IMAGE
 	     	set
-	     		 PHOTO_TYPE = #{BA1}
+	     		 PHOTO_NAME = #{BA1}
 		  where 1 = 1
 		    and STORE_NO = #{STORE_NO}
-		    and PHOTO_TYPE = #{BA1}
+		    and PHOTO_TYPE = 'BA1'
 		        ;
 		 update STORE_IMAGE
 	     	set
-	     		 PHOTO_TYPE = #{BA2}
+	     		 PHOTO_NAME = #{BA2}
 		  where 1 = 1
 		    and STORE_NO = #{STORE_NO}
-		    and PHOTO_TYPE = #{BA2}
+		    and PHOTO_TYPE = 'BA2'
 		        ;
 		 update STORE_IMAGE
 	     	set
-	     		 PHOTO_TYPE = #{SU1}
+	     		 PHOTO_NAME = #{SU1}
 		  where 1 = 1
 		    and STORE_NO = #{STORE_NO}
-		    and PHOTO_TYPE = #{SU1}
+		    and PHOTO_TYPE = 'SU1'
 		        ;                         
  	</update>
  	
