@@ -368,8 +368,13 @@ function dividebtnAction(btn, currentTargetParentTag){
 			_data.append("PHOTO_NAME", newFile);   
 			                            						 
 			ajaxDone.excute = (data) => {
-
-				var firstIndex = parseInt($($("#tbody_2").find("tr")[0]).attr("id")) + 1
+				var firstIndex;
+				if($("#tbody_2 tr").length < 1){
+					firstIndex = 1;
+				} else {
+					firstIndex = parseInt($($("#tbody_2").find("tr")[0]).attr("id")) + 1
+				}
+				
 				$("#sResModal").css("display", "none");
 				$("#modalForm")[0].reset();
 				$("#modalData").find("input[name=MENU_NO]").remove();
