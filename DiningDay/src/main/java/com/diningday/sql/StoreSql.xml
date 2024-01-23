@@ -202,6 +202,51 @@
 				)
 				;
  	</insert>
+ 	
+ 	<update id="storeUpdate" parameterType="map">
+ 		update STORE
+	   	   set 
+			     STORE_NAME = #{STORE_NAME}
+			   , STORE_TEL = #{STORE_TEL}
+			   , STORE_LOCATION = #{STORE_LOCATION}
+			   , STORE_CATEGORY = #{STORE_CATEGORY}
+			   , STORE_DETAIL = #{STORE_DETAIL}
+			   , STORE_PLUS = #{STORE_PLUS}
+			   , STORE_INFO = #{STORE_INFO}
+			   , STORE_ST = (select date_format(STR_TO_DATE(#{STORE_ST}, '%h:%i:%p'), '%H%i') as "STORE_ST") 
+		       , STORE_ET = (select date_format(STR_TO_DATE(#{STORE_ET}, '%h:%i:%p'), '%H%i') as "STORE_ET") 
+		       , STORE_RT = #{STORE_RT}
+		       , STORE_BTS = (select if(#{STORE_BTS} = '0', '0', date_format(STR_TO_DATE(#{STORE_BTS}, '%h:%i:%p'), '%H%i')) as "STORE_BTS") 
+		       , STORE_BTE = (select if(#{STORE_BTE} = '0', '0', date_format(STR_TO_DATE(#{STORE_BTE}, '%h:%i:%p'), '%H%i')) as "STORE_BTE") 
+		       , STORE_LO = #{STORE_LO}
+		       , STORE_RST = (select date_format(STR_TO_DATE(#{STORE_RST}, '%h:%i:%p'), '%H%i') as "STORE_RST")
+		       , STORE_RET = (select date_format(STR_TO_DATE(#{STORE_RET}, '%h:%i:%p'), '%H%i') as "STORE_RET")
+	   	 where 1 = 1
+	   	   and STORE_NO = #{STORE_NO}
+	           ;
+	     update STORE_IMAGE
+	     	set
+	     		 PHOTO_TYPE = #{BA1}
+		  where 1 = 1
+		    and STORE_NO = #{STORE_NO}
+		    and PHOTO_TYPE = #{BA1}
+		        ;
+		 update STORE_IMAGE
+	     	set
+	     		 PHOTO_TYPE = #{BA2}
+		  where 1 = 1
+		    and STORE_NO = #{STORE_NO}
+		    and PHOTO_TYPE = #{BA2}
+		        ;
+		 update STORE_IMAGE
+	     	set
+	     		 PHOTO_TYPE = #{SU1}
+		  where 1 = 1
+		    and STORE_NO = #{STORE_NO}
+		    and PHOTO_TYPE = #{SU1}
+		        ;                         
+ 	</update>
+ 	
  	<update id="firstInsertStore_OwnerUpdate" parameterType="map">
  	
  		update OWNER

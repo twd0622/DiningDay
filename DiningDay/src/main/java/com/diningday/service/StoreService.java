@@ -65,6 +65,10 @@ public class StoreService {
 		return storeDAO.storeSelect(storeDTO);
 	}
 	
+	public boolean storeUpdate(Map<String, String> dto) {
+		return storeDAO.storeUpdate(dto);
+	}
+	
 	public Map<String, String> ownerSelect(Map<String, String> storeDTO) {
 		return storeDAO.ownerSelect(storeDTO);
 	}

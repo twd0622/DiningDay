@@ -42,6 +42,16 @@ $(() => {
 	tooltipFunction();				//	부트스트랩 tooltip
 	hideTag("#tbody_2", true);		//	수정, 파일, 취소 버튼 숨김 처리
 	
+	$("#tbody_2 img").hide();
+	for(var i = 1; i <= $("#tbody_2 tr").length; i++){
+		if($("#" + i).find("input[name=PHOTO_NAME]").val() != '0'){
+			$("#" + i).find("span").hide();
+			$("#" + i).find("img").show();
+		}	
+	}
+	
+	
+	
 	$(".form-switch").on("click", () => {
 		$(".form-check-input").prop("checked", $("#allCheck").prop("checked"))					
 	})
@@ -50,10 +60,6 @@ $(() => {
 	$("#modalForm").find("input[type=text]").on("change", function(){
 		insertValidCheck(this);
 	})
-	
-	$("input[type=file]").change(e => {	
-		file_image(e, trTagIndex);
-	});
 	
 	$(document).on("click", ".btn", e => {	//	모든 버튼 클릭 이벤트 실행
 
@@ -64,12 +70,18 @@ $(() => {
 		}
 		
 		if(!confirm(confirmText)){
-			debugger;
-			fileList[$(e.target).closest("tr").attr("id")] = $(e.target).closest("tr").find("span").text();
+			if($(e.target).closest("tr") != undefined){
+				$(e.target).closest("tr").find(".checkPhoto input[type=checkbox]").prop("checked", false);
+				fileList[$(e.target).closest("tr").attr("id")] = oldFile;		
+			} 
 			confirmText = '';
 			return;
-		}
+		} 
 		
+		if($(e.target).closest("tr") != undefined){
+			$(e.target).closest("tr").find(".checkPhoto input[type=checkbox]").prop("checked", false);
+		} 
+			
 		$.ajax(
 			ajaxTotalData	
 		)
@@ -80,22 +92,16 @@ $(() => {
 			confirmText = '';
 			ajaxDone = {};
 		})
-		.fail(function(){
-			
-		})
-		
-		$("input[type=file]").change(e => {	
-			file_image(e, trTagIndex);
-		});
-		
+		.fail()
 	})
 })
 
 
 $(() => {
-	$("input[type=file]").change(e => {	
-		file_image(e, trTagIndex);
-	});
+	$(document).on("change", "input[type=file]", e => {
+		file_image(e, $(e.target).attr("class"));
+		e.target.value = '';
+	})
 })
 
 var insertValidCheck = (e) => {
@@ -118,13 +124,10 @@ var insertValidCheck = (e) => {
 }
 
 var btnClickEventListener = (e) => {
-	
 	if($(e.target).attr("class") === undefined
 		|| $(e.target).attr("class").split(" ")[0] != "btn"){
-		
 		return;
 	}
-	
 	var isClickedbtnName = $(e.target).attr("name");
 	var currentTargetParentTag = $(e.target).closest("tr"); 
 	
@@ -144,8 +147,8 @@ function hideTag(parentTag, boolean){	//	수정불가 하게 태그들 숨김 �
 	              .hide();
 	$(parentTag).find("img")
 				.show();
-	$(parentTag).find("span")
-				.show();
+//	$(parentTag).find("span")
+//				.show();
 	$(parentTag).find("button[name=delete]")
 				.show();
 	$(parentTag).find("button[name=update]")
@@ -165,8 +168,8 @@ function showTag(parentTag, boolean){
 	              .show();
 	$(parentTag).find("img")
 				.hide();
-	$(parentTag).find("span")
-				.hide();
+//	$(parentTag).find("span")
+//				.hide();
 	$(parentTag).find("button[name=delete]")
 				.hide();
 	$(parentTag).find("button[name=update]")
@@ -209,8 +212,10 @@ var ifCancelbtnClick = (currentTargetParentTag, boolean) => {
 var selectIndex = $("#tbody_2").find("tr")
 var validCheck = [false, true, false];
 var fileList = [];
+var oldFile = '0';
+var newFile = '0';
+var inputList = [];
 var thisDataList = [];
-var trTagIndex;
 var _beforeSend;
 var confirmText = "";
 var ajaxDone = {};
@@ -229,26 +234,24 @@ function dividebtnAction(btn, currentTargetParentTag){
 	switch(btn){
 		
 		case "PHOTO_SEARCH":
-			
-			trTagIndex = $(btnParentTag).attr("id");
-			$("." + trTagIndex).click();
+			index = $(btnParentTag).attr("id");
+			$("." + index).click();
 			ajaxExcuteCheck = false;
 			break;
 		
 		case "update":
-			
 			index = $(btnParentTag).attr("id");
-			
+			fileList[index] = $(btnParentTag).find("input[name=PHOTO_NAME]").val();
+
 			$(btnParentTag).find(".form-check-input").prop("checked", true);
 			showTag(btnParentTag, false);
 			
 			thisDataList[index] = ifCancelbtnClick(btnParentTag, false);
-				
-			var fileText = $(btnParentTag).find("span").text();			
-			if(fileText === '사진 없음'){
-				fileText = '0';
+			
+			$(btnParentTag).find("span").hide();
+			if(fileList[index] === '0'){
+				$(btnParentTag).find(".checkPhoto").hide();
 			}
-			fileList[index] = fileText;
 			
 			ajaxExcuteCheck = false;
 			break;
@@ -256,15 +259,16 @@ function dividebtnAction(btn, currentTargetParentTag){
 		case "cancel":
 			
 			index = $(btnParentTag).attr("id");
-			
-			$(btnParentTag).find(".form-check-input").prop("checked", false); 
+			fileList[index] = $(btnParentTag).find("input[name=PHOTO_NAME]").val();
+			ifCancelbtnClick(btnParentTag, true);
+			$(btnParentTag).find(".form-check-input").prop("checked", false);
+			$(btnParentTag).find(".checkPhoto input[type=checkbox]").prop("checked", false); 
 			hideTag(btnParentTag, true);
 			$(btnParentTag).find(".img").remove();
-			$("." + index).val('');
-			ifCancelbtnClick(btnParentTag, true);
-			
-			if(fileList[index] != undefined){
-				fileList[index] = $(btnParentTag).find("span").text();
+
+			if(fileList[index] === '0'){
+				$(btnParentTag).find("span").show()
+				$(btnParentTag).find("img").hide()
 			}
 			
 			ajaxExcuteCheck = false;
@@ -275,14 +279,12 @@ function dividebtnAction(btn, currentTargetParentTag){
 			if(!$(btnParentTag).find(".form-check-input").prop("checked")){
 				return;
 			}
-
+			
 			index = $(btnParentTag).attr("id");
+			oldFile	= fileList[index];
 			
-			if($(btnParentTag).find("input[name=photoDelete]").prop("checked")){
+			if(fileList[index] === undefined || fileList[index] === '0' || $(btnParentTag).find(".checkPhoto input[type=checkbox]").prop("checked")){
 				fileList[index] = '0';
-			}
-			
-			if(fileList[index] === undefined || fileList[index] === '0'){
 				confirmText = "*주의*\r\n사진을 등록 하지 않았습니다.\r\n이대로 진행 하시겠습니까?";
 			} else {
 				confirmText = "이대로 등록 하시겠습니까?";
@@ -292,23 +294,29 @@ function dividebtnAction(btn, currentTargetParentTag){
 			_data = ajaxDataList(index, currentTargetParentTag);
 			
 			ajaxDone.excute = (data) => {
-				var currentIndex = data.MENU_NO.split("ME")[1];
-				var nearbyTrTag = parseInt(currentIndex) + 1;
-				
-				$("#" + currentIndex).remove();
-				
-				if($("#" + nearbyTrTag).length === 0){
-					$("#tbody_2").prepend(htmlTag(data, currentIndex));				
-				} else {
-					$("#" + nearbyTrTag).after(htmlTag(data, currentIndex));	
-				}
-				
-				$("#" + currentIndex).find("select option")
-									 .eq($("#" + currentIndex).find("select")
+				$("#" + index).find("input[name=PHOTO_NAME]").val(data.PHOTO_NAME);
+				$("#" + index).find("input[name=MENU_NAME]").val(data.MENU_NAME);
+				$("#" + index).find("input[name=MENU_INFO]").val(data.MENU_INFO);
+				$("#" + index).find("select").attr("name", data.MENU_HIDE);
+				$("#" + index).find("input[name=MENU_PRICE]").val(data.MENU_PRICE);
+				$("#" + index).find("input[name=MENU_NO]").val(data.MENU_NO);
+				$("#PHOTO" + index).attr("src", "upload/" + data.PHOTO_NAME);
+				$("#PHOTO" + index).css("display", "block");
+				$("#" + index).find(".img").remove();
+				$("#" + index).find("span").hide();
+				$("#" + index).find("select option")
+									 .eq($("#" + index).find("select")
 									 						  .attr("name"))
 									 .attr("selected", "selected");
-				hideTag("#" + currentIndex, true);
-				$("#" + currentIndex).find(".form-check-input").prop("checked", false);
+				$("#" + index).find(".form-check-input").prop("checked", false);
+				hideTag("#" + index, true);
+
+				if(data.PHOTO_NAME === '0'){
+					$("#PHOTO" + index).hide();
+					$("#" + index).find("span").show();		
+				}
+				
+				delete fileList[index];
 			}
 			
 			ajaxExcuteCheck = true;
@@ -344,11 +352,12 @@ function dividebtnAction(btn, currentTargetParentTag){
 			
 		case "insert":
 			
+			newFile = fileList[0];
+
 			if(typeof fileList[0] === "object"){
 				confirmText = "이대로 등록 하시겠습니까?";	
 			} else {
 				confirmText = "*주의*\r\n사진을 등록 하지 않았습니다.\r\n이대로 진행 하시겠습니까?";
-				fileList[0] = '0';
 			}
 			
 			_url = "smenuInsert.st";
@@ -356,19 +365,18 @@ function dividebtnAction(btn, currentTargetParentTag){
 			_data.append("MENU_HIDE", $("#modalForm").find("select option")
                                						 .index($("#modalForm").find("select option:selected"))
                                						 .toString());
-			_data.append("PHOTO_NAME", fileList[0]);   
+			_data.append("PHOTO_NAME", newFile);   
 			                            						 
 			ajaxDone.excute = (data) => {
 
-				var firstIndex = (data.MENU_NO).split("ME")[1];
-				var maxIndex = $("#tbody_2").find("tr").length + 1;
+				var firstIndex = parseInt($($("#tbody_2").find("tr")[0]).attr("id")) + 1
 				$("#sResModal").css("display", "none");
 				$("#modalForm")[0].reset();
 				$("#modalData").find("input[name=MENU_NO]").remove();
 				$("#tbody_2").prepend(htmlTag(data, firstIndex));
 				
 				$("#img_1").empty();
-				
+				 
 				$("#" + firstIndex).find("select option")
 								   .eq($("#" + firstIndex).find("select")
 									 					  .attr("name"))
@@ -376,10 +384,15 @@ function dividebtnAction(btn, currentTargetParentTag){
 				
 				$("#modalData").find("input[type=text]").attr("class", "form-control is-invalid");
 				$("#modalData").find("textarea").attr("class", "form-control is-invalid");
-				$("#MENU_DATA").append("<input type='file' class='" + maxIndex + "' style='display:none;'>");
+				$("#MENU_DATA").append("<input type='file' class='" + firstIndex + "' style='display:none;'>");
 				$("button[name=insert]").prop("disabled", true);
 				
 				hideTag($("#" + firstIndex), true);
+				$("#" + firstIndex).find("span").hide();
+				if(data.PHOTO_NAME === '0'){
+					$("#" + firstIndex).find("span").show();
+					$("#" + firstIndex).find("img").hide();	
+				}
 				paging("#tbody_2 tr", 5, 0);
 			};
 			
@@ -409,9 +422,9 @@ function dividebtnAction(btn, currentTargetParentTag){
 	        
 			ajaxDone.excute = (data) => {
 				if(new Boolean(data.isTrue)){
-					debugger;
-					var tagIndex = (data.MENU_NO).split("ME")[1];
-					$("#" + tagIndex).remove();
+					delete fileList[$("input[name='" + data.MENU_NO + "']").closest("tr").attr("id")];
+					$("#MENU_DATA").remove("." + $("input[name='" + data.MENU_NO + "']").closest("tr").attr("id")); 
+					$("input[name='" + data.MENU_NO + "']").closest("tr").remove();
 					paging("#tbody_2 tr", 5, 0);
 				}
 			};
@@ -436,6 +449,8 @@ function dividebtnAction(btn, currentTargetParentTag){
 	        ajaxDone.excute = (data) => {
 				if(new Boolean(data)){
 					$(".form-check-input:checked").each(function() {
+						$("." + $(this).closest("tr").attr("id")).remove();
+						delete fileList[$(this).closest("tr").attr("id")]; 
 			        	$(this).closest("tr").remove();
 			        });
 			        
@@ -487,63 +502,43 @@ function ajaxDataList(index, row){
 }
 
 function file_image(e, index){
-
 	var file = e.target.files;
 	var image = new Image();
-	var ImageTempUrl = window.URL.createObjectURL(file[0]);
-	
+	var imageFile = file[0];
+	var ImageTempUrl = window.URL.createObjectURL(imageFile);
 	image.src = ImageTempUrl;
 	
 	if($(e.target).attr("id") === 'inputFile_1'){
 		image.style = "width:375px; height:375px;";
-		fileList[0] = file[0];
+		fileList[0] = imageFile;
 		$("#img_1").empty();
 		$("#img_1").append(image);
 	} else {
-		var fileIndex = index;
-		var currentTarget = $("#" + fileIndex);
-		
+		$("#" + index).find(".img").remove();
 		image.style = "width:175px; height:95px;";
 		image.className = "img";
-		fileList[fileIndex] = file[0];	
-		
-		$(currentTarget).find(".img")
-						.remove();
-		$(currentTarget).find("button[name=PHOTO_SEARCH]")
-						.hide();
-		$(currentTarget).find("button[name=PHOTO_SEARCH]")
-						.closest("div")
-						.prepend(image);
-		$(currentTarget).find("button[name=PHOTO_SEARCH]")
-						.closest("div")
-						.append("<span class='img'>" + file[0].name + "</span>");
-						
-		trTagIndex = '';
-		e.target.value = '';
+		fileList[index] = imageFile;	
+		$("#" + index).find("span").hide();		
+		$("#" + index).find("button[name=PHOTO_SEARCH]")
+					  .closest("div")
+					  .prepend(image);
 	}
-	
 }
 
 function htmlTag(menu, i){
 
-	var imgIsEmpty = '<img src="upload/' + menu.PHOTO_NAME + '" style="width:175px; height:95px; alt=""/>'
-				   + '<span>' + menu.PHOTO_NAME + '</span>';
+	var imgIsEmpty = '<img id="PHOTO' + i + '" src="upload/' + menu.PHOTO_NAME + '" style="width:175px; height:95px;" alt=""/><span>사진 없음</span>';
 	var photoIsExist = '<div class="checkPhoto mt-2">기존사진 삭제 여부&nbsp;<input type="checkbox" name="photoDelete" value="사진 제거"></div></div>';
-	
-	if(menu.PHOTO_NAME === '0'){
-		imgIsEmpty = "<span>사진 없음</span>";
-		photoIsExist = '';
-	}
 	
 	return  '<tr id="' + i + '">' +
 				'<td><div class="form-check" style="display: flex; justify-content: center;">' +
+					'<input type="hidden" name="PHOTO_NAME" value="' + menu.PHOTO_NAME + '">' +
 					'<input class="form-check-input border border-dark" type="checkbox" value="" style="width:28px; height:28px;">' +
 				'</td>' +
 				'<td><input type="text" class="border border-dark form-control" name="MENU_NAME" value="' + menu.MENU_NAME + '"></td>' +
-				'<td><div style="width:240px;">' +
-					'<input type="hidden" name="MENU_NO" value="' + menu.MENU_NO + '">' +
-					imgIsEmpty + 
-					'<div><button class="btn btn-success" name="PHOTO_SEARCH">사진 선택</button></div>' + photoIsExist +
+				'<td><div style="width:240px; display:flex; flex-direction: column; justify-content: center; align-items: center;">' +
+					'<input type="hidden" name="MENU_NO" value="' + menu.MENU_NO + '">' + imgIsEmpty +
+					'<div><button class="btn btn-success mt-3" name="PHOTO_SEARCH">사진 선택</button></div>' + photoIsExist +
 				'</td>' +
 				'<td><textarea style="resize: none;" cols="50" rows="3" name="MENU_INFO">' + menu.MENU_INFO + '</textarea></td>' +
 				'<td><input type="text" class="form-control border border-dark" name="MENU_PRICE" value="' + menu.MENU_PRICE + '"></td>' +
