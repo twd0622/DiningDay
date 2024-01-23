@@ -30,6 +30,9 @@
 						<img src="./resources/img/kakao.png" id="image"/>
 						<span id="span">Kakao로 시작하기</span></a>
 					<!-- 구글 버튼 -->
+						<a id="GgCustomLogin" href="javascript:void(0)" class="w-100 py-2 mb-2 btn btn-outline-secondary rounded-3">
+						<img src="${ pageContext.request.contextPath }/resources/img/google.png" id="image"/>
+						<span id="span">Google로 시작하기</span></a>
 <!-- 					<a id="GgCustomLogin" href="javascript:void(0)" class="w-100 py-2 mb-2 btn btn-outline-secondary rounded-3"> -->
 <!-- 						<img src="./resources/img/google.png" id="image"/> -->
 <!-- 						<span id="span">Google로 시작하기</span> -->
