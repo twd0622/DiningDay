@@ -58,25 +58,25 @@
 			<c:set var="STORE" value="${ requestScope.STORE_LIST}" />
 			
 				<form id="oldData" method="post" enctype="multipart/form-data" >
-					<input type="text" name="STORE_NAME" value="${STORE.STORE_NAME}">
-					<input type="text" name="STORE_TEL" value="${STORE.STORE_TEL}">
-					<input type="text" name="STORE_LOCATION" value="${STORE.STORE_LOCATION}">
-					<input type="text" name="STORE_DETAIL" value="${STORE.STORE_DETAIL}">
-					<input type="text" name="STORE_INFO" value="${STORE.STORE_INFO}">
-					<input type="text" name="STORE_PLUS" value="${STORE.STORE_PLUS}">
-					<input type="text" name="STORE_CATEGORY" value="${STORE.STORE_CATEGORY}">
-					<input type="text" name="STORE_LO" value="${STORE.STORE_LO}">
-					<input type="text" name="STORE_RT" value="${STORE.STORE_RT}">
-					<input type="text" name="STORE_CLOSE" value="${STORE.STORE_CLOSE}">
-					<input type="text" name="STORE_ST" value="${STORE.STORE_ST}">
-					<input type="text" name="STORE_ET" value="${STORE.STORE_ET}">
-					<input type="text" name="STORE_BTS" value="${STORE.STORE_BTS}">
-					<input type="text" name="STORE_BTE" value="${STORE.STORE_BTE}">
-					<input type="text" name="STORE_RST" value="${STORE.STORE_RST}">
-					<input type="text" name="STORE_RET" value="${STORE.STORE_RET}">
-					<input type="text" name="SU1" value="${STORE.SU1}">
-					<input type="text" name="BA1" value="${STORE.BA1}">
-					<input type="text" name="BA2" value="${STORE.BA2}">
+					<input type="hidden" name="STORE_NAME" value="${STORE.STORE_NAME}">
+					<input type="hidden" name="STORE_TEL" value="${STORE.STORE_TEL}">
+					<input type="hidden" name="STORE_LOCATION" value="${STORE.STORE_LOCATION}">
+					<input type="hidden" name="STORE_DETAIL" value="${STORE.STORE_DETAIL}">
+					<input type="hidden" name="STORE_INFO" value="${STORE.STORE_INFO}">
+					<input type="hidden" name="STORE_PLUS" value="${STORE.STORE_PLUS}">
+					<input type="hidden" name="STORE_CATEGORY" value="${STORE.STORE_CATEGORY}">
+					<input type="hidden" name="STORE_LO" value="${STORE.STORE_LO}">
+					<input type="hidden" name="STORE_RT" value="${STORE.STORE_RT}">
+					<input type="hidden" name="STORE_CLOSE" value="${STORE.STORE_CLOSE}">
+					<input type="hidden" name="STORE_ST" value="${STORE.STORE_ST}">
+					<input type="hidden" name="STORE_ET" value="${STORE.STORE_ET}">
+					<input type="hidden" name="STORE_BTS" value="${STORE.STORE_BTS}">
+					<input type="hidden" name="STORE_BTE" value="${STORE.STORE_BTE}">
+					<input type="hidden" name="STORE_RST" value="${STORE.STORE_RST}">
+					<input type="hidden" name="STORE_RET" value="${STORE.STORE_RET}">
+					<input type="hidden" name="SU1" value="${STORE.SU1}">
+					<input type="hidden" name="BA1" value="${STORE.BA1}">
+					<input type="hidden" name="BA2" value="${STORE.BA2}">
 					<input type="file" id="inputfile_1" name="SU1_PHOTO_NAME" style="display: none;">
 					<input type="file" id="inputfile_2" name="BA1_PHOTO_NAME" style="display: none;">
 					<input type="file" id="inputfile_3" name="BA2_PHOTO_NAME" style="display: none;">
