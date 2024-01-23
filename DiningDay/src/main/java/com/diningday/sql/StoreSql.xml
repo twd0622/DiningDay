@@ -560,12 +560,12 @@
  	
  	<insert id="answerInsert" parameterType="map">
  		insert into REVIEW_ANSWER
-		values(#{REV_NO}, #{STORE_NO}, #{ANSWER_CONTENT}, date_format(now(),'%Y%m%d%H%i%s'));
+		values(#{REV_NO}, #{STORE_NO}, #{ANSWER_CONTENT}, date_format(now(),'%Y%m%d%H%i%s'), null);
  	</insert>
  	
  	<select id="getAnswer" parameterType="map" resultType="map">
  		select REV_NO
- 		     , ST_NO
+ 		     , STORE_NO
  		     , ANSWER_CONTENT
  		     , CAST(ifnull(concat('(수정) ', str_to_date(ANSWER_UPDATE_DATE, '%Y%m%d%H%i%s')), str_to_date(ANSWER_DATE, '%Y%m%d%H%i%s')) AS CHAR(30)) ANSWER_DATE
           from REVIEW_ANSWER
