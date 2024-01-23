@@ -502,7 +502,7 @@ function file_image(e, index){
 		$("#img_1").append(image);
 	} else {
 		var fileIndex = index;
-		var currentTarget = $("#" + index);
+		var currentTarget = $("#" + fileIndex);
 		
 		image.style = "width:175px; height:95px;";
 		image.className = "img";
@@ -513,13 +513,14 @@ function file_image(e, index){
 		$(currentTarget).find("button[name=PHOTO_SEARCH]")
 						.hide();
 		$(currentTarget).find("button[name=PHOTO_SEARCH]")
-						.closest("td")
+						.closest("div")
 						.prepend(image);
 		$(currentTarget).find("button[name=PHOTO_SEARCH]")
-						.closest("td")
+						.closest("div")
 						.append("<span class='img'>" + file[0].name + "</span>");
 						
 		trTagIndex = '';
+		e.target.value = '';
 	}
 	
 }
@@ -528,9 +529,11 @@ function htmlTag(menu, i){
 
 	var imgIsEmpty = '<img src="upload/' + menu.PHOTO_NAME + '" style="width:175px; height:95px; alt=""/>'
 				   + '<span>' + menu.PHOTO_NAME + '</span>';
+	var photoIsExist = '<div class="checkPhoto mt-2">기존사진 삭제 여부&nbsp;<input type="checkbox" name="photoDelete" value="사진 제거"></div></div>';
 	
 	if(menu.PHOTO_NAME === '0'){
 		imgIsEmpty = "<span>사진 없음</span>";
+		photoIsExist = '';
 	}
 	
 	return  '<tr id="' + i + '">' +
@@ -538,10 +541,10 @@ function htmlTag(menu, i){
 					'<input class="form-check-input border border-dark" type="checkbox" value="" style="width:28px; height:28px;">' +
 				'</td>' +
 				'<td><input type="text" class="border border-dark form-control" name="MENU_NAME" value="' + menu.MENU_NAME + '"></td>' +
-				'<td><input type="hidden" name="MENU_NO" value="' + menu.MENU_NO + '">' +
+				'<td><div style="width:240px;">' +
+					'<input type="hidden" name="MENU_NO" value="' + menu.MENU_NO + '">' +
 					imgIsEmpty + 
-					'<div><button class="btn btn-success" name="PHOTO_SEARCH">사진 선택</button></div>' +
-					'<div class="checkPhoto mt-2">사진 삭제 여부&nbsp;<input type="checkbox" name="photoDelete" value="사진 제거"></div>' +
+					'<div><button class="btn btn-success" name="PHOTO_SEARCH">사진 선택</button></div>' + photoIsExist +
 				'</td>' +
 				'<td><textarea style="resize: none;" cols="50" rows="3" name="MENU_INFO">' + menu.MENU_INFO + '</textarea></td>' +
 				'<td><input type="text" class="form-control border border-dark" name="MENU_PRICE" value="' + menu.MENU_PRICE + '"></td>' +
