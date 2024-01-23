@@ -18,8 +18,7 @@ document.write('<script type="text/javascript"' +
 $(() => {
 	
 	targetColor($("#sRes"));
-	ajaxLoading();
-
+	
 	var today;
 	if($("#dateCheck").val() != ''){
 		resData = $("#dateCheck").val();

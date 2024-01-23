@@ -486,7 +486,10 @@
 		   (select OWN_DATE
 		      from OWNER
 			 where STORE_NO = #{STORE_NO}
-		       and OWN_NO = #{OWN_NO}) as "OWN_DATE"  
+		       and OWN_NO = #{OWN_NO}) as "OWN_DATE",
+		   (select cast(max(year(RES_DATE)) AS CHAR(5)) as MAX_YEAR
+   			  from RESERVATION
+             where STORE_NO = #{STORE_NO}) as "MAX_YEAR"     
 		  ;
 		
 	</select>

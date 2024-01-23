@@ -25,7 +25,6 @@ $(() => {
 	customSelect2($('#storeCategory'));
 	customSelect2($("#storeLastOrder"));
 	customSelect2($("#storeResTerm"));
-	ajaxLoading;
 		
 	const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
 	const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));			
