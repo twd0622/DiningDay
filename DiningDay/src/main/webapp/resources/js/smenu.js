@@ -428,8 +428,8 @@ function dividebtnAction(btn, currentTargetParentTag){
 			ajaxDone.excute = (data) => {
 				if(new Boolean(data.isTrue)){
 					delete fileList[$("input[name='" + data.MENU_NO + "']").closest("tr").attr("id")];
-					$("#MENU_DATA").remove("." + $("input[name='" + data.MENU_NO + "']").closest("tr").attr("id")); 
-					$("input[name='" + data.MENU_NO + "']").closest("tr").remove();
+					$("#MENU_DATA").remove("." + $("input[value='" + data.MENU_NO + "']").closest("tr").attr("id")); 
+					$("input[value='" + data.MENU_NO + "']").closest("tr").remove();
 					paging("#tbody_2 tr", 5, 0);
 				}
 			};

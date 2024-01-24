@@ -27,15 +27,18 @@ $(() => {
 									  	 data.RES_DATE_4, data.RES_DATE_5, data.RES_DATE_6,
 									  	 data.RES_DATE_7, data.RES_DATE_8, data.RES_DATE_9,
 									  	 data.RES_DATE_10, data.RES_DATE_11, data.RES_DATE_12];
-		debugger;
 		myChart.update();
 		var oldYear = (data.OWN_DATE).substring(0, 4);
-		var yearLength = parseInt(data.MAX_YEAR) - parseInt(oldYear) + 1;
-		
-		for(var i = 0; i < yearLength; i++){
-			$("#checkYear").append(selectYearData(parseInt(data.MAX_YEAR) - i)); 
+		var maxYear = data.MAX_YEAR;
+		if(data.MAX_YEAR === undefined || data.MAX_YEAR === null || data.MAX_YEAR === ''){
+			maxYear = dateTotal.year;
 		}
-		$("#nowYear").text('현재년도 : ' + dateTotal.year + "년");
+		
+		var yearLength = parseInt(maxYear) - parseInt(oldYear) + 1;
+		for(var i = 0; i < yearLength; i++){
+			$("#checkYear").append(selectYearData(parseInt(maxYear) - i)); 
+		}
+		$("#nowYear").text('현재년도 : ' + maxYear + "년");
 		customSelect2($("#checkYear"));
 
 		$.ajax({
