@@ -278,7 +278,8 @@
 		  FROM RESERVATION
 		 WHERE STORE_NO = #{STORE_NO}
 		   AND SEAT_NO = #{SEAT_NO}
-		   AND RES_DATE = date_format(#{DATE}, '%Y%m%d');
+		   AND RES_DATE = date_format(#{DATE}, '%Y%m%d')
+		   AND REQ_STATE = '0';
 	</select>
 </mapper>
 
