@@ -15,7 +15,7 @@
   			  , R.STORE_REVIEW_COUNT
 			  , cast((select count(LIKE_NO) LIKE_COUNT from LIKE_LIST where STORE_NO = ST.STORE_NO) as char(30)) LIKE_COUNT
 			  , SI.PHOTO_NAME
-			  , cast((SELECT COUNT(RES_NO) FROM RESERVATION WHERE STORE_NO = ST.STORE_NO GROUP BY STORE_NO) as char(30)) RESERVATION_COUNT
+			  , ifnull(cast((SELECT COUNT(RES_NO) FROM RESERVATION WHERE STORE_NO = ST.STORE_NO GROUP BY STORE_NO) as char(30)), 0) RESERVATION_COUNT
 		   from STORE ST
 		   LEFT JOIN (select STORE_NO
 						   , group_concat(case PHOTO_TYPE when 'SU1' then PHOTO_NAME end) PHOTO_NAME
@@ -41,7 +41,11 @@
 	      <if test="LOC_NAME != '' and LOC_NAME != null">
             and STORE_LOCATION LIKE concat('%', #{LOC_NAME} ,'%')
 	      </if>
-		  ORDER BY (RESERVATION_COUNT*5)+(STORE_REVIEW_COUNT*4)+(LIKE_COUNT*3) DESC, STORE_SCORE DESC limit 10;
+		  ORDER BY (RESERVATION_COUNT*5)+(STORE_REVIEW_COUNT*4)+(LIKE_COUNT*3) DESC, STORE_SCORE DESC 
+		  <if test="searchInput == '' or searchInput == null">
+		  limit 10
+		  </if> 
+		  ;
 	</select>
 		
 	<select id="getReviewHighStore" parameterType="map" resultType="map">
@@ -274,7 +278,8 @@
 		  FROM RESERVATION
 		 WHERE STORE_NO = #{STORE_NO}
 		   AND SEAT_NO = #{SEAT_NO}
-		   AND RES_DATE = date_format(#{DATE}, '%Y%m%d');
+		   AND RES_DATE = date_format(#{DATE}, '%Y%m%d')
+		   AND REQ_STATE = '0';
 	</select>
 </mapper>
 

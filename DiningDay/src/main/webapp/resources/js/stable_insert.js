@@ -14,7 +14,6 @@ document.write('<script type="text/javascript"' +
 $(() => {
 	
 	targetColor($("#stable_insert"));
-	ajaxLoading;
 	
 	$("input[type=text]").change(function(){
 		var className = "form-control is-invalid";
@@ -47,7 +46,6 @@ $(() => {
 		_data.append("OWN_NO", $("input[name=OWN_NO]").val());
 		_data.append("STORE_NO", $("input[name=STORE_NO]").val());
 		
-		debugger;
 		for (let key of _data.keys()) {
 		  console.log(key);
 		}

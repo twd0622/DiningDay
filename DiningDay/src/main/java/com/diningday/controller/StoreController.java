@@ -136,12 +136,18 @@ public class StoreController extends HttpServlet {
 			res.getWriter().print(bl);
 		}
 		
-		if(sPath.equals("/smainDelete.st")) {
+		if(sPath.equals("/smainisExistPro.st")) {
+			Map<String, String> dto = new HashMap<String, String>();
+			dto = TeamUtil.fileRequestToMap(req);
+			dto.put("STORE_NO", (String)session.getAttribute("STORE_NO"));
 			
-		}
-		
-		if(sPath.equals("/smainUpdate.st")) {
+			if(!storeService.storeUpdate(dto)) {
+				System.out.println("update 오류");
+				return;
+			} 
 			
+			res.setContentType("application/x-json; charset=utf-8");
+			res.getWriter().print(TeamUtil.mapToJSON(storeService.storeSelect(dto)));
 		}
 		
 //		---------------------------------------------------------------------------------------------

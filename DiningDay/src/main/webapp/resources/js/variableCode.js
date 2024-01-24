@@ -78,14 +78,14 @@ function paging(pgEvent, pageSize, oneOrZero){
  * 로딩창 띄우기
  * 
  */
-var ajaxLoading = () => {
-	
+$(() => {
 	$(window).ajaxStart(function(){   
 		$("#loading").show();  
 	}).ajaxStop(function(){   
 	  	$("#loading").hide();  
 	});
-} 
+})	
+	
 
 
 

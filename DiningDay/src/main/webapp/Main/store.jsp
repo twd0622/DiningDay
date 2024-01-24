@@ -157,9 +157,15 @@
 				<div class="store_infoBOX">
 					<p class="tit">식당 설명</p>
 					<div>
-						<pre class="store_info">
-${storeInfo.STORE_INFO}
-						</pre>
+						<pre class="store_info">${storeInfo.STORE_INFO}</pre>
+					</div>	
+				</div>
+				<div class="store_infoBOX">
+					<p class="tit">식당 편의시설</p>
+					<div>
+						<div style="font-size: 17px; text-align: left; padding: 0 0 20px 25px;">
+							${storeInfo.STORE_PLUS}
+						</div>
 					</div>	
 				</div>				
 				<!-- 테이블 -->

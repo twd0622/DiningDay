@@ -88,9 +88,10 @@ $(() => {
 	})
 	
 	$(document).on("click", ".closeP", e => {
-		fileData[$($(e.currentTarget).parents("div")[0]).attr("class")] = '0';
+		fileData[$($(e.currentTarget).parents("div")[2]).attr("name")] = '0';
 		$(".img" + $($(e.currentTarget).parents("div")[0]).attr("class")).remove();
 		$("div[name=" + $($(e.currentTarget).parents("div")[0]).attr("class") + "]").find($(".material-symbols-outlined")).show();
+		$("div[name=" + $($(e.currentTarget).parents("div")[0]).attr("class") + "]").find($(".material-symbols-outlined")).css("pointer-events", "auto");
 		$("div[name=" + $($(e.currentTarget).parents("div")[0]).attr("class") + "]").find(".closeP").remove();
 	})
 	
@@ -106,17 +107,15 @@ $(() => {
 
 var updateAjax = (returnIndex) => {
 	
-	$("input[name=" + returnIndex + "]").val("");
-	fileData[returnIndex] = 0;
-	$(".img" + returnIndex).remove();
-	$("div[name=" + returnIndex + "]").find(".closeP").remove();
-	
-	if($("div[name=" + returnIndex + "]").find("input[name=PHOTO_NAME]").val() != '0'){
-		$("div[name=" + returnIndex + "]").find($("img")).show();
-		return;
-	}
-	$("div[name=" + returnIndex + "]").find($(".material-symbols-outlined")).show();
-	$("div[name=" + returnIndex + "]").find($(".material-symbols-outlined")).css("pointer-events", "none");
+//	$("input[name=" + returnIndex + "]").val("");
+//	$(".img" + returnIndex).remove();
+//	$("div[name=" + returnIndex + "]").find(".closeP").remove();
+	$($("div[name=" + returnIndex + "]").find("button")[0]).attr("class", "btn btn-success");
+	$($("div[name=" + returnIndex + "]").find("button")[0]).text("저장하기");
+	$($("div[name=" + returnIndex + "]").find("button")[1]).text("취소하기");
+	$("div[name=" + returnIndex + "]").find("input[type=text]").prop("readonly", false);
+	$("div[name=" + returnIndex + "]").find("select").prop("disabled", false);
+//	$("div[name=" + returnIndex + "]").find($(".material-symbols-outlined")).show();
 } 
 			
 
@@ -139,16 +138,26 @@ function btnNameStructure(btn){
 	switch(btnName){
 		
 		case "수정하기": 
+			
 			resCheckAjaxExcute = true;
 			btnChangeText_1 = "저장하기"; 
 			btnChangeText_2 = "취소하기";
 			btnChangeClass = "btn btn-success";
 			btnClass = "btn btn-danger";
 			dangerousAlert = 0;
+			var photoName = $("div[name=" + index + "]").find($("input[name=PHOTO_NAME]")).val();
+			fileData[index] = photoName;
 			
 			$("div[name=" + index + "]").find($("img")).hide();
-			$("div[name=" + index + "]").find(".material-symbols-outlined").show();
-			$("div[name=" + index + "]").find(".material-symbols-outlined").css("pointer-events", "auto");
+			
+			if(fileData[index] != '0'){
+				$("." + index).append("<img class='img" + index + "' src='upload/" + fileData[index] + "' style='width:300px; height:225px;' >");
+				$("." + index).closest("div").append("<div class='mt-3 closeP'><label>초기화</labe><div>");				
+			} else {
+				$("div[name=" + index + "]").find(".material-symbols-outlined").show();
+				$("div[name=" + index + "]").find(".material-symbols-outlined").css("pointer-events", "auto");	
+			}
+			
 			showAndHide(btn, false);
 			break;
 			
@@ -169,18 +178,15 @@ function btnNameStructure(btn){
 			break;
 			
 		case "저장하기":
-			if(fileData[index] === undefined){
-				fileData[index] = '0';
-			}
 			
 			if(dangerousAlert === 1){
 				confirmText = "*경고* 현재 좌석은 예약자가 존재합니다?\r\n정말 좌석정보를 변경하시겠습니까?";
 			} else {
-				confirmText = "해당 좌석정보를 변경 하시겠습니까?";
+				confirmText = "해당 좌석정보를 저장 하시겠습니까?";
 			}
 			
 			ajaxDone = (data) => {
-				debugger;
+
 				console.log(data);
 				$($("div[name=" + data.COLOUMN + "]").find("input[type=text]")[0]).val(data.SEAT_NAME);
 				$($("div[name=" + data.COLOUMN + "]").find("input[type=text]")[1]).val(data.SEAT_MIN);
@@ -191,14 +197,17 @@ function btnNameStructure(btn){
 			
 				if(data.PHOTO_NAME === '0'){
 					$($("div[name=" + data.COLOUMN + "]").find("img")).css("display", "none");
-					$("div[name=" + data.COLOUMN + "]").find($(".material-symbols-outlined")).css("pointer-events", "none");
 				} else {
 					$($("div[name=" + data.COLOUMN + "]").find("img")).attr("src", "upload/" + data.PHOTO_NAME);
-					$($("div[name=" + data.COLOUMN + "]").find("img")).css("display", "block");					
+					$($("div[name=" + data.COLOUMN + "]").find("img")).css("display", "block");
+					$("div[name=" + data.COLOUMN + "]").find($(".material-symbols-outlined")).hide();											
 				}
-				$("div[name=" + data.COLOUMN + "]").find(".closeP").remove();
 				
-				fileData[data.COLOUMN] = '0';
+				$("div[name=" + data.COLOUMN + "]").find($(".material-symbols-outlined")).css("pointer-events", "none");
+				$("div[name=" + data.COLOUMN + "]").find(".closeP").remove();
+				$("div[name=" + data.COLOUMN + "]").find("input[name=PHOTO_NAME]").val(data.PHOTO_NAME);
+				
+				fileData[data.COLOUMN] = data.PHOTO_NAME;
 			}
 			
 			_url = "seatUpdatePro.st";
@@ -220,8 +229,8 @@ function btnNameStructure(btn){
 									    .remove();
 			$("div[name=" + index + "]").find(".material-symbols-outlined")
 									    .css("pointer-events", "none");
-			$("input[name=" + index + "]").val("");
-			fileData[index] = '0';
+
+			fileData[index] = $("div[name=" + index + "]").find($("input[name=PHOTO_NAME]")).val();
 			btn.prev().prop("disabled", false);
 			
 			if($("div[name=" + index + "]").find($("input[name=PHOTO_NAME]")).val() == '0'){
@@ -232,10 +241,10 @@ function btnNameStructure(btn){
 											.hide();
 				$("div[name=" + index + "]").find($("img"))
 											.show();
-				$("div[name=" + index + "]").find($(".img" + index))
-											.remove();
 			}
 			
+			$("div[name=" + index + "]").find($(".img" + index))
+										.remove();
 			resetValue(index);
 			break;
 	}
@@ -316,7 +325,7 @@ function showAndHide(targetTag, boolean){
 }
 
 function file_image(e, index){
-
+	
 	var file = e.target.files;
 	var image = new Image();
 	var ImageTempUrl = window.URL.createObjectURL(file[0]);
@@ -326,11 +335,14 @@ function file_image(e, index){
 	image.className = "img" + index;
 	fileData[index] = file[0];	
 	
+	$("." + index).find(".img" + index).remove();
+	$("." + index).find(".closeP").remove();
 	$("." + index).find($("img")).hide();
 	$("." + index).find($(".material-symbols-outlined")).hide();
 	$("." + index).append(image);
 	$("." + index).closest("div").append("<div class='mt-3 closeP'><label>초기화</labe><div>");
 	
+	e.target.value = '';
 }
 
 function seatDataHtml(data, i){
@@ -345,7 +357,7 @@ function seatDataHtml(data, i){
 	i++;
 
 	return "<div name='" + i + "' class='p-3 mb-5 marginBox rounded-4 shadow' style='display: flex; flex-direction: column; background-color: white; width: 400px;'>" +
-				"<input type='file' name='" + i + "' style='display:none;'>" +
+				"<input type='file' name='" + i + "' style='display:none;' value=''>" +
 				"<input type='hidden' name='PHOTO_NAME' value='" + data.PHOTO_NAME + "'>" +
 				"<input type='hidden' name='SEAT_NO' value='" + data.SEAT_NO + "'>" +
 				"<input type='hidden' name='SEAT_OC' value='" + data.SEAT_OC + "'>" +

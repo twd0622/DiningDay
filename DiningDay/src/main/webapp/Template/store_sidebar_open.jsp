@@ -192,7 +192,7 @@ ul{
                 <div class="nav__list">
 					<ul>
 						<li> 
-                    		<a href="#" class="nav__link">
+                    		<a href="#;" class="nav__link">
 		                        <ion-icon name="construct-outline"></ion-icon>
 		                        <span class="nav_name">정보</span>
 		                    </a>       
@@ -206,7 +206,7 @@ ul{
                 <div class="nav__list">
                     <ul>
                     	<li> 
-                    		<a href="#" class="nav__link">
+                    		<a href="#;" class="nav__link">
 		                        <ion-icon name="construct-outline"></ion-icon>
 		                        <span class="nav_name">정보</span>
 		                    </a>       
@@ -222,7 +222,7 @@ ul{
                  <div class="nav__list">  
                     <ul>
                     	<li> 
-		                    <a href="#" class="nav__link">
+		                    <a href="#;" class="nav__link">
 		                        <ion-icon name="chatbubbles-outline" class="nav__icon"></ion-icon>
 		                        <span class="nav_name">리뷰</span>
 		                    </a>
@@ -235,7 +235,7 @@ ul{
 				<div class="nav__list">
 	             	<ul>
                    		<li>    
-		                    <a href="#" class="nav__link">
+		                    <a href="#;" class="nav__link">
 		                        <ion-icon name="pie-chart-outline" class="nav__icon"></ion-icon>
 		                        <span class="nav_name">예약</span>
 		                    </a>
@@ -251,7 +251,7 @@ ul{
                 <div class="nav__list">    
                 	<ul>
                     	<li>
-		                    <a href="#" class="nav__link">
+		                    <a href="#;" class="nav__link">
 		                        <ion-icon name="storefront-outline"></ion-icon>
 		                        <span class="nav_name">좌석</span>
 		                    </a>
@@ -266,7 +266,7 @@ ul{
                 </div>
                 <ul>
                    	<li>
-		                <a href="#" class="nav__link">
+		                <a href="#;" class="nav__link">
 		                    <ion-icon name="person-outline"></ion-icon>
 		                    <span class="nav_name">계정관리</span>
 		                </a>
