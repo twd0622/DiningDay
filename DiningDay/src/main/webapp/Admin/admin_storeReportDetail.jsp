@@ -20,11 +20,20 @@
 .table th {
 	width: 350px;
 }
+
+.storeName{
+	color : #40A2D8;
+	text-decoration: underline;
+}
+
+.storeName:hover{
+	cursor: pointer;
+}
 </style>
 <script src="resources/js/jquery.twbsPagination.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="Admin/js/delBtn.js"></script>
-<script src="Admin/js/storeReport.js"></script>
+<script src="Admin/js/storeReportDetail.js"></script>
 </head>
 
 <!-- main은 속성 값은 왠만하면 건들지x -->
@@ -44,6 +53,10 @@
 					<tr class="tr1">
 						<th class="title1 align-middle table-danger">신고번호</th>
 						<td id="sRep_no">${sRepDetail.SREP_NO}</td>
+					</tr>
+					<tr>
+						<th class="title1 align-middle table-danger">신고대상</th>
+						<td id="sRep_no"><span id="${sRepDetail.STORE_NO}" class="storeName">${sRepDetail.STORE_NAME}</span></td>
 					</tr>
 					<tr>
 						<th class="title2 align-middle table-danger">글 제목</th>

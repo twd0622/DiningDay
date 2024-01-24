@@ -108,6 +108,17 @@
 						<td class="user-id align-middle text-center"
 							style="text-align: left;">${cRepDetail.RDATE}</td>
 					</tr>
+					<c:choose> 
+						<c:when test="${cRepDetail.REV_IMAGE eq null}"></c:when>
+						<c:otherwise> 
+							<tr>
+								<th class="title align-middle table-warning"><a>파일첨부</a></th>
+								<td class="user-id align-middle text-center"
+									style="text-align: left;"><a href="upload/${cRepDetail.REV_IMAGE}" target="_blank"><img class="img-fluid rounded"
+									src="upload/${cRepDetail.REV_IMAGE}" alt="${cRepDetail.REV_IMAGE}" style="width: 400px; height: 200px;"></a></td>
+							</tr>
+						</c:otherwise>
+					</c:choose>
 					<tr style="height: 150px;">
 						<th class="title align-middle table-warning col-3"><a>리뷰 내용</a></th>
 						<td class="user-id align-middle text-center"
