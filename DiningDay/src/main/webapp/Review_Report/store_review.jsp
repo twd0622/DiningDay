@@ -88,9 +88,9 @@
 						</a>
 					</div>
 					<div class="profile_btn_sec">
-						<a href="#" id="reviewBtn" class="profile_btn">
-							<span class="material-symbols-outlined profile_btn_icon" class="profile_btn_icon">edit</span>
-							<span class="profile_btn_text">리 뷰</span>
+						<a href="#" id="storeBtn" class="profile_btn">
+							<span class="material-symbols-outlined profile_btn_icon" class="profile_btn_icon">storefront</span>
+							<span class="profile_btn_text">정 보</span>
 						</a>
 					</div>
 				</div>

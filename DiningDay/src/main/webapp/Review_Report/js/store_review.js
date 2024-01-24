@@ -138,7 +138,11 @@ $(()=>{
 		
 	})
 	
-	
+	// -------------- 정보 버튼 --------------------------
+	$("#storeBtn").on("click", function(){
+		
+		location.href = "store.ma?STORE_NO="+$(".store_profile").attr("id");
+	})
 	
 	
 	
