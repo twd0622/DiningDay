@@ -63,7 +63,7 @@
 				<c:set var="cRepDetail" value="${ requestScope.cRepDetail }"/>
 					<tr class="tr1">
 						<th class="title align-middle table-danger"><a>신고번호</a></th>
-						<td class="user-id align-middle text-center" style="text-align: left;">${cRepDetail.RREP_NO}</td>
+						<td id="rrep_no" class="user-id align-middle text-center" style="text-align: left;">${cRepDetail.RREP_NO}</td>
 					</tr>
 					<tr>
 						<th class="title align-middle table-danger"><a>작성자</a></th>
@@ -90,7 +90,7 @@
 				<c:set var="cRepDetail" value="${ requestScope.cRepDetail }"/>
 					<tr class="tr1">
 						<th class="title align-middle table-warning"><a>리뷰 번호</a></th>
-						<td class="user-id align-middle text-center"
+						<td id="rev_no" class="user-id align-middle text-center"
 							style="text-align: left;">${cRepDetail.REV_NO}</td>
 					</tr>
 					<tr>

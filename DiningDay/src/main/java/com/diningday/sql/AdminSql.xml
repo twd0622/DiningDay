@@ -280,6 +280,8 @@
 	<delete id="cRepDelete" parameterType="map">
 		delete 	from	REVIEW_REPORT
 				where	RREP_NO = #{RREP_NO};
+		delete from 	REVIEW
+			   where 	REV_NO = #{REV_NO};			
 	</delete>
 	
 	<select id="selectCRepDetail" parameterType="map" resultType="map">
