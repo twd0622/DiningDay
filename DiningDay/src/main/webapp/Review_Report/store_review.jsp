@@ -108,7 +108,7 @@
 						<c:if test="${fn:split(storeInfo.REV_SCORE, '.')[1] >= 5}">
 							<span class="material-icons grade_icon" style="color: #F7CE3E;">star_half</span>
 						</c:if>
-						<c:if test="${fn:split(storeInfo.REV_SCORE, '.')[1] < 5}">
+						<c:if test="${fn:split(storeInfo.REV_SCORE, '.')[1] < 5 and fn:split(storeInfo.REV_SCORE, '.')[1] != 0}">
 							<span class="material-symbols-outlined grade_icon" style="color: #F7CE3E;">grade</span>
 						</c:if>
 						<c:if test="${5 - storeInfo.REV_SCORE > 0.5}">
@@ -135,7 +135,8 @@
 							<c:forEach begin="1" end="${storeReview.REV_SCORE}">
 								<span class="material-icons review_grade_icon" style="color: #F7CE3E;">grade</span>
 							</c:forEach>
-							<c:forEach begin="1" end="${5- storeReview.REV_SCORE}">
+							
+							<c:forEach begin="1" end="${5 - storeReview.REV_SCORE}">
 								<span class="material-symbols-outlined review_grade_icon" style="color: #F7CE3E;">grade</span>
 							</c:forEach>
 							<span class="review_grade">${storeReview.REV_SCORE}</span>
@@ -169,7 +170,7 @@
 								<span class="review_answer_date">${storeReview.ANSWER_DATE}</span>
 							</div>
 							<div class="review_answer_content">
-								<span>${storeReview.ANSWER_CONTENT}</span>
+								<span style="text-align: left;">${storeReview.ANSWER_CONTENT}</span>
 							</div>
 						</div>
 						</c:if>

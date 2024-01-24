@@ -10,6 +10,7 @@
 </head>
 
 <%@ include file="/Template/header.jsp"%> 
+<script src="Review_Report/js/reviewWrite.js"></script>
 	<!-- main은 속성 값은 왠만하면 건들지x -->
 	<main style="display: flex; align-items: center; text-align: center; padding: 100px 50px 20px 50px;">
 		<!-- 예시div style속성 값 조절해서 사용! -->
@@ -53,14 +54,14 @@
 									
 							</tr>
 							<tr>
-								<td><textarea class="form-control"
+								<td><textarea class="form-control review_content"
 										placeholder="리뷰 내용을 작성하세요" name="rev_content" maxlength="1024"
 										style="height: 400px;" ></textarea></td>
 							</tr>
 						</tbody>
 					</table>
 					<hr>
-					<input type="submit" class="btn btn-outline-success" value="등록">
+					<input id="insertBtn" type="submit" class="btn btn-outline-success" value="등록">
 					<input type="button" class="btn btn-outline-dark" value="취소" onclick="window.history.back()">
 				</div>
 			</form>

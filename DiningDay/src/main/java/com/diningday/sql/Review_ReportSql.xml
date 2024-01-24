@@ -54,7 +54,8 @@
 				from RESERVATION_MENU
 				group by RES_NO) RM
 		ON R.RES_NO = RM.RES_NO        
-		where R.STORE_NO = #{STORE_NO};
+		where R.STORE_NO = #{STORE_NO}
+		order by 5 desc;
 	</select>
 	
 	<select id="getStoreInfo" resultType="map" parameterType="String">

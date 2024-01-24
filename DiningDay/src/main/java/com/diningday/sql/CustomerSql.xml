@@ -214,7 +214,8 @@
 				from RESERVATION_MENU
 				group by RES_NO) RM
 		ON R.RES_NO = RM.RES_NO        
-		where R.CUS_NO = #{CUS_NO};
+		where R.CUS_NO = #{CUS_NO}
+		ORDER BY 5 DESC;
 	</select>
 	
 	<select id="checkReviewLike" parameterType="String" resultType="map">

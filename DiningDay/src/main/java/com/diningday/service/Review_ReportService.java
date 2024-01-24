@@ -9,7 +9,8 @@ import com.diningday.dao.Review_ReportDAO;
 import com.diningday.util.TeamUtil;
 
 public class Review_ReportService {
-	Review_ReportDAO review_ReportDAO = null;
+	Review_ReportDAO review_ReportDAO = new Review_ReportDAO();
+	
 	public void insertReport(HttpServletRequest req) {
 		System.out.println("insertReport()");
 		// DAO 객체생성

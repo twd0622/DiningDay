@@ -53,7 +53,7 @@ var reviewTag = function(data){
 		+				'</div>'					
 		+			'</div>'
 		+			'<div class="review_answer_content">'
-		+				'<span>'+ reviewList.ANSWER_CONTENT +'</span>'
+		+				'<span style="text-align: left;">'+ reviewList.ANSWER_CONTENT +'</span>'
 		+			'</div>';
 		
 		var star = '<span class="material-icons review_grade_icon" style="color: #F7CE3E;">grade</span>'
@@ -120,7 +120,7 @@ var answerBtnClick = function(e){
 		+				'</div>'					
 		+			'</div>'
 		+			'<div class="review_answer_content">'
-		+				'<span>'+ data.ANSWER_CONTENT +'</span>'
+		+				'<span style="text-align: left;">'+ data.ANSWER_CONTENT +'</span>'
 		+			'</div>';
 		
 		$("#"+data.REV_NO).find(".review_answer_box").append(YesAnswer);
@@ -181,7 +181,7 @@ var cancelBtnClick = function(REV_NO, answerContent, answerDate){
 		+				'</div>'					
 		+			'</div>'
 		+			'<div class="review_answer_content">'
-		+				'<span>'+ answerContent +'</span>'
+		+				'<span style="text-align: left;">'+ answerContent +'</span>'
 		+			'</div>';
 		
 		$("#"+REV_NO).find(".review_answer_box").empty();
@@ -195,6 +195,11 @@ var cancelBtnClick = function(REV_NO, answerContent, answerDate){
 
 // 수정 등록 버튼 클릭
 var updateAnswerBtnClick = function(e){
+	if(e.siblings(".answer_write").val().trim() == ''){
+		alert("내용을 입력하세요!")
+		return;
+	}
+	
 	$.ajax({
 		type: "post",
 		url:"answerUpdate.st",

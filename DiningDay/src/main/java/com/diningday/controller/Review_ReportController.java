@@ -17,7 +17,7 @@ import com.diningday.util.TeamUtil;
 public class Review_ReportController extends HttpServlet {
 	RequestDispatcher dispatcher = null;
 	AdminService adminService = null;
-	Review_ReportService review_ReportService = null;
+	Review_ReportService review_ReportService = new Review_ReportService();
 
 
 	@Override
@@ -34,6 +34,7 @@ public class Review_ReportController extends HttpServlet {
 	protected void doProcess(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		String sPath = req.getServletPath();
 		System.out.println(sPath);
+		
 		
 		if(sPath.equals("/reportWrite.re")) {
 			System.out.println("/reportWrite.re");

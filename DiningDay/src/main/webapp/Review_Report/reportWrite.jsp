@@ -7,7 +7,8 @@
     <title>DiningDay</title> 
 </head>
 
-<%@ include file="/Template/header.jsp"%> 
+<%@ include file="/Template/header.jsp"%>
+<script src="Review_Report/js/reportWrite.js"></script> 
 	<!-- main은 속성 값은 왠만하면 건들지x -->
 	<main style="display: flex; align-items: center; text-align: center; padding: 120px 50px 20px 50px;">
 		<!-- 예시div style속성 값 조절해서 사용! -->
@@ -22,7 +23,7 @@
 							<tr>
 								<td>
 									<input type="hidden" name="cus_no" value="${sessionScope.CUS_NO}">
-									<input type="text" class="form-control"
+									<input type="text" class="form-control reportname"
 									placeholder="제목명" name="srep_subject" maxlength="40">
 								</td>
 							</tr>
@@ -38,14 +39,14 @@
 									placeholder="사진첨부파일" name="srep_file" maxlength="40"></td>
 							</tr>
 							<tr>
-								<td><textarea type="text" class="form-control"
+								<td><textarea type="text" class="form-control reportcontent"
 										placeholder="신고내용" name="srep_content" maxlength="1024"
 										style="height: 400px;"></textarea></td>
 							</tr>
 						</tbody>
 					</table>
 					<hr>
-					<input type="submit" class="btn btn-outline-success" value="신고">
+					<input id="reportBtn" type="submit" class="btn btn-outline-success" value="신고">
 					<input type="button" class="btn btn-outline-dark" value="취소" onclick="window.history.back()">
 				</div>
 			</form>

@@ -55,7 +55,6 @@ $(() => {
 	.fail()
 	
 	resData = selectDate($(today).val());
-	ajaxLoading;
 	
 	$("#changePageBtn").find("button").on("click", function(){
 
