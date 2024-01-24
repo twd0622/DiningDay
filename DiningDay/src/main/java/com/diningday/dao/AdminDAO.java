@@ -256,7 +256,6 @@ public class AdminDAO {
 	
 	public int cRepDelete(Map<String, String> adminDTO) {
 		session = sqlSessionFactory.openSession();
-		
 		int cRepDelete = session.delete("Admin.cRepDelete", adminDTO); // namespace.id
 		
 		session.commit();
