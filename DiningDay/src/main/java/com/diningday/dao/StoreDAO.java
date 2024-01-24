@@ -110,6 +110,17 @@ public class StoreDAO {
 		return insert > 0 ? true : false;
 	}
 	
+	public Boolean storeUpdate(Map<String, String> dto) {
+		session = sqlSessionFactory.openSession();
+		
+		int update = session.update("Store.storeUpdate", dto); 
+		
+		session.commit();
+		session.close();
+		
+		return update > 0 ? true : false;
+	}
+	
 	public Boolean firstInsertStore_OwnerUpdate(Map<String, String> dto) {
 		session = sqlSessionFactory.openSession();
 		

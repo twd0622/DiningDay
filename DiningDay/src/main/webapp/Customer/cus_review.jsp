@@ -13,9 +13,12 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
     <link href="Review_Report/css/store_review.css" rel="stylesheet" >
     
-    <script src="Customer/js/cus_review.js"></script> 
+    <script src="Customer/js/cus_review.js"></script>
+    <script>
+		var cus_no = "${sessionScope.CUS_NO}";
+	</script>
 </head>
-
+	
 	<!-- main은 속성 값은 왠만하면 건들지x -->
 	<main style="display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; margin-top: 100px; padding:20px 0 50px 0;">
 	<c:set var="reviewList" value="${requestScope.reviewList}" />		
@@ -59,7 +62,7 @@
 							<span class="goodBtn">
 								<span style="font-size:15px;" class="material-symbols-outlined">thumb_up</span>
 								<span style="font-size:13px; margin: 0 3px;">공감</span>
-								<span style="font-size:13px;">(100)</span>
+								<span style="font-size:13px;">(${review.REVIEW_LIKE_COUNT})</span>
 							</span>
 						</div>
 						<div class="review_content">

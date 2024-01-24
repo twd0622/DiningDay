@@ -46,6 +46,7 @@ h4 {
 h4:hover {
 	color: gray;
 }
+
 </style>
 </head>
 
@@ -125,11 +126,11 @@ h4:hover {
 						
 						<c:choose> 
 						<c:when test="${reviewList.REV_IMAGE eq null}">
-							<td class="user-id align-middle" style="overflow:hidden; white-space:nowrap; text-overflow:ellipsis; table-layout: fixed; text-align: left;">${reviewList.REV_CONTENT}</td>
-							<td class="user-id align-middle text-center" style="text-align: left;">　</td>
+							<td colspan="2" class="user-id align-middle" style="overflow:hidden; white-space:nowrap; text-overflow:ellipsis; table-layout: fixed; text-align: left;"><textarea class="textarea" style="width:600px; overflow: hidden; resize: none; border: none; outline: none;">${reviewList.REV_CONTENT}</textarea></td>
+<!-- 							<td class="user-id align-middle text-center" style="text-align: left;">　</td> -->
 						</c:when>
 						<c:otherwise> 
-							<td class="user-id align-middle" style="overflow:hidden; white-space:nowrap; text-overflow:ellipsis; table-layout: fixed; text-align: left;">${reviewList.REV_CONTENT}</td>
+							<td class="content align-middle" style="overflow:hidden; white-space:nowrap; text-overflow:ellipsis; table-layout: fixed; text-align: left; word-break:break-all"><textarea class="align-middle" style="width:400px; overflow: hidden; resize: none; border: none; outline: none;">${reviewList.REV_CONTENT}</textarea></td>
 							<td class="user-id align-middle text-center" style="text-align: left;"><a href="upload/${reviewList.REV_IMAGE}" target="_blank"><img class="img-fluid rounded"
 								src="upload/${reviewList.REV_IMAGE}" alt="${reviewList.REV_IMAGE}" style="width: 250px; height: 100px;"></a></td>
 						</c:otherwise>

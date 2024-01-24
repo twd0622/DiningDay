@@ -178,7 +178,8 @@
 		     , S.STORE_NAME
 		     , S.STORE_CATEGORY
 		     , S.STORE_DETAIL
-		     , S.STORE_SCORE
+		     , IFNULL((SELECT CAST(FORMAT(avg(REV_SCORE), 1) AS CHAR(30)) FROM REVIEW WHERE STORE_NO = S.STORE_NO), '0') STORE_SCORE
+             , (SELECT IFNULL((SELECT CAST(COUNT(REV_NO) AS CHAR(30)) FROM REVIEW WHERE STORE_NO = S.STORE_NO), '0')) REVIEW_COUNT
 		     , (SELECT COUNT(*) FROM LIKE_LIST A WHERE STORE_NO = S.STORE_NO) LIKE_COUNT
 		     , PHOTO_NAME 
 		  FROM STORE S
@@ -203,6 +204,7 @@
 		     , RM.MENU_NAME
 		     , S.SEAT_NAME
 	      	 , R.STORE_NO
+	      	 , ifnull((SELECT count(RL_NO) FROM REVIEW_LIKE WHERE REV_NO = R.REV_NO group by REV_NO), '0') REVIEW_LIKE_COUNT
 		from REVIEW R 
 		left JOIN REVIEW_ANSWER RA 
 		ON R.REV_NO = RA.REV_NO
@@ -213,5 +215,13 @@
 				group by RES_NO) RM
 		ON R.RES_NO = RM.RES_NO        
 		where R.CUS_NO = #{CUS_NO};
+	</select>
+	
+	<select id="checkReviewLike" parameterType="String" resultType="map">
+		SELECT RL.REV_NO
+		  FROM REVIEW_LIKE RL
+		  JOIN REVIEW R
+		    ON RL.REV_NO = R.REV_NO
+		 WHERE RL.CUS_NO = #{CUS_NO}
 	</select>
 </mapper>

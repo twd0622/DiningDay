@@ -253,6 +253,7 @@ $(()=>{
 			})
 			.done(
 				function(data){
+					// 이미 예약한 좌석 판단
 					for(soldOut of data){
 						$(".selectTime").val(function(i, val){
 							if(soldOut.RES_TIME == val){

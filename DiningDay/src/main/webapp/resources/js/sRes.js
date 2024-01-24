@@ -18,8 +18,7 @@ document.write('<script type="text/javascript"' +
 $(() => {
 	
 	targetColor($("#sRes"));
-	ajaxLoading();
-
+	
 	var today;
 	if($("#dateCheck").val() != ''){
 		resData = $("#dateCheck").val();
@@ -129,7 +128,10 @@ $(() => {
 			
 			$.ajax({
 				type: "post",
-				data: { MERCHANT_UID: resCheck },
+				data: { 
+					MERCHANT_UID: resCheck,
+					storeRes: "resTrue"
+				},
 				url: "payment_cancel.pa",
 				async: false
 			})
