@@ -118,8 +118,8 @@ public class AdminController extends HttpServlet {
 			param.put("NOT_NO", NOT_NO);
 			req.setAttribute("noticeUpdate", adminService.noticeUpdate(req, param));
 			
-			
-			res.sendRedirect("admin_noticeList.ad");
+			System.out.println(NOT_NO);
+			res.sendRedirect("admin_noticeDetail.ad?NOT_NO=" + NOT_NO);
 		}
 //		----------------------------------------------------------------------------------------------------		
 		if(sPath.equals("/admin_storeList.ad")) {

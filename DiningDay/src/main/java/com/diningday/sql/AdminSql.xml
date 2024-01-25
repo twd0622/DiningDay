@@ -28,7 +28,7 @@
 				NOT_CONTENT = #{NOT_CONTENT},
 				NOT_REDATE	= date_format(sysdate(), '%Y%m%d%H%i%s')
 		where	1 = 1
-		and		NOT_NO 		= #{NOT_NO};
+		and		TRIM(BOTH "NO" FROM NOT_NO)	= #{NOT_NO};
 	</update>
 	
 	<delete id="noticeDelete" parameterType="map">
