@@ -27,7 +27,7 @@ $(() => {
 									  	 data.RES_DATE_4, data.RES_DATE_5, data.RES_DATE_6,
 									  	 data.RES_DATE_7, data.RES_DATE_8, data.RES_DATE_9,
 									  	 data.RES_DATE_10, data.RES_DATE_11, data.RES_DATE_12];
-
+									  	 
 		myChart.update();
 		var oldYear = (data.OWN_DATE).substring(0, 4);
 		var maxYear = data.MAX_YEAR;
