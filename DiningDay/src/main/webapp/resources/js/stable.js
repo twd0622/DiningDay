@@ -368,7 +368,7 @@ function seatDataHtml(data, i){
 				"<div style='display: flex; justify-content: center; margin-bottom: 12px;'>" +
 					"<div class='" + i + "' style='width: 375px; height: 300px; border: 1px solid black; display: flex; flex-direction: column; justify-content: center; align-items: center;'>" +
 						 '<img src="upload/' + data.PHOTO_NAME + '" style="width: 350px; height: 275px;' + isImgExist + '" alt=""/>' +
-						 "<span class='material-symbols-outlined' style='pointer-events: none; color:#6c757d !important;font-size: 150px;" + isAtagDisplayNone + "'>add</span>" +
+						 "<span class='material-symbols-outlined' style='pointer-events: none; color:#6c757d !important;font-size: 150px;" + isAtagDisplayNone + "'>upload</span>" +
 					"</div>" +
 				"</div>" +
 				"<div class='input-group mb-2'>" +
