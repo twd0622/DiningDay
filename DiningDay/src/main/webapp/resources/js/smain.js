@@ -49,17 +49,6 @@ $(() => {
 		$($("div[name=storeBold]")[i]).css(variable.borderlist);
 	}
 	
-//	$(document).on("change", "#checkboxList input", function(){
-//		debugger;
-//		for(var i = 0; i < $("input[type=checkbox]").length; i++){
-//			if(!$("." + i).is(":checked")){
-//				$("#totalInsert").hide();
-//				return;				
-//			}
-//		}
-//		$("#totalInsert").show();
-//	})
-	
 	paging("main .storePaging", 1, 0);
 	$(".demo").hide();
 	
@@ -379,7 +368,6 @@ var saveStoreOpen = $("button[name=saveTimepicker]").on("click", function(){
 
 /** 썸네일 및 배너 사진 등록 함수 시작 */
 var photoisExistCheck = $("button[name=photoCheck]").on("click", function(){
-	debugger;
 	variable.borderlist["border-color"] = "red";
 	variable.valid = false;
 	var index = $(this).closest("div").prev("div[name=photoParent]").find("img").length
