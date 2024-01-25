@@ -55,14 +55,8 @@ function paging(pgEvent, pageSize, oneOrZero){
 	    prev:"이전",
 	    next:"다음",
         onPageClick: function (event, page) {
-			if(_startPage != page){
-				_startPage = page;
-			}
-			
-			if(_startPage === 0){
-				_startPage++;
-			}
-			
+			if(_startPage != page) _startPage = page;
+
 			var index = --_startPage * _pageSize;
 			for(var i = 0; i < totalCount; i++){
 				var pgChange = $($(pgEvent)[i]); 
