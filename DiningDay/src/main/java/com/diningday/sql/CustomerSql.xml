@@ -40,7 +40,8 @@
   			 , CONCAT(DATE_FORMAT(CAST(R.RES_DATE AS date), '%Y년 %m월 %d일 '), DATE_FORMAT(CAST(R.RES_TIME AS time), '%i:%s')) "RES_DATE"
 			 , R.RES_PEOPLE
 			 , R.REQ_STATE
-			 , CASE WHEN R.REQ_STATE = '2' THEN '방문완료'
+			 , CASE WHEN R.REQ_STATE = '3' THEN '노쇼'
+			 		WHEN R.REQ_STATE = '2' THEN '방문완료'
 					WHEN R.REQ_STATE = '1' THEN '예약취소'
 					WHEN R.REQ_STATE = '0' THEN '예약완료' END "STATE_NAME"
 			 , ST.STORE_NAME
