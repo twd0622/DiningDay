@@ -11,8 +11,7 @@
 <meta charset="utf-8">
 <title>로그인</title>
 <meta name="google-site-verification" content="FKL3S1Y8FPADaDMjUDD_lxy9cjBTRlHNUaeXxzVkd1g" />
-<meta name ="google-signin-client_id" 
-	  content="383007591516-vj9jddsusaj9kdj8mbd2ncgh46ktsuqd.apps.googleusercontent.com">
+<meta name ="google-signin-client_id" content="383007591516-vj9jddsusaj9kdj8mbd2ncgh46ktsuqd.apps.googleusercontent.com">
 </head>
 <link href="Customer/css/login.css" rel="stylesheet">
 <%@ include file="/Template/header.jsp"%> 
@@ -30,14 +29,11 @@
 						<img src="./resources/img/kakao.png" id="image"/>
 						<span id="span">Kakao로 시작하기</span></a>
 					<!-- 구글 버튼 -->
-						<a id="GgCustomLogin" href="javascript:void(0)" class="w-100 py-2 mb-2 btn btn-outline-secondary rounded-3">
-						<img src="${ pageContext.request.contextPath }/resources/img/google.png" id="image"/>
-						<span id="span">Google로 시작하기</span></a>
-<!-- 					<a id="GgCustomLogin" href="javascript:void(0)" class="w-100 py-2 mb-2 btn btn-outline-secondary rounded-3"> -->
-<!-- 						<img src="./resources/img/google.png" id="image"/> -->
-<!-- 						<span id="span">Google로 시작하기</span> -->
-<!-- 					</a> -->
-<!-- 					<a id="gLoginBtn" style="display:none;"></a> -->
+					<a id="GgCustomLogin" href="javascript:void(0)" class="w-100 py-2 mb-2 btn btn-outline-secondary rounded-3">
+						<img src="./resources/img/google.png" id="image"/>
+						<span id="span">Google로 시작하기</span>
+					</a>
+					<a id="gLoginBtn" style="display:none;"></a>
 					<!-- 네이버 버튼 -->
 					<a id="naverIdLogin_loginButton" href="javascript:void(0)" class="w-100 py-2 mb-2 btn btn-success rounded-3">
 						<img src="./resources/img/naver.png" id="image"/>
@@ -58,15 +54,10 @@
 		crossorigin="anonymous"></script>
 <script src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 <!-- Google -->
-<!-- <script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script> -->
-<!-- <script src="https://apis.google.com/js/platform.js?onload=init" async defer></script> -->
-<!-- <script src="https://apis.google.com/js/platform.js?onload=triggerGoogleLoaded"></script> -->
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 <script src="https://apis.google.com/js/platform.js" async defer></script>
 <!-- 네이버 -->
 <script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js" charset="utf-8"></script>
 <script src="Customer/js/login.js"></script>
-<!-- 페이스북 -->
-<script async defer crossorigin="anonymous" src="https://connect.facebook.net/ko_KR/sdk.js#xfbml=1&version=v18.0&appId=357144630392576" nonce="SiOBIhLG"></script>
 <%@ include file="/Template/footer.jsp"%> 
 </html>

@@ -1,5 +1,9 @@
 @charset "UTF-8";
 
+.nsm7Bb-HzV7m-LgbsSe {
+    border: none !important;
+}
+
 #google-login-button iframe{
 	height: 100px !important;
 	transform: scale(1.5);
@@ -10,10 +14,6 @@
 	position: unset; 
 	border: none;
 }  
-
-.nsm7Bb-HzV7m-LgbsSe {
-	border: none;
-}
 
 #modalSignin {
 	width: 500px;
