@@ -132,7 +132,14 @@
 	
 	<select id="customerCheck" parameterType="map" resultType="map">
 		select CUS_NO    
-			   , CUS_EMAIL
+			, CUS_ID    
+			, CUS_NAME
+			, CUS_BIRTH
+			, CUS_TEL
+			, CUS_EMAIL
+			, CUS_GENDER
+			, CUS_DATE
+		    , CUS_EMAIL
 		from CUSTOMER
 		where CUS_EMAIL=#{CUS_EMAIL}
 		and CUS_NO=#{CUS_NO};
@@ -146,7 +153,8 @@
 	
 	<insert id="insertEx" parameterType="map">
 		insert into EX_CUSTOMER
-			( CUS_NO    
+			( EX_NO    
+			, CUS_NO
 			, CUS_ID    
 			, CUS_NAME
 			, CUS_BIRTH
@@ -157,7 +165,8 @@
 			, CUS_DATE
 			, CUS_EXDATE)  
 		values
-			( #{CUS_NO}
+			( CONCAT("EX", IFNULL((select MAX(CAST(replace(EX_NO, "EX", "") AS unsigned))+1 FROM EX_CUSTOMER A), 1))
+			, #{CUS_NO}
 			, #{CUS_ID}
 			, #{CUS_NAME}
 			, #{CUS_BIRTH}
