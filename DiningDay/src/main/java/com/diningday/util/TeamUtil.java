@@ -39,6 +39,7 @@ public class TeamUtil {
 		return dto;
 	}
 	
+	// request 받아온 파라미터와 다른 맵을 합쳐 주는 함수
 	public static Map<String, String> requestToMap(HttpServletRequest req, Map<String, String> param) {
 		Map<String, String> map = requestToMap(req);
 		map.putAll(param);
@@ -73,7 +74,7 @@ public class TeamUtil {
 		return dto;
 	}
 	
-	// 파일request 받아온 파라미터 맵에 넣어주는 함수
+	// 파일이 담긴 request 파라미터를 맵에 넣어주는 함수
 	public static Map<String, String> fileRequestToMap(HttpServletRequest req) {
 		Map<String, String> dto = new HashMap<String, String>();
 		

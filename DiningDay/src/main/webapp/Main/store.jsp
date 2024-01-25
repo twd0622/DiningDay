@@ -74,7 +74,8 @@
 						<c:if test="${fn:split(storeInfo.STORE_SCORE, '.')[1] >= 5}">
 							<span class="material-icons grade_icon" style="color: #F7CE3E;">star_half</span>
 						</c:if>
-						<c:if test="${fn:split(storeInfo.STORE_SCORE, '.')[1] < 5}">
+						
+						<c:if test="${fn:split(storeInfo.STORE_SCORE, '.')[1] < 5 and fn:split(storeInfo.STORE_SCORE, '.')[1] != 0}">
 							<span class="material-symbols-outlined grade_icon" style="color: #F7CE3E;">grade</span>
 						</c:if>
 						<c:if test="${5 - storeInfo.STORE_SCORE > 0.5}">
@@ -173,6 +174,7 @@
 					<p class="tit">테이블 예약</p>
 					<ul class="list">
 						<c:forEach var="table" items="${tableList}">
+						<c:if test="${table.SEAT_OC != '0'}">
 						<li>
 							<div class="table_" id="${table.SEAT_NO}">
 								<c:if test="${!empty table.PHOTO_NAME and table.PHOTO_NAME != '0'}">
@@ -199,6 +201,7 @@
 								</div>
 							</div>
 						</li>
+						</c:if>
 						</c:forEach>
 					</ul>
 				</div>	

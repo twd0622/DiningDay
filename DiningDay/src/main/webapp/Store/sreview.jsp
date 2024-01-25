@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
 <!DOCTYPE html>
 <html>
 <%@ include file="/Template/store_sidebar_open.jsp"%>
@@ -27,11 +29,21 @@
 				<div class="store_reivew_info">
 					<div class="store_score_box">
 						<h1 class="tit">${reviewInfo.REVIEW_SCORE}</h1>
-						<span class="material-icons grade_icon" style="color: #F7CE3E;">grade</span>
-						<span class="material-icons grade_icon" style="color: #F7CE3E;">grade</span>
-						<span class="material-icons grade_icon" style="color: #F7CE3E;">grade</span>
-						<span class="material-icons grade_icon" style="color: #F7CE3E;">grade</span>
-						<span class="material-icons grade_icon" style="color: #F7CE3E;">grade</span>
+						<c:forEach begin="1" end="${fn:split(reviewInfo.REVIEW_SCORE, '.')[0]}">
+							<span class="material-icons grade_icon" style="color: #F7CE3E;">grade</span>
+						</c:forEach>
+						<c:if test="${fn:split(reviewInfo.REVIEW_SCORE, '.')[1] >= 5}">
+							<span class="material-icons grade_icon" style="color: #F7CE3E;">star_half</span>
+						</c:if>
+						
+						<c:if test="${fn:split(reviewInfo.REVIEW_SCORE, '.')[1] < 5 and fn:split(reviewInfo.REVIEW_SCORE, '.')[1] != 0}">
+							<span class="material-symbols-outlined grade_icon" style="color: #F7CE3E;">grade</span>
+						</c:if>
+						<c:if test="${5 - reviewInfo.REVIEW_SCORE > 0.5}">
+						<c:forEach begin="1" end="${fn:split(5 - reviewInfo.REVIEW_SCORE, '.')[0]}">
+							<span class="material-symbols-outlined grade_icon" style="color: #F7CE3E;">grade</span>
+						</c:forEach>
+						</c:if>
 					</div>
 					<div class="flexBox">
 						<div>

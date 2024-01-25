@@ -262,7 +262,7 @@
 	
 	<insert id="insertLike" parameterType="map">
 		insert into LIKE_LIST
-		values( concat("LL" ,ifnull((select max(cast(replace(LIKE_NO, "LL", "")) as unsigned)+1 from LIKE_LIST a), 1))
+		values( concat("LL" ,ifnull((select max(cast(replace(LIKE_NO, "LL", "") as unsigned))+1 from LIKE_LIST a), 1))
 		      , #{CUS_NO}
 		      , #{STORE_NO});
 	</insert>

@@ -95,7 +95,6 @@ public class MainController extends HttpServlet {
 		
 		if(sPath.equals("/searchResult.ma")) {
 			Map<String, String> map = new HashMap<String, String>();
-			System.out.println("session : " + (String)session.getAttribute("LOC_NAME"));
 			map.put("LOC_NAME", (String)session.getAttribute("LOC_NAME"));
 			
 			req.setAttribute("searchCount", mainService.searchCount(TeamUtil.requestToMap(req, map)));

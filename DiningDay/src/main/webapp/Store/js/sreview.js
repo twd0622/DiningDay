@@ -72,7 +72,9 @@ var reviewTag = function(data){
 		if(reviewList.SELECT == '2') $("#"+ reviewList.REV_NO).find(".review_answer_box").append(NoAnswer)
 		else $("#"+ reviewList.REV_NO).find(".review_answer_box").append(YesAnswer)
 		
-		if(reviewList.REV_IMAGE != '0') $("#"+ reviewList.REV_NO).find(".reivew_image_box") .append(image)
+		if(reviewList.REV_IMAGE != "0") {
+			$("#"+reviewList.REV_NO).find(".review_image_box").append(image);
+		}
 	
 	} // for문 종료
 	

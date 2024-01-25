@@ -16,7 +16,18 @@ var storeTag = function(data){
 	        +'</div>'
 		
 		$("#resultBox").append(searchResultStore);
+		
+		
+		
 	}
+	
+	$(".portfolio-item").on(
+				"click",
+				function(){
+					var STORE_NO = $(this).parent().attr("name");
+					location.href = 'store.ma?STORE_NO='+STORE_NO;
+				}
+			)
 	
 }
 
