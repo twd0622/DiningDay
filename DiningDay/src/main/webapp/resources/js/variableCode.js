@@ -44,7 +44,6 @@ function paging(pgEvent, pageSize, oneOrZero){
 	if(totalCount % _pageSize > 0){
 		_totalPages++;
 	}
-	
 	$('#pagination').twbsPagination('destroy');
 	
     window.pagObj = $('#pagination').twbsPagination({

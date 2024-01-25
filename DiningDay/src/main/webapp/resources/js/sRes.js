@@ -50,7 +50,7 @@ $(() => {
 		}
 		
 		$("form").append("<input name='REQ_STATE' type='hidden' value='" + resState + "'>");
-		paging("#tbody_1", 5, 0);
+		paging("#tbody_1 tr", 5, 0);
 	})
 	.fail()
 	
@@ -81,7 +81,7 @@ $(() => {
 				i++;
 				$("#tbody_1").append(trTaghtml(res, i));
 			}
-			paging("#tbody_1", 5, 0);
+			paging("#tbody_1 tr", 5, 0);
 		})
 	})
 	
@@ -108,7 +108,7 @@ $(() => {
 				i++;
 				$("#tbody_1").append(trTaghtml(res, i));
 			}
-			paging("#tbody_1", 5, 0);
+			paging("#tbody_1 tr", 5, 0);
 		})
 	})
 	
@@ -156,7 +156,7 @@ $(() => {
 		.done(function(data){
 			resState = $("input[name=REQ_STATE]").val();
 			$("." + data.TR_NO).remove();
-			paging("#tbody_1", 5, 0)
+			paging("#tbody_1 tr", 5, 0);
 		})
 	})
 	

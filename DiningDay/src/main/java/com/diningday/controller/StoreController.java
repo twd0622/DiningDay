@@ -114,6 +114,9 @@ public class StoreController extends HttpServlet {
 			
 			Map<String,String> storeDTO = TeamUtil.fileRequestToMap(req);
 			boolean bl = storeService.storeInsert(storeDTO);
+//			if((String)session.getAttribute("STORE_NO") == null) {
+//				return;
+//			}
 			
 			if(bl) {
 				bl = storeService.firstInsertStore_OwnerUpdate(storeDTO);
