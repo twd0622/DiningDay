@@ -20,7 +20,7 @@
 <script>
 	$(()=>{
 		
-		paging("tbody tr" ,5, 1);
+		paging("tbody tr" ,5, 0);
 	})
 	var rev_no = $("#rev_no").text();
 	

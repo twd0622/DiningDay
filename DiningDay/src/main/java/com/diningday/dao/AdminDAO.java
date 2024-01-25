@@ -38,7 +38,6 @@ public class AdminDAO {
 	public boolean noticeUpdate(Map<String, String> adminDTO) {
 		session = sqlSessionFactory.openSession();
 		int updateNotice = session.update("Admin.noticeUpdate", adminDTO); // namespace.id
-		System.out.println("updateNotice: " + updateNotice);
 		
 		session.commit();
 		session.close();

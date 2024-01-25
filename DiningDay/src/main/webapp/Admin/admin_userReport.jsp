@@ -15,7 +15,7 @@
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
 	$(()=>{
-		paging("tbody tr" ,5, 1);
+		paging("tbody tr" ,5, 0);
 	})
 </script>
 <script src="Admin/js/delBtn.js"></script>
