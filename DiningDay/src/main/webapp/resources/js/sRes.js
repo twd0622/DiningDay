@@ -144,7 +144,6 @@ $(() => {
 				return;
 			}
 		}
-		
 		$.ajax({
 			type: "post",
 			data: {
@@ -155,7 +154,6 @@ $(() => {
 			url: "sResUpdate.st"
 		})
 		.done(function(data){
- 
 			resState = $("input[name=REQ_STATE]").val();
 			$("." + data.TR_NO).remove();
 			paging("#tbody_1", 5, 0)
