@@ -42,47 +42,50 @@ function getInfo() {
 
 //<!-- Google -->
 window.onload = function () {
-	google.accounts.id.initialize({
-	      client_id: "383007591516-vj9jddsusaj9kdj8mbd2ncgh46ktsuqd.apps.googleusercontent.com"
-	    , callback: handleCredentialResponse
-	  });
+//	google.accounts.id.initialize({
+//	      client_id: "383007591516-vj9jddsusaj9kdj8mbd2ncgh46ktsuqd.apps.googleusercontent.com"
+//	    , callback: handleCredentialResponse
+//	  });
 
-	google.accounts.id.prompt();
-	  
-	google.accounts.id.renderButton(document.getElementById("gLoginBtn"), {});
+//	google.accounts.id.prompt();
+
+var client_id = "383007591516-vj9jddsusaj9kdj8mbd2ncgh46ktsuqd.apps.googleusercontent.com";
+var redirect_uri = "http://localhost:8080/DiningDay/google.cu";
+var url = "https://accounts.google.com/o/oauth2/v2/auth?client_id=" + client_id + "&redirect_uri=" + redirect_uri + "&response_type=code&scope=email profile";
+
 	$('#GgCustomLogin').on('click', function(){
-	 	$('#gLoginBtn').find('div')[2].click();
+		window.open(url, "googleloginpop", "titlebar=1, resizable=1, scrollbars=yes, width=600, height=550, top=100 left=600");
 	});
 }
 
-function parseJwt (token) {
-    var base64Url = token.split('.')[1];
-    var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-    var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
-        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-    }).join(''));
-    return JSON.parse(jsonPayload);
-};
-
-function handleCredentialResponse(response) {
-	debugger;
-	const responsePayload = parseJwt(response.credential);
-	console.log(responsePayload);
-	$.ajax({
-		 type : "POST"
-	   , url : "loginPro.cu"
-	   , datatype : "JSON"
-	   , data: {
-		   CUS_ID : responsePayload.sub
-		   , CUS_NAME :responsePayload.family_name + responsePayload.given_name
-		   , CUS_EMAIL: responsePayload.email
-	   }
-	})
-	.done(
-		function(data){
-			location.href="main.ma";					
-	}); 
-}
+//function parseJwt (token) {
+//    var base64Url = token.split('.')[1];
+//    var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+//    var jsonPayload = decodeURIComponent(atob(base64).split('').map(function(c) {
+//        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+//    }).join(''));
+//    return JSON.parse(jsonPayload);
+//};
+//
+//function handleCredentialResponse(response) {
+//	debugger;
+//	const responsePayload = parseJwt(response.credential);
+//	console.log(responsePayload);
+//	$.ajax({
+//		 type : "POST"
+//	   , url : "loginPro.cu"
+//	   , datatype : "JSON"
+//	   , data: {
+//		   CUS_ID : responsePayload.sub
+//		   , CUS_NAME :responsePayload.family_name + responsePayload.given_name
+//		   , CUS_EMAIL: responsePayload.email
+//	   }
+//	})
+//	.done(
+//		function(data){
+//			location.href="main.ma";					
+//	}); 
+//}
 
 
 

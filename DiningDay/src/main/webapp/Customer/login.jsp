@@ -11,8 +11,7 @@
 <meta charset="utf-8">
 <title>로그인</title>
 <meta name="google-site-verification" content="FKL3S1Y8FPADaDMjUDD_lxy9cjBTRlHNUaeXxzVkd1g" />
-<meta name ="google-signin-client_id" 
-	  content="383007591516-vj9jddsusaj9kdj8mbd2ncgh46ktsuqd.apps.googleusercontent.com">
+<meta name ="google-signin-client_id" content="383007591516-vj9jddsusaj9kdj8mbd2ncgh46ktsuqd.apps.googleusercontent.com">
 </head>
 <link href="Customer/css/login.css" rel="stylesheet">
 <%@ include file="/Template/header.jsp"%> 

@@ -17,18 +17,14 @@
 			  , CUS_DATE
 			  , CUS_IMAGE)  
 		values
-			(CONCAT('CU', ( select *             
-				from (select ifnull(max(cast(trim(leading 'CU' from CUS_NO) as unsigned)), 0) + 1
-					  from CUSTOMER ) A ))
+			(CONCAT("CU", IFNULL((select MAX(CAST(replace(CUS_NO, "CU", "") AS unsigned))+1 FROM CUSTOMER A), 1))
 			, #{CUS_ID}
 			, #{CUS_NAME}
 			, #{CUS_BIRTH}
 			, replace(#{CUS_TEL}, "-", "")
 			, #{CUS_EMAIL}
 			, #{CUS_GENDER}
-			, CONCAT('CU', ( select *             
-				from (select ifnull(max(cast(trim(leading 'CU' from CUS_NO) as unsigned)), 0) + 1
-					  from CUSTOMER ) A ))
+			, CONCAT("CU", IFNULL((select MAX(CAST(replace(CUS_NO, "CU", "") AS unsigned))+1 FROM CUSTOMER A), 1))
 			, DATE_FORMAT(SYSDATE(), '%Y%m%d%H%i%s')
 			, 'profile.png');
 	</insert>
