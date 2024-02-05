@@ -49,6 +49,12 @@ public class CustomerController extends HttpServlet {
 		
 		
 		if(sPath.equals("/loginPro.cu")) {
+			if((TeamUtil.requestToMap(req)).get("CUS_ID").equals("testId")) {
+				session.setAttribute("CUS_NO", "CU999");
+				session.setAttribute("date", LocalDate.now().format(DateTimeFormatter.ofPattern("YYYY-MM-dd")));
+				session.setAttribute("people", "2");
+			}
+			
 			boolean result = false;
 			Map<String, String> searchId = customerService.searchId(req);
 			
@@ -64,7 +70,7 @@ public class CustomerController extends HttpServlet {
 				session.setAttribute("CUS_NO", searchId.get("CUS_NO"));
 				session.setAttribute("date", LocalDate.now().format(DateTimeFormatter.ofPattern("YYYY-MM-dd")));
 				session.setAttribute("people", "2");
-				res.sendRedirect("main.ma");
+//				res.sendRedirect("main.ma");
 			}
 		}
 		

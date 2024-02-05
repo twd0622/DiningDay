@@ -24,6 +24,9 @@
 			</div>
 			<div class="modal-body p-5 pt-0">
 				<form action="loginPro.cu" method="post" id="form">
+					<!-- 테스트버 튼 -->
+					<a id="testLoginBtn" href="javascript:void(0)" class="w-100 py-2 mb-2 btn btn-outline-primary rounded-3">
+						<span id="span" style="font-weight: 600;">테스트 계정 로그인</span></a>
 					<!-- 카카오버튼 --> 
 					<a id="kakao-login-btn" href="javascript:loginWithKakao()" class="w-100 py-2 mb-2 btn btn-warning rounded-3">
 						<img src="./resources/img/kakao.png" id="image"/>

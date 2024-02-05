@@ -125,3 +125,19 @@ window.addEventListener('load', function () {
 		}
 	});
 });
+
+$(()=>{
+	$("#testLoginBtn").on("click", function(){
+		$.ajax({
+				 type : "POST"
+			   , url : "loginPro.cu"
+			   , datatype : "json"
+			   , data: {
+				   CUS_ID : "testId"
+			   }
+		})
+		.done(function(){
+			location.href="main.ma";
+		})
+	})
+})
