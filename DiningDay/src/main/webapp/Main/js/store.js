@@ -66,6 +66,7 @@ $(()=>{
 	
 	
 	// 헤더 버튼 조작 시 예약 인원 수 별 가능한 테이블 예약 버튼 보여주기
+	// DOMSubtreeModified 이벤트가 Chrome에선 이제 지원 하지 않음
 	$(".people").on("DOMSubtreeModified",function(){
 		disableReservationBtn();
 	})
